@@ -1,0 +1,51 @@
+---
+permalink: windows/task-creating-restore-specifications.html 
+sidebar: sidebar 
+keywords: restore, specification, file, sml, contain, original, alternate, location, snapmanager, location, creating, create 
+summary: 还原规范文件是一个 XML 文件，其中包含可从中还原文件的原始位置和备用位置。SnapManager 使用此规范文件从指定位置还原文件。 
+---
+= 正在创建还原规范
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+还原规范文件是一个 XML 文件，其中包含可从中还原文件的原始位置和备用位置。SnapManager 使用此规范文件从指定位置还原文件。
+
+您可以使用任何文本编辑器创建还原规范文件。您必须对文件使用 .xml 扩展名。
+
+. 打开文本文件。
+. 输入以下内容：`+<restore-specification xmlns="http://www.netapp.com">+`[]
+. 使用以下示例中所示的格式输入任何文件映射信息：
++
+[listing]
+----
+<file-mapping>
+    <original-location>E:\disks\sysaux.dbf</original-location>
+    <alternate-location>E:\disks\sysaux.dbf</alternate-location>
+</file-mapping>
+----
++
+文件映射指定从何处还原文件。原始位置是指备份时文件在活动文件系统上的位置。备用位置是指从其中还原文件的位置。
+
+. 使用示例中所示的格式输入任何挂载的文件系统映射信息：
++
+[listing]
+----
+<mountpoint-mapping>
+     <original-location>E:\disks\sysaux.dbf</original-location>
+     <snapname>snapname</snapname>
+     <alternate-location>E:\disks\sysaux.dbf</alternate-location>
+</mountpoint-mapping>
+----
++
+mountpoint 是指目录路径 C ： \myfs 。mountpoint 映射指定从中还原文件的挂载点。原始位置是备份时挂载点在活动文件系统中的位置。备用位置是指用于还原原始位置中文件的挂载点。snapname 是备份原始文件的 Snapshot 副本的名称。
+
++
+
+NOTE: Snapshot 副本名称是必需的组件，因为同一文件系统可以在一个备份操作中使用多次（例如，一次用于数据文件，一次用于日志）。
+
+. 输入以下内容：`</restore-specification >`
+. 将此文件另存为 .xml 文件并关闭规范。
+

@@ -1,0 +1,19 @@
+---
+permalink: windows/concept-database-version-support-and-configuration-overview.html 
+sidebar: sidebar 
+keywords: database, version, configuration, support, snapmanager,  perform, layout, setup, operation, overview 
+summary: 您必须了解 SnapManager 支持的不同数据库版本和配置。您必须执行基本数据库布局和配置设置，以确保操作成功。 
+---
+= 数据库版本支持和配置概述
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须了解 SnapManager 支持的不同数据库版本和配置。您必须执行基本数据库布局和配置设置，以确保操作成功。
+
+SnapManager for SAP可与Oracle版本10gR2 (10.2.0.5)、11gR2 (11.2.0.1和11.2.0.2)和12_c_集成；可与原生 Oracle技术(如Recovery Manager (RMAN)集成；并可跨光纤通道(FC)和Internet小型计算机系统接口(iSCSI)协议进行集成。
+
+
+NOTE: SnapManager 3.2 不支持 Oracle Database 9i ， SnapManager 3.3.1 不支持 10g R2 （ 10.2.0.5 之前的版本）。

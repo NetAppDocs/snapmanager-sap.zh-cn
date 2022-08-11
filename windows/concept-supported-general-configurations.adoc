@@ -1,0 +1,22 @@
+---
+permalink: windows/concept-supported-general-configurations.html 
+sidebar: sidebar 
+keywords: install, snapmanager, general, configuration, requirement, support 
+summary: 安装 SnapManager 之前，您必须了解一般配置要求。 
+---
+= 支持的常规配置
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+安装 SnapManager 之前，您必须了解一般配置要求。
+
+SnapManager 支持以下常规配置：
+
+* 一种非集群配置，其中一个主机连接到一个存储系统
+* 每个主机一个 SnapManager 服务器实例
+
+
+有关 SnapManager 支持的所有存储类型和版本的信息，请参见《 SnapManager 和 SnapDrive 兼容性表》。

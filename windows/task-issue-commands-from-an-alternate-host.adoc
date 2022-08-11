@@ -1,0 +1,27 @@
+---
+permalink: windows/task-issue-commands-from-an-alternate-host.html 
+sidebar: sidebar 
+keywords: issue, cli, command, host, database, snapmanager, route, alternate 
+summary: 您可以从数据库主机以外的主机执行问题描述命令行界面命令， SnapManager 会将您输入的命令路由到相应的主机。 
+---
+= 来自备用主机的问题描述 命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以从数据库主机以外的主机执行问题描述命令行界面命令， SnapManager 会将您输入的命令路由到相应的主机。
+
+
+
+== 关于此任务
+
+要使系统将操作发送到正确的主机，系统必须先知道在何处查找此操作的配置文件。在此操作步骤中，系统会将配置文件保存到本地主机上用户主目录中某个文件的存储库映射信息。
+
+.步骤
+. 要使本地用户的主目录能够识别配置文件到存储库的映射、以便路由操作请求、请输入以下命令：
++
+`* smsap profile sync -repository -dbname _repo_dbname_-host _repo_host_-port _repo_port_-login -username _repo_username_[-quiet _-verbes]*`
+
+

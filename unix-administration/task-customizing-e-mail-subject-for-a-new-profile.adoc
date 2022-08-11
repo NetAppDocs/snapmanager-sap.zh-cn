@@ -1,0 +1,102 @@
+---
+permalink: unix-administration/task-customize-e-mail-subject-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: customize, email, subject, profile, create, customizing 
+summary: 您可以在创建新配置文件时为其自定义电子邮件主题。 
+---
+= 自定义新配置文件的电子邮件主题
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在创建新配置文件时为其自定义电子邮件主题。
+
+您可以使用 ｛ profile ｝ _ ｛ operation-name ｝ _ ｛ db-SID ｝ _ ｛ db-host ｝ _ ｛ start-date ｝ _ ｛ end-date ｝ _ ｛ status ｝ 模式自定义电子邮件主题，也可以输入您自己的文本。
+
+[cols="1a,3a,2a"]
+|===
+| 变量名称 | Description | 示例值 
+
+
+ a| 
+`配置文件_`
+ a| 
+用于数据库操作的配置文件名称
+ a| 
+程序 1
+
+
+
+ a| 
+`操作名称_`
+ a| 
+数据库操作名称
+ a| 
+备份，数据备份，数据和归档日志备份
+
+
+
+ a| 
+` db-sid_`
+ a| 
+数据库的 SID
+ a| 
+数据库 1
+
+
+
+ a| 
+` db-host_`
+ a| 
+主机服务器的名称
+ a| 
+主机 A
+
+
+
+ a| 
+`_开始-日期_`
+ a| 
+数据库操作的开始时间，格式为 mmdd ： hh ： ss yyyy
+ a| 
+2012 年 4 月 27 日 21 ： 00 ： 45 PST
+
+
+
+ a| 
+`_结束日期_`
+ a| 
+数据库操作的结束时间，格式为 mmdd ： hh ： ss yyyy
+ a| 
+2012 年 4 月 27 日 21 ： 10 ： 45 PST
+
+
+
+ a| 
+`状态_`
+ a| 
+数据库操作状态
+ a| 
+success
+
+|===
+如果未为变量提供任何值、则SnapManager 将显示以下错误消息：`mising value (s)-Subject。`
+
+. 输入以下命令：
++
+`* smsap profile create -profile _profile_<-profile-password _profile_password_]-repository -dbname _repo_service_name_-host _repo_host_-portrepo_port-login -username _repo_username_-database -nssname dbdb_dbname_-host _db_host_[-sb_username______username____-smi____username_-smi_____-smith__-username ___-smi___smithusername _____-smi_-smi_smi_sm__smi_smith__smith_smi_smi_smi_smi_smithusername _ ｛-daily｛-count _n_]｛-duration _m_m_]]-weekly｛-count _n_]｛-duration _m_m_]]｛-monthly｛-count _n_]｝｛-comment _comment__ment_]-snapname-pattern _pattern_]-protect｛-protection-policy policy policy_address2__email___address2__unic____unfail_____address2_unic___unic___unic_________unice_address2______unice-address2____________unice-address2_____`
+
+
+
+'''
+以下示例显示了电子邮件主题模式：
+
+[listing]
+----
+
+smsap profile create -profile sales1 -profile-password admin1 -repository -dbname repo2 -host 10.72.197.133 -port 1521 -login -username admin2 -database -dbname DB1 -host 10.72.197.142 -sid DB1
+-osaccount oracle -osgroup dba -profile-notification -success -email admin@org.com -subject {profile}_{operation-name}_{db-sid}_{db-host}_{start-date}_{end-date}_{status}
+----
+'''

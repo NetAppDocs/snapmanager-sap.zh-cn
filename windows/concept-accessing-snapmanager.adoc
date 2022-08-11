@@ -1,0 +1,30 @@
+---
+permalink: windows/concept-accessing-snapmanager.html 
+sidebar: sidebar 
+keywords: access, snapmanager, command-line, interface, cli, graphical, user, interface, gui 
+summary: 您可以使用命令行界面（ CLI ）或图形用户界面（ GUI ）访问 SnapManager 。 
+---
+= 访问 SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用命令行界面（ CLI ）或图形用户界面（ GUI ）访问 SnapManager 。
+
+您可以通过以下方式执行不同的 SnapManager 操作：
+
+* 在与数据库主机位于同一网络的主机上的命令行界面中输入命令。
++
+有关所有命令的列表及其选项和参数的说明，请参见命令参考一章。
+
++
+要访问命令行界面、请单击*开始*>*所有程序*>* NetApp *>*适用于SAP*的SnapManager >*启动SMSAP命令行界面(CLI)*。
+
+* 通过在与数据库主机位于同一网络的主机上访问 GUI 。
++
+GUI 提供了简单易用的向导，可帮助您执行不同的操作。
+
+* 使用SAP Br*工具命令。
+

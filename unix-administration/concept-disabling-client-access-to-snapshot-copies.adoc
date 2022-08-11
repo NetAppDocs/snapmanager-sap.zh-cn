@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/concept-disabling-client-access-to-snapshot-copies.html 
+sidebar: sidebar 
+keywords: storage, system, volume, nfs, protocol, sap, tools, snapshot, copies, copy, snapshot, directory, directories, backup, diable, disabling, client, access 
+summary: 对于使用NFS协议并包含使用Br*工具备份的SAP数据的任何存储系统卷、您必须禁用客户端对该卷的Snapshot副本的访问。如果启用了客户端访问、Br*工具将尝试为包含先前备份的隐藏.snapshot目录创建备份。 
+---
+= 禁用客户端对Snapshot副本的访问
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+对于使用NFS协议并包含使用Br*工具备份的SAP数据的任何存储系统卷、您必须禁用客户端对该卷的Snapshot副本的访问。如果启用了客户端访问、Br*工具将尝试为包含先前备份的隐藏.snapshot目录创建备份。
+
+要禁用客户端访问、请使用以下方法之一。
+
+* 使用Data ONTAP ：使用Data ONTAP 命令行界面、输入以下命令：vol options volume_name nosnapdir on、其中volume_name是包含SAP数据的卷的名称、例如、`/vol/firs_sap_cer5y_data1`
+* 使用FilerView：要使用FilerView图形用户界面禁用访问、您必须已拥有卷的Snapshot副本。
++
+.. 在FilerView左窗格中、选择*卷*>*快照*>*管理*。
+.. 在Manage Snapshots页面上、单击Volume列中的卷名称。
+.. 在Configure Snapshots页面上、清除Snapshot Directory Visible复选框、然后单击*应用。*
+
+
+
+
+有关禁用客户端对Snapshot副本的访问的详细信息、请参见适用于您的Data ONTAP 版本的《_Snapshot数据保护联机备份和恢复指南》中有关Data ONTAP 管理的章节。

@@ -1,0 +1,36 @@
+---
+permalink: windows/task-viewing-a-list-of-clones.html 
+sidebar: sidebar 
+keywords: view, list, clone, associate, particular, profile 
+summary: 您可以查看与特定配置文件关联的克隆列表。 
+---
+= 查看克隆列表
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看与特定配置文件关联的克隆列表。
+
+此列表包含有关配置文件中克隆的以下信息：
+
+* 克隆的 ID
+* 克隆操作的状态
+* 克隆的 Oracle SID
+* 克隆所在的主机
+* 克隆的标签
+
+
+如果指定 -verbose 选项，则输出还会显示为克隆输入的注释。
+
+.步骤
+. 要显示配置文件的所有克隆列表、请输入以下命令：
++
+`smsap clone list -profileprofileprofile_name "-quiet |-verbose`
+
+
+
+* 相关信息 *
+
+xref:reference-the-smosmsapclone-list-command.adoc[smsap clone list命令]

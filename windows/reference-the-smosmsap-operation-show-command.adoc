@@ -1,0 +1,63 @@
+---
+permalink: windows/reference-the-smosmsap-operation-show-command.html 
+sidebar: sidebar 
+keywords: run, operation, show, command, list, summary, information, profile, client, user, pc, smsap 
+summary: 您可以运行 operation show 命令列出针对指定配置文件执行的所有操作的摘要信息。输出将列出客户端用户（客户端 PC 的用户）和有效用户（ SnapManager 中在选定主机上有效的用户）。 
+---
+= smsap operation show命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`operation show`命令列出针对指定配置文件执行的所有操作的摘要信息。输出将列出客户端用户（客户端 PC 的用户）和有效用户（ SnapManager 中在选定主机上有效的用户）。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap operation show
+-profile profile_name
+[-label label | -id id]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定配置文件的名称。此名称最长为 30 个字符，并且在主机中必须是唯一的。
+
+* *`-label _label`*
++
+指定操作的标签。
+
+* *`-id _id_`*
++
+指定操作的标识符。
+
+* *`-静默`*
++
+可选：在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+可选：在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下命令行显示了有关操作的详细信息：
+
+[listing]
+----
+smsap operation show -id 8ac861781d0ac992011d0ac999680001  -profile CER
+----

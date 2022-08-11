@@ -1,0 +1,36 @@
+---
+permalink: unix-administration/concept-introduction-to-data-protection-in-snapmanager.html 
+sidebar: sidebar 
+keywords: snapmanager, data, protection, backup, secondary, tertiary, storage, system, snapmirror, snapvault, relationship, destination, volume 
+summary: SnapManager 支持数据保护，以保护二级或三级存储系统上的备份。您必须在源卷和目标卷之间设置 SnapMirror 和 SnapVault 关系。 
+---
+= SnapManager 中的数据保护简介
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 支持数据保护，以保护二级或三级存储系统上的备份。您必须在源卷和目标卷之间设置 SnapMirror 和 SnapVault 关系。
+
+如果您使用的是在 7- 模式下运行的 Data ONTAP ，则 SnapManager 可通过与 Protection Manager （ OnCommand Unified Manager ）集成来提供策略驱动型数据保护。这样可以使用由存储管理员或备份管理员在 Protection Manager 中创建的 SnapVault 或 SnapMirror 策略自动将主存储系统上的 SnapManager 备份复制到二级存储系统，甚至是三级存储系统。主存储上的保留由 SnapManager 根据在创建配置文件期间定义的保留以及在备份创建期间标记的保留类来控制。二级存储备份保留由 Protection Manager 中定义的策略控制。
+
+如果您使用的是集群模式 Data ONTAP ，则 SnapManager 3.4 可提供 _SnapManager_cDOT_Mirror_ 和 _SnapManager_cDOT_Vault_Policies 来保护数据。创建配置文件时，您可以根据使用集群模式 Data ONTAP 命令行界面或 System Manager 建立的 SnapMirror 或 SnapVault 关系来选择这些策略。当您创建备份并选择启用了保护的配置文件时，备份将受到二级存储系统的保护。
+
+
+NOTE: 使用Br*工具创建的备份无法使用适用于SAP的SnapManager 进行保护。
+
+如果将 SnapManager 3.3.1 与集群模式 Data ONTAP 结合使用，则备份会使用创建配置文件时选择的后处理脚本进行保护。如果要使用这些配置文件，则在升级到 SnapManager 3.4 后，必须执行以下操作。
+
+* 您必须更新配置文件以选择 _SnapManager_cDOT_Mirror_ 或 _SnapManager_cDOT_Vault_policy ，并删除用于数据保护的后处理脚本。
+* 在更新配置文件以使用 _SnapManager_cDOT_Vault_policy 后，您必须删除现有备份计划并创建新计划以指定备份的 SnapVault 标签。
+* 如果配置文件是在 SnapManager 3.3.1 中创建的，而未选择后处理脚本，则必须更新配置文件以选择 _SnapManager_cDOT_Mirror_ 或 _SnapManager_cDOT_Vault_policy 以启用数据保护。
+
+
+
+NOTE: 如果二级存储系统中的备份使用 SnapManager 3.3.1 后脚本进行镜像或存储，则不能使用 SnapManager 3.4 使用这些备份进行还原或克隆。
+
+如果您使用的是集群模式 Data ONTAP ，则 SnapManager 3.4.2 支持在源卷上建立多个保护关系（ SnapMirror 和 SnapVault ）。每个卷仅支持一个 SnapMirror 和一个 SnapVault 关系。您必须创建单独的配置文件、每个配置文件都选择了` SnapManager_cDOT_Mirror_`和` SnapManager_cDOT_Vault_`策略。
+
+
+NOTE: 要使用多个保护策略，需要使用 SnapDrive for Unix 5.3.2 及更高版本。

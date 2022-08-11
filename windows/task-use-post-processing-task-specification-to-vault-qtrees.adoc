@@ -1,0 +1,56 @@
+---
+permalink: windows/task-use-post-processing-task-specification-to-vault-qtrees.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, script, vault, qtrees, backup, operation, windows, environment, post-process, task, specification 
+summary: 通过SnapManager for SAP、您可以在Windows环境中执行备份操作后使用脚本来存储qtree。 
+---
+= 使用后处理任务规范来存储qtree
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过SnapManager for SAP、您可以在Windows环境中执行备份操作后使用脚本来存储qtree。
+
+.步骤
+. 创建任务规范 XML 文件。
+. 在 XML 文件中，输入脚本名称作为输入参数。
+. 保存任务规范 XML 文件。
+. 使用以下命令创建数据库到二级存储的受保护备份。
++
+创建受保护的备份时、您必须在-`taskspect`选项后面提供已保存任务规范XML文件的完整路径。
+
++
+示例：`smsapbackup create -profile test_profile -full -online -taskspec" C：\\mirror\\snapvault.xml"`
+
+
+
+以下示例显示了使用 7- 模式 Data ONTAP 时的后处理任务规范结构：
+
+[listing]
+----
+# <post-tasks>
+#                <task>
+#                  <name>Vault the backup</name>
+#                   <description>Vault the backup</description>
+#              </task>
+#         <post-tasks>
+----
+以下示例显示了使用集群模式 Data ONTAP 时的后处理任务规范结构：
+
+[listing]
+----
+# <task-specification>
+#                <post-tasks>
+#                  <task>
+#                   <name>"Vault the backup for cDOT"</name>
+#                 <parameter>
+#                    <name>SNAPSHOT_LABEL</name>
+#                    <value>TST</value>
+#                    </parameter>
+#                  </task>
+#                </post-tasks>
+#              </task-specification>
+#            </preposttask-specification>
+----

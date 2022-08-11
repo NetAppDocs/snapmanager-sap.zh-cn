@@ -1,0 +1,214 @@
+---
+permalink: windows/reference-the-smosmsapprofile-update-command.html 
+sidebar: sidebar 
+keywords: run, profile, update, command, information, exist, smsap 
+summary: 您可以运行 profile update 命令来更新现有配置文件的信息。 
+---
+= smsap profile update命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`profile update`命令来更新现有配置文件的信息。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap profile update
+-profile profile
+[-new-profile new_profile_name]
+[-profile-password profile_password]
+[-database
+-dbname db_dbname
+-host db_host
+[-sid db_sid]
+[-login
+[-username db_username -password db_password -port db_port]
+]
+[{-rman  {-controlfile | {{-login
+-username  rman_username
+-password  rman_password }
+[-tnsname  tnsname]}}} |
+-remove-rman]
+
+
+[-retain
+[-hourly [-count n] [-duration m]]
+[-daily [-count n] [-duration m]]
+[-weekly [-count n] [-duration m]]
+[-monthly [-count n] [-duration m]]]]
+-comment comment
+-snapname-patternpattern
+[]
+[-summary-notification]
+[-notification
+[-success
+-email email_address1,email_address2
+-subject subject_pattern]
+[-failure
+-email email_address1,email_address2
+-subject subject_pattern]
+[-separate-archivelog-backups
+-retain-archivelog-backups
+-hours  hours |
+-days days |
+-weeks weeks |
+-months months
+[]
+[-include-with-online-backups | -no-include-with-online-backups]]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`-profile _profiles_`*
++
+指定配置文件的名称。此名称最长为 30 个字符，并且在主机中必须是唯一的。
+
+* *`-profile-password _profile_password_`*
++
+指定配置文件的密码。
+
+* *`-new-profile _new_profile_name_`*
++
+指定可为配置文件提供的新名称。
+
+* *`-数据库`*
++
+指定配置文件所描述的数据库的详细信息。这是要备份和还原的数据库，依此类推。
+
+* *`-dbname _db_dbname_`*
++
+指定配置文件所描述的数据库的名称。您可以使用全局名称或系统标识符。
+
+* *`主机_db_host_`*
++
+指定运行数据库的主机计算机的名称或 IP 地址。
+
+* *`-SID _db_sid_`*
++
+指定配置文件所描述的数据库的系统标识符。默认情况下， SnapManager 使用数据库名称作为系统标识符。如果系统标识符与数据库名称不同、则必须使用`-SID`选项指定它。
+
+* *`登录`*
++
+指定存储库登录详细信息。
+
+* *`用户名_repo_username_`*
++
+指定访问存储库数据库所需的用户名。
+
+* *`-port _repo_port_`*
++
+指定访问存储库数据库所需的 TCP 端口号。
+
+* *`-数据库`*
++
+指定配置文件所描述的数据库的详细信息。这是要备份，还原或克隆的数据库。
+
+* *`-dbname _db_dbname_`*
++
+指定配置文件所描述的数据库的名称。您可以使用全局名称或系统标识符。
+
+* *`主机_db_host_`*
++
+指定运行数据库的主机计算机的名称或 IP 地址。
+
+* *`登录`*
++
+指定数据库登录详细信息。
+
+* *`用户名_db_username_`*
++
+指定访问配置文件所述数据库所需的用户名。
+
+* *`密码_db_password_`*
++
+指定访问配置文件所述数据库所需的密码。
+
+* *`端口_db_port_`*
++
+指定访问配置文件所述数据库所需的 TCP 端口号。
+
+* *`-retain (-hourly、-countn](-duration m))](-daily (-count n)(-duration m))](-weekly (-count n)(-duration m))))(-monthly (-count n)(-duration m）)))`*
++
+指定备份的保留类（每小时，每天，每周，每月）。
+
++
+对于每个保留类，可以指定保留计数或保留期限，也可以同时指定这两者。持续时间以类的单位为单位（例如，小时表示每小时，天数表示每天）。例如，如果用户为每日备份指定的保留期限仅为 7 ，则 SnapManager 不会限制配置文件的每日备份数（因为保留数量为 0 ），但 SnapManager 会自动删除 7 天前创建的每日备份。
+
+* *`-comment _comation_comation_`*
++
+指定配置文件的注释。
+
+* *`-snapname-pattern _pattern_`*
++
+指定 Snapshot 副本的命名模式。您还可以在所有 Snapshot 副本名称中包括自定义文本，例如，用于高可用性操作的 HAOPS 。您可以在创建配置文件时或创建配置文件后更改 Snapshot 副本命名模式。更新后的模式仅适用于尚未发生的 Snapshot 副本。已存在的 Snapshot 副本会保留先前的 Snapname 模式。您可以在模式文本中使用多个变量。
+
+* *`摘要通知`*
++
+指定已为现有配置文件启用摘要电子邮件通知。
+
+* *`通知[-success电子邮件_e-mail_address1、电子邮件地址s2_-Subject _Subject_Pattern_]`*
++
+为现有配置文件启用电子邮件通知，以便在 SnapManager 操作成功时收件人可以收到电子邮件。您必须输入一个或多个电子邮件地址以发送电子邮件警报，并输入现有配置文件的电子邮件主题模式。
+
++
+您可以在更新配置文件时更改主题文本，也可以包括自定义主题文本。更新后的主题仅适用于未发送的电子邮件。您可以对电子邮件主题使用多个变量。
+
+* *`通知[-failure -email _e-mail_address1、e-mailaddress2_-Subject _Subject_Pattern_]`*
++
+为现有配置文件启用电子邮件通知，以便在 SnapManager 操作失败时收件人可以收到电子邮件。您必须输入一个或多个电子邮件地址以发送电子邮件警报，并输入现有配置文件的电子邮件主题模式。
+
++
+您可以在更新配置文件时更改主题文本，也可以包括自定义主题文本。更新后的主题仅适用于未发送的电子邮件。您可以对电子邮件主题使用多个变量。
+
+* *`-separate—archivelog-backups`*
++
+将归档日志备份与数据文件备份分隔开。这是一个可选参数，您可以在创建配置文件时提供。使用此选项分隔备份后，您可以创建仅数据文件备份或仅归档日志备份。
+
+* *`-retain-archivelog-backups -hours _hours____-天_天__-周_周__-月_月_月_`*
++
+指定根据归档日志保留期限（每小时，每天，每周，每月）保留归档日志备份。
+
+* *`包含-包含-联机备份；-no-include-with联机备份`*
++
+指定归档日志备份与联机数据库备份一起包含。
+
++
+指定归档日志备份不会与联机数据库备份一起包含。
+
+* *`转储`*
++
+指定在成功执行配置文件创建操作后收集转储文件。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下示例将更改配置文件所述数据库的登录信息，并为此配置文件配置电子邮件通知：
+
+[listing]
+----
+smsap profile update -profile SALES1 -database -dbname SALESDB
+-sid SALESDB -login -username admin2 -password d4jPe7bw -port 1521
+-host server1 -profile-notification -success -e-mail Preston.Davis@org.com -subject success
+Operation Id [8abc01ec0e78ec33010e78ec3b410001] succeeded.
+----

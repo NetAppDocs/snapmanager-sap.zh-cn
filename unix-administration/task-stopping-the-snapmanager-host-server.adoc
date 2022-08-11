@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-stop-the-snapmanager-host-server.html 
+sidebar: sidebar 
+keywords: finish, snapmanager, stop, server, host 
+summary: 使用完 SnapManager 后，您可能需要停止服务器。 
+---
+= 停止SnapManager 主机服务器
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用完 SnapManager 后，您可能需要停止服务器。
+
+.步骤
+. 要停止服务器、请以root用户身份输入以下命令：
++
+`* smsap_server stop*`
+
+

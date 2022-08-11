@@ -1,0 +1,14 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-configure-databases.html 
+sidebar: sidebar 
+keywords: configure, database, target, back, up, snapmanager, repository, store, metadata, configuring 
+summary: 您必须至少配置两个数据库。要使用SnapManager 备份的目标数据库以及用于存储目标数据库元数据的存储库数据库。在执行 SnapManager 操作之前，必须配置目标数据库和 SnapManager 存储库数据库并使其联机。 
+---
+= 配置数据库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须至少配置两个数据库：一个要使用SnapManager 备份的目标数据库；一个用于存储目标数据库元数据的存储库数据库。在执行 SnapManager 操作之前，必须配置目标数据库和 SnapManager 存储库数据库并使其联机。

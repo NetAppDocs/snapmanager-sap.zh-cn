@@ -1,0 +1,20 @@
+---
+permalink: unix-administration/concept-full-or-partial-restoration-of-the-database.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, flexibility, restore, full, database, specific, tablespace, control, file, combination, full, partial 
+summary: SnapManager 可以灵活地还原完整数据库，特定表空间，文件，控制文件或这些实体的组合。通过 SnapManager ，您可以使用基于文件的还原过程或基于卷的更快还原过程来还原数据。数据库管理员可以选择要使用的过程，也可以让 SnapManager 决定哪个过程适合。 
+---
+= 完全或部分还原数据库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 可以灵活地还原完整数据库，特定表空间，文件，控制文件或这些实体的组合。通过 SnapManager ，您可以使用基于文件的还原处理器更快地执行基于卷的还原过程来还原数据。数据库管理员可以选择要使用的过程，也可以让 SnapManager 决定哪个过程适合。
+
+通过 SnapManager ，数据库管理员（ DBA ）可以预览还原操作。通过预览功能， DBA 可以逐个文件查看每个还原操作。
+
+DBA 可以指定 SnapManager 在执行还原操作时将信息还原和恢复到的级别。例如， DBA 可以将数据还原和恢复到特定时间点。还原点可以是日期和时间，也可以是 Oracle 系统更改编号（ SCN ）。
+
+通过 SnapManager （ 3.2 或更高版本），您可以自动还原和恢复数据库备份，而无需 DBA 干预。您可以使用 SnapManager 创建归档日志备份，然后使用这些归档日志备份还原和恢复数据库备份。即使备份的归档日志文件在外部归档日志位置进行管理，您也可以指定该外部位置，以便这些归档日志有助于恢复已还原的数据库。

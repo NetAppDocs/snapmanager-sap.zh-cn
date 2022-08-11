@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/concept-restores-of-protected-backups-overview.html 
+sidebar: sidebar 
+keywords: restore, method, backup, data, secondary, primary, storage, protect, overview 
+summary: 您可以选择要用于将备份数据从二级存储还原到主存储的还原方法。 
+---
+= 还原受保护备份概述
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以选择要用于将备份数据从二级存储还原到主存储的还原方法。
+
+下表介绍了从二级存储还原备份时可以使用的不同方案和方法：
+
+[cols="1a,3a"]
+|===
+| 还原目标 | 说明 
+
+
+ a| 
+直接连接到主存储
+ a| 
+通过用于保护数据的同一网络将数据从二级存储系统直接返回到主存储系统上的原始位置。
+
+SnapManager 会尽可能使用直接存储方法。如果数据位于存储区域网络（ SAN ）上的文件系统中，并且满足以下任一条件，则无法使用此方法：
+
+* 其他非数据库文件未在同一文件系统中还原。
+* 要还原的文件系统中的控制文件和数据文件的 Snapshot 副本是在不同时间创建的。
+* 逻辑单元号（ LUN ）位于卷组中，但未还原同一卷组中的其他 LUN 。
+
+
+
+
+ a| 
+直接连接到主机
+ a| 
+克隆二级存储系统上的数据并将克隆的数据挂载到主机上。克隆并挂载数据后， SnapManager 会将其复制到其原始位置。
+
+
+
+ a| 
+间接连接到存储或主机
+ a| 
+通过用于保护数据和在主机上挂载新存储的同一网络将数据从二级存储系统返回到主系统上的新位置。返回并挂载数据后， SnapManager 会将其复制到其原始位置。间接存储方法可能需要很长时间才能返回数据。
+
+在 SnapManager 使用数据还原和恢复数据库之前， SnapManager 会先将数据复制到主主机上的临时卷。是否自动删除暂存数据取决于使用的协议。
+
+* 对于 SAN ， SnapManager 将删除返回的数据。
+* 对于网络连接存储（ NAS ）， SnapManager 会删除返回的 qtree 的内容，但不会删除这些 qtree 本身。要删除 qtree ，管理员应挂载临时卷并使用 UNIX rmdir 命令删除 qtree 。
+
+
+|===
+如果无法直接将数据返回到存储， SnapManager 可以直接将数据返回到主机，也可以间接返回到存储或主机。该方法取决于用于控制组织是允许直接连接到二级存储还是要求通过存储网络复制数据的策略。您可以通过在smsap.config文件中设置配置信息来管理此策略。

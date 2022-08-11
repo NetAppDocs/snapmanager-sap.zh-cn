@@ -1,0 +1,27 @@
+---
+permalink: windows/task-verifying-the-environment.html 
+sidebar: sidebar 
+keywords: verify, environment, snapdrive, snapmanager, set, up, correct 
+summary: 您可以验证环境以确保 SnapDrive 和 SnapManager 设置正确。 
+---
+= 验证环境
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以验证环境以确保 SnapDrive 和 SnapManager 设置正确。
+
+下载，安装和设置所需的前提条件。确保已安装 SnapManager 且主机服务器正在运行。
+
+.步骤
+. 要验证是否已安装SnapDrive 并可从root帐户运行、请运行以下命令：
++
+`smsap system verify`
+
+
+
+* 相关信息 *
+
+xref:reference-the-smosmsapsystem-verify-command.adoc[smsap system verify命令]

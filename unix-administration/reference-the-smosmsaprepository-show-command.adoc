@@ -1,0 +1,91 @@
+---
+permalink: unix-administration/reference-the-smosmsaprepository-show-command.html 
+sidebar: sidebar 
+keywords: command, display, information, repository, smsap 
+summary: 此命令可显示有关存储库的信息。 
+---
+= smsap repository show命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令可显示有关存储库的信息。
+
+
+
+== 语法
+
+[listing]
+----
+smsap repository show
+-repository
+-dbname repo_service_name
+-host repo_host
+-port repo_port
+-login -username repo_username
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* ``*—存储库*``
++
+` repository`后面的选项用于指定存储库的数据库详细信息。
+
+* ``*-dbname _repo_service_name_*``
++
+指定存储库的数据库的名称。使用全局名称或 SID 。
+
+* ``*—host _repo_host_*``
++
+指定运行存储库数据库的主机计算机的名称或 IP 地址。
+
+* ``*-登录*``
++
+启动存储库登录详细信息。
+
+* ``*-用户名_repo_username_*``
++
+指定访问存储库的数据库所需的用户名。
+
+* ``*—端口repo_port*``
++
+指定用于访问存储库的数据库的 TCP 端口号。
+
+* ``*-静默*``
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+以下示例显示了有关 SALESDB 数据库中存储库的详细信息。
+
+[listing]
+----
+smsap repository show -repository -dbname SALESDB  -host server1
+-port 1521 -login -username admin
+Repository Definition:
+User Name: admin
+Host Name: server1
+Database Name: SALESDB
+Database Port: 1521
+Version: 28
+Hosts that have run operations using this repository: 2
+server2
+server3
+Profiles defined in this repository: 2
+GSF5A
+GSF3A
+Incomplete Operations: 0
+----

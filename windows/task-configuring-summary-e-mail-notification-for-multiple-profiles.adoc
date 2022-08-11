@@ -1,0 +1,61 @@
+---
+permalink: windows/task-configuring-summary-e-mail-notification-for-multiple-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, configure, summary, email, notification, multiple, profile, repository, database, configuring 
+summary: 通过 SnapManager ，您可以为存储库数据库下的多个配置文件配置摘要电子邮件通知。 
+---
+= 为多个配置文件配置摘要电子邮件通知
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以为存储库数据库下的多个配置文件配置摘要电子邮件通知。
+
+您可以将 SnapManager 服务器主机设置为通知主机，从中向收件人发送摘要通知电子邮件。如果更改了 SnapManager 服务器主机名或 IP 地址，则也可以更新通知主机。
+
+您可以选择需要电子邮件通知的任一计划时间：
+
+* 每小时：每小时接收一次电子邮件通知
+* daily ：每天接收电子邮件通知
+* 每周：每周接收电子邮件通知
+* 每月：每月接收电子邮件通知
+
+
+要接收使用这些配置文件执行操作的通知，您需要输入一个电子邮件地址或一个逗号分隔的电子邮件地址列表。输入多个电子邮件地址时，必须确保逗号和下一个电子邮件地址之间没有空格。
+
+
+NOTE: 您必须确保在双引号内输入一组多个电子邮件地址。
+
+使用 SnapManager ，您可以使用以下变量添加自定义电子邮件主题：
+
+* 用于数据库操作的配置文件名称。
+* 数据库名称
+* 数据库的 SID
+* 主机服务器的名称
+* 数据库操作的开始时间，格式为 yyyymmdd ： hh ： ss
+* 数据库操作的结束时间，格式为 yyyymmdd ： hh ： ss
+* 数据库操作状态
+
+
+如果选择不添加自定义主题，则 SnapManager 将显示错误消息： missing value -Subject 。
+
+.步骤
+. 输入以下命令：
++
+``+smsap notification update-summary-notification -repositor-portrepo_port-dbnamerepo_service_name-host-login-usernamerepo_username-emailemailemaile_address1、email_address2-subjectsubjectsubject-pattern-frequency｛-daily-timedaily_time _-hourly_time _-storage-time_3+-file_time_3+-filesktone_3_3_time_3_3_time_3_3_filesktone_3_time_3+-time_fy_
+
++
+此命令的其他选项如下：
+
++
+【 -force】 【 -noprompt】
+
++
+[quiet | -verbose]
+----
+
+smsap notification update-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5 –email-address admin@org.com –subject success –frequency -daily -time 19:30:45 –profiles sales1 -notification-host wales
+----
+

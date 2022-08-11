@@ -1,0 +1,14 @@
+---
+permalink: unix-installation-cmode/task-set-up-snapmanager.html 
+sidebar: sidebar 
+keywords: start, snapmanager, access, user, interface, ui, command-line, cli, repository, operation, set up 
+summary: 您可以使用用户界面（ UI ）或命令行界面（ CLI ）启动 SnapManager 并访问它。访问 SnapManager 后，您必须先创建 SnapManager 存储库，然后再执行任何 SnapManager 操作。 
+---
+= 设置SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用用户界面（ UI ）或命令行界面（ CLI ）启动 SnapManager 并访问它。访问 SnapManager 后，您必须先创建 SnapManager 存储库，然后再执行任何 SnapManager 操作。

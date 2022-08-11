@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/concept-restoring-database-backup.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, restore, database, state, snapshot, copy, addition, file-base, restoring, backup, mean-time-to-recoverr, mttr 
+summary: 通过SnapManager for SAP、您可以将数据库还原到创建Snapshot副本时的状态。除了基于文件的还原过程之外， SnapManager 还支持基于卷的快速还原技术，与其他恢复方法相比，该技术可显著缩短还原时间。由于备份的创建频率更高，因此需要应用的日志数量会减少，从而减少数据库的平均恢复时间（ MTTR ）。 
+---
+= 还原数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过SnapManager for SAP、您可以将数据库还原到创建Snapshot副本时的状态。除了基于文件的还原过程之外， SnapManager 还支持基于卷的快速还原技术，与其他恢复方法相比，该技术可显著缩短还原时间。由于备份的创建频率更高，因此需要应用的日志数量会减少，从而减少数据库的平均恢复时间（ MTTR ）。
+
+以下是与还原和恢复数据库中的数据相关的一些任务：
+
+* 执行基于文件的还原或基于卷的还原，这是还原数据库备份的最快方法，也是 SnapManager 使用的默认方法。
+* 还原整个备份或其中一部分。
++
+如果要还原其中一部分，请指定一组表空间或一组数据文件。您还可以还原控制文件以及数据，或者仅还原控制文件本身。
+
+* 根据时间点或所有可用日志恢复数据，这些日志存储提交到数据库的最后一个事务。
++
+时间点可以是 Oracle 系统更改编号（ SCN ）或日期和时间（ yyyy-mm-dd ： hh ： mm ： ss ）。SnapManager 使用 24 小时制时钟。
+
+* 从主存储（本地备份）上的备份还原。
+* 使用 SnapManager 还原和恢复备份，或者使用 SnapManager 还原备份，然后使用恢复管理器（ RMAN ）等其他工具恢复数据。
+* 从备用位置还原备份。
+* 使用还原规范文件从二级存储（远程备份）和备用位置还原受保护的备份。
+
+
+您可以使用 SnapManager 3.0 及更高版本还原以前版本的 SnapManager 所做的备份。
+
+管理员可以使用 SnapManager 图形用户界面（ GUI ）或命令行界面（ CLI ）执行还原或恢复操作。

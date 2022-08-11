@@ -1,0 +1,37 @@
+---
+permalink: unix-administration/reference-the-smosmsap-schedule-suspend-command.html 
+sidebar: sidebar 
+keywords: command, suspend, backup, schedule, resume, smsap 
+summary: 此命令将暂停备份计划，直到恢复备份计划为止。 
+---
+= smsap schedule suspend命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令将暂停备份计划，直到恢复备份计划为止。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap schedule suspend -profile _profile_name_
+-schedule-name _schedule_name_ [-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定与要暂停备份计划的数据库相关的配置文件的名称。配置文件包含数据库的标识符和其他数据库信息。
+
+* `*—schedule-name _schedule_name_*`
++
+指定创建备份计划时提供的计划名称。
+
+

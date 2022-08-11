@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-suspend-backup-schedules.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, suspend, backup, schedule, resume 
+summary: 通过 SnapManager ，您可以暂停备份计划，直到备份计划恢复为止。 
+---
+= 暂停备份计划
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以暂停备份计划，直到备份计划恢复为止。
+
+* 关于此任务 *
+
+您可以暂停活动计划。如果您尝试暂停已暂停的备份计划、可能会遇到错误消息``"cannot suspend：schedule <scheduleename> already in suspend state".``
+
+.步骤
+. 要临时暂停备份计划、请输入以下命令：
++
+`* smsap schedule suspend -profile _profile_name_-schedule-name _scheduleename_[-quiet |-verbone]*`
+
+

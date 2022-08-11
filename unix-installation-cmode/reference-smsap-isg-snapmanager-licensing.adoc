@@ -1,0 +1,85 @@
+---
+permalink: unix-installation-cmode/reference-smsap-isg-snapmanager-licensing.html 
+sidebar: sidebar 
+keywords: snapmanager, license, storage, system, license, require, enable, operation, license, per-server, database, per-storage 
+summary: 要启用 SnapManager 操作，需要一个 SnapManager 许可证和多个存储系统许可证。SnapManager 许可证有两种许可模式：每服务器许可，其中 SnapManager 许可证驻留在每个数据库主机上；每存储系统许可，其中 SnapManager 许可证驻留在存储系统上。 
+---
+= SnapManager 许可
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要启用 SnapManager 操作，需要一个 SnapManager 许可证和多个存储系统许可证。SnapManager 许可证有两种许可模式：_per-server licensing _、其中SnapManager 许可证驻留在每个数据库主机上；_per-storage system licensing _、其中SnapManager 许可证驻留在存储系统上。
+
+SnapManager 许可证要求如下：
+
+|===
+| 许可证 | Description | 必要时 
+
+
+ a| 
+每个服务器的 SnapManager
+ a| 
+特定数据库主机的主机端许可证。只有安装了SnapManager 的数据库主机才需要许可证。存储系统不需要 SnapManager 许可证。
+ a| 
+在 SnapManager 主机上。使用每台服务器许可时，主存储系统和二级存储系统不需要 SnapManager 许可证。
+
+
+
+ a| 
+每个存储系统的 SnapManager
+ a| 
+一种存储端许可证，支持任意数量的数据库主机。只有在数据库主机上未使用每服务器许可证时才需要此许可证。
+ a| 
+在主存储系统和二级存储系统上。
+
+
+
+ a| 
+SnapRestore
+ a| 
+一种使 SnapManager 能够还原数据库的必需许可证。
+ a| 
+在主存储系统和二级存储系统上。 SnapMirror 目标系统上需要执行远程验证。
+
+在 SnapVault 目标系统上执行远程验证和从备份中还原时需要使用。
+
+
+
+ a| 
+FlexClone
+ a| 
+用于克隆数据库的可选许可证。
+ a| 
+在主存储系统和二级存储系统上。从备份创建克隆时， SnapVault 目标系统上需要此功能。
+
+
+
+ a| 
+SnapMirror
+ a| 
+用于将备份镜像到目标存储系统的可选许可证。
+ a| 
+在主存储系统和二级存储系统上。
+
+
+
+ a| 
+SnapVault
+ a| 
+用于将备份归档到目标存储系统的可选许可证。
+ a| 
+在主存储系统和二级存储系统上。
+
+
+
+ a| 
+协议
+ a| 
+根据所使用的协议，需要 NFS ， iSCSI 或 FC 许可证。
+ a| 
+在主存储系统和二级存储系统上。如果源卷不可用，则 SnapMirror 目标系统需要提供数据。
+
+|===

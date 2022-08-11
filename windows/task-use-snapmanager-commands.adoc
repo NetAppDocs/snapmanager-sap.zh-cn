@@ -1,0 +1,22 @@
+---
+permalink: windows/task-use-snapmanager-commands.html 
+sidebar: sidebar 
+keywords: start, snapmanager, host, server, enter, command, prompt 
+summary: 启动 SnapManager 主机服务器后，您可以通过在主机上的提示符处输入命令来使用 SnapManager 。 
+---
+= 使用SnapManager 命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+启动 SnapManager 主机服务器后，您可以通过在主机上的提示符处输入命令来使用 SnapManager 。
+
+.步骤
+. 要执行操作，请执行以下操作：
++
+** 对于Windows主机、请转到*开始*>*所有程序*>* NetApp*>* SnapManager for SAP*>*启动SMSAP命令行界面(命令行界面)*
+
+
+

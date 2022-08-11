@@ -1,0 +1,57 @@
+---
+permalink: windows/task-creating-task-scripts.html 
+sidebar: sidebar 
+keywords: pretask, post-task, policy, task, script, backup, restore, clone, operation, environment, variable, parameter, snapmanager, sample, creating, create 
+summary: 您可以为备份，还原和克隆操作创建任务前，任务后和策略任务脚本，编写脚本并在参数中包含预定义的环境变量。您可以创建一个新脚本，也可以修改其中一个 SnapManager 示例脚本。 
+---
+= 正在创建任务脚本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以为备份，还原和克隆操作创建任务前，任务后和策略任务脚本，编写脚本并在参数中包含预定义的环境变量。您可以创建一个新脚本，也可以修改其中一个 SnapManager 示例脚本。
+
+开始创建脚本之前，请确保：
+
+* 您必须以特定方式对脚本进行结构调整，才能在 SnapManager 操作环境中运行该脚本。
+* 您必须根据预期操作，可用输入参数和返回代码约定创建脚本。
+* 您必须包含日志消息并将这些消息重定向到用户定义的日志文件。
++
+.. 通过自定义示例脚本创建任务脚本。
++
+执行以下操作：
+
++
+... 在以下安装目录中找到一个示例脚本：
++
+<default_install_directory>\plugins\examples\backup\create
+
++
+<default_install_directory>\plugins\examples\clone\create
+
+... 在脚本编辑器中打开脚本。
+... 使用其他名称保存此脚本。
+
+
+.. 根据需要修改函数，变量和参数。
+.. 将此脚本保存在以下目录之一：
++
+* 备份操作脚本 *
+
++
+*** <default_install_directory>\plugins\backup\create\pre ：在执行备份操作之前执行此脚本。指定备份创建时也可以选择使用它。
+*** <default_install_directory>\plugins\backup\create\post ：在执行备份操作后执行此脚本。指定备份创建时也可以选择使用它。
+*** <default_install_directory>\plugins\backup\create\policy ：始终在执行备份操作之前执行脚本。SnapManager 始终对存储库中的所有备份使用此脚本。* 还原操作脚本 *
+*** <default_install_directory>\plugins\restore\create\pre ：在执行备份操作之前执行此脚本。指定备份创建时也可以选择使用它。
+*** <default_install_directory>\plugins\restore\create\post ：在执行备份操作后执行此脚本。指定备份创建时也可以选择使用它。
+*** <default_install_directory>\plugins\restore\create\policy ：始终在执行备份操作之前执行脚本。SnapManager 始终对存储库中的所有备份使用此脚本。* 克隆操作脚本 *
+*** <default_install_directory>\plugins\clone\create\pre ：在执行备份操作之前执行此脚本。指定备份创建时也可以选择使用它。
+*** <default_install_directory>\plugins\clone\create\post ：在执行备份操作后执行此脚本。指定备份创建时也可以选择使用它。
+*** <default_install_directory>\plugins\clone\create\policy ：始终在执行备份操作之前执行脚本。SnapManager 始终对存储库中的所有备份使用此脚本。
+
+
+
+
+

@@ -1,0 +1,26 @@
+---
+permalink: unix-administration/concept-restore-files-from-an-alternate-location.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, restore, data, file, control, location, snapshot, copies, copy, volume, alternate 
+summary: 通过 SnapManager ，您可以从原始卷中 Snapshot 副本的位置以外的其他位置还原数据文件和控制文件。 
+---
+= 从备用位置还原文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以从原始卷中 Snapshot 副本的位置以外的其他位置还原数据文件和控制文件。
+
+原始位置是指备份时文件在活动文件系统上的位置。备用位置是指将从中还原文件的位置。
+
+您可以从备用位置还原以下数据：
+
+* 从中间文件系统到活动文件系统的数据文件
+* 从中间原始设备到活动原始设备的数据块
+
+
+恢复由 SnapManager 自动执行。从外部位置恢复文件时、SnapManager 会使用`recovery automatic from location`命令。
+
+SnapManager 还使用 Oracle 恢复管理器（ RMAN ）来恢复文件。Oracle 应可识别要恢复的文件。文件名应采用默认格式。从闪存恢复区域恢复时， SnapManager 会提供 Oracle 的转换路径。但是， Oracle 无法从闪存恢复区域恢复，因为它无法生成正确的文件名。理想情况下，闪存恢复区域是要与 RMAN 配合使用的目标。

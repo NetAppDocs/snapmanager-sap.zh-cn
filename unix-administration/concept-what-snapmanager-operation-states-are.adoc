@@ -1,0 +1,73 @@
+---
+permalink: unix-administration/concept-what-snapmanager-operation-states-are.html 
+sidebar: sidebar 
+keywords: snapmanager, operation, backup, restore, clone, state 
+summary: SnapManager 操作（备份，还原和克隆）可以处于不同状态，每个状态都指示操作的进度。 
+---
+= 什么是 SnapManager 操作状态
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 操作（备份，还原和克隆）可以处于不同状态，每个状态都指示操作的进度。
+
+[cols="1a,4a"]
+|===
+| 操作状态 | Description 
+
+
+ a| 
+已成功
+ a| 
+操作已成功完成。
+
+
+
+ a| 
+正在运行
+ a| 
+操作已启动，但尚未完成。例如，备份需要两分钟时间，计划在上午 11 ： 00 进行。当您在上午 11 ： 01 查看 * 计划 * 选项卡时，该操作显示为正在运行。
+
+
+
+ a| 
+未找到操作
+ a| 
+计划未运行或上次运行的备份已删除。
+
+
+
+ a| 
+失败
+ a| 
+操作失败。SnapManager 已自动执行中止过程并已清理此操作。
+
+
+NOTE: 您可以拆分创建的克隆。停止已启动的克隆拆分操作且操作成功停止后，克隆拆分操作状态将显示为失败。
+
+|===
+
+
+== 可恢复和不可恢复的事件
+
+可恢复的 SnapManager 事件存在以下问题：
+
+* 数据库不会存储在运行 Data ONTAP 的存储系统上。
+* 未安装 SnapDrive for UNIX 或无法访问存储系统。
+* 如果卷空间不足，已达到 Snapshot 副本的最大数量或发生意外异常， SnapManager 将无法创建 Snapshot 副本或配置存储。
+
+
+发生可恢复的事件时， SnapManager 会执行中止过程，并尝试将主机，数据库和存储系统恢复到启动状态。如果中止过程失败， SnapManager 会将此意外事件视为不可恢复的事件。
+
+发生以下任一情况时，将发生不可恢复（带外）事件：
+
+* 发生系统问题描述，例如主机出现故障时。
+* SnapManager 进程已停止。
+* 当存储系统发生故障，逻辑单元号（ LUN ）或存储卷脱机或网络发生故障时，带内中止操作将失败。
+
+
+发生不可恢复的事件时， SnapManager 会立即执行中止过程。主机，数据库和存储系统可能未恢复到初始状态。在这种情况下，您必须在 SnapManager 操作失败后执行清理，方法是删除孤立的 Snapshot 副本并删除 SnapManager 锁定文件。
+
+如果要删除SnapManager 锁定文件、请导航到目标计算机上的`$ORACLE_HOME`并删除`sm_lock__TargetDBName_`文件。删除此文件后、必须重新启动SAP服务器的SnapManager。

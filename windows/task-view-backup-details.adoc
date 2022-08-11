@@ -1,0 +1,75 @@
+---
+permalink: windows/task-view-backup-details.html 
+sidebar: sidebar 
+keywords: view, detail, information, backup, profile, smsap, show, command 
+summary: 您可以使用smsap backup show命令查看配置文件中特定备份的详细信息。 
+---
+= 查看备份详细信息
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`smsap backup show`命令查看配置文件中特定备份的详细信息。
+
+
+
+== 关于此任务
+
+`smsap backup show`命令可显示每个备份的以下信息：
+
+* 备份 ID
+* 备份成功还是失败
+* 备份范围（完整，部分，联机或脱机）
+* 备份模式
+* 挂载状态
+* 备份标签
+* comment
+* 操作开始和结束的日期和时间
+* 有关是否已验证备份的信息
+* 备份保留类
+* 数据库和主机名
+* 检查点系统更改编号（ SCN ）
+* 结束备份 SCN （仅适用于联机备份）
+* 备份的数据库中的表空间和数据文件
+* 备份的数据库中的控制文件
+* 备份的数据库中的归档日志
+* 文件所在的存储系统和卷
+* 创建的 Snapshot 副本及其位置
+* 主存储资源的状态
+* 备份保护状态
+* 备份模式
+
+
+如果指定`-verbose`选项、则会显示以下追加信息 ：
+
+* 从备份创建的克隆（如果有）
+* 验证信息
+* 如果已挂载备份， SnapManager 将显示正在使用的挂载点
+
+
+对于归档日志文件备份，显示的信息与其他数据库备份的信息相同，但以下信息除外：
+
+* 检查点 SCN
+* 结束备份 SCN
+* 表空间
+* 控制文件
+
+
+但是，归档日志文件备份包含以下追加信息：
+
+* 备份的第一个更改编号
+* 备份的下一个更改编号
+* 线程编号
+* 重置日志 ID
+* 转体
+* 日志文件名
+
+
+.步骤
+. 输入以下命令：
++
+`* smsap backup show -profile _profile_name_｛-label _label_[data _-archivelogs]|-id _id_(-quiet _-verbose)*`
+
+

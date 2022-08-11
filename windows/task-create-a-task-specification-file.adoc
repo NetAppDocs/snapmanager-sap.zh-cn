@@ -1,0 +1,92 @@
+---
+permalink: windows/task-create-a-task-specification-file.html 
+sidebar: sidebar 
+keywords: create, task, specification, file, graphical, user, interface, gui, command-line, interface, cli, text, editor, preprocess, post-process, backup, restore, operation 
+summary: 您可以使用图形用户界面（ GUI ），命令行界面（ CLI ）或文本编辑器创建任务规范文件。这些文件用于对备份，还原或克隆操作执行预处理或后处理活动。 
+---
+= 创建任务规范文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用图形用户界面（ GUI ），命令行界面（ CLI ）或文本编辑器创建任务规范文件。这些文件用于对备份，还原或克隆操作执行预处理或后处理活动。
+
+.步骤
+. 使用 GUI ， CLI 或文本编辑器创建任务规范文件。
++
+* 示例 *
+
++
+您可以根据以下示例任务规范文件的结构创建规范文件：
+
++
+[listing]
+----
+
+<task-specification>
+  <pre-tasks>
+				<task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </pre-tasks>
+  <post-tasks>
+    <task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </post-tasks>
+</task-specification>
+----
+. 输入脚本名称。
+. 输入参数名称以及分配给参数的值。
+. 将 XML 文件保存在正确的安装目录中。
+
+
+
+
+== 任务规范示例
+
+[listing]
+----
+
+  <task-specification>
+    <pre-tasks>
+      <task>
+        <name>clone cleanup</name>
+        <description>pre tasks for cleaning up the target system</description>
+        </task>
+    </pre-tasks>
+    <post-tasks>
+      <task>
+        <name>SystemCopy follow-up activities</name>
+        <description>SystemCopy follow-up activities</description>
+        <parameter>
+          <name>SCHEMAOWNER</name>
+          <value>SAMSR3</value>
+        </parameter>
+      </task>
+      <task>
+        <name>Oracle Users for OS based DB authentication</name>
+        <description>Oracle Users for OS based DB authentication</description>
+        <parameter>
+          <name>SCHEMAOWNER</name>
+          <value>SAMSR3</value>
+        </parameter>
+        <parameter>
+          <name>ORADBUSR_FILE</name>
+
+										<value\>E:\\mnt\\sam\\oradbusr.sql</value\>
+        </parameter>
+      </task>
+      </post-tasks>
+  </task-specification>
+----

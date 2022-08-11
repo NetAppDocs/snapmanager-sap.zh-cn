@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-splitestimate-command.html 
+sidebar: sidebar 
+keywords: command, enable, view, clone, split, storage, consume, estimate, smsap, split-estimate 
+summary: 使用此命令可以查看克隆拆分的已用存储估计量。 
+---
+= smsap clone split—estimate命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用此命令可以查看克隆拆分的已用存储估计量。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-estimate
+-profile _profile_
+[-host _hostname_\]
+[-label _clone-label_ | -id _clone-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_*`
++
+指定克隆的配置文件名称。
+
+* `*—主机_hostname_*`
++
+指定克隆所在的主机名。
+
+* `*—label _clone-label-*`
++
+指定克隆进程生成的标签名称。
+
+* `*—id clone-id_*`
++
+指定克隆进程生成的唯一 ID 。
+
+* `*-静默_*`
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细_*`
++
+在控制台上显示错误，警告和信息性消息。
+
+

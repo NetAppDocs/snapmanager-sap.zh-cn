@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/task-view-status-of-clone-split-process.html 
+sidebar: sidebar 
+keywords: view, progress, split, start, process, clone 
+summary: 您可以查看已启动拆分过程的进度。 
+---
+= 查看克隆拆分过程的状态
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看已启动拆分过程的进度。
+
+.步骤
+. 要查看克隆拆分过程的进度、请输入以下命令：
++
+`* smsap clone ssplit状态-profile _profiles_"-host _hostname_](-label _ssplit标签_)_--id _ssplit -id_](-quiet _-verbose)*`
+
+
+
+'''
+[listing]
+----
+smsap clone split-status -profile p1 -id 8abc01ec0e78f3e2010e78f3fdd00001
+----
+'''

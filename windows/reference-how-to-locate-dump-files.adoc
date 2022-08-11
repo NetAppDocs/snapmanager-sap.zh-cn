@@ -1,0 +1,73 @@
+---
+permalink: windows/reference-how-to-locate-dump-files.html 
+sidebar: sidebar 
+keywords: dump, file, locate, client, system, access, troubleshoot, problem, profile, operation 
+summary: 转储文件位于客户端系统中，便于访问。如果您需要对与配置文件，系统或任何操作相关的问题进行故障排除，这些文件将非常有用。 
+---
+= 如何查找转储文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+转储文件位于客户端系统中，便于访问。如果您需要对与配置文件，系统或任何操作相关的问题进行故障排除，这些文件将非常有用。
+
+转储文件位于客户端系统上用户的主目录中。
+
+* 如果使用的是图形用户界面（ GUI ），则转储文件位于：
++
+[listing]
+----
+user_home\Application Data\NetApp\smsap\3.3.0\smsap_dump dump_file_type_name
+server_host.jar
+----
+* 如果您使用的是命令行界面（ CLI ），则转储文件位于：
++
+[listing]
+----
+user_home\.netapp\smsap\3.3.0\smsap_dump_dump_file_type_name server_host.jar
+----
+
+
+转储文件包含 dump 命令的输出。文件的名称取决于提供的信息。下表显示了转储操作的类型以及生成的文件名：
+
+|===
+| 转储操作的类型 | 生成的文件名 
+
+
+ a| 
+带有操作 ID 的 operation dump 命令
+ a| 
+`smsap_dump_operation-id.jar`
+
+
+
+ a| 
+无操作 ID 的操作转储命令
+ a| 
+`smsap operation dump -profile vh1 -verbose`此时将显示以下输出：
+
+[listing]
+----
+smsap operation dump -profile VH1 -verbose
+[ INFO] SMSAP-13048: Dump Operation Status: SUCCESS
+[ INFO] SMSAP-13049: Elapsed Time: 0:00:01.404
+Dump file created.
+Path: user_home\Application Data\ontap\smsap\3.3.0\smsap_dump_VH1_kaw.rtp.foo.com.jar
+----
+
+
+ a| 
+system dump 命令
+ a| 
+`smsap_dump_host-name.jar`
+
+
+
+ a| 
+profile dump 命令
+ a| 
+`smsap_dump_profile-name_host-name.jar`
+
+|===

@@ -1,0 +1,80 @@
+---
+permalink: windows/task-order-of-performing-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, perform, operation, create, profile, backup, clone, order 
+summary: 使用 SnapManager 可以执行各种操作，例如创建配置文件，执行备份和克隆备份。这些操作必须按特定顺序执行。 
+---
+= 执行操作的顺序
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以执行各种操作，例如创建配置文件，执行备份和克隆备份。这些操作必须按特定顺序执行。
+
+.步骤
+. 使用`smsap profile create`命令在现有存储库上创建配置文件。
++
+
+NOTE: 为目标数据库指定的 Oracle 用户必须具有 sysdba 权限。
+
++
+* 示例 *
+
++
+以下示例显示了用于创建配置文件的命令：
+
++
+[listing]
+----
+smsap profile create -profile prof1 -profile-password prof1cred
+-repository -dbname HR1 -login -username admin -host server1 -port 1527
+-database -dbname SID -host db_server1 -port 1527
+----
+. 使用`smsap backup create`命令在现有配置文件上创建备份。
++
+* 示例 *
+
++
+以下示例显示了用于创建备份的命令：
+
++
+[listing]
+----
+smsap backup create -profile prof1 -full -offline -label full_backup_prof1 -force
+----
+. 使用`smsap backup restore`命令在主存储上还原和恢复数据库备份。
++
+* 示例 *
+
++
+以下示例显示了用于还原备份的命令：
+
++
+[listing]
+----
+smsap backup restore -profile prof1 -label full_backup_prof1
+-complete -recover -alllogs
+----
+. 使用`smsap clone template`命令创建克隆规范。
++
+您可以在图形用户界面（ GUI ）中使用克隆向导创建模板克隆规范。您也可以使用文本编辑器创建克隆规范文件。
+
+. 使用`smsap clone create`命令克隆具有现有备份的数据库。
++
+您必须具有现有克隆规范或创建克隆规范，才能为克隆指定存储和数据库规范。
+
++
+* 示例 *
+
++
+以下示例显示了用于创建克隆的命令：
+
++
+[listing]
+----
+smsap clone create -profile prof1 -backup-label full_backup_prof1
+-newsid clone1 -label prof1_clone -clonespec C:\\clone_spec\\prof1_clonespec.xml
+----
+

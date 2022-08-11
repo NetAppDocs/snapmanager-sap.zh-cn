@@ -1,0 +1,64 @@
+---
+permalink: unix-administration/concept-error-handling-in-custom-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, process, custom, script, specific, return, code, value, execution, error, handling, handle 
+summary: SnapManager 会根据特定返回代码处理自定义脚本。例如，如果自定义脚本返回值 0 ， 1 ， 2 或 3 ，则 SnapManager 将继续执行克隆过程。返回代码还会影响 SnapManager 处理和返回脚本执行的标准输出的方式。 
+---
+= 在自定义脚本中处理时出错
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 会根据特定返回代码处理自定义脚本。例如，如果自定义脚本返回值 0 ， 1 ， 2 或 3 ，则 SnapManager 将继续执行克隆过程。返回代码还会影响 SnapManager 处理和返回脚本执行的标准输出的方式。
+
+[cols="1a,3a,2a"]
+|===
+| 返回代码 | Description | 继续处理此操作 
+
+
+ a| 
+0
+ a| 
+脚本已成功完成。
+ a| 
+是的。
+
+
+
+ a| 
+1.
+ a| 
+脚本已成功完成，并显示信息性消息。
+ a| 
+是的。
+
+
+
+ a| 
+2.
+ a| 
+此脚本已完成，但包含警告
+ a| 
+是的。
+
+
+
+ a| 
+3.
+ a| 
+脚本失败，但操作仍会继续。
+ a| 
+是的。
+
+
+
+ a| 
+4 或 >4
+ a| 
+脚本失败，操作停止。
+ a| 
+否
+
+|===

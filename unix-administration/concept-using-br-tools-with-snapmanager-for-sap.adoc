@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/concept-using-br-tools-with-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: sap, br, tools, command, snapmanager, oracle, database, administration, brarchive, brbackup, brconnect, brrecover, brrestore, brspace, brtools 
+summary: 您可以将SAP Br*工具命令与SnapManager for SAP结合使用。Br*工具是一个SAP程序包、其中包含用于Oracle数据库管理的SAP工具、例如BRARCHIVE、BRBACKUP、BRCONNECT、 BRRECOVER、BRRESTORE、BRSPACE和BRTOOLS。 
+---
+= 将Br*工具与SnapManager for SAP结合使用
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以将SAP Br*工具命令与SnapManager for SAP结合使用。Br*工具是一个SAP程序包、其中包含用于Oracle数据库管理的SAP工具、例如BRARCHIVE、BRBACKUP、BRCONNECT、 BRRECOVER、BRRESTORE、BRSPACE和BRTOOLS。
+
+您可以完成以下与使用Br*工具和SnapManager for SAP相关的任务：
+
+* 禁用客户端对Snapshot副本的访问
+* 指定Br*工具备份的配置文件
+* 使用BRBACKUP和BRARCHIVE创建数据库备份
+* 使用SAP事务DB13计划备份
+* 使用BRRESTORE和BRRECOVER还原数据库
+* 使用Br*工具备份和还原文件
+* 将备份还原到其他主机
+

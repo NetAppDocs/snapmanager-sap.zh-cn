@@ -1,0 +1,31 @@
+---
+permalink: windows/task-start-the-snapmanager-graphical-user-interface.html 
+sidebar: sidebar 
+keywords: snapmanager, install, host, graphical, user, interface, gui, list, program, start 
+summary: 如果主机上安装了 SnapManager ，请从程序列表中选择程序，以启动 SnapManager 的图形用户界面（图形用户界面）。 
+---
+= 启动SnapManager 图形用户界面
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果主机上安装了 SnapManager ，请从程序列表中选择程序，以启动 SnapManager 的图形用户界面（图形用户界面）。
+
+
+
+== 您将需要什么
+
+* 确保已启动 SnapManager 服务器。
+
+
+
+
+== 关于此任务
+
+您可以通过以下方式之一启动 SnapManager 图形用户界面：
+
+* 在SnapManager 主机中、单击*开始*>*所有程序*>* NetApp *>*适用于SAP*的SnapManager >*启动SMSAP GUI*。
+* 如果主机上未安装 SnapManager ，请使用 Java Web Start ，它会下载 SnapManager 组件并启动 GUI 。
+

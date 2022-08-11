@@ -1,0 +1,312 @@
+---
+permalink: windows/reference-troubleshooting-snapmanager.html 
+sidebar: sidebar 
+keywords: information, common, issue, resolve, troubleshoot, snapmanager 
+summary: 您可以找到有关可能发生的一些最常见问题以及如何解决这些问题的信息。 
+---
+= 对 SnapManager 进行故障排除
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到有关可能发生的一些最常见问题以及如何解决这些问题的信息。
+
+下表介绍了常见问题和可能的解决方案：
+
+[cols="2*"]
+|===
+| 问题驱动型问题 | 可能的解决方案 
+
+
+ a| 
+目标数据库和侦听器是否正在运行？
+ a| 
+运行`lsnrctl status`命令。确保已将数据库实例注册到侦听器中。
+
+
+
+ a| 
+存储是否可见？
+ a| 
+执行以下步骤：
+
+. 右键单击 My Computer ，然后选择 * 管理 * 。
+. 单击 * 存储 * > * SnapDrive * > * 主机名 * > * 磁盘 * 。
+
+
+
+
+ a| 
+SnapManager 服务器是否正在运行？
+ a| 
+检查状态，然后使用服务配置启动服务器。
+
+在使用图形用户界面（ GUI ）或命令行界面（ CLI ）启动与配置文件相关的 SnapManager 命令之前，服务器必须正在运行。您可以在不启动服务器的情况下创建或更新存储库，但要执行所有其他 SnapManager 操作，服务器必须正在运行。
+
+要启动SnapManager 服务器、请输入以下命令：
+
+`smsap_server start`
+
+
+
+ a| 
+是否已正确设置运行 SnapManager 所需的所有组件？
+ a| 
+运行`smsap system verify`命令以验证是否已正确设置SnapDrive。
+
+
+
+ a| 
+您的 SnapManager 版本是否正确？
+ a| 
+使用`smsap version`命令检查SnapManager 版本。
+
+
+
+ a| 
+您是否查看过 SnapManager 日志文件以确定错误消息是否有助于隔离问题描述？
+ a| 
+SnapManager 会将所有日志条目记录到一组轮换日志文件中。日志文件位于`C：\program_files\NetApp\SnapManager for SAP\logs`。
+
+如果您使用的是 Windows 2008 ，则日志位于以下位置：
+
+* 操作日志：
++
+** `C：\Program Files\NetApp\SnapManager for SAP\var\log\smsap`
+
+
+* 客户端日志：
++
+** `C：\Users\Administrator\AppData\Roaming\NetApp\smsap\3.3.0\`
+
+
+
+
+查看以下位置的日志可能也会很有帮助：`C：\Documents and Settings\hostname\Application Data\NetApp\smsap\3.3.3.0\log`
+
+每个操作日志都会写入其自己的日志文件、格式为`smsap_of_date_time.log`。
+
+
+
+ a| 
+如果归档日志存储在未运行 Data ONTAP 的存储系统上，是否已将其排除在使用 SnapManager 进行备份的考虑范围之外？
+ a| 
+使用`smsap.config`文件可以排除某些归档日志文件。对于Windows、此文件位于以下位置：`C：\program_files\netapp\smsap\properties\smsap.config`
+
+使用文件中所述的格式排除本地归档日志。对于追加信息，请 `S" 设置配置属性` " 主题。
+
+您还可以在使用 SnapManager 命令行界面创建备份时排除归档日志目标。对于追加信息，请参见 "`创建数据库备份` " 主题。
+
+您还可以在使用 SnapManager 图形用户界面创建备份时排除归档日志目标。
+
+
+
+ a| 
+是否已在尝试在 Windows 上安装或升级 SnapManager 的目录中打开 MS-DOS 窗口？
+ a| 
+您将看到类似以下内容的错误消息：
+
+[listing]
+----
+Directory
+C:\Program Files\NetApp\SnapManager for SAP\bin
+is currently in use by another program.
+Any window, opened by you or
+another user, that is currently
+referencing this directory must be
+closed before installation can proceed.
+----
+关闭窗口，然后重新尝试安装或升级。
+
+
+
+ a| 
+是否无法连接到存储库？
+ a| 
+如果连接到存储库失败、请在存储库数据库上运行`lsnrctl status`命令并检查活动服务名称。当 SnapManager 连接到存储库数据库时，它会使用数据库的服务名称。根据侦听器的设置方式，此名称可能是短服务名称或完全限定服务名称。当 SnapManager 连接到数据库进行备份，还原或其他操作时，它会使用主机名和 SID 。如果存储库由于当前无法访问而未正确初始化，您将收到一条错误消息，询问是否要删除该存储库。您可以从当前视图中删除存储库，以便可以对其他存储库执行操作。
+
+此外，请检查相应的服务是否正在运行。
+
+
+
+ a| 
+系统是否可以解析主机名？
+ a| 
+检查指定的主机名是否位于其他子网上。如果您收到SnapManager 无法解析主机名的错误消息、请在主机文件中添加主机名。将主机名添加到位于`C：\Windows\system32\drivers\etc\hosts`：`xxx.xxx.xxx.xxx主机名IP地址`的文件中
+
+
+
+ a| 
+SnapDrive 是否正在运行？
+ a| 
+要查看 SnapDrive 的状态，请转到服务，然后选择 SnapDrive 服务。
+
+
+
+ a| 
+哪些存储系统配置为可使用 SnapDrive 进行访问？
+ a| 
+要查找为 SnapDrive 配置的存储系统，请执行以下步骤：
+
+. 右键单击 * 我的电脑 * ，然后选择 * 管理 * 。
+. 单击 * 存储 * > * SnapDrive * 。
+. 右键单击主机名，然后选择 * 传输协议设置 * 。
+
+
+
+
+ a| 
+如何提高 SnapManager 图形用户界面的性能？
+ a| 
+* 确保您具有存储库，配置文件主机和配置文件的有效用户凭据。
++
+如果凭据无效，请清除存储库，配置文件主机和配置文件的用户凭据。重置先前为存储库，配置文件主机和配置文件设置的相同用户凭据。有关追加信息重新设置用户凭据的信息，请参见 `S" 清除凭据缓存后设置凭据` " 。
+
+* 关闭未使用的配置文件。
++
+如果打开的配置文件数量更多，则 SnapManager 图形用户界面性能会降低。
+
+* 检查是否在 SnapManager 图形用户界面的 * 管理 * 菜单下的用户首选项窗口中启用了 * 启动时打开 * 。
++
+如果启用了此选项、则`C：\Documents and Settings\Administrator\Application Data\NetApp\smsap\3.3.3.0\guGUI` state`中的用户配置(`user.config`)文件将显示为`openOnStartup=profile。
+
++
+由于已启用*启动时打开*、因此您必须在用户配置(`user.config`)文件中使用`lastOpenProfile`检查SnapManager 图形用户界面中是否存在最近打开的配置文件：`lastOpenProfiles=Profile1、PROFILE2、PROFILE3、...`
+
++
+您可以删除列出的配置文件名称，并且始终保持最小数量的配置文件处于打开状态。
+
+* 在基于 Windows 的环境上安装新版本的 SnapManager 之前，请删除以下位置提供的 SnapManager 客户端条目：
++
+C ： \Documents and Settings\Administrator\Application Data\NetApp
+
+
+
+
+
+ a| 
+如果在后台同时启动和运行多个 SnapManager 操作，则 SnapManager 图形用户界面需要较长时间才能刷新。右键单击备份（该备份已删除，但仍显示在 SnapManager 图形用户界面中）时，备份或克隆窗口中不会启用该备份的备份选项。
+ a| 
+您需要等待 SnapManager 图形用户界面刷新，然后检查备份状态。
+
+
+
+ a| 
+如果 Oracle 数据库未设置为英语，您会怎么做？
+ a| 
+如果 Oracle 数据库的语言未设置为英语， SnapManager 操作可能会失败。请将 Oracle 数据库的语言设置为英语：
+
+. 确认未设置 NLS_LANG 环境变量： echo%NLS_LANG_%
+. 将以下行添加到位于`C：\SnapManager_install_directory\service`的`wrapper.conf`文件中：
++
+`set.NLS_LANG_America_America.WE8MSWIN1252`
+
+. 重新启动SnapManager 服务器：
++
+`smsap_server restart`
+
+
+
+
+NOTE: 如果系统环境变量设置为 NLS_LANG ，则必须编辑脚本，以使其不会覆盖 NLS_LANG 。
+
+
+
+ a| 
+如果存储库数据库指向多个 IP 且每个 IP 都有不同的主机名，则在备份计划操作失败时，您会怎么做？
+ a| 
+. 停止 SnapManager 服务器。
+. 从要触发备份计划的主机中删除存储库目录中的计划文件。
++
+计划文件名可以采用以下格式：
+
++
+** repository_repo_username#repository_database_name#repository_host#repo_port
+** repository-repo_usernamesepository_database_name-repository_host-repo_port
+
+
+
+
+
+NOTE: 您必须确保以与存储库详细信息匹配的格式删除计划文件。
+
+. 重新启动 SnapManager 服务器。
+. 从 SnapManager 图形用户界面打开同一存储库下的其他配置文件，以确保不会遗漏这些配置文件的任何计划信息。
+
+
+
+
+ a| 
+如果 SnapManager 操作失败并出现凭据文件锁定错误，您会怎么做？
+ a| 
+SnapManager 会在更新前锁定凭据文件，并在更新后将其解锁。如果同时运行多个操作，其中一个操作可能会锁定凭据文件以进行更新。如果另一个操作同时尝试访问锁定的凭据文件，则操作将失败并显示文件锁定错误。
+
+根据同时运行的频率、在smsap.config文件中配置以下参数：
+
+* fileLock.retryInterval = 100 毫秒
+* fileLock.timeout = 5000 毫秒
+
+
+
+NOTE: 分配给参数的值必须以毫秒为单位。
+
+
+
+ a| 
+如果备份验证操作的中间状态在 " 监控 " 选项卡中显示失败，即使备份验证操作仍在运行，您会怎么做？
+ a| 
+此错误消息会记录在 sm_gui.log 文件中。您必须在日志文件中查找`operation.s检测 信号间隔`和`operation.s检测 信号阈值`参数的新值、这些参数将解决此问题描述。
+
+. 在`smsap.config`文件中添加以下参数：
++
+** `operation.s检测 信号间隔`= 5000
+** `operation.s检测 信号阈值`= 5000 SnapManager 分配的默认值为5000。
+
+
+. 为这些参数分配新值。
++
+
+NOTE: 分配给参数的值必须以毫秒为单位。
+
+. 重新启动 SnapManager 服务器并重新执行此操作。
+
+
+
+
+ a| 
+遇到堆空间问题描述时应如何操作？
+ a| 
+在SnapManager for SAP操作期间遇到堆空间问题描述 时、必须执行以下步骤：
+
+. 导航到SnapManager for SAP安装目录。
+. 从`installationdirectory\bin\sunchjava` path打开`Launchjava`文件。
+. 增加 java -Xmx160m java heave-space 参数的值。
++
+例如，您可以将默认值 160 米增加到 200 米。
+
++
+
+NOTE: 如果在早期版本的SnapManager for SAP中增加了Java heap-space参数的值、则应保留该值。
+
+
+
+
+
+ a| 
+如果 SnapManager 服务未在 Windows 环境中启动且显示以下错误消息，您会执行什么操作： Windows 无法在本地计算机上启动 Snap Manager 。有关详细信息，请查看系统事件日志。如果此服务不是 Microsoft 服务，请联系服务供应商，并参考特定于服务的错误代码 1 ？
+ a| 
+在位于`Installation_directory\service`的wrapper.conf文件中配置以下参数。
+
+* wrapper 启动超时参数定义了包装程序启动 Java 虚拟机（ JVM ）与应用程序已启动的 JVM 响应之间允许的最长时间。
++
+默认值设置为 90 秒。但是，您可以更改大于 0 的值。如果指定的值无效，则会改用默认值。
+
+* `wrapper.ping.timeout`参数定义了从包装程序ping JVM到JVM响应之间允许的最长时间。默认值设置为 90 秒。
++
+但是，您可以更改为大于 0 的值。如果指定的值无效，则会改用默认值。
+
+
+
+|===

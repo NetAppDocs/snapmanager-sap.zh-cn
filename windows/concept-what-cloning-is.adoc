@@ -1,0 +1,68 @@
+---
+permalink: windows/concept-what-cloning-is.html 
+sidebar: sidebar 
+keywords: clone, database, create, replica, original, full, backup 
+summary: 您可以克隆数据库以创建原始数据库的精确副本。您可以从完整备份或数据库的当前状态创建克隆。 
+---
+= 什么是克隆
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以克隆数据库以创建原始数据库的精确副本。您可以从完整备份或数据库的当前状态创建克隆。
+
+使用 SnapManager 创建克隆的一些优势如下：
+
+|===
+| 优势 | 详细信息 
+
+
+ a| 
+速度
+ a| 
+SnapManager 克隆操作会使用 Data ONTAP 提供的 FlexClone 功能。这样，您可以快速克隆大型数据卷。
+
+
+
+ a| 
+空间效率
+ a| 
+使用 SnapManager 创建克隆时，只需为备份和克隆之间的更改留出空间。SnapManager 克隆是原始数据库的可写 Snapshot 副本，可以根据需要进行扩展。相反，数据库的物理克隆要求您有足够的可用空间来复制整个数据库。
+
+
+
+ a| 
+虚拟副本
+ a| 
+您可以像使用原始数据库一样使用克隆的数据库。例如，您可以使用克隆执行测试，平台和更新检查，针对大型数据集进行多次模拟以及远程办公室测试和暂存。对克隆所做的更改不会影响原始数据库。克隆数据库后，克隆的数据库将完全正常运行。
+
+
+
+ a| 
+精简性
+ a| 
+您可以使用 SnapManager 命令将数据库克隆到任何主机。
+
+|===
+克隆数据库之前，必须确保满足以下前提条件：
+
+* 从`$ORACLE_HOME\database`中删除`spfile<sid>.ora`文件。
+* 从`$ORACLE_HOME\database`中删除`init<sid>.ora`文件。
+* 删除克隆规范文件中指定的 Oracle 转储目标。
+* 删除克隆规范文件中指定的 Oracle 控制文件。
+* 删除克隆规范文件中指定的 Oracle 重做日志文件。
+
+
+您必须为克隆提供一个新的系统标识符。不能在同一主机上同时运行具有相同系统标识符的两个数据库。您可以使用相同的系统标识符在其他主机上创建克隆。您可以为克隆提供一个标签，也可以让 SnapManager 使用创建克隆的系统标识符，日期和时间创建一个标签。
+
+输入标签时，不应包含空格或特殊字符。
+
+在克隆过程中， SnapManager 会为克隆的数据库创建必要的 Oracle 文件和参数。例如、`init<sid>.ora`就是一个必需的Oracle文件。
+
+克隆数据库时、SnapManager 会在`$ORACLE_HOME\database`目录中为数据库创建一个新的`init<sid>.ora`文件。
+
+您可以将数据库备份克隆到数据库所在的主机或备用主机。
+
+如果您克隆的数据库使用的是`spfile`、则SnapManager 会为此克隆创建一个`spfile`。它会将此文件放置在`$ORACLE_HOME\database`目录中、并为诊断文件创建目录结构。文件名称为`spfile <sid>.ora`。

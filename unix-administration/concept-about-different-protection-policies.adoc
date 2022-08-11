@@ -1,0 +1,111 @@
+---
+permalink: unix-administration/concept-about-different-protection-policies.html 
+sidebar: sidebar 
+keywords: policies, policy, protect, backup, secondary, tertiary, storage, system, protection 
+summary: 您可以选择不同的策略来保护二级或三级存储系统上的备份。 
+---
+= 关于不同的保护策略
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以选择不同的策略来保护二级或三级存储系统上的备份。
+
+如果您使用的是在 7- 模式下运行的 Data ONTAP ，并且 SnapManager 与 Protection Manager 集成在一起，则在创建配置文件时必须选择以下保护策略之一。Protection Manager 的管理控制台提供了用于为数据集配置保护策略的模板。即使灾难恢复保护策略列在 SnapManager 用户界面中，也不支持这些策略。
+
+[cols="1a,3a"]
+|===
+| 策略 | Description 
+
+
+ a| 
+备份
+ a| 
+使用 SnapVault 或 SnapMirror 在本地备份数据集，并将数据集从主存储备份到二级存储。
+
+
+
+ a| 
+备份，然后镜像
+ a| 
+使用 SnapVault 或 SnapMirror 将数据集从主存储备份到二级存储，然后将其镜像到 SnapMirror 配对存储。
+
+
+
+ a| 
+仅限本地 Snapshot 副本
+ a| 
+数据集仅使用主存储中的本地 Snapshot 副本。
+
+
+
+ a| 
+镜像
+ a| 
+使用 SnapMirror 将数据集从主存储镜像到二级存储。
+
+
+
+ a| 
+镜像和备份
+ a| 
+数据集使用 SnapMirror 从主存储镜像到二级存储，然后使用 SnapVault 或 SnapMirror 备份到二级存储。
+
+
+
+ a| 
+镜像和镜像
+ a| 
+数据集在两个不同的 SnapMirror 配对节点上从主存储镜像到二级存储。
+
+
+
+ a| 
+镜像，然后备份
+ a| 
+数据集使用 SnapMirror 从主存储镜像到二级存储，然后使用 SnapVault 或 SnapMirror 备份到三级存储。
+
+
+
+ a| 
+镜像，然后镜像
+ a| 
+使用 SnapMirror 将数据集从主存储镜像到二级存储，然后再镜像到其他 SnapMirror 配对存储。
+
+
+
+ a| 
+无保护
+ a| 
+数据集没有任何类型的 Snapshot 副本，备份或镜像副本保护。
+
+
+
+ a| 
+仅限远程备份
+ a| 
+使用 SnapVault 或 SnapMirror 将存储系统上的数据远程备份到二级存储。获得许可的应用程序不会在主存储上执行本地备份。此保护策略可应用于安装了 Open Systems SnapVault 的第三方系统。
+
+|===
+如果您使用的是集群模式 Data ONTAP ，则必须在创建配置文件时选择以下保护策略之一。
+
+[cols="1a,1a"]
+|===
+| 策略 | Description 
+
+
+ a| 
+SnapManager_cDOT_Mirror
+ a| 
+镜像备份。
+
+
+
+ a| 
+SnapManager_cDOT_Vault
+ a| 
+存储备份。
+
+|===

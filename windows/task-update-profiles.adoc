@@ -1,0 +1,105 @@
+---
+permalink: windows/task-update-profiles.html 
+sidebar: sidebar 
+keywords: update, profile, modify, password, backup, database, operate, system, authentication, information, host, oracle 
+summary: 您可以更新配置文件以修改配置文件密码，要保留的备份数，对数据库的访问，对数据库进行身份验证的操作系统（ OS ）身份验证（反之亦然）以及有关主机的信息。如果 Oracle 数据库密码信息发生更改，您还必须在配置文件中更改此信息。 
+---
+= 更新配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以更新配置文件以修改配置文件密码，要保留的备份数，对数据库的访问，对数据库进行身份验证的操作系统（ OS ）身份验证（反之亦然）以及有关主机的信息。如果 Oracle 数据库密码信息发生更改，您还必须在配置文件中更改此信息。
+
+
+
+== 关于此任务
+
+使用SnapManager (3.2或更高版本)、您可以使用`-separate -archivelog-backups`选项更新配置文件、以便将归档日志备份与数据文件备份分开。您可以为归档日志备份指定单独的保留期限。通过 SnapManager ，您可以将归档日志备份与联机数据库备份一起使用。您还可以同时创建联机数据文件备份和归档日志备份以进行克隆。创建联机数据文件备份时，系统会立即创建归档日志备份以及数据文件。
+
+.步骤
+. 输入以下命令：
++
+`* smsap profile update -profile _profile_[-new-profile _new_profile_name_](-profile-password _profile_password_）-database _-dbnamedb_dbname_-host _db_host_(-SID _db_sid_sID_])(-login -useredb_username-password _sd-snap-snap-snap-snap-snap-snap-name_) _email_address2_-subjects _subject_pattern_](-failure-email _email_address1_、_email_address2_-Subject _subject_Pattern_）](-separate -archivelog-backups-ret-archivelog-backups-hours _hours_)_(-days _days _)_)-周数_(包含-weeks_月)*-unline-dump backups_`
+
++
+此命令的其他选项如下：
+
++
+`强制`]`-nodprop`
+
++
+[`Quiet`|`verbose`]
+
++
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+* 更改配置文件中数据库备份的备份保留策略 *
+ a| 
+指定保留类的保留计数或保留期限，或者同时指定这两者以更改保留策略。持续时间以类的单位为单位（例如，小时表示每小时，天表示每天）。
+
+** `-每小时`是每小时保留类、其中、保留计数和保留持续时间分别为`-countn`、`-durationm`。
+** `-每日`是每日保留类、其保留计数和保留持续时间分别为`-countn`]`- durationm`。
+** `-每周`是每周保留类、其中、保留计数和保留期限分别为`-countn`、`-durationm`。
+** -monthly是每月保留类别、其保留计数和保留期限分别为`-countn`]`-durationm`]。
+
+
+
+
+ a| 
+* 为数据库操作的完成状态启用电子邮件通知 *
+ a| 
+指定以下选项和变量：
+
+** 使用`摘要通知`、您可以为存储库数据库下的多个配置文件配置摘要电子邮件通知。
+** 使用` notification`、您可以收到有关配置文件数据库操作完成状态的电子邮件通知。
+** `-success-emailemailemail_address2`可在使用新配置文件或现有配置文件成功执行数据库操作后接收电子邮件通知。
+** 使用`-failure-emailemailemail_address2`、您可以收到有关使用新配置文件或现有配置文件执行的数据库操作失败的电子邮件通知。
+** `-subjectsubject_text`指定创建新配置文件或现有配置文件时电子邮件通知的主题文本。如果未为存储库配置通知设置、而您正在尝试使用命令行界面(CLI)配置配置配置文件或摘要通知、则控制台日志中会记录以下消息：`sMSAP-145777：Notification Settings not configured`。
++
+如果您已配置通知设置、并且正在尝试使用命令行界面配置摘要通知、而不为存储库启用摘要通知、则控制台日志中会记录以下消息：`sMSAP-14575：summary notification configuration not available for this repository`
+
+
+
+
+
+ a| 
+* 更新配置文件以单独创建归档日志文件的备份 *
+ a| 
+指定以下选项和变量：
+
+** 使用`-separate-archivelog-backups`可以分别为归档日志文件和数据库文件创建备份。
++
+指定此选项后，您可以创建仅数据文件备份或仅归档文件备份。您不能创建完整备份。此外，不能通过分离备份来还原配置文件设置。SnapManager 会根据在仅执行归档日志备份之前创建的备份的保留策略保留这些备份。
+
+** `-retain-archivelog-backups`设置归档日志备份的保留期限。
++
+
+NOTE: 如果您是首次更新配置文件、则可以使用`-separate -archivelog-backups`选项将归档日志备份与数据文件备份分开；您必须使用`-retain-archivelog-backups`选项提供归档日志备份的保留期限。在稍后更新配置文件时，可以选择设置保留期限。
+
+** `-include-with -online backups`指定归档日志备份与数据库备份一起提供。
+** `-no-include-with -online backups`指定归档日志文件备份不随数据库备份一起提供。
+
+
+
+
+ a| 
+* 更改目标数据库的主机名 *
+ a| 
+指定`-hostnew_db_host`以更改配置文件的主机名。
+
+
+
+ a| 
+* 在执行配置文件更新操作后收集转储文件 *
+ a| 
+指定`-dump`选项。
+
+|===
+. 要查看更新后的配置文件、请输入以下命令：`smsap profile show`
+

@@ -1,0 +1,27 @@
+---
+permalink: windows/task-uninstall-the-software-from-a-windows-host.html 
+sidebar: sidebar 
+keywords: uninstall, snapmanager, host, server 
+summary: 您可以从主机服务器卸载 SnapManager 。 
+---
+= 卸载SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以从主机服务器卸载 SnapManager 。
+
+
+
+== 您将需要什么
+
+* 卸载 SnapManager 之前，请停止主机服务器。
+
+
+.步骤
+. 单击 * 开始 * > * 控制面板 * > * 添加或删除程序 * 。
+. 选择*适用于SAP*的SnapManager。
+. 单击 * 卸载 * 。
+

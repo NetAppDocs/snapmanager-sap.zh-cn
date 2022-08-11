@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/concept-what-repositories-are.html 
+sidebar: sidebar 
+keywords: snapmanager, organize, information, profile, repository, repositories, data 
+summary: SnapManager 会将信息组织到配置文件中，然后配置文件会与存储库关联。配置文件包含有关所管理数据库的信息，而存储库包含有关对配置文件执行的操作的数据。 
+---
+= 什么是存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 会将信息组织到配置文件中，然后配置文件会与存储库关联。配置文件包含有关所管理数据库的信息，而存储库包含有关对配置文件执行的操作的数据。
+
+存储库会记录备份的时间，备份的文件以及是否从备份创建了克隆。当数据库管理员还原数据库或恢复数据库的一部分时， SnapManager 会查询存储库以确定备份的内容。
+
+由于存储库会存储备份操作期间创建的数据库 Snapshot 副本的名称，因此存储库数据库不能位于同一数据库中，也不能位于 SnapManager 正在备份的同一数据库中。执行 SnapManager 操作时，必须至少启动并运行两个数据库（ SnapManager 存储库数据库和由 SnapManager 管理的目标数据库）。
+
+如果在存储库数据库关闭时尝试打开图形用户界面(GUI)、则在`sm_guy.log`文件中会记录以下错误消息：[warning]：`sMSAP-01106：查询存储库时出错：没有更多数据可从插槽`读取。此外，如果存储库数据库已关闭， SnapManager 操作将失败。有关不同错误消息的详细信息，请参见 _Troubleshooting Known Issages_ 。
+
+您可以使用任何有效的主机名，服务名称或用户名来执行操作。要使存储库支持 SnapManager 操作，存储库用户名和服务名称只能包含以下字符：字母字符（ A-Z ），数字（ 0-9 ），减号（ - ），下划线（ _ ）和句点（ . ）。
+
+存储库端口可以是任何有效的端口号，存储库主机名可以是任何有效的主机名。主机名必须包含字母字符（ A-Z ），数字（ 0-9 ），减号（ - ）和句点（ . ），但不能包含下划线（ _ ）。
+
+必须在 Oracle 数据库中创建存储库。SnapManager 使用的数据库应按照 Oracle 数据库配置过程进行设置。
+
+一个存储库可以包含有关多个配置文件的信息；但是，每个数据库通常只与一个配置文件相关联。您可以有多个存储库，每个存储库包含多个配置文件。

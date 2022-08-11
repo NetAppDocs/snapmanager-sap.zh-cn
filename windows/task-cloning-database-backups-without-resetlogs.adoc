@@ -1,0 +1,60 @@
+---
+permalink: windows/task-cloning-database-backups-without-resetlogs.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, flexible, cloning, clone, recover, database, resetlog, data, guard, standby 
+summary: 通过 SnapManager ，您可以执行灵活的克隆，以便可以手动将克隆的数据库恢复到所需的时间点，而无需使用重置日志打开数据库。您也可以手动将克隆的数据库配置为 Data Guard 备用数据库。 
+---
+= 克隆数据库备份而不重置日志
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以执行灵活的克隆，以便可以手动将克隆的数据库恢复到所需的时间点，而无需使用重置日志打开数据库。您也可以手动将克隆的数据库配置为 Data Guard 备用数据库。
+
+如果您可以在创建克隆时选择 -no-resetlogs 选项，则 SnapManager 将执行以下活动来创建克隆的数据库：
+
+. 在启动克隆操作之前，执行预处理任务活动（如果指定）
+. 使用用户指定的 SID 创建克隆的数据库
+. 执行对克隆的数据库发出的 SQL 语句。
++
+仅会成功执行可在挂载状态下执行的 SQL 语句。
+
+. 执行后处理任务活动（如果指定）。
+
+
+* 要手动恢复克隆的数据库，需要执行哪些任务 *
+
+. 使用挂载路径中的归档日志文件手动挂载归档日志备份并恢复克隆的数据库。
+. 执行手动恢复后，使用 -resetlogs 选项打开已恢复的克隆数据库。
+. 根据需要创建临时表空间。
+. 运行 DBNEWID 实用程序。
+. 为克隆的数据库的凭据授予 sysdba 权限。
+
+
+在使用 -no-resetlogs 选项克隆数据库备份时， SnapManager 会使克隆的数据库保持挂载状态，以便手动恢复。
+
+
+NOTE: 使用 -no-resetlogs 选项创建的克隆数据库不是完整的数据库。因此，您不能对此数据库执行任何 SnapManager 操作，但 SnapManager 不会限制您执行任何操作。
+
+如果未指定 -no-resetlogs 选项，则 SnapManager 将应用归档日志文件，并使用 resetlogs 打开数据库。
+
+.步骤
+. 输入以下命令：
++
+`smsap clone create -profileprofileprofileprofileprofile_name "-backup-labelbackup_name _-backup-idbackup_id _ current ]-newsidnew_sid-cloneseFull_path_to_clonesefile-no-resetlogs`
+
++
+如果您尝试同时指定-no-resetlogs和recovery-from-location选项、则SnapManager 不允许同时指定这两个选项、并显示错误消息：smsap-04084：You must specify one of the options：-no-resetlogs or -recovery-from-location。
+
+
+
+
+
+== 示例
+
+[listing]
+----
+smsap clone create -profile product -backup-label full_offline -newsid PROD_CLONE -clonespec prod_clonespec.xml -label prod_clone-reserve -no-reset-logs
+----

@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-protecting-database-backups-by-using-post-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, protect, database, backup, postscript, snapmirror, snapvault, establish, primary, secondary, storage, system, default, post-process, activity, cli, gui 
+summary: 在主存储系统和二级存储系统之间建立 SnapMirror 或 SnapVault 关系时，您可以通过 SnapManager 使用后脚本保护数据库备份。您可以从 SnapManager 命令行界面和 GUI 对备份操作的后处理活动使用默认后处理脚本。 
+---
+= 使用后脚本保护数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在主存储系统和二级存储系统之间建立 SnapMirror 或 SnapVault 关系时，您可以通过 SnapManager 使用后脚本保护数据库备份。您可以从 SnapManager 命令行界面和 GUI 对备份操作的后处理活动使用默认后处理脚本。
+
+您可以使用`default_install_directory\plugins\backup\create\post`中提供的以下默认后处理脚本：
+
+* 如果您使用的是在7-模式下运行的Data ONTAP 、则为SnapMirror后脚本`Mirror_the_backup.cmd`
+* 如果您使用的是在7-模式下运行的Data ONTAP 、则SnapVault postScript `Vault_the_backup.cmd`
+* SnapMirror后脚本`Mirror_the_backup_cDOT.cmd`(如果使用的是集群模式Data ONTAP)
+* 如果您使用的是集群模式Data ONTAP 、则SnapVault 后脚本`Vault_the_backup_cDOT.cmd`
+
+
+有关详细信息、请参见`default_install_directory\plugins`中的`reADME.txt`。
+
+SnapManager 3.1 或更早版本仅为克隆操作提供预处理或后处理脚本。SnapManager 3.2 或更高版本为备份和还原操作提供了预处理和后处理脚本。您可以使用这些脚本在备份或还原操作之前或之后运行。
+
+
+NOTE: 提供的脚本仅供参考。它们已通过适用于 Windows 的 SnapDrive 7.0 或更高版本的测试，但可能不适用于所有环境。您应根据二级保护要求自定义脚本。这些脚本不适用于 6.2 之前的 SnapDrive 版本。

@@ -1,0 +1,34 @@
+---
+permalink: windows/task-configure-history-for-backup-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, maintain, history, operation, cli, gui, history, operation, report, configure 
+summary: 通过SnapManager for SAP、您可以从SnapManager 命令行界面或图形用户界面维护SnapManager 操作历史记录。您可以报告形式查看 SnapManager 操作的历史记录。 
+---
+= 配置SnapManager 操作的历史记录
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过SnapManager for SAP、您可以从SnapManager 命令行界面或图形用户界面维护SnapManager 操作历史记录。您可以报告形式查看 SnapManager 操作的历史记录。
+
+.步骤
+. 要配置SnapManager 操作历史记录、请输入以下命令：
++
+``* smsap历史记录集-profile｛-name、_profile_name____profile_name1_、_profile_name2_]；_all_-repository -login (-password _repo_password_）-username _repo_username_-verbose name _repo_dbname_-host _repo_host_-port _repo_host_-port _unly_operation_name_________restaily_unly_unly_name___________________
+
+
+
+[listing]
+----
+
+        smsap
+history set -profile -name PROFILE1 -operation -operations backup -retain -daily 6 -verbose
+----
+[listing]
+----
+
+        smsap
+history set -profile -name PROFILE1 -operation -all -retain -weekly 3 -verbose
+----

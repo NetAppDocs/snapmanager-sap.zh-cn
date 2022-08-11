@@ -1,0 +1,21 @@
+---
+permalink: windows/task-assigning-backups-with-a-specific-retention-class.html 
+sidebar: sidebar 
+keywords: dba, retention, class, hourly, daily, weekly, monthly, backup, eligible, assign 
+summary: DBA 可以为备份分配特定的保留类，包括每小时，每天，每周或每月。分配特定保留类后，在此更改下执行的备份便可被删除。 
+---
+= 使用特定保留类分配备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+DBA 可以为备份分配特定的保留类，包括每小时，每天，每周或每月。分配特定保留类后，在此更改下执行的备份便可被删除。
+
+.步骤
+. 要分配特定的备份保留类、请输入以下命令：
++
+`smsap backup update -profileprofileprofile_name｛-labelLabel [data |-archivelogs]|-idd｝-retain (-hourly |-daily)_-weekly _-monthly ]`
+
+

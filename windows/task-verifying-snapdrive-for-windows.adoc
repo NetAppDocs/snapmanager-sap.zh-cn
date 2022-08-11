@@ -1,0 +1,29 @@
+---
+permalink: windows/task-verifying-snapdrive-for-windows.html 
+sidebar: sidebar 
+keywords: install, snapdrive, windows, snapshot, verify, create, copy 
+summary: 如果已安装 SnapDrive for Windows ，请在使用 SnapManager 之前验证是否可以创建 Snapshot 副本。 
+---
+= 验证 SnapDrive for Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果已安装 SnapDrive for Windows ，请在使用 SnapManager 之前验证是否可以创建 Snapshot 副本。
+
+. 从开始菜单中，右键单击 * 我的电脑 * ，然后选择 * 管理 * 。
+. 在计算机管理窗口中，单击 * 存储 * > * SnapDrive * 。
+. 选择一个磁盘。
++
+有关使用 SnapDrive 的详细信息，请参见 _Windows SnapDrive 安装和管理指南 _ 。
+
++
+如果您已成功找到 SnapDrive 产品的磁盘信息，则 SnapDrive 工作正常。
+
+
+
+* 相关信息 *
+
+http://support.netapp.com/documentation/productsatoz/index.html["_SnapDrive for Windows Installation and Administration Guide_: [mysupport.netapp.com/documentation/productsatoz/index.html\](https://mysupport.netapp.com/documentation/productsatoz/index.html)"]

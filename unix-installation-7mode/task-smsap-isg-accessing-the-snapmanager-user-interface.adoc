@@ -1,0 +1,48 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-access-the-snapmanager-user-interface.html 
+sidebar: sidebar 
+keywords: access, snapmanager, user, interface, ui, web, browser, system, run, operating, system, support, target, database, host, run, smsapgui, command 
+summary: 您可以从 SnapManager 支持的操作系统上运行的任何系统使用 Web 浏览器远程访问 SnapManager 用户界面（ UI ）。您也可以通过运行smsapgui命令从目标数据库主机访问SnapManager UI。 
+---
+= 访问SnapManager 用户界面
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以从 SnapManager 支持的操作系统上运行的任何系统使用 Web 浏览器远程访问 SnapManager 用户界面（ UI ）。您也可以通过运行`smsapgui`命令从目标数据库主机访问SnapManager UI。
+
+* 您需要的内容 *
+
+* 您必须确保 SnapManager 正在运行。
+* 您必须确保要访问 SnapManager UI 的系统上安装了受支持的操作系统和 Java 。
++
+有关支持的操作系统和 Java 的信息，请参见互操作性表工具。
+
+
+
+.步骤
+. 在 Web 浏览器窗口中，输入以下内容：
++
+`*\https://server_name.domain.com:port_number*`
+
++
+** ` server_name_`是安装了SnapManager 的目标数据库主机的名称。
+
+
++
+您还可以输入目标数据库主机的 IP 地址。
+
++
+** ` port_number_`是运行SnapManager 的端口。
++
+默认值为 272.14 。
+
+
+
+. 单击*启动SnapManager for SAP*链接。
++
+此时将显示SnapManager for SAP UI。
+
+

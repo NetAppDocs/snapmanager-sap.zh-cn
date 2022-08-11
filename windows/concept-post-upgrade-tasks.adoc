@@ -1,0 +1,17 @@
+---
+permalink: windows/concept-post-upgrade-tasks.html 
+sidebar: sidebar 
+keywords: upgrade, version, snapmanager, update, exist, repository, modify, backup, retention, class, assign, post-upgrade, task 
+summary: 升级到更高版本的 SnapManager 后，您必须更新现有存储库。您可能还需要修改分配给现有备份的备份保留类。 
+---
+= 升级后任务
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+升级到更高版本的 SnapManager 后，您必须更新现有存储库。您可能还需要修改分配给现有备份的备份保留类。
+
+
+NOTE: 升级到SnapManager 3.3或更高版本后、如果要使用数据库(DB)身份验证作为唯一的身份验证方法、则需要将`_sqlnet.authentication_services_`设置为*无*。RAC 数据库不支持此功能。

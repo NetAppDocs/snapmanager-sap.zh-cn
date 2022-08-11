@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/task-destroy-split-clone-and-associated-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, destroy, profile, associate, split, clone, database, storage, remove. backup 
+summary: 通过 SnapManager ，您可以销毁与拆分克隆（数据库）关联的配置文件以及底层存储。在销毁此配置文件之前，请确保删除关联的备份和克隆。 
+---
+= 销毁配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以销毁与拆分克隆（数据库）关联的配置文件以及底层存储。在销毁此配置文件之前，请确保删除关联的备份和克隆。
+
+.步骤
+. 要销毁使用拆分克隆操作创建的配置文件以及拆分克隆数据库、请输入以下命令：
++
+`* smsap profile destroy -profileprofile "-host _hostname_](-quiet |-verbose)*`
+
+
+
+'''
+[listing]
+----
+smsap profile destroy -profile AUTO-REVEN
+----
+'''

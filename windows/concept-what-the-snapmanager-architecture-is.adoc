@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-what-the-snapmanager-architecture-is.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, architecture, component, host, client, repository, primary, secondary, storage, system, netapp, product, architecture 
+summary: SnapManager for SAP架构包含许多组件、例如SnapManager for SAP主机、客户端和存储库。其他组件包括主存储系统和二级存储系统以及其他 NetApp 产品。 
+---
+= 什么是适用于SAP的SnapManager 架构
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager for SAP架构包含许多组件、例如SnapManager for SAP主机、客户端和存储库。其他组件包括主存储系统和二级存储系统以及其他 NetApp 产品。
+
+SnapManager for SAP架构包括以下架构组件：
+
+* SnapManager 主机
+* SnapManager 图形用户界面或命令行界面
+* SnapManager 存储库
+* SnapManager for SAP BACKINT接口
+* 主存储系统
+* 二级存储系统
+* 适用于 Windows 的 SnapDrive
+
+
+下图显示了SnapManager for SAP的架构以及相关组件：
+
+image::../media/scrn_en_drw_smsap_architecture.gif[适用于Oracle的SnapManager 架构]

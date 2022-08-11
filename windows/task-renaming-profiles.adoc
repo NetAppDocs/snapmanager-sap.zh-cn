@@ -1,0 +1,41 @@
+---
+permalink: windows/task-renaming-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, rename, profile, update, capabilities, capability, perform, renaming, retain 
+summary: 通过 SnapManager ，您可以在更新配置文件时重命名此配置文件。在配置文件上设置的 SnapManager 功能以及重命名前可以执行的操作会保留给重命名的配置文件。 
+---
+= 正在重命名配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以在更新配置文件时重命名此配置文件。在配置文件上设置的 SnapManager 功能以及重命名前可以执行的操作会保留给重命名的配置文件。
+
+* 重命名配置文件时，必须确保此配置文件不运行任何 SnapManager 操作。
+
+
+您可以从 SnapManager 命令行界面（ CLI ）和图形用户界面（ GUI ）重命名配置文件。更新配置文件时， SnapManager 会验证并更新存储库中的配置文件名称。
+
+
+NOTE: SnapManager 不支持在多配置文件更新窗口中重命名配置文件。
+
+提供新的配置文件名称后，新的配置文件名称将添加到客户端凭据缓存中，而先前的配置文件名称将被删除。从客户端重命名配置文件时，仅会更新该客户端的凭据缓存。您需要从每个客户端执行smsap profile sync命令、以使用新配置文件名称更新新的凭据缓存。
+
+您可以使用smsap credential set命令设置配置文件的密码。
+
+如果配置文件名称包含在 Snapshot 副本命名模式中，则在重命名配置文件时，配置文件的新名称将会更新。对配置文件执行的所有 SnapManager 操作都使用新的配置文件名称。使用早期配置文件创建的备份仍使用早期配置文件名称，并用于执行其他 SnapManager 操作。
+
+如果要对 SnapManager 服务器主机执行滚动升级，则必须确保在重命名配置文件之前执行完整升级。
+
+配置文件的新名称仅从发出请求的 SnapManager 客户端更新。连接到 SnapManager 服务器的 SnapManager 客户端不会收到配置文件名称更改的通知。您可以检查操作日志以了解配置文件名称的更改。
+
+
+NOTE: 如果计划的备份操作在重命名配置文件时开始，则计划的操作将失败。
+
+. 输入以下命令：
++
+`smsap profile update -profileprofile [-new-profilenew_profile_name]`
+
+

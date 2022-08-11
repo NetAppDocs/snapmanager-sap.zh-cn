@@ -1,0 +1,19 @@
+---
+permalink: windows/task-verify-the-snapmanager-windows-host-server-status.html 
+sidebar: sidebar 
+keywords: server, run, execute, command, initiate, snapmanager, operation, verify, status, host 
+summary: 要执行命令或启动 SnapManager 操作，服务器必须正在运行。在执行任何操作之前，您必须验证服务器的状态。 
+---
+= 验证SnapManager 主机服务器状态
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要执行命令或启动 SnapManager 操作，服务器必须正在运行。在执行任何操作之前，您必须验证服务器的状态。
+
+.步骤
+. 在服务窗口中、为SAP选择SnapManager 3.3。
+. 在状态列中查看状态。
+

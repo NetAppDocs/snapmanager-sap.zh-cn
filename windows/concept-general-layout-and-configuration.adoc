@@ -1,0 +1,41 @@
+---
+permalink: windows/concept-general-layout-and-configuration.html 
+sidebar: sidebar 
+keywords: information, recommend, general, database, layout, storage, configuration, issue, disk, group, file, type, tablespace 
+summary: 您可以找到有关建议的常规数据库布局和存储配置的信息，以避免与磁盘组，文件类型和表空间相关的问题。 
+---
+= 常规布局和配置
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到有关建议的常规数据库布局和存储配置的信息，以避免与磁盘组，文件类型和表空间相关的问题。
+
+* 请勿在数据库中包含多种类型的 SAN 文件系统中的文件。
++
+构成数据库的所有文件必须位于同一类型的文件系统上。
+
+* SnapManager 需要 4 k 块大小的倍数。
+
+
+以下是卷分隔的一些准则：
+
+* 卷中只能包含一个数据库的数据文件。
+* 以下每个文件分类都必须使用单独的卷：数据库二进制文件，数据文件，联机重做日志文件，归档重做日志文件和控制文件。
+* 您无需为临时数据库文件创建单独的卷，因为 SnapManager 不会备份临时数据库文件。
+
+
+SAP使用标准布局安装Oracle数据库。在此布局中、SAP将Oracle控制文件的副本放置在`E：\oracle\sid\origlogA、E：\oracle\sid\origlogB和E：\oracle\sid\sapdata1 file systems`中。
+
+
+NOTE: 由于BR*工具备份包含Oracle和SAP配置文件、这些配置文件位于Oracle安装的数据库子目录中、因此Oracle安装必须位于存储上。
+
+如果是新安装、则可以使用SAPINST修改控制文件的位置、并将通常放置在sapdata1文件系统中的控制文件移动到与数据文件不位于同一卷中的文件系统。(SAPINST是SAP用于安装SAP系统的工具。)
+
+有关详细信息、请参见_SAP最佳实践SnapManager。
+
+* 相关信息 *
+
+http://media.netapp.com/documents/tr-3823.pdf["SnapManager for SAP最佳实践：media.netapp.com/documents/tr-3823.pdf"^]

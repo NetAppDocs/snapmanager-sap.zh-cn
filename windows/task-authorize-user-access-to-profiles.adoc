@@ -1,0 +1,21 @@
+---
+permalink: windows/task-authorize-user-access-to-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, set, password, unauthorized, access, authorize, profile 
+summary: 使用 SnapManager 可以为配置文件设置密码，以防止未经授权的访问。 
+---
+= 授权对配置文件的访问
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以为配置文件设置密码，以防止未经授权的访问。
+
+.步骤
+. 输入以下命令：
++
+`* smsap凭据集-profile -name _profile_name_[-password _password_]*`
+
+

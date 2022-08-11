@@ -1,0 +1,26 @@
+---
+permalink: unix-administration/concept-what-autosupport-is.html 
+sidebar: sidebar 
+keywords: autosupport, enable, feature, snapmanager, server, storage, system, operation 
+summary: 通过 AutoSupport 功能， SnapManager 服务器可以在备份操作完成后向存储系统发送 AutoSupport 消息。 
+---
+= 什么是 AutoSupport
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 AutoSupport 功能， SnapManager 服务器可以在备份操作完成后向存储系统发送 AutoSupport 消息。
+
+
+NOTE: SnapManager 仅会为成功的备份操作发送 AutoSupport 消息。
+
+您可以通过为`smsap.config`配置文件中的`auto_support.on`配置参数分配以下值来启用或禁用AutoSupport ：
+
+* `* true *`—启用AutoSupport
+* `* false *`—禁用AutoSupport
+
+
+
+NOTE: 默认情况下， AutoSupport 在 SnapManager 中处于启用状态。

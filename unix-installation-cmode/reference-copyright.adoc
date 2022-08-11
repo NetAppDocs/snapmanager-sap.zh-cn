@@ -1,0 +1,25 @@
+---
+permalink: unix-installation-cmode/reference-copyright.html 
+sidebar: sidebar 
+keywords: copyright, information 
+summary: Copyright information 
+---
+= Copyright information
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+版权所有 © 1994--2017 NetApp ， Inc. 。保留所有权利。Printed in the U.S.
+
+版权所涵盖的本文档的任何部分不得以任何形式或任何方式复制，包括图像，电子或机械，包括影印，录制， 在未经版权所有者事先书面许可的情况下，在电子检索系统中粘贴或存储。
+
+Software derived from copyrighted NetApp material is subject to the following license and disclaimer:
+
+THIS SOFTWARE IS PROVIDED BY NETAPP "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, WHICH ARE HEREBY DISCLAIMED.IN NO EVENT SHALL NETAPP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+NetApp reserves the right to change any products described herein at any time, and without notice.NetApp assumes no responsibility or liability arising from the use of products described herein, except as expressly agreed to in writing by NetApp.The use or purchase of this product does not convey a license under any patent rights, trademark rights, or any other intellectual property rights of NetApp.
+
+The product described in this manual may be protected by one or more U.S.patents, foreign patents, or pending applications.
+
+RESTRICTED RIGHTS LEGEND: Use, duplication, or disclosure by the government is subject to restrictions as set forth in subparagraph (c)(1)(ii) of the Rights in Technical Data and Computer Software clause at DFARS 252.277-7103 (October 1988) and FAR 52-227-19 (June 1987).

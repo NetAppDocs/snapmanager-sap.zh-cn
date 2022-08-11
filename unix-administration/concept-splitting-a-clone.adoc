@@ -1,0 +1,31 @@
+---
+permalink: unix-administration/concept-splitting-a-clone.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, split, manage, clone, exist, flexclone, technology, data, block, database 
+summary: 通过 SnapManager ，您可以拆分和管理使用 FlexClone 技术创建的现有克隆。在 FlexClone 技术中，克隆和原始数据库共享相同的物理数据块。 
+---
+= 拆分克隆
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以拆分和管理使用 FlexClone 技术创建的现有克隆。在 FlexClone 技术中，克隆和原始数据库共享相同的物理数据块。
+
+在执行克隆拆分操作之前，您可以知道要拆分的克隆的估计大小以及聚合上所需的可用空间。
+
+如果克隆拆分操作成功， SnapManager 将生成一个新的配置文件。如果 SnapManager 无法创建新配置文件，您可以手动创建新配置文件。您可以使用新配置文件创建数据库备份，还原数据和创建克隆。如果克隆拆分操作成功，无论是否创建新配置文件，克隆相关元数据都会从存储库数据库中删除。
+
+您可以执行以下与拆分克隆相关的任务：
+
+* 查看克隆拆分估计值。
+* 拆分主存储上的克隆。
+* 拆分二级存储上的克隆。
+* 查看克隆拆分操作状态。
+* 停止克隆拆分操作。
+* 销毁此配置文件以及底层存储。
+* 删除为拆分克隆创建的配置文件。
+
+
+从克隆的父卷拆分克隆时，与克隆的卷关联的 Snapshot 副本将被删除。无法使用在克隆拆分过程之前为克隆的数据库创建的备份，因为这些备份的 Snapshot 副本会被删除，并且备份会在存储库中保留为陈旧条目。

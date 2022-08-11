@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/concept-restoring-a-backup-from-secondary-storage-to-a-different-location.html 
+sidebar: sidebar 
+keywords: brrestore, smsap, restore, command, secondary, backup, location, host, snapmanager, restoring 
+summary: 您可以使用BRRESTORE或smsap restore命令将二级备份还原到其他位置。新主机还必须运行SnapManager。 
+---
+= 将备份从二级存储还原到其他位置
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`BRRESTORE`或`smsap restore`命令将二级备份还原到其他位置。新主机还必须运行SnapManager。
+
+您必须在`initsid.utl`文件中设置`preferred_backup_locations`和`restore_from_nated_backup_location`参数、才能将二级备份还原到所需位置。
+
+. 编辑`initsid.utl`文件。
+. 在文件中添加`preferred_backup_locations`和`restore_from_nated_backup_location`。
++
+
+NOTE: `preferred_backup_locations` environment变量会覆盖为initsid.utl文件中的`preferred_backup_locations`参数设置的值。
+
+
+
+[NOTE]
+====
+* 如果`preferred_backup_locations`的值与任何保护策略节点名称不匹配、并且`restore_from_nated_backup_location`设置为`* No*`、则操作将失败。
+* 如果未设置`preferred_backup_locations`的值或`restore_from_nated_backup_location`设置为`*是*`、则可以从最近的备份位置执行还原操作。
+
+
+====

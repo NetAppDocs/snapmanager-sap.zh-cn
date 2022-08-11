@@ -1,0 +1,115 @@
+---
+permalink: windows/task-downloading-and-starting-the-graphical-user-interface-using-java-web-start-windows.html 
+sidebar: sidebar 
+keywords: java, web, start, snapmanager, install, host, download, graphical, user, interface, gui, jre 
+summary: '如果主机上未安装 SnapManager ，则可以使用 Java Web Start 。Java Web Start将下载SnapManager 组件并启动图形用户界面(图形用户界面)。支持的 JRE 版本为 1.5 ， 1.6 和 1.7 。' 
+---
+= 使用 Java Web Start 下载并启动图形用户界面
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果主机上未安装 SnapManager ，则可以使用 Java Web Start 。Java Web Start 将下载 SnapManager 组件并启动图形用户界面（ GUI ）。支持的 JRE 版本为 1.5 ， 1.6 和 1.7 。
+
+您必须确保满足以下条件：
+
+* SnapManager 服务器正在运行。
+* 此时将打开 Web 浏览器窗口。
++
+.. 在 Microsoft Internet Explorer Web 浏览器窗口中，输入 https://smsap-server.domain.com:port[]。
++
+smsap-server.domain.com是安装SnapManager 的完全限定主机名和域、port是SnapManager 服务器的侦听端口(默认为27314)。
+
++
+
+NOTE: 您必须在浏览器窗口中输入 https 。
+
++
+显示消息 There is a problem with the site's security certificate" ...Do you want to proceed ？将显示
+
+.. 单击 * 是 * 或 * 继续 * 。
+.. 单击标记为 Click here to download and install JRE 6.0 and the application 的链接。
++
+标记为 Download Java Web Start 的链接，并显示消息 This site might requireed the following ActiveX control ： Java Plug-in 1.6"... " 此时将显示 Click here to install 。
+
+.. 在安装窗口中，执行以下步骤：
++
+... 单击标记为 Click here to install... 的消息
++
+此时将显示一个 * 安装 Active X Control* 菜单。
+
+... 选择 * 安装 Active X Control...* 。
++
+包含以下文本的消息 Internet Explorer - Security Warning ： "Do you want to install this software ？名称：此时将显示 Java 插件 1.6 。
+
+... 单击 * 安装 * 。
++
+此时将显示一个 "Java Plug-in 1.6." 窗口，用于安装 J2SE Runtime Environment 1.6 。
+
+... 单击 * 安装 * 。
+
+
++
+此时将显示一个窗口，要求您安装 J2SE Runtime Environment 1.6 。
+
+.. 在安装窗口中，执行以下步骤：
++
+... 在 License Agreement 页面上，选择 * 我接受许可协议中的条款 * ，然后单击 * 下一步 * 。
+... 在设置类型页面上，选择 * 典型 * 并单击 * 下一步 * 。
+... 在安装完成窗口中，单击 * 完成 * 。
++
+SnapManager 开始下载。
+
+
+
++
+出现文件下载对话框，并显示消息是否要保存此文件？此时将显示 application.jnlp 。
+
+.. 在文件下载窗口中，执行以下步骤：
++
+... 在 Windows 客户端上安装最新版本的 JRE 1.6 。
+... 运行以下命令验证是否已安装Java：`java -version`
++
+输出应指示 Java 版本 1.6.0_24 （即 Java 1.6 ）或更高版本。
+
+... 使用 Java Web Start Launcher 程序将 Windows 配置设置更改为始终打开扩展名为 jnlp 的文件。
++
+更改 Windows 配置设置的步骤因所使用的 Windows 版本而异。
+
+... 输入您在步骤 1 中指定的 SnapManager URL 。
+
+
+
+
++
+此时将在 Windows 客户端上开始下载 SnapManager ，并显示警告 - 安全对话框。
+
++
+.. 执行以下步骤：
++
+消息内容和按钮标签因平台而异。
+
++
+... 在警告 - 安全性对话框中，单击 * 是 * 。
++
+此时将显示一个对话框。
+
+... 在主机名不匹配对话框中，单击 * 运行 * 。
++
+此时将显示警告 - 安全性对话框，其中包含有关 SnapManager 应用程序签名的消息。
+
+... 单击 * 运行 * 。
++
+标题为 "Java 安装程序 - 安全警告 " 的对话框以及消息警告安全性 - 应用程序的数字签名存在错误。是否要运行此应用程序，将显示。
+
+... 单击 * 运行 * 。
++
+浏览器将下载并启动适用于SAP GUI的SnapManager。
+
+
+
+
+
+

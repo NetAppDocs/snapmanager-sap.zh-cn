@@ -1,0 +1,57 @@
+---
+permalink: unix-administration/concept-workflow-summary-for-local-and-secondary-database-backup.html 
+sidebar: sidebar 
+keywords: dba, snapmanager, storage, administrator, netapp, management, console, data, protection, capability, local, backup, protect, database, target, workflow, summary, local, secondary, backup 
+summary: 在此示例中， DBA （使用 SnapManager ）和存储管理员（使用 NetApp 管理控制台数据保护功能）会协调相关操作，以配置目标数据库的本地备份和二级备份（也称为受保护备份）。 
+---
+= 本地和二级数据库备份的工作流摘要
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在此示例中， DBA （使用 SnapManager ）和存储管理员（使用 NetApp 管理控制台数据保护功能）会协调相关操作，以配置目标数据库的本地备份和二级备份（也称为受保护备份）。
+
+执行的操作顺序总结如下：
+
+* * 二级资源池配置 *
++
+存储管理员可使用 NetApp 管理控制台数据保护功能在二级站点上配置存储系统的资源池，以用于存储薪资数据库备份。
+
+* * 二级备份计划 *
++
+存储管理员使用 NetApp 管理控制台数据保护功能配置二级备份计划。
+
+* * 保护策略配置 *
++
+存储管理员使用 NetApp 管理控制台数据保护功能为目标数据库配置二级备份保护策略。此保护策略包括计划并指定实施备份保护（备份，镜像或两者的组合）的基本保护类型，以及主数据节点，二级存储节点，有时还包括三级存储节点的名称保留策略。
+
+* * 数据库配置文件配置和保护策略分配 *
++
+DBA 使用 SnapManager 创建或编辑支持二级备份的目标数据库的配置文件。配置配置配置文件时， DBA 会：
+
++
+** 为二级存储启用备份保护。
+** 将在 NetApp 管理控制台数据保护功能中创建并检索到的新保护策略分配给此配置文件。
++
+分配保护策略时，会自动将目标数据库包含在部分配置但不符合 NetApp 管理控制台数据保护功能数据集中。完全配置后，数据集配置可将目标数据库备份到二级存储。
+
++
+数据集名称使用以下语法：`_smsap_hostname_databasename_`、该语法转换为smsap_prod01.sample.com_p01"。
+
+
+
+* * 二级和三级存储配置 *
++
+存储管理员可以使用 NetApp 管理控制台数据保护功能分配资源池来配置二级存储节点，有时还可以配置三级存储节点（如果分配的保护策略指定三级存储节点）。
+
+* * 在本地存储上备份 *
++
+DBA 将打开配置文件并在 SnapManager 中启用保护，然后创建到本地存储的完整备份。新备份在 SnapManager 中显示为已计划保护，但尚未受到保护。
+
+* * 二级备份确认 *
++
+由于备份基于启用了保护的配置文件，因此备份将根据保护策略的计划传输到二级系统。DBA 使用 SnapManager 确认将备份传输到二级存储。将备份复制到二级存储后， SnapManager 会将备份保护状态从 " 未受保护 " 更改为 " 受保护 " 。
+
+

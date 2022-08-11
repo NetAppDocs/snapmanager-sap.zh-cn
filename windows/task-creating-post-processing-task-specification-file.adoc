@@ -1,0 +1,22 @@
+---
+permalink: windows/task-creating-post-processing-task-specification-file.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, post-processing, task-specification, xml, file, operation, snapmirror, snapvault, post-script, backup, secondary, storage, creating 
+summary: 通过 SnapManager ，您可以为备份操作创建后处理，任务规范的 XML 文件，其中包括 SnapMirror 或 SnapVault 后脚本。通过这些脚本，您可以将备份镜像或存储到二级存储。 
+---
+= 创建后处理，任务规范文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以为备份操作创建后处理，任务规范的 XML 文件，其中包括 SnapMirror 或 SnapVault 后脚本。通过这些脚本，您可以将备份镜像或存储到二级存储。
+
+. 打开新的 XML 文件。
++
+您可以在 default_install_directory\plugins\examples 查看任务规范 XML 文件示例。
+
+. 将脚本名称添加为输入参数。
+. 保存任务规范 XML 文件。
+

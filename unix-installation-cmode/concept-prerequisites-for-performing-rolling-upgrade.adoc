@@ -1,0 +1,50 @@
+---
+permalink: unix-installation-cmode/concept-prerequisites-for-performing-rolling-upgrade.html 
+sidebar: sidebar 
+keywords: perform, roll, upgrade, ensure, environment, certain, requirement, prerequisite 
+summary: 在执行滚动升级之前，您必须确保您的环境满足特定要求。 
+---
+= 执行滚动升级的前提条件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在执行滚动升级之前，您必须确保您的环境满足特定要求。
+
+* 如果您使用的是 SnapManager 3.1 之前的任何版本，并且希望滚动升级到 SnapManager 3.3 或更高版本，则需要先升级到 3.2 ，然后再升级到最新版本。
++
+您可以直接从 SnapManager 3.2 升级到 SnapManager 3.3 或更高版本。
+
+* 必须备份用于执行任何外部数据保护或数据保留的外部脚本。
+* 必须安装要升级到的 SnapManager 版本。
++
+
+NOTE: 如果要从 SnapManager 3.1 之前的任何版本升级到 SnapManager 3.3 或更高版本，则必须先安装 SnapManager 3.2 并执行滚动升级。升级到 3.2 后，您可以安装 SnapManager 3.3 或更高版本，并再次滚动升级到 SnapManager 3.3 或更高版本。
+
+* 必须安装要升级到的 SnapManager 版本支持的 SnapDrive for UNIX 版本。
++
+SnapDrive 文档包含有关安装 SnapDrive 的详细信息。
+
+* 必须备份存储库数据库。
+* SnapManager 存储库利用率应为最小值。
+* 如果要升级的主机正在使用存储库，则不能对使用同一存储库的其他主机执行 SnapManager 操作。
++
+在其他主机上计划或运行的操作将等待滚动升级完成。
+
++
+
+NOTE: 建议您在存储库最不繁忙的情况下执行滚动升级，例如周末或未计划操作。
+
+* 指向同一存储库数据库的配置文件必须在 SnapManager 服务器主机中使用不同的名称创建。
++
+如果使用同名配置文件，则涉及该存储库数据库的滚动升级将失败，并且不会发出警告。
+
+* 不得对要升级的主机执行 SnapManager 操作。
+
+
+
+NOTE: 随着要升级的主机的备份数量一起增加，滚动升级运行时间会延长。升级的持续时间可能因与给定主机关联的配置文件和备份数量而异。
+
+http://mysupport.netapp.com/["NetApp 支持站点上的文档： mysupport.netapp.com"^]

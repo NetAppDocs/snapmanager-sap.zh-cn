@@ -1,0 +1,43 @@
+---
+permalink: windows/reference-the-smosmsapprofile-show-command.html 
+sidebar: sidebar 
+keywords: run, profile, command, display, information, smsap 
+summary: 您可以运行 profile show 命令来显示有关配置文件的信息。 
+---
+= smsap profile show命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`profile show`命令来显示有关配置文件的信息。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap profile show
+-profile profile_name
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定配置文件的名称。此名称最长为 30 个字符，并且在主机中必须是唯一的。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+

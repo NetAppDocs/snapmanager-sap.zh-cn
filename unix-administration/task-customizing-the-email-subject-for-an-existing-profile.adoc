@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/task-customize-the-email-subject-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, customize, email, subject, pattern, exist, profile, updating, update, applicable, update, customizing 
+summary: 通过 SnapManager ，您可以通过更新现有配置文件来自定义该配置文件的电子邮件主题模式。此自定义主题模式仅适用于更新后的配置文件。 
+---
+= 自定义现有配置文件的电子邮件主题
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以通过更新现有配置文件来自定义该配置文件的电子邮件主题模式。此自定义主题模式仅适用于更新后的配置文件。
+
+.步骤
+. 输入以下命令：
++
+`* smsap profile update -profile _profile_-file_-file_username_-password _dbname _db_dbname_-host _db_host_(-SID _db_sid_）[-login -username _db_username_-password _nsd_password_-port _db_port_](｛-rm_host_unusername)____sms__unusername_______sn__sn_sms______smsn_______smi___sport________sport___________sm_smi___________sport___smi__sport_______________________sport_______smi_________ `每月一个月的时间(-count _n_]个持续时间_m_m_]）、(-comment _comment_）、(-snapname-pattern _pattern_）、(-protect (-protection-policy _policy_name_）、(-noprotection]）、(-nonononononotification (-success电子邮件_email_address1、email_address2_-Subject _ject_pattern_unle_unic_unuse_)、电子邮件地址
+
+
+
+'''
+以下示例显示了电子邮件主题模式：
+
+[listing]
+----
+
+smsap profile update -profile sales1 -profile-password sales1 -repository -dbname repo2 -host 10.72.197.133 -port 1521 -login -username admin2 -database -dbname DB1 -host 10.72.197.142 -sid DB1
+-osaccount oracle -osgroup dba -profile-notification -success -email admin@org.com -subject {profile}_{operation-name}_{db-sid}_{db-host}_{start-date}_{end-date}_{status}
+----
+'''

@@ -1,0 +1,77 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-list-command.html 
+sidebar: sidebar 
+keywords: run, backup, list, command, display, information, profile, information, status, retention, class, smsap 
+summary: 您可以运行 backup list 命令以显示有关配置文件中备份的信息，包括有关保留类和保护状态的信息。 
+---
+= smsap backup list命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup list`命令以显示有关配置文件中备份的信息、包括有关保留类和保护状态的信息。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup list
+-profile _profile_name_
+-delimiter _character_
+[-data | -archivelogs | -all]]
+[-quiet | -verbose]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定要列出备份的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* `*-分隔符*`
++
+在单独的行上显示每行。行中的属性以指定的字符分隔。
+
+* `*-数据*`
++
+指定数据文件。
+
+* `*—archivelogs*`
++
+指定归档日志文件。
+
+* `*-静默*`
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台中显示错误，警告和信息性消息。包括`-verbose`选项以显示备份ID。——
+
+
+
+
+
+== 示例
+
+以下示例列出了 SALES1 配置文件的备份：
+
+[listing]
+----
+smsap backup list -profile SALES1 -verbose
+Start Date          Status  Scope  Mode    Primary  Label      Retention   Protection
+------------------- ------- ------ ------- -------- -----      --------    ----------
+2007-08-10 14:31:27 SUCCESS FULL   ONLINE  EXISTS   backup1    DAILY       PROTECTED
+2007-08-10 14:12:31 SUCCESS FULL   ONLINE  EXISTS   backup2    HOURLY      NOT PROTECTED
+2007-08-10 10:52:06 SUCCESS FULL   ONLINE  EXISTS   backup3    HOURLY      PROTECTED
+2007-08-05 12:08:37 SUCCESS FULL   ONLINE  EXISTS   backup4    UNLIMITED   NOT PROTECTED
+2007-08-05 09:22:08 SUCCESS FULL   OFFLINE EXISTS   backup5    HOURLY      PROTECTED
+2007-08-04 22:03:09 SUCCESS FULL   ONLINE  EXISTS   backup6    UNLIMITED   NOT REQUESTED
+2007-07-30 18:31:05 SUCCESS FULL   OFFLINE EXISTS   backup7    HOURLY      PROTECTED
+----
+'''

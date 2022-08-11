@@ -1,0 +1,16 @@
+---
+permalink: windows/concept-verify-backup-status.html 
+sidebar: sidebar 
+keywords: snapmanager, integrity, backup, standard, oracle, verification, operation, verify, status 
+summary: SnapManager 可以使用标准 Oracle 备份验证操作来确认备份的完整性。 
+---
+= 验证备份状态
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 可以使用标准 Oracle 备份验证操作来确认备份的完整性。
+
+数据库管理员（ Database Administrator ， DBA ）可以在备份操作期间或在其他时间执行验证。DBA 可以将验证操作设置为在主机服务器上的负载较小的非高峰时间或计划的维护时段执行。

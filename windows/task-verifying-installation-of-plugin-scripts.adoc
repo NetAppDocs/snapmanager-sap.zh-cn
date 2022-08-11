@@ -1,0 +1,43 @@
+---
+permalink: windows/task-verifying-installation-of-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, install, custom, script, operation, backup, restore, operation, automate, clone, verify, plug-in 
+summary: 通过 SnapManager ，您可以安装和使用自定义脚本执行各种操作。SnapManager 提供了用于备份，还原和克隆操作的插件，您可以使用这些插件在备份，还原和克隆操作前后自动执行自定义脚本。 
+---
+= 验证插件脚本的安装
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以安装和使用自定义脚本执行各种操作。SnapManager 提供了用于备份，还原和克隆操作的插件，您可以使用这些插件在备份，还原和克隆操作前后自动执行自定义脚本。
+
+. 输入以下命令：
++
+`smsap plugin check -osaccount操作系统数据库用户名`
+
++
+如果不提供 -osaccount 选项，则会为管理员而不是指定的用户验证插件脚本安装。
+
++
+以下输出指示已成功安装 policy1 ， pre-plugin1 和 pre-plugin2 脚本。但是，后插件 1 脚本无法运行。
+
++
+[listing]
+----
+
+            smsap plugin check
+Checking plugin directory structure ...
+<installdir>\plugins\clone\policy
+   OK: 'policy1' is executable
+
+<installdir>\plugins\clone\pre
+   OK: 'pre-plugin1' is executable and returned status 0
+   OK: 'pre-plugin2' is executable and returned status 0
+
+<installdir>\plugins\clone\post
+   ERROR: 'post-plugin1' is executable and returned status 3
+Command complete.
+----
+

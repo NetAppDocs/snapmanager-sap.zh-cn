@@ -1,0 +1,37 @@
+---
+permalink: windows/task-creating-oracle-users-for-the-repository-database.html 
+sidebar: sidebar 
+keywords: create, oracle, user, repository, database, assign, privilege, operation, creating 
+summary: 您可以为存储库数据库创建 Oracle 用户，并分配特定权限来对存储库数据库执行不同的操作。 
+---
+= 为存储库数据库创建 Oracle 用户
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以为存储库数据库创建 Oracle 用户，并分配特定权限来对存储库数据库执行不同的操作。
+
+您必须为 Oracle 用户分配连接和资源权限。您不必为具有 sysdba 权限的存储库数据库创建用户。
+
+
+NOTE: 但是，您必须为目标数据库创建一个具有 sysdba 角色的 Oracle 用户。
+
+. 登录到 SQL * Plus 。
++
+在命令提示符处、输入以下命令：`sqlplus "/" as sysdba"`
+
++
+[listing]
+----
+SQL*Plus: Release 11.2.0.1.0 Production on Wed Jun 1 06:01:26 2011
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+----
+. 要使用管理员密码(例如adminpw1)为存储库创建用户(例如repo1_user)、请在SQL提示符处输入以下命令：`sQL> create user repo1_user identified by adminpw1；`
+. 要为用户授予连接和资源权限、请输入以下命令：`Grant connect、resource to repo1_user；`
+

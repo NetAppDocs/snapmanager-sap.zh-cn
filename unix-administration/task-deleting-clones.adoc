@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/task-delete-clones.html 
+sidebar: sidebar 
+keywords: delete, clone, size, snapshot, copy, backup, guarantee, data, deleting 
+summary: '当 Snapshot 副本的大小达到备份的 10% 到 20% 之间时，您可以删除克隆。这样还可以确保克隆具有最新的数据。' 
+---
+= 删除克隆。
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+当 Snapshot 副本的大小达到备份的 10% 到 20% 之间时，您可以删除克隆。这样还可以确保克隆具有最新的数据。
+
+* 关于此任务 *
+
+此标签是配置文件中每个克隆的唯一标识符。您可以使用克隆标签或 ID ，但不能使用系统标识符（ SID ）删除克隆。
+
+
+NOTE: 克隆 SID 和克隆标签不同。
+
+删除克隆时，数据库必须正在运行。否则，不会删除现有克隆的许多文件和目录，从而在创建另一个克隆之前需要执行更多工作。
+
+删除克隆后，为克隆中的某些 Oracle 参数指定的目录将被销毁，并且只能包含克隆数据库的数据：归档日志目标，后台，核心和用户转储目标。不会删除审核文件。
+
+
+NOTE: 如果在其他操作中使用克隆，则不能删除该克隆。
+
+您可以选择在克隆删除操作成功或失败后收集转储文件。
+
+.步骤
+. 输入以下命令：
++
+``* smsap clone delete -profile _profile_name_(-label _label__/-id _guid_）[-sysspassword _sysspassword_]]|(login-username _db_username_-password)_db_password_-port _db_port_](-asminstance-asmusername _asmuserName _username_-force_
+
+
+
+'''
+
+
+== 示例
+
+[listing]
+----
+smsap clone delete -profile targetdb1_prof1 -label sales0908_clone1
+----
+'''

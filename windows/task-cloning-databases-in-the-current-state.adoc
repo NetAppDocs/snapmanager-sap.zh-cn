@@ -1,0 +1,32 @@
+---
+permalink: windows/task-cloning-databases-in-the-current-state.html 
+sidebar: sidebar 
+keywords: create, backup, clone, database, command, cloning, current, state 
+summary: 您可以使用一个命令根据数据库的当前状态创建数据库的备份和克隆。 
+---
+= 在当前状态下克隆数据库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用一个命令根据数据库的当前状态创建数据库的备份和克隆。
+
+如果使用 -current 选项指定配置文件，则 SnapManager 首先会从数据库的当前状态创建一个备份和一个克隆。
+
+在配置文件设置中，如果您启用了数据文件和归档日志的备份以进行克隆，则在备份联机数据文件时，也会备份归档日志。克隆数据库时， SnapManager 会创建数据文件备份以及归档日志备份，并创建数据库克隆。如果不包括归档日志备份，则 SnapManager 不会创建归档日志备份，因此无法创建数据库的克隆。
+
+.步骤
+. 要克隆当前状态的数据库、请输入以下命令：
++
+`smsap clone create -profileprofile_name-current -labelclone_name-clonestric.xml`
+
++
+此命令将执行完全自动备份（生成备份标签），并使用您要使用的现有克隆规范立即从该备份创建克隆。
+
++
+
+NOTE: 您可以将 -dump 选项指定为可选参数，以便在操作成功或失败后收集转储文件。系统会为备份和克隆操作收集转储。
+
+

@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/concept-what-protection-policies-are.html 
+sidebar: sidebar 
+keywords: protection, policy, policies, govern, database, backup, profile 
+summary: 保护策略是用于控制如何保护数据库备份的规则。您可以在创建配置文件时选择保护策略。 
+---
+= 什么是保护策略
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+保护策略是用于控制如何保护数据库备份的规则。您可以在创建配置文件时选择保护策略。
+
+保护策略定义以下参数：
+
+* 何时将副本传输到二级存储
+* 应在计划时间传输的最大数据量
+* 为每个备份位置保留副本的时间
+* 滞后时间的警告和错误阈值
+
+
+启用保护后， SnapManager 将为数据库创建一个数据集。数据集由一组存储集以及与其数据关联的配置信息组成。与数据集关联的存储集包括用于将数据导出到客户端的主存储集以及其他存储集中存在的一组副本和归档。数据集表示可导出的用户数据。如果管理员禁用对数据库的保护， SnapManager 将删除数据集。

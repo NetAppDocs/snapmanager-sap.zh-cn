@@ -1,0 +1,14 @@
+---
+permalink: unix-administration/concept-restoring-protected-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: restore, backup, protect, secondary, storage, primary, restoring, 
+summary: 您可以从二级存储还原受保护的备份。但是，如果备份也位于主存储上，则无法从二级存储还原备份。 
+---
+= 从二级存储还原受保护的备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以从二级存储还原受保护的备份。但是，如果备份也位于主存储上，则无法从二级存储还原备份。

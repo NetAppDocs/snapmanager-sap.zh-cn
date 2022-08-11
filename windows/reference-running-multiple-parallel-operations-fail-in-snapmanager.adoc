@@ -1,0 +1,29 @@
+---
+permalink: windows/reference-running-multiple-parallel-operations-fail-in-snapmanager.html 
+sidebar: sidebar 
+keywords: multiple, run, parallel, operation, seperate, database, reside, storage, system, igroup, lun, associate, delete, snapmanager, display, error, message 
+summary: 如果在同一存储系统上的不同数据库上运行多个并行操作，则与这两个数据库关联的 LUN 的 igroup 可能会因其中一个操作而被删除。稍后，如果另一个操作尝试使用已删除的 igroup ，则 SnapManager 将显示一条错误消息。 
+---
+= 在 SnapManager 中运行多个并行操作失败
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果在同一存储系统上的不同数据库上运行多个并行操作，则与这两个数据库关联的 LUN 的 igroup 可能会因其中一个操作而被删除。稍后，如果另一个操作尝试使用已删除的 igroup ，则 SnapManager 将显示一条错误消息。
+
+例如，如果几乎同时对不同数据库运行备份删除和备份创建操作，则备份创建操作将失败。以下顺序步骤显示了几乎同时对不同数据库运行备份删除和备份创建操作时会发生的情况。
+
+.步骤
+. 运行`backup delete`命令。
+. 运行`backup create`命令。
+. `backup create`命令可识别已存在的igroup、并使用相同的igroup来映射LUN。
+. 使用`backup delete`命令可删除映射到同一igroup的备份LUN。
+. 然后、使用`backup delete`命令删除igroup、因为没有与该igroup关联的LUN。
+. `backup create`命令将创建备份并尝试映射到不存在的igroup、因此操作失败。
+
+
+* 操作 *
+
+您必须使用以下命令为数据库使用的每个存储系统创建igroup：`* sdcli igroup cree*`

@@ -1,0 +1,20 @@
+---
+permalink: unix-administration/concept-volume-management-restrictions.html 
+sidebar: sidebar 
+keywords: snapmanager, volume, management, restriction, environment 
+summary: SnapManager 具有某些卷管理限制，这些限制可能会影响您的环境。 
+---
+= 卷管理限制
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 具有某些卷管理限制，这些限制可能会影响您的环境。
+
+一个数据库可以有多个磁盘组；但是，以下限制适用于给定数据库的所有磁盘组：
+
+* 数据库的磁盘组只能由一个卷管理器管理。
+* 没有逻辑卷管理的 Linux 环境需要一个分区。
+

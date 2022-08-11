@@ -1,0 +1,29 @@
+---
+permalink: unix-administration/task-disable-autosupport-in-snapmanager.html 
+sidebar: sidebar 
+keywords: disable, autosupport, storage, system, receive, message, snapmanager, successful, backup, operation, disabling 
+summary: 如果您不希望存储系统在每次成功执行备份操作时都从 SnapManager 服务器接收消息，则必须禁用 AutoSupport 。 
+---
+= 在SnapManager 中禁用AutoSupport
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果您不希望存储系统在每次成功执行备份操作时都从 SnapManager 服务器接收消息，则必须禁用 AutoSupport 。
+
+* 关于此任务 *
+
+默认情况下、如果配置文件不包含`auto_support.on`参数、则会启用AutoSupport。在这种情况下、您必须在配置文件中添加`auto_support.on`参数、并将该值设置为`* false*`。
+
+. 停止 SnapManager 服务器。
+. 在`smsap.config`配置文件中、将`auto_support.on`参数的值设置为`* false*`。
++
+* 示例 *
+
++
+auto_support.on=false
+
+. 重新启动 SnapManager 服务器。
+

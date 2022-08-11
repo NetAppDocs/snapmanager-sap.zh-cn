@@ -1,0 +1,37 @@
+---
+permalink: windows/concept-maintaining-history-of-snapmanager-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, maintain, history, operation, associate, single, multiple, profile, command-line, interface, cli, graphical, user, interface, gui, report, audit, compliance, purpose 
+summary: 通过SnapManager for SAP、您可以维护与单个或多个配置文件关联的SnapManager 操作历史记录。您可以从 SnapManager 命令行界面（ CLI ）或图形用户界面（ GUI ）维护历史记录。您可以将操作历史记录作为报告查看，并使用此报告进行审核合规性检查。 
+---
+= 维护 SnapManager 操作历史记录
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过SnapManager for SAP、您可以维护与单个或多个配置文件关联的SnapManager 操作历史记录。您可以从 SnapManager 命令行界面（ CLI ）或图形用户界面（ GUI ）维护历史记录。您可以将操作历史记录作为报告查看，并使用此报告进行审核合规性检查。
+
+您可以维护以下 SnapManager 操作的历史记录：
+
+* 创建备份
+* 备份验证
+* 备份还原
+* 克隆创建
+
+
+SnapManager 操作的历史记录信息会根据保留情况进行维护。您可以为每个受支持的 SnapManager 操作配置不同的保留类。
+
+以下是您可以分配的一些保留类：
+
+* 天数
+* 周数
+* 月数
+* 操作数
+
+
+根据保留情况， SnapManager 会自动清除历史记录。您也可以手动清除 SnapManager 操作的历史记录。如果删除或销毁此配置文件，则会删除与此配置文件关联的所有历史记录信息。
+
+
+NOTE: 回滚主机后，您无法查看历史记录详细信息，也无法执行与配置文件关联的任何历史记录相关操作，这些配置文件已配置为进行历史记录维护。

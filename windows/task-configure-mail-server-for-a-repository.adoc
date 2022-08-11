@@ -1,0 +1,77 @@
+---
+permalink: windows/task-configure-mail-server-for-a-repository.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, mail, server, detail, email, alert, configure, repository 
+summary: 使用 SnapManager 可以指定发送电子邮件警报的邮件服务器详细信息。 
+---
+= 为存储库配置邮件服务器
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以指定发送电子邮件警报的邮件服务器详细信息。
+
+
+
+== 关于此任务
+
+通过 SnapManager ，您可以指定发件人的电子邮件服务器主机名或 IP 地址，以及需要电子邮件通知的存储库数据库名称的电子邮件服务器端口号。您可以将邮件服务器端口号配置为 0 到 65535 之间的范围；默认值为 25 。如果您需要对电子邮件地址进行身份验证，则可以指定用户名和密码。
+
+您必须指定处理电子邮件通知的主机服务器的名称或 IP 地址。
+
+.步骤
+. 要将邮件服务器配置为发送电子邮件警报、请输入以下命令：
++
+`* smsap notification set -sender-email _email_address_-mailhost _mailhost_-mailport _mailport_"-authentication -username _username_-password _password_]-repo_port_-dbname _repo_service_name_-host _repo_host username -login -repo_username`
+
++
+此命令的其他选项如下：
+
++
+`强制`
+
++
+`静默``|`-详细
+
++
+|===
+| 要执行以下操作 ... | 那么 ... 
+
+
+ a| 
+* 指定发件人的电子邮件地址。 *
+ a| 
+指定`-sender-email`选项。在SnapManager 3.2 for SAP中、您可以在指定电子邮件地址的域名时使用连字符(-)。例如、您可以将发件人电子邮件地址指定为-`+sender-emailuser@org-corp.com +`。
+
+
+
+ a| 
+* 指定发件人的电子邮件服务器主机名或 IP 地址。 *
+ a| 
+指定`-mailhost`选项。
+
+
+
+ a| 
+* 为需要电子邮件通知的存储库数据库名称指定电子邮件服务器端口号。您可以将邮件服务器端口号配置为从零到 65535 的范围；默认值为 25.*
+ a| 
+指定`-mailport`选项。
+
+
+
+ a| 
+* 如果需要对电子邮件地址进行身份验证，请指定用户名和密码。 *
+ a| 
+指定`-authentication`选项、后跟用户名和密码。
+
+|===
+
+
+以下示例将配置邮件服务器。
+
+[listing]
+----
+smsap notification set -sender-email admin1@org.com -mailhost hostname.org.com -mailport 25 authentication -username admin1 -password admin1 -repository -port 1521 -dbname SMSAPREPO -host hotspur -login -username grabal21 -verbose
+----

@@ -1,0 +1,204 @@
+---
+permalink: windows/task-viewing-sample-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, include, script, example, basis, custom, view, sample, plug-in 
+summary: SnapManager 提供了一些脚本，您可以使用这些脚本作为示例来创建自己的脚本，也可以作为自定义脚本的基础。 
+---
+= 查看插件脚本示例
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 提供了一些脚本，您可以使用这些脚本作为示例来创建自己的脚本，也可以作为自定义脚本的基础。
+
+您可以在以下位置找到插件脚本示例：
+
+* <default_install_directory>\plugins\examples\backup\create
+* <default_install_directory>\plugins\examples\clone\create
+* <default_install_directory>\plugins\windows\examples\backup\create\post
+
+
+包含示例插件脚本的目录包含以下子目录：
+
+* 策略：包含配置后始终在克隆操作上运行的脚本。
+* PRE ：包含配置后在克隆操作之前运行的脚本。
+* POST ：包含配置后在克隆操作之后运行的脚本。
+
+
+下表介绍了示例脚本：
+
+|===
+| 脚本名称 | Description | 脚本类型 
+
+
+ a| 
+validate_sid.sh
+ a| 
+包含对目标系统上使用的 SID 的其他检查。该脚本将检查 SID 是否具有以下特征：
+
+* 包含三个字母数字字符
+* 以字母开头
+* 不包括预留的SAP SID
+
+ a| 
+策略
+
+
+
+ a| 
+cleanup.sh
+ a| 
+清理目标系统，以便准备好存储新创建的克隆。根据需要保留或删除文件和目录。
+ a| 
+预请求
+
+
+
+ a| 
+sap_follow_up_activities.sh
+ a| 
+执行_SAP系统副本指南_和TR-3442：SAP与基于UNIX和NFS的Oracle以及NetApp存储中所述的跟进活动任务。例如、此脚本将删除或修改SAP架构中的表条目。
+ a| 
+任务后
+
+
+
+ a| 
+os_db_authentication.sh
+ a| 
+按照SAP注释316641中的建议、调整OPS$用户的操作系统身份验证。下面是如何处理外部SQL文件的示例。
+ a| 
+任务后
+
+
+
+ a| 
+mirror_the_backup.cmd
+ a| 
+在使用 7- 模式 Data ONTAP 的 Windows 环境中执行备份操作后，对卷进行镜像。
+ a| 
+任务后
+
+
+
+ a| 
+vault_the_backup.cmd
+ a| 
+如果您使用的是在 7- 模式下运行的任一 Data ONTAP ，则在 Windows 环境中执行备份操作后存储 qtree 。
+ a| 
+任务后
+
+
+
+ a| 
+mirror_the_backup_cDOT.cmd
+ a| 
+在使用集群模式 Data ONTAP 的 Windows 环境中执行备份操作后对卷进行镜像。
+ a| 
+任务后
+
+
+
+ a| 
+vault_the_backup_cDOT.cmd
+ a| 
+在使用集群模式 Data ONTAP 的 Windows 环境中执行备份操作后，将存储 qtree 。
+ a| 
+任务后
+
+|===
+默认情况下，随 SnapManager 提供的脚本使用 bash shell 。在尝试运行任何示例脚本之前，您必须确保操作系统上已安装对 bash shell 的支持。
+
+. 要验证您是否正在使用 bash shell ，请在命令提示符处输入以下命令： `bash`
++
+如果未看到错误，则表示 bash shell 运行正常。
+
++
+或者，您也可以在命令提示符处输入 which — bash 命令。
+
+. 在以下目录中找到此脚本：
++
+<installdir>\plugins\examples\clone\create
+
+. 在 vi 等脚本编辑器中打开此脚本。
+
+
+
+
+== 示例脚本
+
+以下示例自定义脚本将验证数据库 SID 名称，并防止克隆的数据库中使用无效名称。它包括三个操作（检查，描述和执行），这些操作是在运行脚本后调用的。该脚本还包括错误消息处理，代码为 0 ， 4 和 >4 。
+
+[listing]
+----
+@echo off
+REM $Id: //depot/prod/capstan/Rcapstan_ganges/src/plugins/windows/examples/clone/create/policy/validate_sid.cmd#1 $
+REM $Revision: #1 $ $Date: 2011/12/06 $
+REM
+REM
+
+set /a EXIT=0
+
+set name="Validate SID"
+set description="Validate SID used on the target system"
+set parameter=()
+
+rem reserved system IDs
+set INVALID_SIDS=("ADD" "ALL" "AND" "ANY" "ASC" "COM" "DBA" "END" "EPS" "FOR" "GID" "IBM" "INT" "KEY" "LOG" "MON" "NIX" "NOT" "OFF" "OMS" "RAW" "ROW" "SAP" "SET" "SGA" "SHG" "SID" "SQL" "SYS" "TMP" "UID" "USR" "VAR")
+
+if /i "%1" == "-check" goto :check
+if /i "%1" == "-execute" goto :execute
+if /i "%1" == "-describe" goto :describe
+
+:usage:
+	echo usage: %0 "{ -check | -describe | -execute }"
+	set /a EXIT=99
+	goto :exit
+
+:check
+	set /a EXIT=0
+	goto :exit
+
+:describe
+	echo SM_PI_NAME:%name%
+	echo SM_PI_DESCRIPTION:%description%
+	set /a EXIT=0
+	goto :exit
+
+:execute
+	set /a EXIT=0
+
+	rem SM_TARGET_SID must be set
+	if "%SM_TARGET_SID%" == "" (
+		set /a EXIT=4
+		echo SM_TARGET_SID not set
+		goto :exit
+	)
+
+	rem exactly three alphanumeric characters, with starting with a letter
+	echo %SM_TARGET_SID% | findstr "\<[a-zA-Z][a-zA-Z0-9][a-zA-Z0-9]\>" >nul
+	if %ERRORLEVEL% == 1 (
+		set /a EXIT=4
+		echo SID is defined as a 3 digit value starting with a letter. [%SM_TARGET_SID%] is not valid.
+		goto :exit
+	)
+
+	rem not a SAP reserved SID
+	echo %INVALID_SIDS% | findstr /i \"%SM_TARGET_SID%\" >nul
+	if %ERRORLEVEL% == 0 (
+		set /a EXIT=4
+		echo SID [%SM_TARGET_SID%] is reserved by SAP
+		goto :exit
+	)
+
+	goto :exit
+
+
+
+:exit
+	echo Command complete.
+	exit /b %EXIT%
+----
+http://media.netapp.com/documents/tr-3442.pdf["基于UNIX和NFS以及NetApp存储的SAP与Oracle：TR-3442"]

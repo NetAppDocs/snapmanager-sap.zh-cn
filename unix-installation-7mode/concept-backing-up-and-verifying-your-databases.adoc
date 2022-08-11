@@ -1,0 +1,14 @@
+---
+permalink: unix-installation-7mode/concept-backing-up-and-verifying-your-databases.html 
+sidebar: sidebar 
+keywords: install, snapmanager, create, basic, backup, database, verify, ensure, corrupt, file 
+summary: 安装 SnapManager 后，您可以为数据库创建一个基本备份，并验证该备份以确保它不包含任何损坏的文件。 
+---
+= 备份和验证数据库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+安装 SnapManager 后，您可以为数据库创建一个基本备份，并验证该备份以确保它不包含任何损坏的文件。

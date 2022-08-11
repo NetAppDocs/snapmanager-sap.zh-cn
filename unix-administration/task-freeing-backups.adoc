@@ -1,0 +1,116 @@
+---
+permalink: unix-administration/task-free-backups.html 
+sidebar: sidebar 
+keywords: free, backup, delete, snapshot, copies, copy, deleting, metadata, function, smsap, command 
+summary: 您可以释放备份，这样无需删除备份元数据即可删除 Snapshot 副本。此功能可释放备份占用的空间。您可以使用smsap backup free命令释放备份。 
+---
+= 免费备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以释放备份，这样无需删除备份元数据即可删除 Snapshot 副本。此功能可释放备份占用的空间。您可以使用smsap backup free命令释放备份。
+
+* 您需要的内容 *
+
+要使备份符合释放条件，您必须确保满足以下条件：
+
+* 备份成功
+* 不会挂载备份
+* 备份没有克隆
+* 不能使用无限制保留策略保留备份
+* 备份尚未释放
+
+
+* 关于此任务 *
+
+如果在配置文件上启用了保护，并且保护策略包含来自使用镜像关系的主节点的连接，则在释放备份后，系统会删除主节点上的 Snapshot 副本。下次传输到二级存储时，这些 Snapshot 副本也会从镜像节点中删除。
+
+释放受保护的备份后， SnapManager 会请求 Protection Manager 删除用于备份的本地 Snapshot 副本。如果受保护备份的备份可用操作成功，则 Protection Manager 会异步删除 Snapshot 副本。
+
+[cols="2a,1a,3a,3a,4a"]
+|===
+| 保护状态 | 本地状态 | 对主存储执行的操作 | 对二级存储执行的操作 | 说明 
+
+
+ a| 
+未请求（待保护）
+ a| 
+exists
+ a| 
+释放备份
+ a| 
+无需执行任何操作
+ a| 
+SnapManager 可释放本地备份。
+
+
+
+ a| 
+已释放
+ a| 
+无需执行任何操作
+ a| 
+无需执行任何操作
+ a| 
+本地备份已释放。
+
+
+
+ a| 
+不受保护
+ a| 
+exists
+ a| 
+释放备份
+ a| 
+无需执行任何操作
+ a| 
+即使二级存储上不存在任何副本， SnapManager 也会释放本地备份。
+
+
+
+ a| 
+已释放
+ a| 
+无需执行任何操作
+ a| 
+无需执行任何操作
+ a| 
+本地备份已释放。
+
+
+
+ a| 
+受保护
+ a| 
+exists
+ a| 
+释放备份
+ a| 
+无需执行任何操作；二级系统上的备份仍会保留
+ a| 
+SnapManager 可释放本地备份。副本仍保留在二级存储上。
+
+
+
+ a| 
+已释放
+ a| 
+无需执行任何操作
+ a| 
+无需执行任何操作
+ a| 
+本地备份已释放。
+
+|===
+您可以将 -dump 选项指定为可选参数，以便在备份可用操作成功或失败后收集转储文件。
+
+.步骤
+. 输入以下命令：
++
+`* smsap backup free -profile _profile_name_｛-label _label_[data _-archivelogs]_--id _id____-所有｝-force (-dump)【-quiet】【-force]*`
+
+

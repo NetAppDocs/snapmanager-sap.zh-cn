@@ -1,0 +1,322 @@
+---
+permalink: unix-administration/reference-snapmanager-configuration-parameters.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, list, configuration, parameter, edit, depend, requirement, smsap, config, file, requirement 
+summary: SnapManager 提供了一个配置参数列表，您可以根据需要编辑这些参数。配置参数存储在smsap.config文件中。但是、smsap.config文件可能不包含所有受支持的配置参数。您可以根据需要添加配置参数。 
+---
+= SnapManager 配置参数
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 提供了一个配置参数列表，您可以根据需要编辑这些参数。配置参数存储在smsap.config文件中。但是、smsap.config文件可能不包含所有受支持的配置参数。您可以根据需要添加配置参数。
+
+下表列出了所有受支持的 SnapManager 配置参数，并说明了何时使用这些参数：
+
+[cols="1a,3a"]
+|===
+| Parameters | Description 
+
+
+ a| 
+* `retain、hourly.count`
+* `retain、hourly.duration`
+* `retain、monthly、count`
+* `retain、monthly、duration`
+
+ a| 
+这些参数用于在创建配置文件时设置保留策略。例如、您可以分配以下值：
+
+`renet.hourly.count =* 12 *`
+
+`renet.hourly.duration =*。2 *`
+
+`renet.monthly"计数=* 2 *`
+
+`renet.monthly" duration =** 6 *`
+
+
+
+ a| 
+`restore.secondaryAccessPolicy`
+ a| 
+此参数用于定义 SnapManager 在无法使用 Protection Manager 直接还原二级存储上的数据时如何访问该数据。访问二级存储上的数据的不同方式如下：
+
+* Direct （默认）
++
+如果将`restore.secondaryAccessPolicy`设置为`*直接*`、则SnapManager 会克隆二级存储上的数据、将克隆的数据从二级存储挂载到主机、然后将数据从克隆复制到活动环境。
+
+* 间接
++
+如果将`*间接*`分配给`restore.secondaryAccessPolicy`、则SnapManager 会将数据复制到主存储上的临时卷、将临时卷中的数据挂载到主机、然后将临时卷中的数据复制到活动环境中。
+
++
+只有当主机无法直接访问二级存储系统时，才必须使用间接方法。此方法所需时间是直接方法的两倍，因为会创建两个数据副本。
+
+
+
+
+NOTE: 在使用网络文件系统（ NFS ）作为协议的存储区域网络（ SAN ）中， SnapManager 无需直接连接到二级存储即可执行还原。
+
+
+
+ a| 
+`restore.temporaryVolumeName`
+ a| 
+此参数为临时卷分配一个名称。当 SnapManager 使用间接方法从二级存储还原数据时，它需要主存储上的一个临时卷来存放数据的临时副本，直到将其复制到数据库文件并恢复数据库为止。没有默认值。如果不指定值，则必须在使用间接方法的 restore 命令中输入一个名称。例如、您可以分配以下值：
+
+`restore.temporaryVolumeName =*。smsap_temp_volume*`
+
+
+
+ a| 
+`retain .alwaysFreeExpiredBackups`
+ a| 
+此参数允许 SnapManager 在备份到期时以及执行快速还原时释放备份，即使未配置数据保护也是如此。此参数将释放已过期的受保护备份，并删除已过期的未受保护备份。您可以分配的可能值如下：
+
+* true
++
+如果您将`* true *`分配给`retain .alwaysFreeExpiredBackups`、则无论备份是否受保护、SnapManager 都会释放已过期的备份。
+
++
+备份在未受保护或二级存储上受保护的副本也已过期时将被删除。
+
+* false
++
+如果将`* false *`分配给`retain .alwaysFreeExpiredBackups`、则SnapManager 会释放已保护的已过期备份。
+
+
+
+
+
+ a| 
+`host.credentials.persist`
+ a| 
+此参数允许 SnapManager 存储主机凭据。默认情况下，不会存储主机凭据。但是、如果您的自定义脚本运行在远程克隆上、并且需要访问远程服务器、则需要存储主机凭据。您可以通过为`host.credentials.persist.`分配true来启用主机凭据存储 SnapManager 会对主机凭据进行加密并进行保存。
+
+
+
+ a| 
+`restorePlanMaxFilesDisplayed`
+ a| 
+使用此参数可以定义要在还原预览中显示的最大文件数。默认情况下， SnapManager 在还原预览中最多显示 20 个文件。但是，您可以更改为大于 0 的值。例如，您可以分配以下值：
+
+* `restorePlanMaxFilesDisplayed =*。30 *`
+
+
+
+NOTE: 如果指定的值无效，则会显示默认文件数。
+
+
+
+ a| 
+`snapshot.list.timeout.min`
+ a| 
+使用此参数可以定义在执行任何SnapManager 操作时SnapManager 必须等待`snap list`命令执行的时间(以分钟为单位)。默认情况下、SnapManager 会等待30分钟。但是，您可以更改为大于 0 的值。例如，您可以分配以下值：
+
+* `snapshot.list.timeout.min =*。40*`
+
+
+
+NOTE: 如果指定的值无效，则使用默认值。
+
+对于任何SnapManager 操作、如果snap list命令执行时间超过分配给`snapshot.list.timeout.min`的值、则该操作将失败并显示超时错误消息。
+
+
+
+ a| 
+`pruneIfFileExistsInOtherDestination`
+ a| 
+使用此修剪参数可以定义归档日志文件的目标。归档日志文件存储在多个目标位置。在对归档日志文件进行删减时， SnapManager 需要知道归档日志文件的目标位置。您可以分配的可能值如下：
+
+* 要从指定目标对归档日志文件进行prune操作、必须将`* false*`分配给`pruneIfFileExistsInOtherDestination`。
+* 要从外部目标对归档日志文件进行prune操作、必须将`* true *`分配给`pruneIfFileExistsInOtherDestination`。
+
+
+
+
+ a| 
+`prune.archivelogs.backedup.from.otherdestination`
+ a| 
+使用此修剪参数可以修剪从指定归档日志目标备份或从外部归档日志目标备份的归档日志文件。您可以分配的可能值如下：
+
+* 如果要从指定目标对归档日志文件进行prune处理、并且使用`-prune-dest`从指定目标备份归档日志文件、则必须将`* false*`分配给
++
+`prune.archivelogs.backedup.from.otherdestination`。
+
+* 如果要从指定目标对归档日志文件进行修剪、并且至少从任何其他目标备份一次归档日志文件、则必须将`* true *`分配给
++
+`prune.archivelogs.backedup.from.otherdestination`。
+
+
+
+
+
+ a| 
+`maximum.archivelog.files.toprune.atatem`
+ a| 
+使用此修剪参数可以定义在给定时间可以修剪的归档日志文件的最大数量。例如，您可以分配以下值：
+
+`maximum.archivelog.files.toprune.atatem =*、998*`
+
+
+NOTE: 可以分配给`maximum.archivelog.files.toprune.atatatMIME`的值必须小于1000。
+
+
+
+ a| 
+`archivelogs.consolidate`
+ a| 
+如果将`* true *`分配给`archivelogs.consolidate`、则此参数允许SnapManager 释放重复的归档日志备份。
+
+
+
+ a| 
+`suffix.backup.label-ams.with .logs`
+ a| 
+使用此参数可以指定要添加的后缀、以区分数据备份和归档日志备份的标签名称。
+
+例如、当您将`* logs*`分配给`suffix.backup.label-for.logs`时、_logs会作为后缀添加到归档日志备份标签中。然后、归档日志备份标签将为`arch_logs`。
+
+
+
+ a| 
+`backup.archivelogs.beyond.missingfiles`
+ a| 
+此参数允许 SnapManager 在备份中包含缺少的归档日志文件。
+
+活动文件系统中不存在的归档日志文件不会包含在备份中。如果要包括所有归档日志文件、即使这些文件不在活动文件系统中、您也必须将`* true *`分配给`backup.archivelogs.beyond.missingfiles`。
+
+您可以分配`* false *`以忽略缺少的归档日志文件。
+
+
+
+ a| 
+`srvctl.timeout`
+ a| 
+使用此参数可以定义`srvctl`命令的超时值。
+
+
+NOTE: 服务器控制(Servctl)是一个用于管理RAC实例的实用程序。
+
+如果SnapManager 执行`srvctl`命令所需时间超过超时值、则SnapManager 操作将失败、并显示以下错误消息：`Error：Timeout occurred while executing command：vrctl status`。
+
+
+
+ a| 
+`snapshot.restore.storageNameCheck`
+ a| 
+此参数允许SnapManager 对从7-模式Data ONTAP 迁移到集群模式Data ONTAP之前创建的Snapshot副本执行还原操作。分配给此参数的默认值为`* false*`。如果已从7-模式Data ONTAP 迁移到集群模式Data ONTAP 、但希望使用迁移前创建的Snapshot副本、请设置`snapshot.restore.storageNameCheck=* true*`。
+
+
+
+ a| 
+`services.common.disableAbort`
+ a| 
+此参数用于在长时间运行的操作失败时禁用清理。您可以设置`services.common.disableAbort=*true*`.For示例、如果执行的克隆操作运行时间较长、但由于Oracle错误而失败、则可能不需要清理克隆。如果设置`services.common.disableAbort=*true*`、则不会删除此克隆。您可以修复 Oracle 问题描述并从克隆操作失败的位置重新启动该操作。
+
+
+
+ a| 
+* `backup.say.dnfs.layout`
+* `backup.sleep.dnfs.secs`
+
+ a| 
+这些参数用于激活 Direct NFS （ DNFS ）布局中的休眠机制。使用DNFS或网络文件系统(NFS)创建控制文件的备份后、SnapManager 会尝试读取这些控制文件、但可能找不到这些文件。
+
+要启用休眠机制、请确保`backup.sleep.dnfs.layout=* true*`。默认值为`* true *`。
+
+启用休眠机制时、必须将睡眠时间分配给`backup.sleep.dnfs.secs`。分配的睡眠时间以秒为单位，该值取决于您的环境。默认值为 5 秒。
+
+例如：
+
+* `backup.睡眠.dnfs.layout=* true*`
+* `backup.sleep.dnfs.secs=2`
+
+
+
+
+ a| 
+* `override.default.backup.pattern`
+* `new.default.backup.pattern`
+
+ a| 
+如果不指定备份标签， SnapManager 将创建一个默认备份标签。您可以使用这些SnapManager 参数自定义默认备份标签。
+
+要启用备份标签自定义、请确保`override.default.backup.pattern`的值设置为`* true *`。默认值为 ` * false *` 。
+
+要为备份标签分配新模式、您可以将数据库名称、配置文件名称、范围、模式和主机名等关键字分配给`new.default.backup.pattern`。关键字应使用下划线分隔。例如、`new.default.backup.pattern=*dbname_profile_hostname_scope_mode*`。
+
+
+NOTE: 时间戳会自动包含在生成的标签末尾。
+
+
+
+ a| 
+`allow.underscore.in.clone.sid`
+ a| 
+Oracle 支持在 Oracle 11gR2 的克隆 SID 中使用下划线。使用此SnapManager 参数可以在克隆SID名称中包含下划线。
+
+要在克隆SID名称中包含下划线、请确保`allow.underscore.in.clone.sid`的值设置为`* true *`。默认值为 true 。
+
+如果您使用的Oracle版本早于Oracle 11gR2、或者您不想在克隆SID名称中包含下划线、请将此值设置为`* false*`。
+
+
+
+ a| 
+`oracle.parameters.with.comma`
+ a| 
+使用此参数可以指定逗号(、)作为值的所有Oracle参数。执行任何操作时、SnapManager 使用`oracle.parameters.with.comma`检查所有Oracle参数并跳过值拆分。
+
+例如、如果值` ns_ns_numeric_characters =、_`、则指定`oracle.parameters.with.comma=_nls_numeric_characters_`。如果有多个Oracle参数并以逗号作为值、则必须在`oracle.parameters.with.comma`中指定所有参数。
+
+
+
+ a| 
+* `archivedLogs.exclude`
+* `archivedLogs.exclude.fileslike`
+* `<db-unique-name>.archivedLogs.exclude.fileslike`
+
+ a| 
+如果数据库不在启用了Snapshot副本的存储系统上、而您希望在该存储系统上执行SnapManager 操作、则SnapManager 可以通过这些参数从配置文件和备份中排除归档日志文件。
+
+
+NOTE: 在创建配置文件之前、必须在配置文件中包含排除参数。
+
+分配给这些参数的值可以是顶层目录或存在归档日志文件的挂载点，也可以是子目录。如果指定了顶级目录或挂载点，并且为主机上的配置文件启用了数据保护，则该挂载点或目录不会包含在 Protection Manager 中创建的数据集中。如果要从主机中排除多个归档日志文件，则必须使用逗号分隔归档日志文件路径。
+
+要排除归档日志文件包含在配置文件中并进行备份，您必须包括以下参数之一：
+
+* `archivedLogs.exclude`指定一个用于从所有配置文件或备份中排除归档日志文件的正则表达式。
++
+与正则表达式匹配的归档日志文件将从所有配置文件和备份中排除。
+
++
+例如、您可以设置archivedLogs.exclude =``/arch/logs/on/local/disk1/.'3.'4.'4、/arch/logs/on/local/disk2/.'*。对于ASM数据库、您可以设置`archivedLogs.exclude =\\+KHDB_arch_dest/kdb/archivelog/ 、\\+KHDB_NONNAARCHTVO/kdb/archivelog/.*** `。
+
+* `archivedLogs.exclude.fileslike`指定用于从所有配置文件或备份中排除归档日志文件的SQL表达式。
++
+与 SQL 表达式匹配的归档日志文件将从所有配置文件和备份中排除。
+
++
+例如、您可以设置`archivedLogs.exclude.fileslike =/arch/logs/on/local/disk1/%、/arch/logs/on/local/disk2/%`。
+
+* `<db-unique-name>.archivedLogs.exclude.fileslike`指定一个SQL表达式、用于仅从使用指定的` db-unique-name_`为数据库创建的配置文件或备份中排除归档日志文件。
++
+与 SQL 表达式匹配的归档日志文件将从配置文件和备份中排除。
+
++
+例如、您可以设置`mydb.archivedLogs.exclude.fileslike =/arch/logs/on/local/disk1/%、/arch/logs/on/local/disk2/%`。
+
+
+
+
+NOTE: Br*工具不支持以下参数、即使这些参数配置为排除归档日志文件也是如此：
+
+* `archivedLogs.exclude.fileslike`
+* `<db-unique-name>.archivedLogs.exclude.fileslike`
+
+
+|===

@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-assign-backups-with-a-specific-retention-class.html 
+sidebar: sidebar 
+keywords: dba, assign, specific, retention, class, hourly, daily, weekly, monthly, backup, eligible, deletion 
+summary: DBA 可以为备份分配特定的保留类，包括每小时，每天，每周或每月。分配特定保留类后，在此更改下执行的备份便可被删除。 
+---
+= 分配具有特定保留类的备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+DBA 可以为备份分配特定的保留类，包括每小时，每天，每周或每月。分配特定保留类后，在此更改下执行的备份便可被删除。
+
+.步骤
+. 要分配特定的备份保留类、请输入以下命令：
++
+`* smsap backup update -profile _profile_name_｛-label _label_[data _-archivelogs]_--id _id_｝-retain (-hourly _-daily _-weekly _-monthly)*`
+
+

@@ -1,0 +1,92 @@
+---
+permalink: windows/reference-the-smosmsapbackup-unmount-command.html 
+sidebar: sidebar 
+keywords: run, backup, unmount, command, smsap 
+summary: 您可以运行 backup unmount 命令卸载备份。 
+---
+= smsap backup unmount命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup unmount`命令卸载备份。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap backup unmount
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id id]
+[-force]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定要卸载备份的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-id _id_`*
++
+使用指定 GUID 卸载备份。GUID 由 SnapManager 在创建备份时生成。您可以使用`smsap backup list`命令显示每个备份的GUID。
+
+* *`-label _label`*
++
+卸载具有指定标签的备份。
+
+* *`数据`*
++
+指定数据文件。
+
+* *`-archivelog`*
++
+指定归档日志文件。
+
+* *`转储`*
++
+在卸载操作成功或失败后收集转储文件。
+
+* *`强制`*
++
+即使释放与备份关联的资源时出现问题，也会卸载备份。SnapManager 会尝试卸载备份并清理任何关联资源。此日志会将卸载操作显示为成功，但如果日志中存在错误，您可能需要手动清理资源。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下是卸载操作的示例：
+
+[listing]
+----
+# smsap backup unmount -label test -profile SALES1 -verbose
+----
+[listing]
+----
+[INFO ]: SMSAP-13051: Process PID=9788
+[INFO ]: SMSAP-13036: Starting operation Backup Unmount on host hadley.domain.private
+[INFO ]: SMSAP-13036: Starting operation Backup Unmount on host hadley.domain.private
+[INFO ]: SMSAP-13046: Operation GUID 8abc015738849a3d0138849a43900001 starting on Profile FAS_P1
+[INFO ]: SD-00031: Beginning to disconnect filesystem(s) [C:\SnapManager_auto_mounts\H-2012071400592312_0, C:\SnapManager_auto_mounts\I-2012071400592328_0].
+[INFO ]: SD-00032: Finished disconnecting filesystem(s) [C:\SnapManager_auto_mounts\H-2012071400592312_0, C:\SnapManager_auto_mounts\I-2012071400592328_0].
+[INFO ]: SMSAP-13048: Backup Unmount Operation Status: SUCCESS
+[INFO ]: SMSAP-13049: Elapsed Time: 0:07:26.754
+----

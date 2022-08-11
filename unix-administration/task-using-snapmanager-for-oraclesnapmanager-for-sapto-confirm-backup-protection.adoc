@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sapto-confirm-backup-protection.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, backup, associate, profile, enable, protection, view, retention, class, daily, weekly 
+summary: '使用SnapManager for SAP、您可以查看与配置文件关联的备份列表、确定备份是否已启用保护、以及查看保留类(在此示例中为每日或每周)。' 
+---
+= 使用SnapManager for SAP确认备份保护
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用SnapManager for SAP、您可以查看与配置文件关联的备份列表、确定备份是否已启用保护、以及查看保留类(在此示例中为每日或每周)。
+
+* 关于此任务 *
+
+首先，此示例中的新备份显示为已计划保护，但尚未受到保护（在 SnapManager 图形用户界面和 backup show 命令输出中）。在存储管理员确保备份已复制到二级存储之后， SnapManager 会在图形用户界面和 backup list 命令中将备份保护状态从 " 不受保护 " 更改为 " 受保护 " 。
+
+. 转到SnapManager for SAP客户端。
+. 在 SnapManager 存储库树中，展开配置文件以显示其备份。
+. 单击 * 备份 / 克隆 * 选项卡。
+. 在报告窗格中，选择 * 备份详细信息 * 。
+. 查看保护列并确保状态为 " 受保护 " 。
+

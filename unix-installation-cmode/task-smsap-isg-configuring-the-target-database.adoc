@@ -1,0 +1,22 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-configure-the-target-database.html 
+sidebar: sidebar 
+keywords: target, database, oracle, configure, standalone, real, application, cluster, rac, automatic, storage, management, asm, support, combination 
+summary: 目标数据库是 Oracle 数据库，可以配置为独立， Real Application Clusters （ RAC ）， Automatic Storage Management （ ASM ）或任何其他受支持的组合。 
+---
+= 配置目标数据库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+目标数据库是 Oracle 数据库，可以配置为独立， Real Application Clusters （ RAC ）， Automatic Storage Management （ ASM ）或任何其他受支持的组合。
+
+.步骤
+. 请参阅_NetApp技术报告3633：《NetApp存储上Oracle数据库的最佳实践》来配置目标数据库。
+
+
+* 相关信息 *
+
+http://www.netapp.com/us/media/tr-3633.pdf["NetApp 技术报告 3633 ：《基于 NetApp 存储的 Oracle 数据库最佳实践》"^]

@@ -1,0 +1,60 @@
+---
+permalink: windows/task-performing-backup-restore-and-clone-operations-using-prescript-and-post-scripts.html 
+sidebar: sidebar 
+keywords: script, initiating, initiate, backup, restore, clone, operation, snapmanager, task-enabling, page, create, wizard, restore, recover, create, parameter, prescript, post-script 
+summary: 您可以在启动备份，还原或克隆操作时使用自己的脚本。SnapManager 会在备份创建向导，还原或恢复向导或克隆创建向导中显示一个任务启用页面，您可以在其中选择脚本并为脚本所需的任何参数提供值。 
+---
+= 使用预处理脚本和后处理脚本执行备份，还原和克隆操作
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在启动备份，还原或克隆操作时使用自己的脚本。SnapManager 会在备份创建向导，还原或恢复向导或克隆创建向导中显示一个任务启用页面，您可以在其中选择脚本并为脚本所需的任何参数提供值。
+
+* 在正确的 SnapManager 安装位置安装插件脚本。
+* 使用 smsap plugin check 命令验证是否已正确安装插件。
+* 确保使用的是 bash shell 。
+
+
+在命令行界面（ CLI ）中，列出脚本名称，选择参数并设置值。
+
+. 要验证您是否正在使用bash shell、请在命令提示符处输入以下命令：``bash``
++
+或者，您也可以在提示符处输入 which — bash 命令，并使用命令输出作为脚本的 start 参数。
+
++
+如果未看到错误，则 bash shell 运行正常。
+
+. 对于备份操作、输入-taskspecs选项并提供任务规范XML文件的绝对路径、以便在备份操作之前或之后执行预处理或后处理活动：
++
+`smsap backup create -profile profile_name｛-full｛-online |-offline |-auto｝｛-retain｛-hourly |-daily |-weekly |-monthly |-unlimited｝]：｛-verify]|｛-filesfiles【文件文件文件文件文件】｝_｛-tablespaces-tablesogs｛-tablesacespaces autoes]｝]) ` backup-destpath1 [、[path2]]](-exclude-destpath1 [、path2]]](-prunelog｛-all _-untirescntisnSCN _-before｛-dateyyyy-mm-dd HH：mm：ss _-months |-days |-weeks |-hours｝)-pruntilscn_nssn.-sn.-dump -unesn.un-unesn.-eds.-un-un-un-unesning.-eds.un-eds.un.-un-eds.-dump-un-un.-un-un-un-un-unesning.-eds.un-eds.-one.
+
++
+如果备份插件操作失败，则仅显示插件名称和返回代码。插件脚本必须包含日志消息，并将这些消息重定向到用户定义的日志文件。
+
+. 对于备份还原操作、请输入-taskSpec选项并提供任务规范XML文件的绝对路径、以便在还原操作之前或之后执行预处理或后处理活动：
++
+`smsap backup restore -profileprofile_name｛-label <labk>|-id<id>｝｛-files<files>-tablesapores<tablesaces\>|-complete |-controlfiles｝｛-recover｛-alllogs |-nologs |-until <until >｝]｛-restorspeci<restacter><restores>>｝]]]]]-quiet |-profile<taskoverride`……………
+
++
+如果还原插件操作失败，则仅显示插件名称和返回代码。插件脚本必须包含日志消息，并将这些消息重定向到用户定义的日志文件。
+
+. 对于克隆创建操作、输入-taskspecs选项并提供任务规范XML文件的绝对路径、以便在克隆操作之前或之后执行预处理或后处理活动：
++
+`s` msap clone create -profileprofileprofileprofileprofile_name｛-backup-labelbackup_name _-backup-id<backup-id>>-current｝-newsidnew_sid-clonspecfull_path_to_clonspecfile [-reserve<yes、no、herity>][-host<host>](-label<comment>]
+
++
+如果克隆插件操作失败，则仅显示插件名称和返回代码。插件脚本必须包含日志消息，并将这些消息重定向到用户定义的日志文件。
+
+
+
+
+
+== 使用任务规范 XML 文件创建备份的示例
+
+[listing]
+----
+smsap backup create -profile SALES1 -full -online -taskspec sales1_taskspec.xml -force -verify
+----

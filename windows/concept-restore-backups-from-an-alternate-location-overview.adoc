@@ -1,0 +1,25 @@
+---
+permalink: windows/concept-restore-backups-from-an-alternate-location-overview.html 
+sidebar: sidebar 
+keywords: restore, database, backup, alternate, location, section, overview 
+summary: 要从备用位置还原数据库备份，请使用以下主要步骤，本节将对其中的每个步骤进行进一步说明。 
+---
+= 从备用位置还原备份概述
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要从备用位置还原数据库备份，请使用以下主要步骤，本节将对其中的每个步骤进行进一步说明。
+
+* 根据您的数据库布局以及需要还原的内容，执行以下操作之一：
++
+** 将所需的数据文件从磁带， SnapVault ， SnapMirror 或任何其他介质还原到数据库主机上挂载的任何文件系统。
+** 还原所需的文件系统并将其挂载到数据库主机上。
+** 连接到本地主机中所需的原始设备。
+
+
+* 创建一个还原规范可扩展标记语言（ Extensible Markup Language ， XML ）文件，其中包含 SnapManager 从备用位置还原到原始位置所需的映射。将文件保存在 SnapManager 可以访问的位置。
+* 使用 SnapManager 使用还原规范 XML 文件还原和恢复数据。
+

@@ -1,0 +1,21 @@
+---
+permalink: windows/task-viewing-a-list-of-snapmanager-history-operation-as-a-report.html 
+sidebar: sidebar 
+keywords: view, history, snapmanager, operation, report, base, retention, setting, list 
+summary: 您可以根据保留设置以报告形式查看特定或所有 SnapManager 操作的历史记录。 
+---
+= 查看 SnapManager 操作历史记录列表
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以根据保留设置以报告形式查看特定或所有 SnapManager 操作的历史记录。
+
+.步骤
+. 要查看SnapManager 历史记录操作列表、请输入以下命令：
++
+`smsap history list -profile｛-name、profile_name [profile_name1、profile_name2]|-all-repository-login (-passwordrepo_password)-usernamerepo_username-dbnamerepo_dbname-host-portrepo_port｝-operation｛-name1 operation_name [-all_delicitate]`……
+
+

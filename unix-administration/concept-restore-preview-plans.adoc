@@ -1,0 +1,93 @@
+---
+permalink: unix-administration/concept-restore-preview-plans.html 
+sidebar: sidebar 
+keywords: snapmanager, restore, plan, before, after, operation, preview, review, analyze 
+summary: SnapManager 可在还原操作完成前后提供还原计划。还原计划用于预览，查看和分析不同的还原方法。 
+---
+= 什么是还原预览计划
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 可在还原操作完成前后提供还原计划。还原计划用于预览，查看和分析不同的还原方法。
+
+
+
+== 还原计划的结构
+
+还原计划包括以下两个部分：
+
+* 预览 / 查看：本节介绍 SnapManager 将如何还原（或已还原）每个文件。
+* 分析：本节介绍还原操作期间未使用某些还原机制的原因。
+
+
+
+
+== 预览 / 查看部分
+
+本节显示了每个文件将如何还原或已还原。在执行还原操作之前查看还原计划时，该计划称为预览。当您在还原操作完成后查看它时，它称为查看。
+
+以下预览示例显示了文件是使用基于卷的快速还原，存储端文件系统还原和存储端系统还原方法进行还原的。要确定为何不使用相同的还原方法还原所有文件，请参见分析一节。
+
+[listing]
+----
+Preview:
+The following files will be restored completely via: fast restore
++DG1/rac6/users.dbf
+
+The following files will be restored completely via: storage side file system restore
++DG2/rac6/sysaux.dbf
++DG2/rac6/system.dbf
+The following files will be restored completely via: storage side system restore
++DG2/rac6/undotbs1.dbf
++DG2/rac6/undotbs2.dbf
+----
+每个还原方法都有一个小节，其中包含有关可使用该还原方法还原的文件的信息。这些小节将根据存储方法效率的降低级别进行排序。在上面的示例中，快速还原方法比存储文件系统还原方法效率更高，因此会首先显示。
+
+一个文件可以通过多种还原方法进行还原。如果文件系统使用的底层逻辑单元号（ LUN ）分布在不同的存储系统卷之间，并且某些卷符合卷还原条件，而其他卷则不符合卷还原条件，则会使用多种还原方法。如果使用多种还原方法来还原同一文件，则预览部分将类似于以下内容：
+
+[listing]
+----
+The following files will be restored via a combination of:
+[fast restore, storage side file system restore. storage side system restore]
+----
+
+
+== " 分析 " 部分
+
+" 分析 " 部分介绍了不使用或不使用某些还原机制的原因。您可以使用此信息来确定启用更高效的还原机制所需的资源。
+
+以下示例显示了一个 " 分析 " 部分：
+
+[listing]
+----
+Analysis:
+
+The following reasons prevent certain files from being
+restored completely via: fast restore
+   * LUNs present in snapshot of volume fas960:
+        /vol/rac_6_asm_disks may not be consistent when reverted:
+        [fas960:/vol/rac6_asm_disks/DG4D1.lun]
+     Mapped LUNs in volume fas960:/vol/rac_6_asm_disks
+        not part of the restore scope will be reverted: [DG4D1.lun]
+
+Files to restore:
+     +DG2/rac6/sysaux.dbf
+     +DG2/rac6/system.dbf
+     +DG2/rac6/undotbs1.dbf
+     +DG2/rac6/undotbs2.dbf
+
+* Reasons denoted with an asterisk (*) are overridable.
+----
+在此示例中、第一个故障可通过以下方法进行覆盖：在命令行界面(CLI)中使用`-fast -override`、或者在图形用户界面(GUI)中选择*覆盖*。卷中映射的 LUN 的第二个故障是必填的，不可覆盖。
+
+您可以通过执行以下操作来解决检查问题：
+
+* 要解决强制检查失败的问题，请更改环境以使检查通过。
+* 要解决可覆盖检查失败的问题，您可以更改环境或覆盖此检查。
++
+但是，您必须小心，因为覆盖检查可能会导致意外后果。
+
+

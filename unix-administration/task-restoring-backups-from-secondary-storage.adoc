@@ -1,0 +1,77 @@
+---
+permalink: unix-administration/task-restore-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: restore, protect, backup, secondary, storage, copy, data, back, primary, storage, restoring 
+summary: 您可以从二级存储还原受保护的备份，并选择将数据复制回主存储的方式。 
+---
+= 从二级存储还原备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以从二级存储还原受保护的备份，并选择将数据复制回主存储的方式。
+
+* 关于此任务 *
+
+您可以使用`backup restore`命令和` from-secondary`选项从二级存储还原数据。如果未指定`-从-二级`选项、则SnapManager 将从主存储上的Snapshot副本还原数据。
+
+如果备份位于主存储上、则不能使用`-从-二级`选项；必须先释放主备份、然后才能从二级存储还原备份。如果使用临时卷、则必须使用`-temp-volume`选项指定此卷。
+
+每当指定` from-secondary`选项时、您都必须指定`-copy-id`选项。如果二级存储系统上有多个备份、则会使用`-copy-id`选项指定二级存储上应使用哪个备份副本执行还原操作。
+
+
+NOTE: 如果您使用的是在7-模式下运行的Data ONTAP 、则必须为`-copy-id`选项指定有效值。但是、如果您使用的是集群模式Data ONTAP 、则不需要`-copy-id`选项。
+
+从二级存储还原数据时， SnapManager 会首先尝试将数据直接从二级存储系统还原到主存储系统（而不涉及主机）。如果 SnapManager 无法执行此类还原（例如，如果文件不属于文件系统），则 SnapManager 将回退到主机端文件副本还原。SnapManager 可通过两种方法从二级存储执行主机端文件副本还原。SnapManager 选择的方法在`smsap.config`文件中进行配置。
+
+* 如果`_restore.secondaryAccessPolicy_=*直接*`、则SnapManager 会克隆二级存储上的数据、将克隆的数据从二级存储系统挂载到主机、然后将数据从克隆复制到活动环境。
++
+这是默认的二级访问策略。
+
+* 如果`_restore.secondaryAccessPolicy_=*间接*`、则SnapManager 会首先将数据复制到主存储上的临时卷、将数据从临时卷挂载到主机、然后将数据从临时卷复制到活动环境。
++
+只有当主机无法直接访问二级存储系统时，才应使用此策略。使用间接方法恢复所需时间是直接方法的两倍，因为会创建两个数据副本。
+
+
+
+.步骤
+. 执行以下操作之一：
++
+[cols="1a,3a"]
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+如果选定备份位于主存储上，请还原完整的数据库
+ a| 
+输入以下命令：
+
+`* smsap backup restore -profile _profile_name_-label _label _-complete -recover -alllogs[-copy-id _id_]*`
+
+
+
+ a| 
+如果选定备份不在主存储上，请还原完整的数据库
+ a| 
+输入以下命令：`* smsap backup restore -profile _profile_name_-label _label _-complete-recover -alllogs-from-secondary (-temp-volume _<temp_volume>__](-copy-id _id_）*`
+
+|===
+
+
+'''
+
+
+== 示例
+
+以下命令将从二级存储系统还原受保护的备份：
+
+[listing]
+----
+smsap backup restore -profile PAYDB -label daily_monday -complete
+-recover alllogs -from-secondary -copy-id 3042 -temp-volume smsap_scratch_restore_volume
+Operation Id [8abc011215d385920115d38599470001] succeeded.
+----
+'''

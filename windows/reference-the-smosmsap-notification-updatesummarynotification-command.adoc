@@ -1,0 +1,108 @@
+---
+permalink: windows/reference-the-smosmsap-notification-updatesummarynotification-command.html 
+sidebar: sidebar 
+keywords: run, notification, update-summary-notification, command, enable, summary, repository, database, smsap 
+summary: 您可以运行 notification update-summary-notification 命令为存储库数据库启用摘要通知。 
+---
+= smsap notification update-summary-notification命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`notification update-summary-notification`命令为存储库数据库启用摘要通知。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap notification update-summary-notification
+-repository
+-port repo_port
+-dbname  repo_service_name
+-host repo_host
+-login -username repo_username
+-email email-address1,email-address2
+-subject subject-pattern
+-frequency
+[-daily –time daily_time |
+-hourly –time hourly_time |
+-monthly –time monthly_time -date [1|2|3|...|31] |
+-weekly  –time weekly_time -day [1|2|3|4|5|6|7]]
+-profiles profile1,profile2
+-notification-host notification-host
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`存储库`*
++
+指定存储库数据库的详细信息。
+
+* *`-port _repo_port_`*
++
+指定用于访问存储库数据库的 TCP 端口号。
+
+* *`-dbname _repo_service_name_`*
++
+指定存储库数据库的名称。您可以使用全局名称或系统标识符。
+
+* *`主机_repo_host_`*
++
+指定存储库数据库所在主机的名称或 IP 地址。
+
+* *`登录`*
++
+指定存储库登录详细信息。这是可选的。如果未指定，则 SnapManager 默认为操作系统身份验证连接模式。
+
+* *`用户名_repo_username_`*
++
+指定访问存储库数据库所需的用户名。
+
+* *`电子邮件_email-address1、e-mail-address2_`*
++
+指定收件人的电子邮件地址。
+
+* *`-Subject _Subject-Pattern_`*
++
+指定电子邮件主题模式。
+
+* *`频率｛-daily -time _daily_time_|-hourly -time _hourly_time_|-monthly -time _monthly_time -date_｛1|2_3...-31｝_-weekly -time _weekly_time -day_｛1|2|3_4|5_6_7｝`
++
+指定希望电子邮件通知的计划类型和计划时间。
+
+* *`配置文件_profile1、profile2_`*
++
+指定需要电子邮件通知的配置文件名称。
+
+* *`-notification—host _notification—host_`*
++
+指定将摘要通知电子邮件发送到收件人的 SnapManager 服务器主机。您可以为通知主机提供主机名或 IP 地址。您还可以更新主机 IP 或主机名。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下示例将为存储库数据库启用摘要通知：
+
+[listing]
+----
+
+smsap notification update-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5 –email admin@org.com –subject success –frequency -daily -time 19:30:45 –profiles sales1
+----

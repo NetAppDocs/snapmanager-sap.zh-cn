@@ -1,0 +1,38 @@
+---
+permalink: unix-installation-7mode/concept-upgrading-snapmanager-hosts-by-using-rolling-upgrade.html 
+sidebar: sidebar 
+keywords: roll, upgrade, approach, enable, host, stagger, host-by-host, manner, support, snapmanager, upgrading 
+summary: SnapManager 3.1 支持滚动升级方法，可用于按主机交错升级主机。 
+---
+= 使用滚动升级升级升级 SnapManager 主机
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 3.1 支持滚动升级方法，可用于按主机交错升级主机。
+
+SnapManager 3.0 或更早版本仅允许同时升级所有主机。这会导致所有 SnapManager 主机停机，并在升级操作期间按计划执行操作。
+
+滚动升级具有以下优势：
+
+* 提高了 SnapManager 性能，因为一次只升级一个主机。
+* 能够在升级其他主机之前测试一台 SnapManager 服务器主机中的新功能。
+
+
+
+NOTE: 您只能使用命令行界面（ CLI ）执行滚动升级。
+
+image::../media/scrn_en_drw_rollupgrade_architecture.gif[SCRN en drw 滚动升级架构]
+
+成功完成滚动升级后， SnapManager 将托管，配置文件，计划，备份， 与目标数据库配置文件关联的克隆将从早期 SnapManager 版本的存储库数据库迁移到新版本的存储库数据库。有关使用在早期 SnapManager 版本中创建的配置文件，计划，备份和克隆执行的操作的详细信息，现在可从新版本的存储库数据库中获取。您可以使用 user.config 文件的默认配置值启动 GUI 。不考虑在早期版本的 SnapManager 的 user.config 文件中配置的值。
+
+升级后的 SnapManager 服务器现在可以与升级后的存储库数据库进行通信。未升级的主机可以使用早期版本的 SnapManager 的存储库来管理其目标数据库，从而可以使用早期版本中提供的功能。
+
+
+NOTE: 在执行滚动升级之前，您必须确保可以解析存储库数据库下的所有主机。有关如何解析主机的信息、请参见适用于SnapManager UNIX_的_SAP管理指南中的故障排除部分。
+
+* 相关信息 *
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["《适用于SAP的SnapManager 3.4.1 UNIX管理指南》"^]

@@ -1,0 +1,16 @@
+---
+permalink: unix-installation-cmode/reference-prepare-storage-systems-for-snapmirror-and-snapvault-replication.html 
+sidebar: sidebar 
+keywords: snapmanager, ontap, snapmirror, create, mirror, copies, copy, backup, volume, snapvault, technology, disk-to-disk, replication, backup, governance-related, volume, prepare 
+summary: 您可以使用采用ONTAP SnapMirror技术的SnapManager 在另一个卷上创建备份集的镜像副本、并使用ONTAP SnapVault 技术执行磁盘到磁盘备份复制、以满足标准和其他监管相关要求。在执行这些任务之前，您必须在源卷和目标卷之间配置数据保护关系并初始化此关系。 
+---
+= 准备用于 SnapMirror 和 SnapVault 复制的存储系统
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用采用ONTAP SnapMirror技术的SnapManager 在另一个卷上创建备份集的镜像副本、并使用ONTAP SnapVault 技术执行磁盘到磁盘备份复制、以满足标准和其他监管相关要求。在执行这些任务之前、您必须在源卷和目标卷之间配置_data-protection relationship_、并为此关系配置_initialization_。
+
+数据保护关系会将主存储（源卷）上的数据复制到二级存储（目标卷）。初始化此关系时， ONTAP 会将源卷上引用的数据块传输到目标卷。

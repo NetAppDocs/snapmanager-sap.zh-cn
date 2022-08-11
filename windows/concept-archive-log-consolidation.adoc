@@ -1,0 +1,14 @@
+---
+permalink: windows/concept-archive-log-consolidation.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, consolidate, archive, log, backup, file, identify, identifies, consolidation 
+summary: '适用于SAP的SnapManager (3.2或更高版本)整合了归档日志备份、以保持归档日志文件的备份数量最少。SnapManager for SAP可识别并释放包含归档日志文件的备份、这些文件是其他备份的子集。' 
+---
+= 归档日志整合
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+适用于SAP的SnapManager (3.2或更高版本)整合了归档日志备份、以保持归档日志文件的备份数量最少。SnapManager for SAP可识别并释放包含归档日志文件的备份、这些文件是其他备份的子集。

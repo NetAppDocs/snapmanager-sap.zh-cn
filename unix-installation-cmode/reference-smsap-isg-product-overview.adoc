@@ -1,0 +1,48 @@
+---
+permalink: unix-installation-cmode/reference-smsap-isg-product-overview.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, automate, simplify, simplifies, complex, manual, time-consume, associate, backup, recovery, clone, database, snapmirror, copy, copies, ontap, snapvault, technology, disk, product, overview 
+summary: SnapManager for SAP可自动执行和简化与数据库备份、恢复和克隆相关的复杂、手动且耗时的流程。您可以使用采用 ONTAP SnapMirror 技术的 SnapManager 在另一个卷上创建备份副本，并使用 ONTAP SnapVault 技术将备份高效归档到磁盘。 
+---
+= 产品概述
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager for SAP可自动执行和简化与数据库备份、恢复和克隆相关的复杂、手动且耗时的流程。您可以使用采用 ONTAP SnapMirror 技术的 SnapManager 在另一个卷上创建备份副本，并使用 ONTAP SnapVault 技术将备份高效归档到磁盘。
+
+SnapManager 提供了OnCommand Unified Manager以及与SAP的Br*工具集成等所需工具、用于执行策略驱动型数据管理、计划和创建定期数据库备份、以及在发生数据丢失或灾难时从这些备份中还原数据。
+
+SnapManager 还可与原生 Oracle技术集成、例如Oracle Real Application Clusters (Oracle RAC)和Oracle Recovery Manager (RMAN)、以保留备份信息。这些备份稍后可用于块级还原或表空间时间点恢复操作。
+
+
+
+== SnapManager 亮点
+
+SnapManager 可与UNIX主机上的数据库以及后端的Snapshot、SnapRestore 和FlexClone技术无缝集成它提供了一个易于使用的用户界面（ UI ）以及用于管理功能的命令行界面（ CLI ）。
+
+使用 SnapManager ，您可以执行以下数据库操作并高效管理数据：
+
+* 在主存储或二级存储上创建节省空间的备份
++
+使用 SnapManager 可以分别备份数据文件和归档日志文件。
+
+* 计划备份
+* 使用基于文件或基于卷的还原操作还原完整或部分数据库
+* 通过从备份中发现，挂载和应用归档日志文件来恢复数据库
+* 仅为归档日志创建备份时，从归档日志目标中删除归档日志文件
+* 通过仅保留包含唯一归档日志文件的备份，自动保留最少数量的归档日志备份
+* 跟踪操作详细信息并生成报告
+* 验证备份以确保备份采用有效的块格式，并且备份的文件均未损坏
+* 维护对数据库配置文件执行的操作的历史记录
++
+配置文件包含有关要由 SnapManager 管理的数据库的信息。
+
+* 保护二级存储系统上的备份。
+* 在主存储或二级存储上为备份创建节省空间的克隆
++
+使用 SnapManager 可以拆分数据库的克隆。
+
+

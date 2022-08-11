@@ -1,0 +1,39 @@
+---
+permalink: windows/concept-snapmanager-for-oraclefor-sap-command-reference.html 
+sidebar: sidebar 
+keywords: snapmanager, command, reference, valid, syntax, parameter, argument, example, sap 
+summary: SnapManager 命令参考包括有效的使用语法，选项，参数和参数，您应在命令中提供这些参数以及示例。 
+---
+= SnapManager for SAP命令参考
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 命令参考包括有效的使用语法，选项，参数和参数，您应在命令中提供这些参数以及示例。
+
+以下问题适用于命令用法：
+
+* 命令区分大小写。
+* SnapManager 最多可接受 200 个字符，标签最多可接受 80 个字符。
+* 如果主机上的shell限制了命令行上可以显示的字符数、则可以使用`cmdfile`命令。
+* 请勿在配置文件名称或标签名称中使用空格。
+* 在克隆规范中，请勿在克隆位置使用空格。
+
+
+SnapManager 可以向控制台显示三种级别的消息：
+
+* 错误消息
+* 警告消息
+* 信息性消息
+
+
+您可以指定消息的显示方式。如果不指定任何内容， SnapManager 将仅向控制台显示错误消息和警告。要控制 SnapManager 在控制台上显示的输出量，请使用以下命令行选项之一：
+
+* `-静默`：仅向控制台显示错误消息。
+* `-verbose`：向控制台显示错误、警告和信息性消息。
+
+
+
+NOTE: 无论默认行为或为显示指定的详细信息级别如何， SnapManager 始终会将所有消息类型写入日志文件。

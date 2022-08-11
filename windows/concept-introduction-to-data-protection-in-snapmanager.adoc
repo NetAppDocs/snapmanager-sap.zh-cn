@@ -1,0 +1,19 @@
+---
+permalink: windows/concept-introduction-to-data-protection-in-snapmanager.html 
+sidebar: sidebar 
+keywords: snapmanager, support, data, protection, protect, backup, secondary, tertiary, storage, system, snapmirror, snapvault, relationship, source, destination, volume 
+summary: SnapManager 支持数据保护，以保护二级或三级存储系统上的备份。您必须在源卷和目标卷之间设置 SnapMirror 和 SnapVault 关系。 
+---
+= SnapManager 中的数据保护简介
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 支持数据保护，以保护二级或三级存储系统上的备份。您必须在源卷和目标卷之间设置 SnapMirror 和 SnapVault 关系。
+
+
+NOTE: 使用Br*工具创建的备份无法使用适用于SAP的SnapManager 进行保护。
+
+您可以使用命令行界面（ CLI ）和图形用户界面（ GUI ）中的备份后脚本来保护主存储系统上的备份。

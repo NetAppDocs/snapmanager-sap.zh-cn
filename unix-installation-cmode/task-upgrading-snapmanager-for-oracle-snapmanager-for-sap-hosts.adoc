@@ -1,0 +1,86 @@
+---
+permalink: unix-installation-cmode/task-upgrade-snapmanager-for-oracle-snapmanager-for-sap-hosts.html 
+sidebar: sidebar 
+keywords: upgrade, exist, host, version, snapmanager, simultaneous, result, downtime 
+summary: 您可以升级所有现有主机以使用最新版本的 SnapManager 。所有主机都会同时升级。但是，这可能会导致所有 SnapManager 主机停机，并在此期间执行计划的操作。 
+---
+= 升级SnapManager 主机
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以升级所有现有主机以使用最新版本的 SnapManager 。所有主机都会同时升级。但是，这可能会导致所有 SnapManager 主机停机，并在此期间执行计划的操作。
+
+.步骤
+. 以 root 用户身份登录到主机系统。
+. 在命令行界面（ CLI ）中，导航到下载安装文件的位置。
+. 可选：如果此文件不可执行、请更改权限：`chmod 544 netapp.smsap*`
+. 停止SnapManager 服务器：`smsap_server stop`
+. 根据 UNIX 主机，安装 SnapManager ：
++
+|===
+| 操作系统 | 然后运行 ... 
+
+
+ a| 
+* Solaris （ SPARC 64 ） *
+ a| 
+`\#./netapp.smsap.sunos-sc箱64-version_number.bin`
+
+
+
+ a| 
+* Solaris （ x86_64 ） *
+ a| 
+`\#./netapp.smsap.Sunos-x64-version_number.bin`
+
+
+
+ a| 
+* AIX （ PPC64 ） *
+ a| 
+`\#./netapp.smsap.aix-ppc64-version_number.bin`
+
+
+
+ a| 
+* Linux x86_64
+ a| 
+`\#./netapp.smsap.linux-x86-version_number.bin`
+
+
+
+ a| 
+* Linux x64*
+ a| 
+`\#./netapp.smsap.linux-x64-version_number.bin`
+
+|===
+. 在*简介*页面上、按*输入*继续。
++
+此时将显示以下消息：`Existing SnapManager for SAP Detected。`
+
+. 按 * 输入 * 。
+. 在命令提示符处，执行以下操作：
++
+.. 将操作系统用户的默认值更改为* ora *`_sid_`。
++
+`_sid_`是SAP数据库的系统标识符。
+
+.. 为操作系统组输入正确的值或按 * 输入 * 接受默认值。
+.. 输入正确的服务器启动类型值或按 * 输入 * 接受默认值。
+
+
++
+此时将显示配置摘要。
+
+. 按 * 输入 * 继续。
++
+此时将显示以下消息：`卸载现有SnapManager for SAP has started`。
+
++
+卸载完成，并安装了最新版本的 SnapManager 。
+
+

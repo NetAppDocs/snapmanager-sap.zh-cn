@@ -1,0 +1,47 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-a-secondary-resource-pool.html 
+sidebar: sidebar 
+keywords: support, backup, database, secondary, storage, administrator, protection, manager, organize, snapvault, license, resource, pool 
+summary: 为了支持将数据库备份到二级存储，存储管理员使用 Protection Manager 将使用 SnapVault 二级许可证启用的二级存储系统组织到备份资源池中。 
+---
+= 使用Protection Manager配置二级资源池
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+为了支持将数据库备份到二级存储，存储管理员使用 Protection Manager 将使用 SnapVault 二级许可证启用的二级存储系统组织到备份资源池中。
+
+* 您需要的内容 *
+
+理想情况下，资源池中的存储系统可作为备份目标进行互换。例如，在为薪资数据库制定保护策略时，作为存储管理员，您确定了性能和服务质量级别相似的二级存储系统，这些系统适合属于同一资源池。
+
+您已在要分配给资源池的存储系统上创建未使用空间聚合。这样可以确保有足够的空间来容纳备份。
+
+.步骤
+. 转到 Protection Manager 的 NetApp 管理控制台。
+. 从菜单栏中，单击 * 数据 * > * 资源池 * 。
++
+此时将显示资源池窗口。
+
+. 单击 * 添加 * 。
++
+此时将启动添加资源池向导。
+
+. 完成向导中的步骤以创建 * paydb_backup_resource* 资源池。
++
+请使用以下设置：
+
++
+** 名称：使用 * paydb-backup_resource*
+** 空间阈值（使用默认值）：
++
+*** 空间利用率阈值：已启用
+*** 接近全满阈值（对于资源池）： 80%
+*** 全满阈值（对于资源池）： 90%
+
+
+
+
+

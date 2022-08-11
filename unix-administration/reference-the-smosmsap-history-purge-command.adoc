@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/reference-the-smosmsap-history-purge-command.html 
+sidebar: sidebar 
+keywords: command, enable, delete, history, snapmanager, operation, smsap, purge 
+summary: 使用此命令可以删除 SnapManager 操作的历史记录。 
+---
+= smsap history purge命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用此命令可以删除 SnapManager 操作的历史记录。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap history purge
+-profile {-name _profile_name_ [_profile_name1_, _profile_name2_\] | -all
+-repository -login [-password _repo_password_\] -username _repo_username_
+-host _repo_host_
+-dbname _repo_dbname_
+-port repo_port}
+-operation {-operations _operation_name_ [_operation_name1_, _operation_name2_\] | -all}
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_*`
++
+指定配置文件的名称。此名称最长为 30 个字符，并且在主机中必须是唯一的。
+
+* `*—存储库*`
++
+repository 后面的选项用于指定存储配置文件的数据库的详细信息。
+
+* `*—dbname _repo_dbname_*`
++
+指定存储配置文件的数据库的名称。使用全局名称或 SID 。
+
+* `*—host _repo_host_*`
++
+指定运行存储库数据库的主机计算机的名称或 IP 地址。
+
+* `*-登录*`
++
+启动存储库登录详细信息。
+
+* `*-用户名_repo_username_*`
++
+指定访问存储库的数据库所需的用户名。
+
+* `*—端口repo_port*`
++
+指定用于访问存储库的数据库的 TCP 端口号。
+
+* `*-operation｛-operations _operation_name____operation_name1、operation_name2_]|-all*`
++
+指定要配置历史记录的 SnapManager 操作。
+
+* `*-静默*`
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 命令示例
+
+[listing]
+----
+ smsap history purge -profile -name PROFILE1 -operation -operations backup
+ -verbose
+----
+'''

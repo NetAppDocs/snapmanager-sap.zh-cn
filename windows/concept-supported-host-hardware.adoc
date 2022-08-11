@@ -1,0 +1,45 @@
+---
+permalink: windows/concept-supported-host-hardware.html 
+sidebar: sidebar 
+keywords: memory, disk, space, cpu, requirement, support, host, hardware 
+summary: 请考虑内存，磁盘空间和 CPU 要求。 
+---
+= 支持的主机硬件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+请考虑内存，磁盘空间和 CPU 要求。
+
+SnapManager 需要以下配置：
+
+|===
+| 硬件功能 | 硬件要求 
+
+
+ a| 
+内存
+ a| 
+SnapManager 服务器需要 128 MB 内存。
+
+图形用户界面至少需要 512 MB RAM 才能运行。
+
+SnapManager 服务器运行的每个操作在运行时都需要 48 MB 的额外内存。
+
+
+
+ a| 
+磁盘空间
+ a| 
+图形用户应用程序的可用磁盘空间为 128 MB （最小）。
+
+
+
+ a| 
+CPU 速度
+ a| 
+1.0 GHz 处理器速度（最低）。
+
+|===

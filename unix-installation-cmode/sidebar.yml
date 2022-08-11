@@ -1,0 +1,111 @@
+---
+section: unix-installation-cmode
+title: 适用于集群模式 Data ONTAP 的 UNIX 安装和设置
+entries:
+- title: 产品概述
+  url: "/unix-installation-cmode/reference-smsap-isg-product-overview.html"
+  entries:
+  - title: SnapManager 架构
+    url: "/unix-installation-cmode/reference-smsap-isg-snapmanager-architecture.html"
+- title: 部署工作流
+  url: "/unix-installation-cmode/reference-smsap-isg-deployment-workflow.html"
+- title: 准备部署
+  url: "/unix-installation-cmode/task-smsap-isg-prepare-for-deployment.html"
+  entries:
+  - title: SnapManager 许可
+    url: "/unix-installation-cmode/reference-smsap-isg-snapmanager-licensing.html"
+  - title: 支持的配置
+    url: "/unix-installation-cmode/reference-supported-configurations.html"
+  - title: 支持的存储类型
+    url: "/unix-installation-cmode/reference-supported-storage-types.html"
+  - title: UNIX 主机要求
+    url: "/unix-installation-cmode/reference-smsap-isg-host-requirements.html"
+- title: 配置数据库
+  url: "/unix-installation-cmode/task-smsap-isg-configure-databases.html"
+  entries:
+  - title: 配置目标数据库
+    url: "/unix-installation-cmode/task-smsap-isg-configure-the-target-database.html"
+  - title: 为目标数据库创建Oracle数据库用户
+    url: "/unix-installation-cmode/task-create-an-oracle-user-for-the-target-database.html"
+  - title: 创建存储库数据库实例
+    url: "/unix-installation-cmode/task-create-the-repository-database-instance.html"
+  - title: 为存储库数据库实例创建Oracle用户
+    url: "/unix-installation-cmode/task-create-an-oracle-user-for-the-repository-database-instance.html"
+  - title: 验证Oracle侦听器配置
+    url: "/unix-installation-cmode/task-verify-the-oracle-listener-configuration.html"
+- title: 安装SnapManager
+  url: "/unix-installation-cmode/task-smsap-isg-install-snapmanager.html"
+  entries:
+  - title: 与SAP BR*工具集成
+    url: "/unix-installation-cmode/task-smsap-isg-integrate-with-sap-br-tools.html"
+- title: 设置SnapManager
+  url: "/unix-installation-cmode/task-set-up-snapmanager.html"
+  entries:
+  - title: 启动SnapManager 服务器
+    url: "/unix-installation-cmode/task-smsap-isg-start-the-snapmanager-server.html"
+  - title: 访问SnapManager 用户界面
+    url: "/unix-installation-cmode/task-smsap-isg-access-the-snapmanager-user-interface.html"
+  - title: 配置SnapManager 存储库
+    url: "/unix-installation-cmode/task-smsap-isg-configure-the-snapmanager-repository.html"
+- title: 准备用于 SnapMirror 和 SnapVault 复制的存储系统
+  url: "/unix-installation-cmode/reference-prepare-storage-systems-for-snapmirror-and-snapvault-replication.html"
+  entries:
+  - title: 了解 SnapMirror 与 SnapVault 之间的区别
+    url: "/unix-installation-cmode/concept-understanding-the-differences-between-snapmirror-and-snapvault.html"
+  - title: 准备用于SnapMirror复制的存储系统
+    url: "/unix-installation-cmode/task-prepare-storage-systems-for-snapmirror-replication.html"
+  - title: 准备用于SnapVault 复制的存储系统
+    url: "/unix-installation-cmode/task-prepare-storage-systems-for-snapvault-replication.html"
+- title: 备份和验证数据库
+  url: "/unix-installation-cmode/concept-backing-up-and-verifying-your-databases.html"
+  entries:
+  - title: SnapManager 备份概述
+    url: "/unix-installation-cmode/concept-smsap-isg-snapmanager-backup-overview.html"
+  - title: 定义备份策略
+    url: "/unix-installation-cmode/concept-smsap-isg-defining-a-backup-strategy.html"
+  - title: 为数据库创建配置文件
+    url: "/unix-installation-cmode/task-smsap-isg-create-a-profile-for-your-database.html"
+  - title: 备份数据库
+    url: "/unix-installation-cmode/task-smsap-isg-back-up-your-database.html"
+  - title: 验证数据库备份
+    url: "/unix-installation-cmode/task-smsap-isg-verify-database-backups.html"
+  - title: 计划重复备份
+    url: "/unix-installation-cmode/task-smsap-isg-schedule-recurring-backups.html"
+- title: 从UNIX主机卸载软件
+  url: "/unix-installation-cmode/task-smsap-isg-uninstall-the-software-from-a-unix-host.html"
+- title: 升级 SnapManager
+  url: "/unix-installation-cmode/concept-upgrading-snapmanager-for-oracle-snapmanager-for-sap.html"
+  entries:
+  - title: 正在准备升级 SnapManager
+    url: "/unix-installation-cmode/concept-preparing-to-upgrade-snapmanager-for-oracle-snapmanager-for-sap.html"
+  - title: 升级SnapManager 主机
+    url: "/unix-installation-cmode/task-upgrade-snapmanager-for-oracle-snapmanager-for-sap-hosts.html"
+  - title: 升级后任务
+    url: "/unix-installation-cmode/concept-post-upgrade-tasks.html"
+    entries:
+    - title: 更新现有存储库
+      url: "/unix-installation-cmode/task-update-the-existing-repository.html"
+    - title: 修改备份保留类
+      url: "/unix-installation-cmode/task-modify-the-backup-retention-class.html"
+    - title: 还原进程类型
+      url: "/unix-installation-cmode/concept-restore-process-identification.html"
+  - title: 使用滚动升级升级升级 SnapManager 主机
+    url: "/unix-installation-cmode/concept-upgrading-snapmanager-hosts-by-using-rolling-upgrade.html"
+    entries:
+    - title: 执行滚动升级的前提条件
+      url: "/unix-installation-cmode/concept-prerequisites-for-performing-rolling-upgrade.html"
+    - title: 在一台或多台主机上执行滚动升级
+      url: "/unix-installation-cmode/task-perform-rolling-upgrade-on-a-single-host-or-multiple-hosts.html"
+    - title: 什么是回滚
+      url: "/unix-installation-cmode/concept-what-a-rollback-is.html"
+      entries:
+      - title: 执行回滚的限制
+        url: "/unix-installation-cmode/concept-limitations-for-performing-a-rollback.html"
+      - title: 执行回滚的前提条件
+        url: "/unix-installation-cmode/concept-prerequisites-for-performing-a-rollback.html"
+      - title: 在一台或多台主机上执行回滚
+        url: "/unix-installation-cmode/task-perform-a-rollback-on-a-single-host-or-multiple-hosts.html"
+      - title: 回滚后任务
+        url: "/unix-installation-cmode/task-post-rollback-tasks.html"
+- title: 下一步行动
+  url: "/unix-installation-cmode/reference-smsap-isg-where-to-go-next.html"

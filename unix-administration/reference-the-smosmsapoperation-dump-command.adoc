@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/reference-the-smosmsapoperation-dump-command.html 
+sidebar: sidebar 
+keywords: run, operation, dump, command, create, jar, file, contain, diagnostic, information, smsap 
+summary: 您可以运行 operation dump 命令来创建包含有关操作的诊断信息的 JAR 文件。 
+---
+= smsap operation dump命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`operation` dump命令来创建包含有关操作的诊断信息的JAR文件。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap operation dump
+-profile _profile_name_
+[-label _label_name_ | -id _guid_]
+[-quiet | -verbose]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定要为其创建转储文件的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* `*-标签_label-name_*`
++
+为操作创建转储文件并分配指定标签。
+
+* `*—id _guid_*`
++
+使用指定 GUID 为操作创建转储文件。此 GUID 由 SnapManager 在操作开始时生成。
+
+* ``*-静默*``
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 示例
+
+以下示例将为备份创建转储文件：
+
+[listing]
+----
+smsap operation dump -profile SALES1
+-id 8abc01ec0e78f3e2010e78f3fdd00001
+----
+[listing]
+----
+Dump file created Path:/userhomedirectory/.netapp/smsap/3.3/smsap_dump_8abc01ec0e78f3e2010e78f3fdd00001.jar
+----
+'''

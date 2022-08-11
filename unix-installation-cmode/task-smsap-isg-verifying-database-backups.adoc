@@ -1,0 +1,42 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-verify-database-backups.html 
+sidebar: sidebar 
+keywords: verify, backup, database, ensure, backed-up, file, corrupt 
+summary: 您可以验证数据库的备份，以确保备份的文件未损坏。 
+---
+= 验证数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以验证数据库的备份，以确保备份的文件未损坏。
+
+
+
+== 关于此任务
+
+如果在创建备份时未选中 * 使用 Oracle DBVERIFY 实用程序验证备份 * 复选框，则必须手动执行以下步骤来验证备份。但是，如果选中此复选框， SnapManager 会自动验证备份。
+
+.步骤
+. 从 * 存储库 * 树中，选择配置文件。
+. 右键单击要验证的备份，然后选择 * 验证 * 。
+. 单击 * 完成 * 。
++
+如果操作失败，请单击 * 操作详细信息 * 以查看导致操作失败的原因。
+
++
+在 * 存储库 * 树中，右键单击备份，然后单击 * 属性 * 以查看验证操作的结果。
+
+
+
+
+
+== 完成后
+
+您可以使用备份的文件执行还原操作。有关如何使用 SnapManager 用户界面（ UI ）执行还原操作的信息，请参见 _Online 帮助 _ 。如果要使用命令行界面(CLI)执行还原操作、请参见_SAP SnapManager for UNIX_管理指南。
+
+* 相关信息 *
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["《适用于SAP的SnapManager 3.4.1 UNIX管理指南》"^]

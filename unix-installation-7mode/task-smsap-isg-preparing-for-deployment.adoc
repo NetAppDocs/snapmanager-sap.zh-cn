@@ -1,0 +1,21 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-prepare-for-deployment.html 
+sidebar: sidebar 
+keywords: deploy, snapmanager, ensure, storage, system, unix, host, minimum, resource, requirement, preparing, prepare, deployment 
+summary: 在部署 SnapManager 之前，您必须确保存储系统和 UNIX 主机满足最低资源要求。 
+---
+= 准备部署
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在部署 SnapManager 之前，您必须确保存储系统和 UNIX 主机满足最低资源要求。
+
+.步骤
+. 验证您是否具有所需的许可证。
+. 验证支持的配置。
+. 验证支持的存储类型。
+. 验证 UNIX 主机是否满足 SnapManager 要求。
+

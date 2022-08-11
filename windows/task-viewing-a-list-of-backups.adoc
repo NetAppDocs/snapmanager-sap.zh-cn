@@ -1,0 +1,25 @@
+---
+permalink: windows/task-viewing-a-list-of-backups.html 
+sidebar: sidebar 
+keywords: check, backup, create, profile, state, smsap, backup, command, display, information, view, list 
+summary: 您可以使用smsap backup list命令检查为配置文件创建的备份以及备份状态。对于每个配置文件，命令首先显示有关最新备份的信息，然后继续显示所有备份的信息。 
+---
+= 查看备份列表
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用smsap backup list命令检查为配置文件创建的备份以及备份状态。对于每个配置文件，命令首先显示有关最新备份的信息，然后继续显示所有备份的信息。
+
+.步骤
+. 输入以下命令：
++
+`smsap backup list -profile profile_name (-delimitcharacter])【data |-archivelogs](-静默>-verbose)`
+
+
+
+* 相关信息 *
+
+xref:reference-the-smosmsapbackup-list-command.adoc[smsap backup list命令]

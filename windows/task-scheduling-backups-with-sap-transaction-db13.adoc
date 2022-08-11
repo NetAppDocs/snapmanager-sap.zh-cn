@@ -1,0 +1,30 @@
+---
+permalink: windows/task-scheduling-backups-with-sap-transaction-db13.html 
+sidebar: sidebar 
+keywords: enable, backup, snapmanager, sap, dba, plan, calendar, transaction, db13, scheduling, schedule 
+summary: 要使SnapManager for SAP能够从DBA计划日历事务DB13执行备份、需要执行几个步骤。 
+---
+= 使用SAP事务DB13计划备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要使SnapManager for SAP能够从DBA计划日历事务DB13执行备份、需要执行几个步骤。
+
+. 更改/oracle/sid/sapbackup目录的权限、以允许通过sidadm用户标识符进行写入访问。
++
+使用以下命令作为orasid：`chmod 775 /oracle/sid/sapbackup`
+
++
+这样、dbagroup的成员就可以写入该目录。用户标识符sidadm是dba组的成员。
+
+. 更改orasidd的SnapManager for SAP凭据文件的权限以允许sidadm访问。使用orasid执行的以下命令：
++
+使用orasidd执行的以下命令：`chmod 660 /oracle/sid/.netapp/smsap/credentials`
+
++
+按照TR-3582《SnapManager for SAP最佳实践》中第3.3节"在存储库中注册系统"中的说明、在SnapManager for SAP存储库中注册sidadm用户标识符。
+
+

@@ -1,0 +1,79 @@
+---
+permalink: unix-administration/concept-considerations-for-cloning-a-database-to-an-alternate-host.html 
+sidebar: sidebar 
+keywords: clone, host, database, reside, requirement, cloning, alternate, consideration 
+summary: 在克隆到数据库所在主机以外的主机之前，必须满足某些要求。 
+---
+= 将数据库克隆到备用主机的注意事项
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在克隆到数据库所在主机以外的主机之前，必须满足某些要求。
+
+下表显示了源和目标主机设置要求：
+
+[cols="1a,2a"]
+|===
+| 前提条件设置 | 要求 
+
+
+ a| 
+架构
+ a| 
+源主机和目标主机上的必须相同
+
+
+
+ a| 
+操作系统和版本
+ a| 
+源主机和目标主机上的必须相同
+
+
+
+ a| 
+适用于SAP的SnapManager
+ a| 
+必须在源主机和目标主机上安装并运行
+
+
+
+ a| 
+凭据
+ a| 
+必须为用户设置以访问目标主机
+
+
+
+ a| 
+Oracle
+ a| 
+源主机和目标主机上都必须安装相同的软件版本。
+
+目标主机上必须运行 Oracle 侦听器。
+
+
+
+ a| 
+兼容存储堆栈
+ a| 
+源主机和目标主机上的必须相同
+
+
+
+ a| 
+用于访问数据文件的协议
+ a| 
+源主机和目标主机上的必须相同
+
+
+
+ a| 
+卷管理器
+ a| 
+必须在源主机和目标主机上配置，并且版本必须兼容
+
+|===

@@ -1,0 +1,92 @@
+---
+permalink: windows/reference-the-smosmsaprepository-create-command.html 
+sidebar: sidebar 
+keywords: command, create, repository, store, database, profile, associate, credential, adequate, smsap 
+summary: 此命令将创建一个存储库，用于存储数据库配置文件和关联凭据。此命令还会检查块大小是否足够。 
+---
+= smsap repository create命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+
+
+== 语法
+
+此命令将创建一个存储库，用于存储数据库配置文件和关联凭据。此命令还会检查块大小是否足够。
+
+[listing]
+----
+
+smsap repository create
+-repository
+-port repo_port
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`存储库`*
++
+repository 后面的选项用于指定存储库的数据库详细信息
+
+* *`-port _repo_port_`*
++
+指定用于访问存储库的数据库的 TCP 端口号。
+
+* *`-dbname _repo_service_name_`*
++
+指定存储库的数据库的名称。使用全局名称或 SID 。
+
+* *`主机_repo_host_`*
++
+指定运行存储库数据库的主机计算机的名称或 IP 地址。
+
+* *`登录`*
++
+启动存储库登录详细信息。
+
+* *`用户名_repo_username_`*
++
+指定访问存储库的数据库所需的用户名。
+
+* *`强制`*
++
+尝试强制创建存储库。使用此选项会导致 SnapManager 提示您在创建存储库之前备份存储库。
+
+* *`-noprop`*
++
+如果使用`-force`选项、则在创建存储库之前不会显示备份提示。使用`-noprop`选项可确保不会显示此提示、从而可以更轻松地使用脚本创建存储库。
+
+* *`-静默`*
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+以下示例将在主机Hotspur上的数据库SMSAPREPO中创建一个存储库。
+
+[listing]
+----
+smsap repository create -repository -port 1521 -dbname SMSAPREPO -host hotspur -login -username grabal21 -verbose
+SMSAP-09202 [INFO ]: Creating new schema as grabal21 on jdbc:oracle:thin:@//hotspur:1521/SMSAPREPO.
+SMSAP-09205 [INFO ]: Schema generation complete.
+SMSAP-09209 [INFO ]: Performing repository version INSERT.
+SMSAP-09210 [INFO ]: Repository created with version: 30
+SMSAP-13037 [INFO ]: Successfully completed operation: Repository Create
+SMSAP-13049 [INFO ]: Elapsed Time: 0:00:08.844
+----

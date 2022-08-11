@@ -1,0 +1,28 @@
+---
+permalink: windows/task-viewing-snapmanger-history-operation-details.html 
+sidebar: sidebar 
+keywords: view, history, setting, single, profile, snapmanager, configuration, detail 
+summary: 您可以查看单个配置文件的历史记录设置。 
+---
+= 查看 SnapManager 历史记录配置详细信息
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看单个配置文件的历史记录设置。
+
+SnapManager 历史记录操作会为每个配置文件显示以下信息：
+
+* 操作名称
+* 保留类
+* 保留计数
++
+.. 要显示有关特定配置文件的SnapManager 历史记录操作的信息、请输入以下命令：
++
+`smsap history show -profile profile_name`
+
+
+
+

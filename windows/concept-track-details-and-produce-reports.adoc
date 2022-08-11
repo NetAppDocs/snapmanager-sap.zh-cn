@@ -1,0 +1,16 @@
+---
+permalink: windows/concept-track-details-and-produce-reports.html 
+sidebar: sidebar 
+keywords: snapmanager, reduce, level, detail, database, administrator, track, status, operation, monitor, interface, produce, report 
+summary: SnapManager 通过提供从一个界面监控操作的方法，降低了数据库管理员跟踪不同操作状态所需的详细信息级别。 
+---
+= 跟踪详细信息并生成报告
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 通过提供从一个界面监控操作的方法，降低了数据库管理员跟踪不同操作状态所需的详细信息级别。
+
+管理员指定应备份的数据库后， SnapManager 会自动识别要备份的数据库文件。SnapManager 将显示有关存储库，主机，配置文件，备份和克隆的信息。您可以监控特定主机或数据库上的操作。

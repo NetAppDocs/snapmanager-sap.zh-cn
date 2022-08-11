@@ -1,0 +1,18 @@
+---
+permalink: windows/concept-clustered-configurations.html 
+sidebar: sidebar 
+keywords: snapmanager, operate, cluster, configuration 
+summary: SnapManager 在集群配置中运行。 
+---
+= 集群模式配置
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 在集群配置中运行。
+
+SnapManager 支持与 SnapDrive 产品和主机实用程序套件支持的相同主机集群和配置。
+
+SnapManager 还支持非集群配置，其中一个主机连接到单个存储系统，受支持的主机集群以及运行 Data ONTAP 控制器故障转移的存储系统。

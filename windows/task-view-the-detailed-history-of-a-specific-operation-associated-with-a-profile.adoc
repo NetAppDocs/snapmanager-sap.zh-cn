@@ -1,0 +1,21 @@
+---
+permalink: windows/task-view-the-detailed-history-of-a-specific-operation-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: view, detail, history, snapmanager, operation, associate, profile 
+summary: 您可以查看与配置文件关联的特定 SnapManager 操作的详细历史记录。 
+---
+= 查看与配置文件关联的特定操作的详细历史记录
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看与配置文件关联的特定 SnapManager 操作的详细历史记录。
+
+.步骤
+. 要显示与配置文件关联的特定SnapManager 操作的详细历史记录信息、请输入以下命令：
++
+`* smsap history operation-show -profile _profile_name_｛-label _label ____- id _id_｝｛-quiet _-verbose]*`
+
+

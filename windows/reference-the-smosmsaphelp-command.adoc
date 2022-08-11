@@ -1,0 +1,50 @@
+---
+permalink: windows/reference-the-smosmsaphelp-command.html 
+sidebar: sidebar 
+keywords: run, help, command, display, information, snapmanager, option, name, syntax, smsap 
+summary: 您可以运行 help 命令来显示有关 SnapManager 命令及其选项的信息。如果不提供命令名称，则会显示有效命令的列表。如果提供命令名称，则会显示该命令的语法。 
+---
+= smsap help命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`help`命令来显示有关SnapManager 命令及其选项的信息。如果不提供命令名称，则会显示有效命令的列表。如果提供命令名称，则会显示该命令的语法。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap help
+[][backup|cmdfile|clone|credential|help|operation|profile|repository|system|version|plugin|diag|history|schedule|notification|storage|get]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+以下是可与此命令结合使用的一些命令名称：
+
+* `备份`
+* `克隆`
+* `cmdfile`
+* `凭据`
+* `dIAG`
+* `获取`
+* `通知`
+* `帮助`
+* `历史记录`
+* `操作`
+* `插件`
+* `配置文件`
+* `re存储库`
+* `s计划`
+* `s存储`
+* `s系统`
+* `ve版本`
+

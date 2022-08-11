@@ -1,0 +1,88 @@
+---
+permalink: unix-administration/concept-understanding-enabling-or-disabling-of-data-protection-in-profile.html 
+sidebar: sidebar 
+keywords: enable, disable, data, protection, creating, create, update, updating, database, profile, understand, enabling, disabling 
+summary: 您可以在创建或更新数据库配置文件时启用或禁用数据保护。 
+---
+= 了解在配置文件中启用或禁用数据保护
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在创建或更新数据库配置文件时启用或禁用数据保护。
+
+要在二级存储资源上为数据库创建受保护的备份，数据库管理员和存储管理员将执行以下操作。
+
+[cols="1a,2a"]
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+创建或编辑配置文件
+ a| 
+要创建或编辑配置文件，请执行以下操作：
+
+* 为二级存储启用备份保护。
+* 如果您使用的是在 7- 模式下运行的 Data ONTAP 并已安装 Protection Manager ，则可以在 Protection Manager 中选择存储或备份管理员创建的策略。
++
+如果您使用的是在 7- 模式下运行的 Data ONTAP 且已启用保护，则 SnapManager 会为数据库创建一个数据集。数据集由一组存储集以及与其数据关联的配置信息组成。与数据集关联的存储集包括用于将数据导出到客户端的主存储集以及其他存储集中存在的一组副本和归档。数据集表示可导出的用户数据。如果管理员禁用对数据库的保护， SnapManager 将删除数据集。
+
+* 如果您使用的是 ONTAP ，则必须根据创建的 SnapMirror 或 SnapVault 关系选择 _SnapManager_cDOT_Mirror_ 或 _SnapManager_cDOT_Vault_policy 。
+
+
+禁用备份保护时，系统会显示一条警告消息，指出数据集将被删除，并且无法为此配置文件还原或克隆备份。
+
+
+
+ a| 
+查看配置文件
+ a| 
+由于存储管理员尚未分配用于实施保护策略的存储资源、因此配置文件在SnapManager 图形用户界面和`profile show`命令输出中均显示为不符合。
+
+
+
+ a| 
+在 Protection Manager 管理控制台中分配存储资源
+ a| 
+在 Protection Manager 管理控制台中，存储管理员可以查看未受保护的数据集，并为与配置文件关联的数据集的每个节点分配一个资源池。然后，存储管理员会确保配置二级卷并初始化保护关系。
+
+
+
+ a| 
+在 SnapManager 中查看符合性特征
+ a| 
+在SnapManager 中、数据库管理员会在图形用户界面和`profile show`命令输出中看到配置文件已更改为符合状态、表示已分配资源。
+
+
+
+ a| 
+创建备份
+ a| 
+* 选择完整备份。
+* 此外，选择是否应保护备份并选择主保留类（例如，每小时或每天）。
+* 如果您使用的是在7-模式下运行的Data ONTAP 、并且希望立即保护二级存储的备份覆盖Protection Manager保护计划、请指定`-protectnow`选项。
+* 如果您使用的是ONTAP 、并且希望立即保护二级存储的备份、请指定`Protect`选项。
++
+
+NOTE: `protectnow`选项不适用于集群模式Data ONTAP。
+
+
+
+
+
+ a| 
+查看备份
+ a| 
+新备份显示为已计划保护、但尚未受到保护(在SnapManager 界面和`backup show`命令输出中)。保护状态显示为 "`不受保护` " 。
+
+
+
+ a| 
+查看备份列表
+ a| 
+存储管理员验证备份是否已复制到二级存储后， SnapManager 会将备份保护状态从 "`not protected` " 更改为 "`protected` " 。
+
+|===

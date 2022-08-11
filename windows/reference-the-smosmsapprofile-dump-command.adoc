@@ -1,0 +1,56 @@
+---
+permalink: windows/reference-the-smosmsapprofile-dump-command.html 
+sidebar: sidebar 
+keywords: run, profile, dump, command, create, jar, file, diagnostic, information, smsap 
+summary: 您可以运行 profile dump 命令来创建包含有关配置文件的诊断信息的 .jar 文件。 
+---
+= smsap profile dump命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`profile dump`命令创建包含有关配置文件的诊断信息的`.jar`文件。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap profile dump
+-profile profile_name
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定要为其创建转储文件的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下示例将为配置文件 SALES1 创建转储：
+
+[listing]
+----
+smsap profile dump -profile SALES1
+Dump file created
+Path: C:\\userhomedirectory\\netapp\\smsap\\3.3.0\\smsap_dump_SALES1_hostname.jar
+----

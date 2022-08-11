@@ -1,0 +1,66 @@
+---
+permalink: windows/reference-where-to-go-for-more-information.html 
+sidebar: sidebar 
+keywords: information, task, install, snapmanager 
+summary: 您可以找到有关安装和使用 SnapManager 所涉及的基本任务的信息。 
+---
+= 从何处获取更多信息
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到有关安装和使用 SnapManager 所涉及的基本任务的信息。
+
+|===
+| 文档 | Description 
+
+
+ a| 
+SnapManager 问题描述页面
+ a| 
+此页面提供了有关 SnapManager 的信息，指向联机文档的指针以及指向 SnapManager 下载页面的链接，您可以从该页面下载软件。
+
+
+
+ a| 
+_7- 模式 Data ONTAP SAN 配置指南 _
+ a| 
+本文档可从获取 http://mysupport.netapp.com/["NetApp 支持"^]。
+
+它是一个动态的联机文档，其中包含有关在 SAN 环境中设置系统的要求的最新信息。它提供了有关存储系统和主机平台，布线问题，交换机问题和配置的最新详细信息。
+
+
+
+ a| 
+SnapManager 和 SnapDrive 兼容性列表
+ a| 
+本文档位于互操作性一节中 http://mysupport.netapp.com/matrix["互操作性表工具"^]。
+
+这是一份动态的联机文档，其中包含特定于 SnapManager 及其平台要求的最新信息。
+
+
+
+ a| 
+《 SnapManager 发行说明》
+ a| 
+本文档随 SnapManager 一起提供。您也可以从下载副本 http://mysupport.netapp.com/["NetApp 支持"^]。
+
+它包含使配置平稳启动和运行所需的任何最后一分钟信息。
+
+
+
+ a| 
+NetApp 主机连接和支持套件文档
+ a| 
+http://mysupport.netapp.com/["NetApp 支持"^]。
+
+
+
+ a| 
+主机操作系统和数据库信息
+ a| 
+这些文档提供了有关主机操作系统和数据库软件的信息。
+
+|===

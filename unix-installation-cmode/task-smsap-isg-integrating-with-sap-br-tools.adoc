@@ -1,0 +1,108 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-integrate-with-sap-br-tools.html 
+sidebar: sidebar 
+keywords: sap, br, contain, tool, oracle, database, administration, brarchive, brbackup, brconnect, brrecover, brrestore, brspace, brtools, backint, file, integrate 
+summary: 包含用于Oracle数据库管理的SAP工具的SAP BR*工具、例如BRARCHIVE、BRBACKUP、BRCONNECT、 BRRECOVER、BRRESTORE、BRSPACE和BRTOOLS使用SnapManager for SAP提供的BACKINT接口。要集成SAP Br*工具、您必须创建一个链接、从Br*工具目录指向安装了BACKINT文件的/opt/netapp/smsap/bin/。 
+---
+= 与SAP BR*工具集成
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+包含用于Oracle数据库管理的SAP工具的SAP BR*工具、例如BRARCHIVE、BRBACKUP、BRCONNECT、 BRRECOVER、BRRESTORE、BRSPACE和BRTOOLS使用SnapManager for SAP提供的BACKINT接口。要集成SAP Br*工具、您必须创建一个链接、从Br*工具目录指向安装了BACKINT文件的`/opt/netapp/smsap/bin/`。
+
+
+
+== 您将需要什么
+
+* 您必须确保已安装SAP Br*工具。
+
+
+.步骤
+. 为每个SAP实例创建一个从Br*工具目录到`/opt/netapp/smsap/bin/backint`文件的链接。
++
+
+NOTE: 您必须使用此链接而不是复制文件、以便在安装新版本的SnapManager 时、此链接将指向新的BACKINT接口版本。
+
+. 为运行Br*工具命令的用户设置凭据。
++
+操作系统用户需要SnapManager for SAP存储库、配置文件和服务器的凭据、以支持SAP实例的备份和还原。
+
+. 指定其他配置文件名称。
++
+默认情况下、在处理来自Br*工具的命令时、SnapManager 会使用与SAP系统标识符同名的配置文件。如果此系统标识符在您的环境中不是唯一的、请修改`initsid.utl` SAP初始化文件、并创建一个参数以指定正确的配置文件。`initsid.utl`文件位于`%ORACLE_HOME%\database。`
+
++
+* 示例 *
+
++
+示例`initsid.utl`文件如下：
+
++
+[listing]
+----
+# Backup Retention policy.
+# Specifies the retention / lifecycle of backups on the filer.
+#
+----------------------------------------------------------------------
+----------
+# Default Value: daily
+# Valid Values: unlimited/hourly/daily/weekly/monthly
+# retain = daily
+# Enabling Fast Restore.
+#
+----------------------------------------------------------------------
+----------
+# Default Value: fallback
+# Valid Values: require/fallback/off
+#
+# fast = fallback
+# Data Protection.
+#
+----------------------------------------------------------------------
+----------
+# Default Value: empty
+# Valid Values: empty/yes/no
+# protect =
+# profile_name = SID_BRTOOLS
+----
++
+
+NOTE: 参数名称始终为小写、并且注释必须具有数字符号(#)。
+
+. 通过执行以下步骤编辑`initsid.sap` Br*工具配置文件：
++
+.. 打开`initsid.sap`文件。
+.. 找到包含备份实用程序参数文件信息的部分。
++
+* 示例 *
+
++
+[listing]
+----
+# backup utility parameter file
+# default: no parameter file
+# util_par_file =
+----
+.. 编辑最后一行以包含`initsid.utl`文件。
++
+* 示例 *
+
++
+[listing]
+----
+# backup utility parameter file
+# default: no parameter file
+# util_par_file = initSID.utl
+----
+
+
+
+
+
+
+== 完成后
+
+运行`backint register-sld`命令、在系统环境目录(System Landscape Directory、SLD)中注册BACKINT接口。

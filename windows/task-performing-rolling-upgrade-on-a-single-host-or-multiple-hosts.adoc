@@ -1,0 +1,95 @@
+---
+permalink: windows/task-performing-rolling-upgrade-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, roll, upgrade, single, multiple, snapmanager, server, host, command-line, interface, cli 
+summary: 您可以使用命令行界面 \ （ cli\ ）在一个或多个 SnapManager 服务器主机上执行滚动升级。然后，升级后的 SnapManager 服务器主机只能使用更高版本的 SnapManager 进行管理。 
+---
+= 在一台或多台主机上执行滚动升级
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用命令行界面（ CLI ）在一个或多个 SnapManager 服务器主机上执行滚动升级。然后，升级后的 SnapManager 服务器主机只能使用更高版本的 SnapManager 进行管理。
+
+您必须确保执行滚动升级的所有前提条件均已完成。
+
+. 要在单个主机上执行滚动升级、请输入以下命令：
++
+`smsaprepository rollingupgrade-repository-dbnamerepo_service_name-host-login-usernamerepo_username-portrepo_port-upgradehosthost_wing_target_database-force (-quiet _-verbose)`
+
++
+以下命令将对装载在 HostA 上的所有目标数据库以及位于 repo_host 上名为 repoA 的存储库数据库执行滚动升级：
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA
+----
+. 要在多个主机上执行滚动升级、请输入以下命令：`smsaprepository rollingupgrade-repository-dbnamerepo_service_name-host-login-usernamerepo_username-portrepo_port-upgradehosthost_wing_target_database1、host_wing_target_database2-force`-verbose
++
+
+NOTE: 对于多个主机，请输入以逗号分隔的主机名，并确保在逗号和下一个主机名之间不包含任何空格。此外，请确保在双引号内输入所有主机名。
+
++
+以下命令将对主机，主机 A 和主机 B 上挂载的所有目标数据库以及位于 repo_host 上名为 repoA 的存储库数据库执行滚动升级：
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA,hostB
+----
+. 要对存储库数据库上的所有主机执行滚动升级、请输入以下命令：`smsaprepository rollingupgrade-repository-dbnamerepo_service_name-host-login-usernamerepo_username-portrepo-allhosts-force (-quiet |-verbose)`
++
+成功升级存储库数据库后，您可以对目标数据库执行所有 SnapManager 操作。
+
++
+以下命令将对 repo_host 上名为 repoA 的存储库数据库上可用的所有目标数据库执行滚动升级：
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+      -allhosts
+----
++
+** 如果 SnapManager 服务器自动启动，则必须重新启动该服务器，以确保可以查看计划。
+** 如果要升级两个相关主机中的一个，则必须在升级第一个主机后升级第二个主机。
++
+例如，如果已从主机 A 创建克隆到主机 B ，或者已将备份从主机 A 挂载到主机 B ，则主机 A 和主机 B 将彼此相关。升级主机 A 时，系统会显示一条警告消息，要求您在升级主机 A 后立即升级主机 B
+
++
+
+NOTE: 即使在主机 A 的滚动升级期间删除了克隆或从主机 B 卸载了备份，也会显示警告消息这是因为存储库中存在用于在远程主机上执行操作的元数据。
+
+
+
+
+
+* 相关信息 *
+
+xref:concept-prerequisites-for-performing-rolling-upgrade.adoc[执行滚动升级的前提条件]

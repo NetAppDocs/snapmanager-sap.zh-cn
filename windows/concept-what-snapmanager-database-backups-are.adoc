@@ -1,0 +1,36 @@
+---
+permalink: windows/concept-what-snapmanager-database-backups-are.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, backup, task, assign, retention, class, database 
+summary: 使用 SnapManager 可以执行不同的备份任务。您可以分配保留类以指定备份可保留的时间长度；达到此时间限制后，备份将被删除。 
+---
+= 什么是 SnapManager 数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以执行不同的备份任务。您可以分配保留类以指定备份可保留的时间长度；达到此时间限制后，备份将被删除。
+
+* 在主存储上创建备份
+* 使用后处理脚本在二级存储资源上创建受保护的备份
+* 验证备份是否已成功完成
+* 查看备份列表
+* 使用图形用户界面计划备份
+* 管理保留的备份数
+* 免费备份资源
+* 挂载和卸载备份
+* 删除备份
+
+
+SnapManager 使用以下保留类之一创建备份：
+
+* 每小时
+* 每天
+* 每周
+* 每月
+* 无限制
+
+
+如果向数据库添加了新的数据文件，则应立即创建新的备份。此外，如果还原在添加新数据文件之前创建的备份，并尝试恢复到添加新数据文件之后的某个时间点，则自动恢复过程可能会失败。有关恢复备份后添加的数据文件的过程的详细信息，请参见 Oracle 文档。

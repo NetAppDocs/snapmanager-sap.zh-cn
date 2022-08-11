@@ -1,0 +1,192 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-create-command.html 
+sidebar: sidebar 
+keywords: schedule, create, command, backup, smsap 
+summary: 您可以使用 schedule create 命令计划在特定时间创建备份。 
+---
+= smsap schedule create命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`sschedule create`命令计划在特定时间创建备份。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap schedule create
+-profile profile_name
+[-full{-auto | -online | -offline}
+[-retain -hourly | -daily | -weekly | -monthly | -unlimited]
+[-verify]] |
+[-data [[-files files [files]] |
+[-tablespaces tablespaces [tablespaces]] {-auto | -online | -offline}
+[-retain -hourly | -daily | -weekly | -monthly | -unlimited]
+[-verify]] |
+[-archivelogs]}
+[-label label]
+[-comment comment]
+
+[-backup-dest path1 [ , path2]]
+[-exclude-dest path1 [ , path2]]
+[-prunelogs {-all | -until-scn until-scn | -until -date  yyyy-MM-dd:HH:mm:ss] | -before {-months | -days | -weeks | -hours}}
+-prune-dest prune_dest1,[prune_dest2]]
+-schedule-name schedule_name
+[-schedule-comment schedule_comment]
+-interval {-hourly | -daily | -weekly | -monthly | -onetimeonly}
+-cronstring cron_string
+-start-time {start_time <yyyy-MM-dd HH:mm>}
+-runasuser runasuser
+[-taskspec taskspec]
+-force
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定与要计划备份的数据库相关的配置文件的名称。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`自动选项`*
++
+如果数据库处于已挂载或脱机状态， SnapManager 将执行脱机备份。如果数据库处于打开或联机状态， SnapManager 将执行联机备份。如果您将`-force`选项与`-offline`选项结合使用、则SnapManager 会强制执行脱机备份、即使数据库当前处于联机状态也是如此。
+
+* *`在线选项`*
++
+指定联机数据库备份。
+
+* *`-脱机选项`*
++
+指定数据库处于关闭状态时的脱机备份。如果数据库处于打开或挂载状态，备份将失败。如果使用`-force`选项、则SnapManager 会尝试更改数据库状态、以关闭数据库以进行脱机备份。
+
+* *`完整选项`*
++
+备份整个数据库。其中包括所有数据，归档日志和控制文件。无论您执行哪种类型的备份，都会备份归档的重做日志和控制文件。如果您只想备份数据库的一部分、请使用`-files`选项或`-tablespaces`选项。
+
+* *`文件_list_`*
++
+仅备份指定的数据文件以及归档的日志和控制文件。使用空格分隔文件名列表。如果数据库处于打开状态，则 SnapManager 会验证相应的表空间是否处于联机备份模式。
+
+* *`表空间_tablespaces_`*
++
+仅备份指定的数据库表空间以及归档的日志和控制文件。使用空格分隔表空间名称。如果数据库处于打开状态，则 SnapManager 会验证相应的表空间是否处于联机备份模式。
+
+* *`-label _name_`*
++
+指定此备份的可选名称。此名称在配置文件中必须是唯一的。此名称可以包含字母，数字，下划线（ _ ）和连字符（ - ）。不能以连字符开头。
+
++
+如果不指定标签， SnapManager 将创建 scope_type_date 格式的默认标签：
+
++
+** 范围为 F 表示完整备份， P 表示部分备份。
+** 键入 C 表示脱机（冷）备份，键入 H 表示联机（热）备份，键入 A 表示自动备份，例如 P_A_20081010060037IST 。
+** date 是备份的年份，月份，日期和时间。
++
+SnapManager 使用 24 小时制时钟。
+
+
+
++
+例如，如果您在数据库于 2007 年 1 月 16 日下午 5 ： 45 ： 16 脱机的情况下执行完整备份东部标准时间， SnapManager 将创建标签 F_C_20070116174516EST 。
+
+* *`-comment _string_`*
++
+指定用于描述此备份的可选注释。将字符串用单引号（ ' ）括起来。
+
++
+
+NOTE: 某些 shell 会去除引号。如果您的 shell 确实如此，则必须使用反斜杠（ \ ）加上引号。例如，您可能需要输入： ` ' this is a comation\'` 。
+
+* *`-verify选项`*
++
+运行 Oracle 数据库实用程序，验证备份中的文件是否未损坏。
+
++
+
+NOTE: 如果指定`-verify`选项、则备份操作将在验证操作完成之前完成。
+
+* *`强制选项`*
++
+如果数据库未处于正确状态，则强制更改状态。例如， SnapManager 可能会根据您指定的备份类型和数据库所处的状态将数据库的状态从联机更改为脱机。
+
++
+** 如果本地实例处于关闭状态、并且至少有一个实例处于打开状态、则可以使用`-force`选项将本地实例更改为已挂载。
+** 如果未打开任何实例、您可以使用`-force`选项将本地实例更改为打开。
+
+
+* *`保留｛-hourly |-daily |-weekly |-monthly |-unlimited｝`*
++
+指定备份应保留在每小时，每天，每周，每月还是无限制的基础上。如果未指定`保留`选项、则保留类默认为`-每小时`。要永久保留备份、请使用`-unlimited`选项。使用`-unlimited`选项、备份将不符合保留策略删除的条件。
+
+* *`-archivelog`*
++
+指定创建归档日志备份。
+
+* *`-backup-dest _path1_、[、_path2_]]`*
++
+指定归档日志备份的归档日志目标。
+
+* *`-exclude-dest _path1_、[、_path2_]]`*
++
+指定要从备份中排除的归档日志目标。
+
+* *`-prunelog｛-all _-until -scnuntil -scnuntil -scn _-until - date _yyyy-mm-dd：HH：mm：ss____-在｛-months _-days _-weeks _-hours｝`之前
++
+指定是否根据创建备份时提供的选项从归档日志目标中删除归档日志文件。`-all`选项将从归档日志目标中删除所有归档日志文件。`-until -scn`选项将删除归档日志文件、直到指定系统更改编号(SCN)为止。`-tilt-date`选项将删除归档日志文件、直到指定时间段为止。`-before`选项可删除指定时间段(天、月、周、小时)之前的归档日志文件。
+
+* *`-schedule-name _schedule_name_`*
++
+指定为计划提供的名称。
+
+* *`-schedule-comment _schedule_comtion_`*
++
+指定用于描述备份计划的可选注释。
+
+* *`间隔｛-hourly |-daily；-weekly；-monthly；-onetimeonly｝`*
++
+指定创建备份的时间间隔。您可以按每小时，每天，每周，每月或仅一次计划备份。
+
+* *`-cronstring _cron_string_`*
++
+指定使用 cronstring 计划备份。cron 表达式用于配置 CronTrigger 实例。cron 表达式是由以下子表达式组成的字符串：
+
++
+** 1 表示秒。
+** 2 表示分钟。
+** 3 表示小时。
+** 4 表示一个月中的一天。
+** 5 表示月份。
+** 6 表示一周中的一天。
+** 7 表示年份（可选）。
+
+
+* *`-开始时间_yyyy-mm-dd HH：MM_`*
++
+指定计划操作的开始时间。计划开始时间应采用 yyyy-mm-dd HH ： mm 格式。
+
+* *`- runasuser _runasuser_`*
++
+指定在计划备份时更改计划备份操作的用户（ root 用户或 Oracle 用户）。
+
+* *`-taskspec_taskspec_`*
++
+指定可用于备份操作的预处理活动或后处理活动的任务规范 XML 文件。XML文件的完整路径必须与`-taskspecs`选项一起提供。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+

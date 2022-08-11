@@ -1,0 +1,25 @@
+---
+permalink: windows/task-add-storage-systems-to-the-snapmanager-server-host.html 
+sidebar: sidebar 
+keywords: add, storage, operate, cluster, data, ontap, snapmanager, server, host, autosupport, system 
+summary: 要启用 AutoSupport ，必须将在集群模式 Data ONTAP 中运行的存储系统添加到 SnapManager 服务器主机。在 SnapManager 3.3 及更早版本中，只有在 7- 模式存储系统上才支持 AutoSupport 。 
+---
+= 将在集群模式Data ONTAP 中运行的存储系统添加到SnapManager 服务器主机
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要启用 AutoSupport ，必须将在集群模式 Data ONTAP 中运行的存储系统添加到 SnapManager 服务器主机。在 SnapManager 3.3 及更早版本中，只有在 7- 模式存储系统上才支持 AutoSupport 。
+
+.步骤
+. 将管理Storage Virtual Machine (SVM、以前称为Vserver)和在集群模式Data ONTAP 中运行的SVM添加到SnapManager 服务器主机：`* sdcli transport_protocol set -f AdminVserver_name或vserver_name -type HTTP -user admin*`
++
+此时将显示输入以下命令：消息。
+
+. 输入创建 SVM 时提供的密码。
++
+成功运行命令后，已设置新传输协议。此时将显示消息。
+
+

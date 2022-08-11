@@ -1,0 +1,71 @@
+---
+permalink: unix-administration/reference-the-smosmsapcmdfile-command.html 
+sidebar: sidebar 
+keywords: cmdfile, command, shell, host, limit, number, character, smsap, line 
+summary: 如果主机上的 shell 限制了命令行上可显示的字符数，则可以使用 cmdfile 命令运行任何命令。 
+---
+= smsap cmdfile命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果主机上的shell限制了命令行上可显示的字符数、则可以使用`cmdfile`命令运行任何命令。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap cmdfile
+-file _file_name_
+[-quiet | -verbose\]]
+----
+您可以将命令包含在文本文件中、并使用`smsap cmdfile`命令执行该命令。您只能在文本文件中添加一个命令。不得在命令语法中包含smsap。
+
+
+NOTE: 使用`smsap cmdfile`命令可替换`smsap pfile`命令。`smsap cmdfile`与`smsap pfile`命令不兼容。
+
+
+
+== Parameters
+
+* ``*-文件_file_name_*``
++
+指定包含要执行的命令的文本文件的路径。
+
+* ``*-静默*``
++
+指定控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+指定控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 示例
+
+此示例将在`command.txt`中包含`profile create`命令、该命令位于`/tmp`。然后、您可以运行`smsap cmdfile`命令。
+
+此文本文件包含以下信息：
+
+[listing]
+----
+profile create -profile SALES1 -repository -dbname SNAPMGRR
+-login -username server1_user -password ontap -port 1521 -host server1
+-database -dbname SMSMSAP -sid SMSMSAP -login -username sys -password oracle -port 1521
+-host Host2 -osaccount oracle -osgroup db2
+----
+现在、您可以通过使用`command.txt` file运行`smsap cmdfile`命令来创建配置文件：
+
+[listing]
+----
+smsap cmdfile -file /tmp/command.txt
+----
+'''

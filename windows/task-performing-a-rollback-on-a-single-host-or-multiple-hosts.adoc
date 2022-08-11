@@ -1,0 +1,66 @@
+---
+permalink: windows/task-performing-a-rollback-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, rollback, single, multiple, snapmanager, server, host, command-line, interface, cli, multiple 
+summary: 您可以使用命令行界面 \ （ cli\ ）在一个或多个 SnapManager 服务器主机上执行回滚。 
+---
+= 在一台或多台主机上执行回滚
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用命令行界面（ CLI ）在一个或多个 SnapManager 服务器主机上执行回滚。
+
+您必须确保执行回滚的所有前提条件均已完成。
+
+. 要在单个主机上执行回滚、请输入以下命令：
++
+`smsapreroll-repository-dbnamerepo_service_name-host-login-usernamerepo_username-portrepo_port-rollbackhosthost_wing_target_database`
+
++
+以下示例显示了用于回滚主机 A 上挂载的所有目标数据库以及存储库主机 repo_host 上名为 repoA 的存储库数据库的命令：
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA
+----
+. 要在多个主机上执行回滚、请输入以下命令：`smsapreroll-repository-dbnamerepo_service_name-host-login-usernamerepo_username-port-rollbackhosthost_wing_target_database1、host_wing_target_database2`
++
+
+NOTE: 对于多个主机，请输入以逗号分隔的主机名，并确保逗号和下一个主机名之间没有空格。此外，请确保在双引号内输入一组完整的多个主机名。
+
++
+以下示例显示了用于回滚主机，主机 A ，主机 B 上挂载的所有目标数据库的命令，以及位于存储库主机 repo_host 上名为 repoA 的存储库数据库：
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA,hostB
+----
++
+与主机的目标数据库的配置文件关联的主机，配置文件，计划，备份和克隆将还原到早期的存储库。
+
+
+
+* 相关信息 *
+
+xref:concept-prerequisites-for-performing-a-rollback.adoc[执行回滚的前提条件]

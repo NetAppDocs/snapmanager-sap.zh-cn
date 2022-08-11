@@ -1,0 +1,65 @@
+---
+permalink: unix-administration/concept-about-role-based-access-control.html 
+sidebar: sidebar 
+keywords: role-based, access, control, rbac, control, access, snapmanager, operation, administrator, environment, role 
+summary: 通过基于角色的访问控制（ Role-Based Access Control ， RBAC ），您可以控制谁有权访问 SnapManager 操作。通过 RBAC ，管理员可以通过定义角色并将用户分配给这些角色来管理用户组。您可能希望在已安装 SnapManager RBAC 的环境中使用 RBAC 。 
+---
+= 关于基于角色的访问控制
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过基于角色的访问控制（ Role-Based Access Control ， RBAC ），您可以控制谁有权访问 SnapManager 操作。通过 RBAC ，管理员可以通过定义角色并将用户分配给这些角色来管理用户组。您可能希望在已安装 SnapManager RBAC 的环境中使用 RBAC 。
+
+RBAC 包括以下组件：
+
+* 资源：用于存放构成数据库的数据文件的卷和 LUN 。
+* 功能：可对资源执行的操作类型。
+* Users ：授予权限的人员。
+* 角色：一组允许使用的资源和功能。您可以为应执行这些功能的用户分配特定角色。
+
+
+您可以在 SnapDrive 中启用 RBAC 。然后，您可以在 Operations Manager Web 图形用户界面或命令行界面中为每个角色配置特定功能。RBAC 检查在 DataFabric Manager 服务器中进行。
+
+下表列出了一些角色及其在 Operations Manager 中设置的典型任务。
+
+[cols="1a,3a"]
+|===
+| Role | 典型任务 
+
+
+ a| 
+SAP基础管理员
+ a| 
+* 创建，维护和监控主机上的 Oracle 数据库
+* 计划和创建数据库备份
+* 确保备份有效且可以还原
+* 克隆数据库
+
+
+
+
+ a| 
+服务器管理员
+ a| 
+* 设置存储系统和聚合
+* 监控卷的可用空间
+* 根据用户的请求配置存储
+* 配置和监控灾难恢复镜像
+
+
+
+
+ a| 
+存储架构师
+ a| 
+* 制定有关存储的架构决策
+* 规划存储容量增长
+* 规划灾难恢复策略
+* 将能力委派给团队成员
+
+
+|===
+如果正在使用 RBAC （这意味着已在 SnapDrive 中安装 Operations Manager 并启用 RBAC ），则存储管理员需要在数据库文件的所有卷和存储系统上分配 RBAC 权限。

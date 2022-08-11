@@ -1,0 +1,50 @@
+---
+permalink: unix-administration/reference-the-smosmsap-server-stop-command.html 
+sidebar: sidebar 
+keywords: command, stop, snapmanager, host, server, root, smsap_server 
+summary: 此命令将停止 SnapManager 主机服务器，并在根目录输入。 
+---
+= smsap_server stop命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令将停止 SnapManager 主机服务器，并在根目录输入。
+
+
+
+== 语法
+
+[listing]
+----
+smsap_server stop
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* `*-静默*`
++
+指定控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+指定控制台上显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 命令示例
+
+以下示例使用`smsap_server` stop命令。
+
+[listing]
+----
+smsap_server stop
+----
+'''

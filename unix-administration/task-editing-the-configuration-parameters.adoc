@@ -1,0 +1,27 @@
+---
+permalink: unix-administration/task-edit-the-configuration-parameters.html 
+sidebar: sidebar 
+keywords: depend, environment, change, default, value, assign, configuration, parameter, edit 
+summary: 根据您的环境，您可以更改分配给配置参数的默认值。 
+---
+= 编辑配置参数
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+根据您的环境，您可以更改分配给配置参数的默认值。
+
+.步骤
+. 从以下默认位置打开配置文件：
++
+`默认安装位置_/properties/smsap.config`
+
+. 更改配置参数的默认值。
++
+
+NOTE: 您还可以添加配置文件中未包含的受支持配置参数，并为其分配值。
+
+. 重新启动SAP服务器的SnapManager。
+

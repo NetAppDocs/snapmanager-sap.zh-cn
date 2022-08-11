@@ -1,0 +1,100 @@
+---
+permalink: windows/task-pruning-archive-log-files.html 
+sidebar: sidebar 
+keywords: prune, archive, log, file, location, creating, create, pruning 
+summary: 您可以在创建备份时从归档日志位置对归档日志文件进行修剪。 
+---
+= 删除归档日志文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在创建备份时从归档日志位置对归档日志文件进行修剪。
+
+* 归档日志文件必须通过当前备份操作进行备份。
++
+如果指定了修剪以及不包含归档日志文件的其他备份，则不会对归档日志文件进行修剪。
+
+* 数据库必须处于已挂载状态。
++
+如果数据库未处于挂载状态，请输入 -force 选项以及 backup 命令。
+
+
+
+执行备份操作时，您可以指定以下内容：
+
+* 修剪范围：
++
+** 删除所有归档日志文件。
+** 删除归档日志文件，直到指定系统更改编号（ SCN ）为止。
+** 删除归档日志文件，直到指定时间为止。
+** 在指定时间段之前删除归档日志文件。
+
+
+* 必须从中对归档日志文件进行剪切的目标。
++
+
+NOTE: 即使一个目标中的归档日志文件修剪失败， SnapManager 仍会继续从其他目标对归档日志文件进行修剪。
+
+
+
+在删除归档日志文件之前， SnapManager 会验证以下内容：
+
+* 归档日志文件至少会备份一次。
+* 归档日志文件会发送到 Oracle Dataguard 备用数据库（如果有）。
+* 归档日志文件由 Oracle 流捕获过程（如果有）捕获。
+
+
+如果归档日志文件已备份并发运至备用状态，并由捕获过程捕获，则 SnapManager 会一次性删除所有归档日志文件。但是，如果有任何归档日志文件未备份，未发送到备用状态或未被捕获过程捕获，则 SnapManager 将逐个删除归档日志文件。与逐个删除归档日志相比，一次删除归档日志文件的速度更快。
+
+SnapManager 还可以对归档日志文件进行分组，并逐个批删除这些文件。每个批处理最多包含 98 个文件。可以使用smsap.config文件中的配置参数max.archivelog.files.toprune.atatatatime将此值配置为低于998。
+
+SnapManager 使用 Oracle 恢复管理器（ RMAN ）命令删除归档日志文件。但是， SnapManager 不会与 RMAN 保留策略和删除策略集成。
+
+
+NOTE: 如果从归档日志目标位置删除归档日志文件，则对归档日志文件进行删减将失败。
+
+在以下情况下， SnapManager 不支持对归档日志文件进行删减：
+
+* 归档日志文件位于闪存恢复区域。
+* 归档日志文件位于备用数据库中。
+* 归档日志文件由 SnapManager 和 RMAN 管理。
++
+.. 输入以下命令：
++
+`smsap backup create -profile profile_name｛-full｛-online |-offline |-auto｝｛-retain｛-hourly |-daily |-weekly |-monthly |-unlimited｝]｛-verify]|｛-data〔-filesfiles【文件文件文件文件文件】〕_文件空间-tablesogs｛-tablesacespaces)]] `、[path2]]]、-exclude-destpath1、path2]]]]、-prunelog｛-all、-untilSCNuntilSCN、-until-dateyyy-mm-dd：HH：mm：ss |-before｛-months、-days、-weeks、-hours｝｝-prune-destin-yyyy-mm-dd：hn：hh：mm：ss：-dump_task_dump
+
++
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+* 调整归档日志文件 *
+ a| 
+指定以下选项：
+
+*** -prunelog 指定在创建备份时删除归档日志文件。
++
+**** -all 指定删除所有归档日志文件。
+**** -untirescn 指定删除归档日志文件，直到指定 SCN 为止。
+**** -until date 指定删除包含指定日期和时间的归档日志。
+**** -｛ -months ｝ 之前
+
+
+
+
+
+
+| days | 周 
+
+
+| -hours ｝ 指定在指定时间段之前删除归档日志文件。  a| 
+* 包括要从中对归档日志文件进行删减的目标 *
+
+|===
+
+
+

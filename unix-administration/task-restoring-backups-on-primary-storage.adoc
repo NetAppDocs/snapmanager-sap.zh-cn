@@ -1,0 +1,198 @@
+---
+permalink: unix-administration/task-restore-backups-on-primary-storage.html 
+sidebar: sidebar 
+keywords: backup, restore, command, database, primary, storage, restoring 
+summary: 您可以使用 backup restore 命令还原主存储上的数据库备份。 
+---
+= 在主存储上还原备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`backup restore`命令在主存储上还原数据库备份。
+
+* 关于此任务 *
+
+默认情况下， SnapManager 会尝试执行基于卷的快速还原，并提供资格检查信息。如果需要，您可以覆盖某些资格检查。如果您确定无法使用快速还原执行备份，则可以禁用快速还原资格检查并执行基于文件的还原。
+
+您可以使用`backup restore`命令选项指定SnapManager 是应还原全部备份还是部分备份。此外，您还可以通过 SnapManager 在单个用户操作中从备份还原控制文件以及数据文件或表空间。您可以将`-controlfiles`与`-complete`包括在内、以还原控制文件以及表空间和数据文件。
+
+您可以选择以下选项之一来还原备份：
+
+[cols="1a,1a"]
+|===
+| 如果要还原 ... | 使用 ... 
+
+
+ a| 
+包含所有表空间和数据文件的整个备份
+ a| 
+`完整`
+
+
+
+ a| 
+特定表空间的列表
+ a| 
+`表空间`
+
+
+
+ a| 
+特定数据文件
+ a| 
+`文件`
+
+
+
+ a| 
+仅限控制文件
+ a| 
+`控制文件`
+
+
+
+ a| 
+表空间，数据文件和控制文件
+ a| 
+`完整-controlfiles`
+
+|===
+您也可以通过指定`-restorspeciate`从备用位置还原备份。
+
+如果包括`-recover`、则可以将数据库恢复到：
+
+* 数据库中发生的最后一个事务（所有日志）
+* 特定日期和时间
+* 特定 Oracle 系统变更编号（ SCN ）
+* 备份时间（无日志）
+* 仅还原
+
+
+
+NOTE: 日期和时间恢复以及 SCN 恢复均为时间点恢复。
+
+通过 SnapManager （ 3.2 或更高版本），可以使用归档日志文件自动恢复已还原的数据库备份。即使外部位置提供了归档日志文件、但如果指定`-recovery-from-location选项`、SnapManager 也会使用外部位置的归档日志文件来恢复已还原的数据库备份。
+
+SnapManager 为 Oracle 提供了外部位置。但是， Oracle 无法识别外部目标中的文件。在闪存恢复区域目标中会注意到此行为。这是 Oracle 存在的问题，临时解决策始终需要备份此类数据库布局中的归档日志文件。
+
+如果提供的SCN或日期不一致、则恢复将在上次恢复的一致点停止、并显示错误消息`Recovery succeeded、but insufficient`。您必须手动将恢复恢复为一致状态。
+
+为了在未应用任何日志的情况下进行恢复， SnapManager 会恢复到备份期间创建的最后一个归档日志文件的最后一个 SCN 。如果数据库在执行此 SCN 之前保持一致，则数据库将成功打开。如果数据库此时不一致，则 SnapManager 仍会尝试打开该数据库，如果该数据库已经一致，则该数据库将成功打开。
+
+
+NOTE: SnapManager 不支持恢复仅归档日志备份。
+
+如果 NFS 挂载点上的归档日志目标不是支持 Snapshot 的存储，则可以使用 SnapManager 配置文件恢复已还原的数据库备份。在对不支持Snapshot的存储执行SnapManager 操作之前、您应在`smsap.config`中为`archivedLogs.exclude`添加目标。
+
+在创建配置文件之前，您必须确保已设置 EXCLUDE 参数。只有在 SnapManager 配置文件中设置了 exclude 参数后，才会成功创建配置文件。
+
+如果备份已挂载，则 SnapManager 不会再次挂载备份，而是会使用已挂载的备份。如果备份由其他用户挂载，而当前用户无权访问先前挂载的备份，则其他用户必须提供权限。所有归档日志文件都对组所有者具有读取权限；如果备份由其他用户组挂载，则当前用户可能无法获得这些权限。用户可以手动为已挂载的归档日志文件授予权限，然后重试还原或恢复。
+
+在 Real Application Clusters （ RAC ）环境中恢复数据库备份
+
+在 RAC 环境中恢复数据库备份期间，如果未找到所需的归档日志文件，则 Oracle 会请求归档日志文件，并在 RAC 数据库中的不同线程和更改编号之间切换。SnapManager for SAP会尽力恢复数据库。在 RAC 环境中成功恢复数据库备份取决于备份中归档日志文件的可用性。
+
+RAC 数据库的建议恢复机制如下：
+
+* 确保所有归档日志文件均可在备份中使用，或者所有归档日志文件均可在一个外部归档日志目标中使用。
+* 如果提供了多个外部归档日志目标，则可以在为所有线程指定外部归档日志目标的同时，提供归档日志文件的重叠。
++
+例如，外部归档日志位置 - 我可以有 1 到 100 个归档日志文件，外部归档日志位置 - II 可以有 98 到 200 个归档日志文件，外部归档日志位置 - III 可以有 198 到 300 个归档日志文件。
+
+* 在对归档日志文件进行删减时，您可以删除归档日志文件，而不是删除所有归档日志文件，直到 SCN 或日期为止，以便备份可以具有相同的归档日志文件。
+
+
+您可以将 -dump 选项指定为可选参数，以便在还原操作成功或失败后收集转储文件。
+
+.步骤
+. 输入以下命令：
++
+`* smsap backup restore -profile _profile_name_-label _label _-complete-recover -alllogs (-recovery-from-location _path_、path2_]-dump-verbose *`)
+
++
+* 示例 *
+
++
+`* smsap backup restore -profile targetdb1_prop1 -label full_bkup_sales _nov_08 - complete -recover -alllogs -verbes*`
+
+. 要还原不同情形下的数据，请完成以下操作之一：
++
+[cols="2a,4a"]
+|===
+| 如果要还原 ... | 命令示例 
+
+
+ a| 
+* 在不使用控制文件的情况下完成数据库并恢复到特定的 SCN 编号（ 3794392 ）。在这种情况下，存在当前控制文件，但所有数据文件均已损坏或丢失。将数据库从现有的完整联机备份还原并恢复到该 SCN.* 之前的某个位置
+ a| 
+`* smsap backup restore -profile targetdb1_prop1 -label full_bkup_sales _nov_08 -complete -recover -until 3794392 -verbes*`
+
+
+
+ a| 
+* 在不使用控制文件的情况下完成数据库并恢复到一个日期和时间。 *
+ a| 
+`* smsap backup restore -profile targetdb1_prop1 -label full_bkup_sales _nov_08 -complete -recover -until 2008-9-15：15：29：23 -verbes*`
+
+
+
+ a| 
+* 在不使用控制文件的情况下完成数据库，并恢复到数据和时间。在这种情况下，存在当前控制文件，但所有数据文件均已损坏或丢失，或者在特定时间后发生逻辑错误。将数据库从现有的完整联机备份还原并恢复到发生故障前的日期和时间。 *
+ a| 
+`* smsap backup restore -profile targetdb1_prop1 -label full_bkup_sales _nov_08 -complete -recover -until "2008-08-9-15：15：29：23"-verbes*`
+
+
+
+ a| 
+* 不含控制文件的部分数据库（一个或多个数据文件），并使用所有可用日志进行恢复。在这种情况下，存在当前控制文件，但一个或多个数据文件已损坏或丢失。使用所有可用日志恢复这些数据文件并从现有的完整联机备份中恢复数据库。 *
+ a| 
+``* smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales _nov_08 -files /oracle/FLA/sapdata1/SR3_1/SR3.data1 /oracle/FLA/sapdata1/SR3_2/SR3.data2 /oracle/FSID/sapdata1/sap3.sr3*
+
+
+
+ a| 
+* 不含控制文件的部分数据库（一个或多个表空间），使用所有可用日志进行恢复。在这种情况下，存在当前控制文件，但一个或多个表空间被丢弃，或者属于该表空间的多个数据文件之一损坏或丢失。使用所有可用日志还原这些表空间并从现有的完整联机备份中恢复数据库。 *
+ a| 
+`* smsap backup restore -profile targetdb1_prop1 -label full_bkup_sales _nov_08 -tablesaces users -recover -alllogs -verbet*`
+
+
+
+ a| 
+* 仅控制文件并使用所有可用日志进行恢复。在这种情况下，数据文件存在，但所有控制文件均已损坏或丢失。仅还原控制文件，并使用所有可用日志从现有的完整联机备份中恢复数据库。 *
+ a| 
+`* smsap backup restore -profile targetdb1_prop1 -label full_bkup_sales _nov_08 -controlfiles -recover -alllogs -verbet*`
+
+
+
+ a| 
+* 在不使用控制文件的情况下完成数据库，并使用备份控制文件和所有可用日志进行恢复。在这种情况下，所有数据文件都会损坏或丢失。仅还原控制文件，并使用所有可用日志从现有的完整联机备份中恢复数据库。 *
+ a| 
+`* smsap backup restore -profile targetdb1_profile1 -label full_bkup_sales _nov_08 -complete -using-backup-controlfile -recover -alllogs -verbet*`
+
+
+
+ a| 
+* 使用外部归档日志位置的归档日志文件恢复已还原的数据库。 *
+ a| 
+`* smsap backup restore -profile targetdb1_profile1 -label full_bkup_sales _nov_08 -complete -using-backup-controlfile -recover -alllogs -recover-from-location /user1/archive -verbes*`
+
+|===
+. 查看快速还原资格检查。
++
+* 示例 *
+
++
+输入以下命令：
+
++
+`* smsap backup restore -profile targetdb1_prop1 -label full_bkup_sales _nov_08 -complete -recover -alllogs -recover-from-location /user1/archive -verbes*`
+
+. 如果资格检查显示没有强制检查失败、并且某些条件可以被覆盖、并且您要继续执行还原过程、请输入以下内容：
++
+`*备份还原-fast overrider*`
+
+. 使用`-recovery-from-location`选项指定外部归档日志位置。
+

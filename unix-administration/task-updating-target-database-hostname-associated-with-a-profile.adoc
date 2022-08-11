@@ -1,0 +1,76 @@
+---
+permalink: unix-administration/task-update-target-database-hostname-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, ability, update, host, name, target, database, profile 
+summary: 'SnapManager (3.2或更高版本) for SAP可以更新SnapManager 配置文件中目标数据库的主机名。' 
+---
+= 更新与配置文件关联的目标数据库主机名
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager (3.2或更高版本) for SAP可以更新SnapManager 配置文件中目标数据库的主机名。
+
+* 您需要的内容 *
+
+* 本地用户的主目录必须了解配置文件到存储库的映射。
+* 必须关闭 SnapManager 图形用户界面（ GUI ）会话。
+* 在 Real Application Clusters （ RAC ）环境中，必须删除并卸载配置文件中指定的主机上可用的克隆或挂载备份。
+
+
+* 关于此任务 *
+
+您只能使用命令行界面使用新主机名更新配置文件。
+
+* 不支持在配置文件中更改目标数据库主机名的情形 *
+
+不支持在以下情况下更改配置文件中的目标数据库主机名：
+
+* 使用 SnapManager 图形用户界面更改目标数据库主机名
+* 更新配置文件的目标数据库主机名后回滚存储库数据库
+* 运行一个命令，为新的目标数据库主机名更新多个配置文件
+* 在运行任何 SnapManager 操作时更改目标数据库主机名
+* 如果 SnapManager 安装在 Solaris 上，并且数据库逻辑单元号（ LUN ）是使用带有 SVM 堆栈的主机挂载文件系统创建的，则更改目标数据库主机名。
+
+
+
+NOTE: 更新配置文件中的目标数据库主机名后，只会更改目标数据库主机名。配置文件上设置的所有其他配置参数均会保留。
+
+在已启用保护的配置文件中更新新的目标数据库主机名后，系统会为已更新的配置文件保留相同的数据集和保护策略。
+
+更改目标主机的主机名后，必须确保在创建新的受保护配置文件之前更新所有现有受保护配置文件的主机名。要更新配置文件的主机名、请运行`smsap profile update`命令。
+
+更新目标数据库主机名后，如果克隆或挂载的备份在新主机中不可用，则无法删除或拆分克隆或卸载备份。在这种情况下，从新主机运行 SnapManager 操作会导致故障以及早期主机中的陈旧条目。要执行SnapManager 操作、您必须使用`profile update`还原到先前的主机名。
+
+. 输入以下命令：
++
+`* smsap profile update -profile _profile_-file_-file_username_-password _dbname _db_dbname_-host _db_host_(-SID _db_sid_）[-login-username _db_username_-password _nsd_password_-port _db_port_](｛-rm_n_username)_-snap_cn-duration _) ` duration _m_]]]-comment _comment_]-snapname-pattern _pattern_]-[-protect -protection-policy _policy_name_]]]_-[-notification [-success -email email_archs1、email_address2 -Subject _policy _policy_name_unk_-weeks_-unic_-clas_unic_unic_unic_-clas_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_unic_un
+
++
+此命令的其他选项如下：
+
++
+``、``、-force]、-noprompt]、
+
++
+``(-quiet)``(-verbose)
+
++
+[cols="1a,2a"]
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+* 更改目标数据库主机名 *
+ a| 
+`s-host _new_db_host_`
+
+|===
+. 要查看配置文件的目标数据库主机名、请输入以下命令：
++
+`* smsap profile show*`
+
+

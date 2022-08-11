@@ -1,0 +1,100 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-create-the-database-profile-and-assign-a-protection-policy.html 
+sidebar: sidebar 
+keywords: create, profile, snapmanager, sap, enable, protection, assign, policy, protection, backup 
+summary: 您必须在SnapManager for SAP中创建配置文件、在配置文件中启用保护、并分配保护策略以创建受保护的备份。 
+---
+= 使用适用于SAP的SnapManager 创建数据库配置文件并分配保护策略
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须在SnapManager for SAP中创建配置文件、在配置文件中启用保护、并分配保护策略以创建受保护的备份。
+
+* 关于此任务 *
+
+配置文件包含有关所管理数据库的信息，包括其凭据，备份设置和备份保护设置。创建配置文件后，您无需在每次执行操作时指定数据库详细信息。一个配置文件只能引用一个数据库，但同一个数据库可以由多个配置文件引用。
+
+.步骤
+. 转到SnapManager for SAP客户端。
+. 从存储库树中，右键单击主机，然后选择 * 创建配置文件 * 。
+. 在*配置文件配置信息*页面上、输入配置文件详细信息、然后单击*下一步*。
++
+* 示例 *
+
++
+您可以输入以下信息：
+
++
+** 配置文件名称：P01_backup
+** 配置文件密码： payroll123
+** 注释：生产薪资数据库
+
+
+. 在*数据库配置信息*页面上、输入数据库详细信息、然后单击*下一步*。
++
+* 示例 *
+
++
+您可以输入以下信息：
+
++
+** 数据库名称：P01
+** 数据库SID：P01
+** Database host ：接受默认值。由于您要从存储库树中的主机创建配置文件，因此 SnapManager 会显示主机名。
+** 主机帐户、表示Oracle用户帐户(对于ora<sid>)：orapayrolldb
+** 主机组，表示 Oracle 组： DBA
+
+
+. 在*数据库连接信息*页面上、单击*使用数据库身份验证*以允许用户使用数据库信息进行身份验证。
+. 输入数据库连接详细信息并单击 * 下一步 * 。
++
+* 示例 *
+
++
+您可以输入以下信息：
+
++
+** sysdba 特权用户名，表示具有管理权限的系统数据库管理员： sys
+** 密码（ SYSDBA 密码）： Oracle
+** 连接到数据库主机的端口：1527
+
+
+. 在 Snapshot Naming Information 页面上，通过选择变量为与此配置文件关联的 Snapshot 指定命名约定。
++
+`_smid_`变量创建唯一的快照标识符。
+
++
+执行以下操作：
+
++
+.. 在*变量令牌*列表中、选择`_usertext_`并单击*添加*。
+.. 输入`_prod01.sample.com__`作为主机名、然后单击*确定*。
+.. 单击*左侧*、直到smsap刚刚在"格式"框中显示主机名。
+.. 单击 * 下一步 * 。
+
+
++
+Snapshot命名约定`_smsap_hostname_smsapprofile_dbsid_scope_mode_smid_`将变为smsap_prpd01.sample.com_P01_BACKUP_P01_f_a_x"(其中、"f"表示完整备份、"A"表示自动模式、"x"表示唯一的SMID)。
+
+. 选择 * 保护管理器保护策略 * 。
++
+使用 * Protection Manager Protection Policy* ，您可以选择使用 NetApp 管理控制台配置的保护策略。
+
+. 从从 NetApp 管理控制台检索到的保护策略中选择 * 技术公司薪资数据：备份 * 作为保护策略，然后单击 * 下一步 * 。
+. 在*执行操作*页面上、验证信息并单击*创建*。
+. 单击 * 操作详细信息 * 可查看有关配置文件创建操作和基于卷的还原资格信息。
+
+
+* 结果 *
+
+* 将NetApp管理控制台保护策略分配给数据库配置文件会自动创建一个非一致数据集、此数据集可由NetApp管理控制台操作员查看、并使用名称约定smsap_<hostname>_<profilename>或在本示例中为smsap_prod01.sample.com_P01_BACKUP。
+* 如果此配置文件不符合卷还原条件（也称为 " 快速还原 " ），则会发生以下情况：
++
+** "* 结果 * " 选项卡表示配置文件创建成功，并且在操作期间出现警告。
+** "* 操作详细信息 * " 选项卡包含一个警告日志，其中指出配置文件不符合快速还原的条件并解释了原因。
+
+
+

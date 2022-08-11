@@ -1,0 +1,187 @@
+---
+permalink: unix-administration/reference-the-smosmsapclone-create-command.html 
+sidebar: sidebar 
+keywords: clone, create, command, backed-up, database, primary, secondary, storage, smsap 
+summary: 您可以运行 clone create 命令为备份的数据库创建克隆。您可以从主存储或二级存储克隆备份。 
+---
+= smsap clone create命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`clone create`命令为备份的数据库创建克隆。您可以从主存储或二级存储克隆备份。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone create
+-profile _profile_name_
+[-backup-id _backup_guid_ | -backup-label _backup_label_name_ | -current\]
+-newsid _new_sid_
+[-host _target_host_\]
+[-label _clone_label_]
+pass:quotes[[-comment _string_\]
+-clonespec _full_path_to_clonespec_file_
+[-asminstance -asmusername _asminstance_username_  -asmpassword _asminstance_password_\]\]
+[-syspassword syspassword]] pass:quotes[[-reserve {*yes* | *no* | *inherit*}]
+pass:quotes[[-from-secondary {-copy-id _id_}]
+pass:quotes[[-no-resetlogs | -recover-from-location _path1_ [, _path2_\]\] [-taskspec taskspec\] [-dump]
+[-quiet | -verbose]]
+----
+
+
+== Parameters
+
+* ``*—profile _name_*``
++
+指定要克隆的数据库。配置文件包含数据库的标识符和其他数据库信息。
+
+* ``*—backup-id _guid_*``
++
+使用指定 GUID 克隆备份。GUID 由 SnapManager 在创建备份时生成。您可以使用smsap backup list-verbose命令显示每个备份的GUID。
+
+* ``*—backup-label _backup_laber_name_*``
++
+指定使用指定标签名称克隆备份。
+
+* ``*-当前*``
++
+指定从数据库的当前状态创建备份和克隆。
+
++
+
+NOTE: 如果数据库处于 nodarchivelog 模式， SnapManager 将创建脱机备份。
+
+* ``*—newsid _new_sid_*``
++
+为克隆的数据库指定一个新的唯一 Oracle 系统标识符。系统标识符值最多为八个字符。Oracle 不允许在同一主机上同时运行具有相同系统标识符的两个数据库。
+
+* ``*—host _target_host_*``
++
+指定应在其上创建克隆的主机。
+
+* ``*—label _clone_label-*``
++
+指定克隆的标签。
+
+* ``*—注释_string_*``
++
+指定用于描述此克隆的可选注释。必须将字符串用单引号括起来。
+
++
+
+NOTE: 某些 shell 会删除引号。如果您的 shell 确实如此，则必须使用反斜杠（ \ ）转义引号。例如、您可能需要输入：`' this is a comation\'`
+
+* ``*-clonSpec _full_path_to_clonese_file_*``
++
+指定克隆规范 XML 文件的路径。此路径可以是相对路径名称，也可以是绝对路径名称。
+
+* ``*- asminstance*``
++
+指定用于登录到 ASM 实例的凭据。
+
+* ``*—asmusername _asminstance_username_*``
++
+指定用于登录到 ASM 实例的用户名。
+
+* ``*—asmpassword _asminstance_password_*``
++
+指定用于登录到 ASM 实例的密码。
+
+* ``*—sysspassword _sysspassword_*``
++
+指定 sys 特权用户的密码。
+
++
+
+NOTE: 如果为 sys 特权用户提供的数据库凭据与为 sys 特权用户提供的数据库凭据不同，则必须为 sys 特权用户提供密码。
+
+* ``*—预留*``
++
+将`-reserve`选项设置为yes可确保为新克隆卷启用卷保证空间预留。将`-reserve`选项设置为no可确保为新克隆卷关闭卷保证空间预留。将`-reserve`选项设置为`*继承*`可确保新克隆继承父Snapshot副本的空间预留特性。默认设置为`*否*`。
+
++
+下表介绍了克隆方法及其对克隆创建操作及其`-reserve`选项的影响。可以使用任一方法克隆 LUN 。
+
++
+[cols="1a,2a,2a"]
+|===
+| 克隆方法 | Description | 结果 
+
+
+ a| 
+LUN 克隆
+ a| 
+此时将在同一卷中创建一个新的克隆 LUN 。
+ a| 
+如果LUN的`-reserve`选项设置为yes、则会为卷中的完整LUN大小预留空间。
+
+
+
+ a| 
+卷克隆
+ a| 
+此时将创建一个新的FlexClone、并且克隆LUN位于新克隆卷中。使用FlexClone技术。
+ a| 
+如果卷的`-reserve`选项设置为yes、则会为聚合中的完整卷大小预留空间。
+
+|===
+* ``*-从-二级系统的版本(-copy-id _copy_id_）*``
++
+指定 SnapManager 应将已受保护的备份副本克隆到二级存储。如果未指定此选项，则 SnapManager 会从主存储克隆副本。
+
++
+每当指定` from-secondary`选项时、您都必须指定`-copy-id`选项。如果二级存储系统上有多个备份，则使用 -copy-id 选项指定二级存储上应使用哪个备份副本进行克隆。
+
++
+
+NOTE: 如果您使用的是在7-模式下运行的Data ONTAP 、则必须为`-copy-id`选项指定有效值。但是、如果您使用的是集群模式Data ONTAP 、则不需要`-copy-id`选项。
+
+* ``*-无重置日志*``
++
+指定跳过恢复数据库，执行 DBNEWID 实用程序，并且在创建克隆时不使用重置日志打开数据库。
+
+* ``*—从位置恢复*``
++
+指定归档日志备份的外部归档日志位置， SnapManager 会从外部位置获取归档日志文件并使用这些文件进行克隆。
+
+* ``*-taskspec*``
++
+指定用于克隆操作的预处理活动或后处理活动的任务规范 XML 文件。您必须提供任务规范 XML 文件的完整路径。
+
+* ``*-dump*``
++
+指定在克隆创建操作后收集转储文件。
+
+* ``*-静默*``
++
+在控制台中仅显示错误消息。默认设置为显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 示例
+
+以下示例将使用为此克隆创建的克隆规范克隆备份：
+
+[listing]
+----
+smsap clone create -profile SALES1 -backup-label full_backup_sales_May -newsid
+CLONE -label sales1_clone -clonespec /opt/<path>/smsap/clonespecs/sales1_clonespec.xml
+----
+[listing]
+----
+Operation Id [8abc01ec0e794e3f010e794e6e9b0001] succeeded.
+----
+'''

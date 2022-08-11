@@ -1,0 +1,52 @@
+---
+permalink: unix-administration/reference-the-smosmsapsystem-verify-command.html 
+sidebar: sidebar 
+keywords: command, confirm, component, environment, require, run, snapmanager, smsap 
+summary: 此命令确认运行 SnapManager 所需的环境的所有组件均已正确设置。 
+---
+= smsap system verify命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令确认运行 SnapManager 所需的环境的所有组件均已正确设置。
+
+
+
+== 语法
+
+[listing]
+----
+smsap system verify
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* ``*-静默*``
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== system verify 命令示例
+
+以下示例使用`smsap system verify`命令。
+
+[listing]
+----
+smsap system verify
+SMSAP-13505 [INFO ]: Snapdrive verify passed.
+SMSAP-13037 [INFO ]: Successfully completed operation: System Verify
+SMSAP-13049 [INFO ]: Elapsed Time: 0:00:00.559
+Operation Id [N4f4e910004b36cfecee74c710de02e44] succeeded.
+----

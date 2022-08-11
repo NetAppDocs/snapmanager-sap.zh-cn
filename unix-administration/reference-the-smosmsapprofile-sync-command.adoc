@@ -1,0 +1,79 @@
+---
+permalink: unix-administration/reference-the-smosmsapprofile-sync-command.html 
+sidebar: sidebar 
+keywords: command, load, profile-to-repository, mappings, repository, file, home, directory, local, host, smsap 
+summary: 此命令会将该存储库的配置文件到存储库映射加载到本地主机上主目录中的文件。 
+---
+= smsap profile sync命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令会将该存储库的配置文件到存储库映射加载到本地主机上主目录中的文件。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap profile sync
+-repository
+-dbname _repo_service_name_
+-host _repo_host_
+-port _repo_port_
+-login
+-username _repo_username_                  [-quiet | -verbose]]
+----
+
+
+== Parameters
+
+* ``*—存储库*``
++
+repository 后面的选项用于指定存储库的数据库详细信息。
+
+* ``*-dbname _repo_service_name_*``
++
+指定要同步配置文件的存储库数据库。
+
+* ``*-主机*``
++
+指定数据库主机。
+
+* ``*-端口*``
++
+指定主机的端口。
+
+* ``*-登录*``
++
+指定主机用户的登录过程。
+
+* ``*-用户名*``
++
+指定主机的用户名。
+
+* ``*-静默*``
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+以下示例显示了用于同步数据库的配置文件到存储库映射的命令的结果。
+
+[listing]
+----
+smsap profile sync -repository -dbname smrepo -host Host2 -port 1521 -login -username user2
+SMSAP-12345 [INFO ]: Loading profile mappings for repository "user2@Host2:smrepo" into cache for OS User "admin".
+Operation Id [Nff8080810da9018f010da901a0170001] succeeded.
+----

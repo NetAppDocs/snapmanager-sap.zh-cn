@@ -1,0 +1,182 @@
+---
+permalink: unix-administration/reference-sample-database-volume-layouts.html 
+sidebar: sidebar 
+keywords: sample, database, volume, layout, configuring, configure 
+summary: 有关配置数据库的帮助，请参见示例数据库卷布局。 
+---
+= 示例数据库卷布局
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+有关配置数据库的帮助，请参见示例数据库卷布局。
+
+
+
+== 单实例数据库
+
+[cols="1a,3a,1a,1a"]
+|===
+| 文件类型 | 卷名称 | 文件类型的专用卷 | 自动 Snapshot 副本 
+
+
+ a| 
+Oracle 二进制文件
+ a| 
+orabin__`主机名_`
+ a| 
+是的。
+ a| 
+开启
+
+
+
+ a| 
+数据文件
+ a| 
+oradata ` SID_`
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+临时数据文件
+ a| 
+oratemp_`_sid_`
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+控制文件
+ a| 
+oracntrl01_`_sid_`(多路复用)
+
+oracntrl02_`_sid_`(多路复用)
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+重做日志
+ a| 
+oralog01_`_sid_`(多路复用)
+
+oralog02_`_sid_`(多路复用)
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+归档日志
+ a| 
+oraarch_`_sid_`
+ a| 
+是的。
+ a| 
+关闭
+
+|===
+
+
+== Real Application Clusters （ RAC ）数据库
+
+[cols="1a,3a,1a,1a"]
+|===
+| 文件类型 | 卷名称 | 文件类型的专用卷 | 自动 Snapshot 副本 
+
+
+ a| 
+Oracle 二进制文件
+ a| 
+orabin__`主机名_`
+ a| 
+是的。
+ a| 
+开启
+
+
+
+ a| 
+数据文件
+ a| 
+oradata ` dbname_`
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+临时数据文件
+ a| 
+oratemp_` dbname_`
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+控制文件
+ a| 
+oracntrl01_`_dbname_`(多路复用)
+
+oracntrl02_`_dbname_`(多路复用)
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+重做日志
+ a| 
+oralog01_`_dbname_`(多路复用)
+
+oralog02_` dbname_`(多路复用)
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+归档日志
+ a| 
+oraarch_`_dbname_`
+ a| 
+是的。
+ a| 
+关闭
+
+
+
+ a| 
+集群文件
+ a| 
+oracrs_` clustername_`
+ a| 
+是的。
+ a| 
+开启
+
+|===

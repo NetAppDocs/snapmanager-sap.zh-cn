@@ -1,0 +1,17 @@
+---
+permalink: unix-administration/concept-configuring-and-enabling-policy-driven-data-protection.html 
+sidebar: sidebar 
+keywords: snapdrive, datafabric, manager, server, protect, backup, configure, configuring, policy-driven, policy, driven, data, protection 
+summary: 您必须配置 SnapDrive 和 DataFabric Manager 服务器，以便在配置文件上启用数据保护，从而保护二级存储系统上的备份。您可以在 Protection Manager 的控制台中选择保护策略，以指定如何保护数据库备份。 
+---
+= 配置和启用策略驱动型数据保护
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须配置 SnapDrive 和 DataFabric Manager 服务器，以便在配置文件上启用数据保护，从而保护二级存储系统上的备份。您可以在 Protection Manager 的控制台中选择保护策略，以指定如何保护数据库备份。
+
+
+NOTE: 要启用数据保护，您必须确保 OnCommand Unified Manager 安装在单独的服务器上。

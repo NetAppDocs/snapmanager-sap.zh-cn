@@ -1,0 +1,199 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-restore-command.html 
+sidebar: sidebar 
+keywords: run, backup, restore, command, database, portion, recover, information, smsap 
+summary: 您可以运行 backup restore 命令来还原数据库或数据库的一部分的备份，然后可以选择恢复数据库信息。 
+---
+= smsap backup restore命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup restore`命令来还原数据库或部分数据库的备份、然后可以选择恢复数据库信息。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup restore
+-profile _profile_name_
+[-label _label_ | -id _id_\]
+[-files files [_files..._\] |
+-tablespaces _tablespaces [tablespaces...\]_\] |
+-complete | -controlfiles\]
+[-recover {-alllogs | -nologs | -until _until_} [-using-backup-controlfile\] \]
+[-restorespec _restorespec_ | -from-secondary [-temp-volume _temp_volume_\] [-copy-id _id_\]\]
+[-preview\]
+[-fast {-require | -override | -fallback | -off}\]
+[-recover-from-location _path1_ [_, path2_\]\] [-taskspec _taskspec_\][-dump\]
+[-force\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定要还原的数据库。配置文件包含数据库的标识符和其他数据库信息。
+
+* `*-标签_name_*`
++
+使用指定标签还原备份。
+
+* `*—id _guid_*`
++
+使用指定 GUID 还原备份。GUID 由 SnapManager 在创建备份时生成。您可以使用smsap backup list命令显示每个备份的GUID。
+
+* * 选择全部或指定文件 *
++
+您也可以选择使用以下选项之一：
+
++
+** `完整`还原备份中的所有数据文件。
+** `表空间_list_`：仅从备份还原指定的表空间。
++
+必须使用空格分隔列表中的名称。
+
+** `-files _list_`：仅从备份还原指定的数据文件。
++
+必须使用空格分隔列表中的名称。如果数据库正在运行，则 SnapManager 可确保包含文件的表空间处于脱机状态。
+
+
+
+* `*—控制文件*`
++
+还原控制文件。使用 SnapManager ，您可以通过一次操作从备份中还原控制文件以及数据文件。`-controlfiles`选项与其他还原范围参数无关、例如-`complete`、`表空间`和`-files`。
+
+* `*—恢复*`
++
+还原数据库后恢复数据库。您还必须使用以下选项之一指定希望 SnapManager 将数据库恢复到的点：
+
++
+** ` nologs`：将数据库恢复到备份时间、不应用任何日志。
++
+您可以将此参数用于联机或脱机备份。
+
+** `-alllogs`：将数据库恢复到最后一个事务或提交、并应用所有必需的日志。
+** `-直到日期`：将数据库恢复到指定的日期和时间。
++
+您必须使用年-月-日：小时：分钟：秒(_yyyy-mm-dd：hh：mm：ss_)格式。对于小时，请根据数据库设置使用 12 小时或 24 小时格式。
+
+** `-直到SCN`：前滚数据文件、直到达到指定的系统更改号(SCN)。
+** `使用备份控制文件`：使用备份控制文件恢复数据库。
+
+
+* `*-还原规范*`
++
+用于将数据还原到活动文件系统，并通过提供每个原始 Snapshot 副本到其活动文件系统的映射从指定数据进行还原。如果未指定选项， SnapManager 将从主存储上的 Snapshot 副本还原数据。您可以指定以下选项之一：
+
++
+** `-restorspecies`：指定要还原的数据和还原格式。
+** `从二级存储`：从二级存储还原数据。
++
+如果备份位于主存储上，则不能使用此选项；必须先释放主备份，然后才能从二级存储还原备份。如果使用临时卷、则必须使用`-temp-volume`选项指定此卷。
+
++
+每当指定` from-secondary`选项时、您都必须指定`-copy-id`选项。如果二级存储系统上有多个备份、则会使用`-copy-id`选项指定二级存储上应使用哪个备份副本执行还原操作。
+
++
+
+NOTE: 如果您使用的是在7-模式下运行的Data ONTAP 、则必须为`-copy-id`选项指定有效值。但是、如果您使用的是集群模式Data ONTAP 、则不需要`-copy-id`选项
+
++
+从二级存储还原时， SnapManager 会首先尝试将数据直接从二级存储系统还原到主存储系统（而不涉及主机）。如果 SnapManager 无法执行此类还原（例如，如果文件不属于文件系统），则 SnapManager 将回退到主机端文件副本还原。SnapManager 可通过两种方法从二级系统执行主机端文件副本还原。SnapManager 选择的方法在`smsap.config`文件中进行配置。
+
+** Direct ： SnapManager 克隆二级存储上的数据，将克隆的数据从二级存储系统挂载到主机，然后将数据从克隆复制到活动环境。
++
+这是默认的二级访问策略。
+
+** 间接： SnapManager 首先将数据复制到主存储上的临时卷，将数据从临时卷挂载到主机，然后将数据从临时卷复制到活动环境。
++
+只有当主机无法直接访问二级存储系统时，才应使用此策略。使用间接方法进行恢复所需时间是直接二级访问策略的两倍，因为会创建两个数据副本。
+
+
+
++
+是否使用直接或间接方法取决于`smsap.config`配置文件中的`_restore.secondaryAccessPolicy_`参数值。
+
+* `*—预览*`
++
+显示以下信息：
+
++
+** 将使用哪种还原机制（快速还原，存储端文件系统还原，存储端文件还原或主机端文件副本还原）来还原每个文件
+** 为什么不使用更高效的机制来还原每个文件、指定`详细`选项时如果使用的是`预览`选项、则必须了解以下信息：
+** `-force`选项不会影响命令。
+** `-recover`选项不会影响命令。
+** `-fast`选项(`-requiree、-override、-back退、`或`-off`)会对输出产生重大影响。要预览还原操作，必须挂载数据库。如果要预览还原计划，并且当前未挂载数据库，则 SnapManager 会挂载数据库。如果无法挂载数据库，则此命令将失败， SnapManager 会将数据库返回到其原始状态。
+
+
++
+`预览`选项最多可显示20个文件。您可以配置要在`smsap.config`文件中显示的最大文件数。
+
+* `*-快速*`
++
+用于选择要在还原操作中使用的过程。如果满足所有强制还原资格条件，您可以强制 SnapManager 使用基于卷的快速还原过程，而不是其他还原过程。如果您发现无法执行卷还原，也可以使用此过程通过快速还原过程来防止 SnapManager 执行资格检查和还原操作。
+
++
+`-fast`选项包括以下参数：
+
++
+** `-Require`：如果满足所有还原资格条件、您可以强制SnapManager 执行卷还原。
++
+如果您指定了`-fast`选项、但未为`-fast`指定任何参数、则SnapManager 会默认使用`-Require`参数。
+
+** `-override`：用于覆盖非强制资格检查并执行基于卷的快速还原过程。
+** `回退`：用于使用SnapManager 确定的任何方法还原数据库。
++
+如果未指定`-fast`选项、SnapManager 将使用默认的`backup restore -fast backfp`选项。
+
+** `-关闭`：可以避免执行资格检查所需的时间。
+
+
+* `*—从位置恢复*`
++
+指定归档日志文件的外部归档日志位置。SnapManager 会从外部位置获取归档日志文件，并使用这些文件进行恢复过程。
+
+* `*-taskspec*`
++
+指定还原操作的预处理活动或后处理活动的任务规范 XML 文件。您必须提供任务规范 XML 文件的完整路径。
+
+* `*-dump*`
++
+指定在还原操作后收集转储文件。
+
+* `*-force*`
++
+如有必要，将数据库状态更改为低于其当前状态。对于Real Application Clusters (RAC)、如果SnapManager 需要将任何RAC实例的状态更改为更低的状态、则必须包含`-force`选项。
+
++
+默认情况下， SnapManager 可以在操作期间将数据库状态更改为更高的状态。要使 SnapManager 将数据库更改为更高状态，不需要此选项。
+
+* `*-静默*`
++
+在控制台中仅显示错误消息。默认设置为显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台中显示错误，警告和信息性消息。您可以使用此选项来了解为何无法使用效率更高的还原进程来还原文件。
+
+
+
+'''
+
+
+== 示例
+
+以下示例将还原数据库以及控制文件：
+
+[listing]
+----
+smsap backup restore -profile SALES1 -label full_backup_sales_May
+-complete -controlfiles -force
+----
+'''

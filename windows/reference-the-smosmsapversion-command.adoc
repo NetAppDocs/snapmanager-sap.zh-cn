@@ -1,0 +1,50 @@
+---
+permalink: windows/reference-the-smosmsapversion-command.html 
+sidebar: sidebar 
+keywords: run, version, command, snapmanager, local, host, smsap 
+summary: 您可以运行 version 命令来确定本地主机上运行的 SnapManager 版本。 
+---
+= smsap version命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`version`命令来确定本地主机上运行的SnapManager 版本。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap version
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+显示每个配置文件的构建日期和内容。此外，还会在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== version 命令示例
+
+以下示例显示了 SnapManager 的版本：
+
+[listing]
+----
+smsap version
+SnapManager for SAP Version: 3.3.1
+----

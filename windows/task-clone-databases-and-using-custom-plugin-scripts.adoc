@@ -1,0 +1,26 @@
+---
+permalink: windows/task-clone-databases-and-using-custom-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, method, custom, script, clone, operation, sid, policy, name, plug-in 
+summary: SnapManager 提供了一种在执行克隆操作前后使用自定义脚本的方法。例如，您可能已经创建了一个自定义脚本，用于验证克隆数据库 SID 并确保命名策略允许此 SID 。使用 SnapManager 克隆插件，您可以包括自定义脚本，并在 SnapManager 克隆操作之前或之后自动运行这些脚本。 
+---
+= 克隆数据库并使用自定义插件脚本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 提供了一种在执行克隆操作前后使用自定义脚本的方法。例如，您可能已经创建了一个自定义脚本，用于验证克隆数据库 SID 并确保命名策略允许此 SID 。使用 SnapManager 克隆插件，您可以包括自定义脚本，并在 SnapManager 克隆操作之前或之后自动运行这些脚本。
+
+.步骤
+. 查看插件脚本示例。
+. 从头开始创建脚本或修改某个示例插件脚本。
++
+根据 SnapManager 插件脚本准则创建自定义脚本。
+
+. 将自定义脚本置于指定的目录位置。
+. 更新克隆规范 XML 文件，并提供有关克隆过程中应使用的自定义脚本的信息。
+. 使用 SnapManager 命令验证自定义脚本是否正常运行。
+. 启动克隆操作时，请包含脚本名称和可选参数。
+

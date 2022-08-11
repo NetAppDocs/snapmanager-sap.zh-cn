@@ -1,0 +1,29 @@
+---
+permalink: windows/task-restoring-backups-from-an-alternate-location.html 
+sidebar: sidebar 
+keywords: restore, alternate, location, data, file, intermediate, system, active, restoring, backup 
+summary: 您可以从备用位置进行还原，以便将数据文件从中间文件系统还原到活动文件系统。 
+---
+= 从备用位置还原备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以从备用位置进行还原，以便将数据文件从中间文件系统还原到活动文件系统。
+
+* 创建还原规范 XML 文件并指定要使用的还原方法类型。
+
+
+您可以使用smsap backup restore命令并指定为从备用位置还原备份而创建的还原规范XML文件。
+
+. 输入以下命令：
++
+`smsap backup restore -profileprofile-labelLabel-complete-alllogs-restoreestorSpec`
+
+
+
+* 相关信息 *
+
+xref:reference-the-smosmsapbackup-restore-command.adoc[smsap backup restore命令]

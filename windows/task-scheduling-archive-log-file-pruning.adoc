@@ -1,0 +1,72 @@
+---
+permalink: windows/task-scheduling-archive-log-file-pruning.html 
+sidebar: sidebar 
+keywords: create, backup, schedule, pruning, prune, archive, log, file, scheduling 
+summary: 创建备份时，您可以计划在指定时间对归档日志文件进行删减。 
+---
+= 计划归档日志文件删减
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+创建备份时，您可以计划在指定时间对归档日志文件进行删减。
+
+通过 SnapManager ，您可以定期从活动文件系统对归档日志文件进行修剪。
+
+. 输入以下命令：
++
+`smsap schedule create -profile profile_name｛-full｛-online |-offline |-auto｝｛-retain (-hourly；-daily；-weekly；-monthly；-unlimited](-verify])(-data (-filesfiles)))(-destination-tablespaces-tablesogs (-tablespaces)))))(-snap-weekly (-edly)(-snap-edelly)(-snap-ly-unlimited)(-snap-ly-veds))(-destinationsaces))(-ly-veds.-ly-veds) "-prunelog｛-all |-untirescunntisnscn _-before｛-dateyyy-mm-dd HH：mm：ss _-monthsmonths _-weeksweeks _-daysdays _-hourshours｝-prune-destprune_string1、prune_dest2)-schedule-namesm_ msweekly_schedule _<-time-schedule_source_source_source>-time-time-source_source>-source>-time-source>-time-source>-source>-time-source_source>-source>`
+
++
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+* 计划对归档日志文件进行删减 *
+ a| 
+指定以下选项：
+
+** -prunelog 用于计划对归档日志文件进行删减
+** -prune-dest 以从归档日志目标位置对归档日志文件进行 prune
+
+
+
+
+ a| 
+* 包括计划名称 *
+ a| 
+指定 -schedule-name 选项。
+
+
+
+ a| 
+* 按特定时间间隔计划对归档日志文件进行删减 *
+ a| 
+指定间隔选项，并指示是否应根据以下间隔类对归档日志文件进行修剪：
+
+** 每小时
+** 每天
+** 每周
+** 每月
+** -onetimeonly
+
+
+
+
+ a| 
+* 添加有关计划操作的注释 *
+ a| 
+指定 -schedule-comment 选项，后跟问题描述字符串。
+
+
+
+ a| 
+* 指定计划操作的开始时间 *
+ a| 
+以 yyyy-mm-dd hh ： mm 格式指定 -start-time 选项。
+
+|===
+

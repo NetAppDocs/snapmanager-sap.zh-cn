@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-delete-command.html 
+sidebar: sidebar 
+keywords: run, backup, delete, command, remove, clone, fail, unlimited, basis, retention, class, smsap 
+summary: 您可以运行 backup delete 命令删除未自动删除的备份，例如用于创建克隆的备份或失败的备份。您可以删除无限制保留的备份，而不更改保留类。 
+---
+= smsap backup delete命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup delete`命令删除未自动删除的备份、例如用于创建克隆的备份或失败的备份。您可以删除无限制保留的备份，而不更改保留类。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup delete
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _guid_ | -all\]
+-force
+[-dump\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定与要删除的备份关联的数据库。配置文件包含数据库的标识符和其他数据库信息。
+
+* `*—id _guid_*`
++
+指定具有指定 GUID 的备份。GUID 由 SnapManager 在创建备份时生成。您可以使用`smsap backup list`命令显示每个备份的GUID。
+
+* `*-标签_label-*`
++
+指定具有指定标签的备份。或者，也可以将备份范围指定为数据文件或归档日志。
+
+* `*-数据*`
++
+指定数据文件。
+
+* `*—archivelogs*`
++
+指定归档日志文件。
+
+* `*-全部*`
++
+指定所有备份。要仅删除指定的备份、请使用`-id`或`-label`选项。
+
+* `*-dump*`
++
+在备份删除操作成功或失败后收集转储文件。
+
+* `*-force*`
++
+强制删除备份。即使释放与备份关联的资源时出现问题， SnapManager 也会删除备份。例如、如果备份已使用Oracle Recovery Manager (RMAN)进行了编目、但RMAN数据库不再存在、则包括`-force`在内的备份将删除、即使它无法与RMAN连接也是如此。
+
+* `*-静默*`
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 示例
+
+以下示例将删除备份：
+
+[listing]
+----
+smsap backup delete -profile SALES1 -label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----
+'''

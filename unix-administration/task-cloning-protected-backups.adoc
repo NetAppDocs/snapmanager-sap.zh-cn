@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/task-clone-protected-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, clone, copy, backup, protect, cloning 
+summary: 您可以使用 SnapManager 克隆已受保护的备份的副本。 
+---
+= 克隆受保护的备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用 SnapManager 克隆已受保护的备份的副本。
+
+* 您需要的内容 *
+
+主机（为克隆选择）必须能够使用相同的存储协议（例如 SAN 或 NAS ）访问二级存储。
+
+您可以使用`-from-secondary`选项指定要从二级存储克隆。
+
+* 关于此任务 *
+
+每当指定` from-secondary`选项时、您都必须指定`-copy-id`选项。如果二级存储系统上有多个备份，则使用 -copy-id 选项指定二级存储上应使用哪个备份副本进行克隆。
+
+
+NOTE: 如果您使用的是在7-模式下运行的Data ONTAP 、则必须为`-copy-id`选项指定有效值。但是、如果您使用的是集群模式Data ONTAP 、则不需要`-copy-id`选项。
+
+删除二级存储系统上受保护备份的克隆可能会失败。如果主存储系统和二级存储系统的系统时间未同步，则会发生此问题描述。
+
+.步骤
+. 创建受保护备份副本的克隆：
++
+`* smsap clone create -backup-label _backup_name_-newsid _new_sid_-label _clone_label _-profile _profile_name_-clonSpec _full_path_to_clonesefile_-from-secondary -copy-id _id_*`
+
+
+
+'''
+
+
+== 示例
+
+[listing]
+----
+smsap clone create -label testdb_clone_clstest
+-profile sys_db_finance -from-secondary -copy-id 3042 sys_db_finance_sept_08
+----
+'''

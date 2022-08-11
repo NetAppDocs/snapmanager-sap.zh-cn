@@ -1,0 +1,65 @@
+---
+permalink: windows/reference-the-smosmsapclone-list-command.html 
+sidebar: sidebar 
+keywords: command, list, clone, database, profile, smsap 
+summary: 此命令可列出给定配置文件的数据库克隆。 
+---
+= smsap clone list命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令可列出给定配置文件的数据库克隆。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap clone list
+-profile profile_name
+-delimiter character
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定与配置文件关联的克隆的列表。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-分隔符_character-`*
++
+指定此参数后，此命令将在每行中列出属性，并以指定字符分隔。
+
+* *`-静默`*
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+以下示例列出了 SALES1 配置文件中的数据库克隆。
+
+[listing]
+----
+smsap clone list -profile SALES1 -verbose
+----
+[listing]
+----
+ID Status SID Host Label Comment
+-------- ------- ----- ------- ---------- -------
+8ab...01 SUCCESS hsdbc server1 back1clone test comment
+----

@@ -1,0 +1,212 @@
+---
+permalink: unix-administration/concept-what-br-tools-are.html 
+sidebar: sidebar 
+keywords: information, sap, storage, system, br, tools 
+summary: 您可以找到将SAP用于存储系统所需的信息。 
+---
+= 什么是Br*工具
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到将SAP用于存储系统所需的信息。
+
+有关使用Br*工具(包括命令语法)的一般信息、请参见SAP文档、例如联机的Br*工具for Oracle Database Administration。
+
+
+
+== 配置文件要求
+
+SnapManager for SAP配置文件的名称必须正确、才能与Br*工具配合使用。默认情况下、BACKINT会使用存储库中的配置文件、该配置文件与SAP SID具有相同的名称、该配置文件由发出Br*工具命令的用户ID决定。
+
+如果SAP SID在您的环境中不是唯一的、则需要使用其他配置文件名称。有关详细信息、请参见_Profile usage for Br* Tools backup_。
+
+您必须具有从Br*工具目录到SnapManager for SAP安装的`/opt/netapp/smsap/bin/backint`文件的链接。有关创建链接的信息、请参见_Integrating with SAP Br* Tools_。
+
+无法验证使用BR*工具7.00之前的版本创建的备份。完成验证需要表空间或数据文件的块大小；但是、BR*工具7.00之前的版本不提供此信息。
+
+
+
+== 关于将BR*工具与SnapManager for SAP接口结合使用
+
+您可以组合使用Br*工具和SnapManager for SAP图形用户界面(GUI)或命令行界面(CLI)来执行以下操作：
+
+[cols="1a,1a"]
+|===
+| 操作 | 您可以使用的接口 
+
+
+ a| 
+列出、还原、恢复和删除使用BRBACKUP创建的数据库备份(包括数据文件、控制文件或联机重做日志文件的备份)
+ a| 
+适用于SAP命令行界面和GUI的SnapManager
+
+
+NOTE: Br*工具只能列出和还原使用Br*工具创建的备份。
+
+
+
+ a| 
+列出并删除使用BRBACKUP创建的其他文件集的备份
+ a| 
+适用于SAP命令行界面和GUI的SnapManager
+
+
+
+ a| 
+克隆使用BRBACKUP创建的其他文件集的备份
+ a| 
+使用BRBACKUP命令执行的完整联机或脱机备份可以使用适用于SAP的SnapManager 命令行界面或图形用户界面进行克隆。
+
+|===
+
+
+== 在采用SnapManager for SAP的Br*工具命令行界面下提供的选项
+
+在Br*工具命令行界面中提供了以下选项：
+
+[cols="1a,2a"]
+|===
+| 选项 | 可执行的任务 
+
+
+ a| 
+实例管理
+ a| 
+将所有操作记录在文件系统和数据库表中、并将备份日志和配置文件保存到备份介质中。
+
+
+
+ a| 
+空间管理
+ a| 
+支持全面的卷管理。要使用空间管理中提供的功能、您必须使用BRBACKUP或BRARCHIVE初始化卷、以确保卷包含SAP专用标签。
+
+
+
+ a| 
+备份和数据库副本
+ a| 
+创建数据库备份、执行脱机重做日志(归档日志)并验证备份。
+
+
+
+ a| 
+还原和恢复
+ a| 
+还原和恢复备份。
+
+
+
+ a| 
+数据库统计信息
+ a| 
+维护表和索引的统计信息。
+
+|===
+
+
+== 在Br*工具图形用户界面中提供类似的功能
+
+在Br*工具图形用户界面中可以执行以下操作：
+
+[cols="1a,1a"]
+|===
+| 向导类型 | 可执行的任务 
+
+
+ a| 
+创建存储库向导
+ a| 
+在数据库中创建存储库。
+
+
+
+ a| 
+配置文件向导
+ a| 
+在存储库中创建配置文件。
+
+
+
+ a| 
+备份向导
+ a| 
+创建配置文件的备份。
+
+
+
+ a| 
+还原和恢复向导
+ a| 
+还原和恢复配置文件的备份。
+
+
+
+ a| 
+SnapManager 克隆删除向导
+ a| 
+删除备份的克隆。
+
+
+
+ a| 
+SnapManager 备份删除向导
+ a| 
+删除配置文件的备份。
+
+|===
+
+
+== 关于克隆使用Br*工具创建的备份
+
+使用BRBACKUP命令执行的完整联机或脱机备份可以使用适用于SAP的SnapManager 命令行界面或图形用户界面进行克隆。
+
+要为使用bRBACKUP命令创建的数据库备份创建克隆、请确保在smsap.config文件中将配置参数brbackup.enable.cloned.backups设置为true、然后重新启动SAP服务器的SnapManager。输入以下命令：`brbackup.enable.clonped.backups=true`
+
+对于使用BRCACKUP命令创建的联机备份、SnapManager for SAP支持克隆备份、而无需通过SnapManager for SAP命令行界面或图形用户界面进行任何更改。
+
+对于已创建的脱机备份、可使用SnapManager for SAP命令在执行以下步骤后从SnapManager for SAP命令行界面或图形用户界面克隆备份：
+
+. 在smsap.config文件中添加以下配置变量。
++
+下面显示的变量值为默认值。如果要将这些值设置为默认值、可以保留这些值。
+
++
+** brbackup.oracle.maxdatafiles=254
+** brbackup.oracle.maxloghistory=1168
+** brbackup.oracle.maxinstances=50
+** brbackup.oracle.maxlogfiles=255
+** brbackup.oracle.maxlogmembs=3
+** brbackup.oracle.character_set=UTF8
+
+
+. 要更改smsap.config文件中的任何默认配置参数值、请在SQL命令提示符处执行以下命令：
++
+`更改数据库备份控制文件以跟踪为文件`
+
++
+该文件可以是任何用户定义的名称、并在调用SQL* Plus的同一目录中创建。
+
+. 打开文件、将这些值设置为smsap.config文件中的相应配置变量。
+. 重新启动 SnapManager 服务器。
+
+
+
+
+== 关于删除使用Br*工具创建的备份
+
+BR*工具不会删除备份。由于SnapManager for SAP备份基于Snapshot副本、因此您可以保留的备份数量存在限制。您需要确保在不再需要备份时将其删除。
+
+在NetApp存储系统上、每个卷最多可以有255个Snapshot副本。如果卷达到限制、备份将失败。使用BRBACKUP进行的备份通常会为每个受影响的卷创建两个Snapshot副本。
+
+为了防止达到最大Snapshot副本数255、您可以通过以下方式管理备份：
+
+* 您可以在用于Br*工具操作的配置文件中设置保留选项。
++
+然后、SnapManager for SAP会根据需要自动删除旧备份。
+
+* 您可以使用适用于SAP的SnapManager 命令行界面或图形用户界面手动删除不再需要的备份。
+

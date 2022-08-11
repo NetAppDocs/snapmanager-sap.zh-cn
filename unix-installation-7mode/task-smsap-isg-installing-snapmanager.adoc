@@ -1,0 +1,90 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-install-snapmanager.html 
+sidebar: sidebar 
+keywords: install, snapmanager, host, database, backup, run 
+summary: 您必须在运行要备份的数据库的每个主机上安装 SnapManager 。 
+---
+= 安装SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须在运行要备份的数据库的每个主机上安装 SnapManager 。
+
+* 您需要的内容 *
+
+您必须已在数据库主机上安装 SnapDrive for UNIX 并与存储系统建立连接。
+
+有关如何安装 SnapDrive 并与存储系统建立连接的信息，请参见 SnapDrive for UNIX 文档。
+
+* 关于此任务 *
+
+每个数据库主机必须安装一个 SnapManager 实例。如果您使用的是 Real Application Cluster （ RAC ）数据库，并且要备份 RAC 数据库，则必须在 RAC 数据库的所有主机上安装 SnapManager 。
+
+. 从NetApp支持站点下载适用于UNIX的SnapManager for SAP安装包、并将其复制到主机系统。
++
+http://mysupport.netapp.com/NOW/cgi-bin/software["NetApp 下载：软件"^]
+
+. 以 root 用户身份登录到数据库主机。
+. 在命令提示符处，导航到复制安装包的目录。
+. 使安装包可执行：
++
+`* chmod 755 _install_package.bin_*`
+
+. 安装SnapManager ：
++
+`*。/install_package.bin_*`
+
+. 按`Enter`继续。
+. 执行以下步骤：
++
+.. 将操作系统用户的默认值更改为`* ora *``_sid_`、其中`_sid_`是数据库的系统标识符。
+.. 按`Enter`接受操作系统组的默认值。
++
+组的默认值为_dba_。
+
+.. 按`Enter`接受启动类型的默认值。
+
+
++
+此时将显示配置摘要。
+
+. 查看配置摘要、然后按`Enter`继续。
++
+已安装SnapManager for SAP和所需的Java Runtime Environment (JRE)、并会自动执行`smsap_setup`脚本。
+
++
+SnapManager for SAP安装在`/opt/netapp/smsap`上。
+
+
+
+* 完成后 *
+
+您可以通过执行以下步骤来验证安装是否成功：
+
+. 运行以下命令、启动适用于SnapManager 服务器的：
++
+`* smsap_server start*`
+
++
+此时将显示一条消息、指出适用于SnapManager 服务器的正在运行。
+
+. 输入以下命令、以验证适用于SAP系统的SnapManager 是否正常运行：
++
+`* smsap system verify*`
+
++
+此时将显示以下消息：operation ID number succeeded。
+
++
+number 是操作 ID 编号。
+
+
+
+* 相关信息 *
+
+http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=30050["NetApp 文档： SnapDrive for UNIX"^]
+
+http://mysupport.netapp.com/["NetApp 支持站点上的文档： mysupport.netapp.com"^]

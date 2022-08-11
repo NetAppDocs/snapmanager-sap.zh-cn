@@ -1,0 +1,125 @@
+---
+permalink: windows/reference-examples-of-backup-restore-and-recover-operations.html 
+sidebar: sidebar 
+keywords: information, backup, restore, recover, scenario, accomplish, data, protection, goal, operation 
+summary: 您可以找到有关一些可用于实现数据保护目标的备份，还原和恢复方案的信息。 
+---
+= 备份，还原和恢复操作示例
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到有关一些可用于实现数据保护目标的备份，还原和恢复方案的信息。
+
+下图显示了表空间的内容：
+
+image::../media/prnt_en_drw_smo_smsap_db_tables.gif[Prnt en drw SMO smsap 数据库表]
+
+在插图中， Table1 具有一个表以及两个关联的数据库文件。Table2 具有两个表以及一个关联的数据库文件。
+
+下表介绍了一些完整和部分备份，还原和恢复方案：
+
+
+
+== 完整备份，还原和恢复操作示例
+
+|===
+| 完整备份 | 还原 | 恢复 
+
+
+ a| 
+SnapManager 对数据库 DB1 中的所有内容进行备份，包括数据文件，归档日志和控制文件。
+ a| 
+使用控制文件完成还原 SnapManager 将还原备份中的所有数据文件，表空间和控制文件。
+ a| 
+您可以指定以下项之一：
+
+* SCN - 输入 SCN ，例如 384641 。
+* 日期 / 时间 - 输入备份的日期和时间，例如， 2005 年 11 月 25 日： 19 ： 06 ： 22 。
+* 上次对数据库进行的事务。
+
+
+
+
+ a| 
+不使用控制文件完成还原 SnapManager 将还原所有表空间和数据文件，而不使用控制文件。
+
+
+
+ a| 
+使用控制文件还原数据文件或表空间指定以下选项之一：
+
+* 表空间
+* 数据文件
+
+ a| 
+SnapManager 会将数据恢复到上次对数据库执行的事务。
+
+
+
+ a| 
+还原不具有控制文件的数据文件或表空间SnapManager将还原以下内容之一：
+
+* 表空间
+* 数据文件
+
+
+
+
+ a| 
+仅还原控制文件
+
+|===
+
+
+== 部分备份，还原和恢复操作示例
+
+|===
+| 部分备份 | 还原 | 恢复 
+
+
+ a| 
+您可以选择以下选项之一：
+
+* 表空间
++
+您可以指定 Table1 和 Table2 ，也可以仅指定其中一个。
+
+* 数据文件
++
+您可以指定所有三个数据库文件（ TS1_1.dbf ， TS1_2.dbf 和 TS2_1.dbf ），两个文件或一个文件。
+
+
+
+无论选择哪种选项，备份都会包括所有控制文件。如果未启用配置文件单独创建归档日志备份，则归档日志文件将包含在部分备份中。
+ a| 
+Complete Restore SnapManager 将还原部分备份中指定的所有数据文件，表空间和控制文件。
+ a| 
+SnapManager 会将数据恢复到上次对数据库实例执行的事务。
+
+
+
+ a| 
+使用控制文件还原数据文件或表空间 SnapManager 将还原以下内容之一：
+
+* 指定的所有数据文件
+* 指定的所有表空间
+
+ a| 
+还原不带控制文件的数据文件或表空间 SnapManager 将还原以下内容之一：
+
+* 表空间
++
+指定任何表空间。SnapManager 仅还原指定的表空间。如果备份包含 Table1 ，则 SnapManager 仅还原该表空间。
+
+* 数据文件
++
+指定任何数据库文件。SnapManager 仅还原指定的数据文件。如果备份包含数据库文件（ TS1_1.dbf 和 TS1_2.dbf ），则 SnapManager 仅会还原这些文件。
+
+
+ a| 
+仅还原控制文件
+
+|===

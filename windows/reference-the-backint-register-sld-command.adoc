@@ -1,0 +1,70 @@
+---
+permalink: windows/reference-the-backint-register-sld-command.html 
+sidebar: sidebar 
+keywords: sap, br, tools, backint, register-sld, command, snapmanager, interface, landscape, system, directory, sld, vendor 
+summary: '如果要使用SAP Br*工具、可以使用SnapManager for SAP运行backint register-sld命令、以便在系统环境目录(System Landscape Directory、SLD)中注册BACKINT接口。存储供应商提供了BACKINT接口、用于使存储系统能够使用Br*工具命令。SnapManager for SAP将其BACKINT接口文件安装在C：\Program Files\NetApp\SnapManager for SAP\bin\。' 
+---
+= backint register-sld命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果要使用SAP Br*工具、您可以使用SnapManager for SAP运行`backint register-sld`命令、以便在系统环境目录(System Landscape Directory、SLD)中注册BACKINT接口。存储供应商提供了BACKINT接口、用于使存储系统能够使用Br*工具命令。SnapManager for SAP将其BACKINT接口文件安装在`C：\Program Files\NetApp\SnapManager for SAP\bin\`。
+
+
+
+== 语法
+
+[listing]
+----
+
+backint register-sld
+-host  host_name
+-port  port_id
+-username username
+-password password
+-template template_ID
+----
+
+
+== Parameters
+
+* *`主机_host_name_`*
++
+指定运行SAP SLD的主机的名称。
+
+* *`-port _port_id_`*
++
+指定SAP SLD接受HTTP请求的端口的ID。此ID必须为数字且小于或等于九位数。
+
+* *`用户名_用户名_`*
++
+指定有效且经过授权的SAP SLD用户名。
+
+* *`密码_password_`*
++
+指定有效且经过授权的SAP SLD用户密码。这是可选的。如果未使用`密码`设置密码、系统将提示您输入以下格式的密码：`+用户名@http://host:port+`
+
++
+如果输入的密码不正确、则在三次尝试后、命令将失败并退出。
+
+* *`-template _template_id_`*
++
+指定主模板XML文件的名称、此文件可用作自定义文件的基础。
+
+
+
+
+
+== 命令示例
+
+以下示例显示命令已成功完成：
+
+[listing]
+----
+backint register-sld -host jack12 -port 50100
+-username j2ee_admin -password user123 -template E:\template.xml
+Operation Id [N96f4142a1442b31ee4636841babbc1d7] succeeded.
+----

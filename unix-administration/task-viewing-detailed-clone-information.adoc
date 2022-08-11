@@ -1,0 +1,39 @@
+---
+permalink: unix-administration/task-view-detailed-clone-information.html 
+sidebar: sidebar 
+keywords: view, detail, information, clone, show, command 
+summary: 您可以使用 clone show 命令查看有关特定克隆的详细信息。 
+---
+= 查看详细克隆信息
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`clone show`命令查看有关特定克隆的详细信息。
+
+* 关于此任务 *
+
+`clone show`命令可显示以下信息：
+
+* 克隆系统标识符和克隆 ID
+* 克隆操作状态
+* 克隆创建开始和结束日期或时间
+* 克隆标签
+* 克隆注释
+* 备份标签和 ID
+* 源数据库
+* 备份开始和结束时间
+* 数据库名称，表空间和数据文件
+* 包含数据文件的主机名和文件系统
+* 支持克隆的存储系统卷和 Snapshot 副本
+* 克隆是使用主存储还是二级存储上的备份创建的
+
+
+.步骤
+. 输入以下命令：
++
+`* smsap clone show -profile _profile_name_[-label _label ___- id _guid_]*`
+
+

@@ -1,0 +1,35 @@
+---
+permalink: windows/task-configuring-e-mail-notification-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: updating, update, profile, configure, receive, email, notification, completion, database, operation, configuring, exist 
+summary: 在更新配置文件时，您可以将配置为在数据库操作完成时接收电子邮件通知。 
+---
+= 为现有配置文件配置电子邮件通知
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在更新配置文件时，您可以将配置为在数据库操作完成时接收电子邮件通知。
+
+* 您必须配置用于发送警报的电子邮件地址。
+* 您必须输入一个或多个要将警报发送到的电子邮件地址。
++
+您可以对多个地址使用逗号分隔列表。您必须确保逗号和下一个电子邮件地址之间没有空格。您也可以选择向电子邮件添加主题。
+
++
+
+NOTE: 您必须确保在双引号内输入一组多个电子邮件地址。
+
+
+
+.步骤
+. 输入以下命令：
++
+`s` msap profile update -profileprofile "-profile-passwordprofile_password][-database-dbnamedb_dbname-host db_host [-siddb_sidi][-login -usernamedb_username-password db_password-port db_port]][｛-rman｛-subjectman file _｛-login -usernssl_address1_durations1_durm_try_trusername
+
++
+您可以使用 Success 选项仅接收成功数据库操作的通知，而使用 Failure 选项则仅接收失败数据库操作的通知。
+
+

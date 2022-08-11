@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-snapmanager-features-and-oracle-technologies-not-supported-on-windows.html 
+sidebar: sidebar 
+keywords: snapmanager, support, feature, platform, oracle, technology, technologies, windows 
+summary: SnapManager 在 Windows 上不支持某些 SnapManager 功能，平台和 Oracle 技术。 
+---
+= Windows 不支持 SnapManager 功能和 Oracle 技术
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 在 Windows 上不支持某些 SnapManager 功能，平台和 Oracle 技术。
+
+SnapManager 不支持以下功能，平台和 Oracle 技术：
+
+* 通过集成 Protection Manager ，可以实现基于策略的数据保护
+* Operations Manager 提供基于角色的访问控制（ Role-Based Access Control ， RBAC ）
+* 快速还原或基于卷的 SnapRestore （ VBSR ）
+* 克隆拆分操作
+* 使用任何协议的 Oracle Real Application Clusters （ RAC ）
+* 使用任何协议的 Oracle 自动存储管理（ ASM ）
+* Oracle Direct NFS （ DNFS ）
+* Itanium-64 平台
+
+
+
+NOTE: Windows 操作系统支持的硬件平台为 32 位和 64 位（ Windows x86 和 Windows x86_64 ）。

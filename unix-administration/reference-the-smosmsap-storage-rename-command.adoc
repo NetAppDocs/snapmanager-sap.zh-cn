@@ -1,0 +1,63 @@
+---
+permalink: unix-administration/reference-the-smosmsap-storage-rename-command.html 
+sidebar: sidebar 
+keywords: command, update, name, ip, address, storage, system, smsap 
+summary: 此命令将更新存储系统的名称或 IP 地址。 
+---
+= smsap storage rename命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令将更新存储系统的名称或 IP 地址。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap storage rename
+-profile _profile_ -oldname _old_storage_name_ -newname _new_storage_name_
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_*`
++
+指定配置文件的名称。此名称最长为 30 个字符，并且在主机中必须是唯一的。
+
+* `*-oldname _old_storage_name_*`
++
+指定重命名存储系统之前存储系统的 IP 地址或名称。您必须输入在运行`smsap storage list`命令时显示的存储系统的IP地址或名称。
+
+* `*—newname _new_storage_name_*`
++
+指定重命名存储系统后存储系统的 IP 地址或名称。
+
+* `*-静默*`
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 示例
+
+以下示例使用`smsap storage rename`命令重命名存储系统：
+
+[listing]
+----
+smsap storage rename -profile mjullian -oldname lech -newname hudson -verbose
+----
+'''

@@ -1,0 +1,36 @@
+---
+permalink: windows/task-viewing-operation-details.html 
+sidebar: sidebar 
+keywords: view, detail, information, particular, profile, verify, success, failure, operation, resource, operation 
+summary: 您可以查看有关特定配置文件的详细信息，以验证操作是否成功。它还可以帮助您确定用于特定操作的存储资源。 
+---
+= 查看操作详细信息
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看有关特定配置文件的详细信息，以验证操作是否成功。它还可以帮助您确定用于特定操作的存储资源。
+
+您可以查看有关特定操作的以下详细信息：
+
+* 操作 ID
+* 操作类型
+* 是否强制执行此操作
+* 运行时信息，包括操作的状态，开始日期和结束日期
+* 运行操作的主机，包括进程 ID 和 SnapManager 版本
+* 存储库信息
+* 正在使用的存储资源
++
+.. 要查看特定操作ID的详细信息、请输入以下命令：
++
+`smsap operation show -profile profile_name [-label label |-id id][-quiet |-verbose ]`
+
+
+
+
+
+* 相关信息 *
+
+xref:reference-the-smosmsap-operation-show-command.adoc[smsap operation show命令]

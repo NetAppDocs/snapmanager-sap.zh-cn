@@ -1,0 +1,89 @@
+---
+permalink: unix-administration/task-update-storage-system-name-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, ability, update, host, name, ip, address, storage, system, associate, profile, updating 
+summary: 通过 SnapManager 3.3 或更高版本，可以更新与配置文件关联的存储系统的主机名或 IP 地址。 
+---
+= 更新与配置文件关联的存储系统名称
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager 3.3 或更高版本，可以更新与配置文件关联的存储系统的主机名或 IP 地址。
+
+* 您需要的内容 *
+
+您必须确保满足以下条件：
+
+* 此配置文件至少有一个备份。
++
+如果此配置文件没有任何备份，则无需更新此配置文件的存储系统名称。
+
+
+
+* 关于此任务 *
+
+* 未对此配置文件运行任何操作。
+
+
+您可以使用 SnapManager 命令行界面（ CLI ）更新存储系统名称或 IP 地址。更新存储系统名称时，仅更新存储库数据库中存储的元数据。重命名存储系统名称后，您可以像先前那样执行所有 SnapManager 操作。
+
+
+NOTE: 您不能使用 SnapManager 图形用户界面（ GUI ）更改存储系统名称。
+
+您必须确保 Snapshot 副本在新存储系统中可用。SnapManager 不会验证存储系统中是否存在 Snapshot 副本。
+
+但是，在重命名存储系统名称后执行主机滚动升级和回滚时，您必须记住以下几点：
+
+* 如果要在重命名存储系统名称后对主机执行滚动升级，则必须使用新的存储系统名称更新配置文件。
++
+有关如何使用 SnapDrive 命令更改存储系统名称的信息，请参见 _Troubleshooting storage system name issues_ 。
+
+* 如果在重命名存储系统后回滚主机，则必须确保将存储系统名称重新更改为早期的存储系统名称，以便可以使用早期存储系统的配置文件，备份和克隆执行 SnapManager 操作。
+
+
+
+NOTE: 如果 SnapDrive 无法识别存储系统并显示错误消息，则可以输入 ipmigrate 命令以及存储系统的早期和更高主机名。有关存储系统名称问题的追加信息，请参见 _Troubleshooting storage system name issues_ 。
+
+.步骤
+. 输入以下命令：
++
+`* smsap storage rename -profile _profile_-oldname _old_storage_name_-newname _new_storage_name_[quiet |-verbose ]`*
+
++
+[cols="1a,2a"]
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+更新与配置文件关联的存储系统名称
+ a| 
+指定`配置文件`选项。
+
+
+
+ a| 
+更新与配置文件关联的存储系统名称或 IP 地址
+ a| 
+指定以下选项和变量：
+
+** `-oldname _old_storage_name_`是存储系统的主机名或IP地址。
+** `-newname _new_storage_name_`是存储系统的主机名或IP地址。
+
+
+|===
++
+'''
++
+以下示例显示了要更新的存储系统名称：
+
+
+
+[listing]
+----
+smsap storage rename -profile mjullian -oldname lech -newname hudson -verbose
+----
+'''

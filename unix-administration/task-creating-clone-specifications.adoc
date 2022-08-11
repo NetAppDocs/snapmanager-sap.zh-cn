@@ -1,0 +1,334 @@
+---
+permalink: unix-administration/task-create-clone-specifications.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, clone, specification, xml, file, mapping, option, parameter, operation, information, diagnostic, creating, create 
+summary: SnapManager for SAP使用克隆规范XML文件、其中包括要在克隆操作中使用的映射、选项和参数。SnapManager 使用此信息确定克隆的文件的放置位置以及如何处理诊断信息，控制文件，参数等。 
+---
+= 创建克隆规范
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager for SAP使用克隆规范XML文件、其中包括要在克隆操作中使用的映射、选项和参数。SnapManager 使用此信息确定克隆的文件的放置位置以及如何处理诊断信息，控制文件，参数等。
+
+* 关于此任务 *
+
+您可以使用 SnapManager 图形用户界面（ GUI ），命令行界面（ CLI ）或文本编辑器创建克隆规范文件。
+
+使用文本编辑器创建克隆规范文件时、必须将其另存为`.xml`文件。您可以将此 XML 文件用于其他克隆操作。
+
+您还可以创建克隆规范模板，然后对其进行自定义。您可以使用`smsap clone template`命令、也可以在GUI中使用克隆向导。
+
+SnapManager for SAP会向其生成的任何克隆规范模板添加版本字符串。对于缺少版本字符串的任何克隆规范文件、SnapManager for SAP将采用最新版本。
+
+如果要执行远程克隆，请勿更改克隆规范文件中数据文件，重做日志文件和控制文件的默认位置。如果更改默认位置， SnapManager 将无法在不支持 Snapshot 功能的数据库上创建克隆或创建克隆。因此，自动创建配置文件失败。
+
+
+NOTE: 虽然挂载点和 ASM 磁盘组信息可从图形用户界面编辑，但您只能更改文件名，而不能更改文件位置。
+
+您可以使用相同或不同的参数和值组合多次执行任务。
+
+SAP使用特定的Oracle设置进行数据库配置。您可以在位于`$ORACLE_HOME/DBS`的`init<sid>.ora`中找到这些设置。您应在克隆规范中包括这些内容。
+
+.步骤
+. 打开一个文本文件并输入文本，如以下示例所示：
++
+* 示例 *
+
++
+[listing]
+----
+<clone-specification xmlns="http://www.example.com>
+     <storage-specification/>
+     <database-specification/>
+ </clone-specification>
+----
+. 在存储规范组件中，输入数据文件的挂载点。
++
+存储规范列出了为克隆创建的新存储的位置，例如数据文件挂载点和原始设备。这些项必须从源映射到目标。
+
++
+以下示例显示了NFS连接的存储上的一个NFS挂载点：
+
++
+* 示例 *
+
++
+[listing]
+----
+<mountpoint>
+      <source>/oracle/<SOURCE SID>_sapdata</source>
+      <destination>/oracle/<TARGET SID>_sapdata</destination>
+</mountpoint>
+----
+. *可选：*如果源上有原始设备、则必须指定源上原始设备的路径、然后指定
++
+`*目标自动生成=" true "*`
+
++
+目标。
+
++
+与先前版本的SnapManager for SAP中的克隆映射文件不同、您无法在目标上为原始设备指定位置。SnapManager for SAP将为克隆的原始设备选择下一个可用设备名称。
+
++
+* 示例 *
+
++
+以下示例显示了克隆规范中使用的原始设备语法：
+
++
+[listing]
+----
+<raw-device>
+     <source>/dev/raw/raw1</source>
+     <destination auto-generate="true"/>
+</raw-device>
+----
+. 在数据库规范组件中，将控制文件信息标识为要为克隆创建的控制文件列表。
++
+数据库规范用于指定克隆的数据库选项，例如控制文件，重做日志，归档日志和 Oracle 参数。
+
++
+* 示例 *
+
++
+以下示例显示了克隆规范中使用的控制文件语法：
+
++
+[listing]
+----
+<controlfiles>
+     <file>/oracle/<TARGET SID>/origlogA/cntrl/cntrl<TARGET SID>.dbf</file>
+     <file>/oracle/<TARGET SID>/origlogB/cntrl/cntrl<TARGET SID>.dbf</file>
+     <file>/oracle/<TARGET SID>/sapdata1/cntrl/cntrl<TARGET SID>.dbf</file>
+</controlfiles>
+----
+. 指定克隆的重做日志结构。
++
+* 示例 *
+
++
+以下示例显示了用于克隆的重做日志目录结构：
+
++
+[listing]
+----
+<redologs>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogA/log_g11m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogA/log_g11m2.dbf</file>
+        <number>1</number>
+        <size unit="M">100</size>
+     </redogroup>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogB/log_g12m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogB/log_g12m2.dbf</file>
+        <number>2</number>
+        <size unit="M">100</size>
+     </redogroup>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogA/log_g13m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogA/log_g13m2.dbf</file>
+        <number>3</number>
+        <size unit="M">100</size>
+     </redogroup>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogB/log_g14m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogB/log_g14m2.dbf</file>
+        <number>4</number>
+        <size unit="M">100</size>
+     </redogroup>
+</redologs>
+----
+. 指定应在克隆的数据库中设置为不同值的 Oracle 参数。如果使用的是 Oracle 10 ，则必须指定以下参数：
++
+** 后台转储
+** 核心转储
+** 用户转储
+** *可选：*归档日志
++
+
+NOTE: 如果参数值设置不正确，则克隆操作将停止，您将收到错误消息。
+
+
+
++
+如果未指定归档日志的存储位置、SnapManager 将在`nodarchivelog`模式下创建克隆。SnapManager 会将此参数信息复制到克隆的`init.ora`文件中。
+
+
+
+* 示例 *
+
+以下示例显示了克隆规范中使用的参数语法：+
+
+[listing]
+----
+<parameters>
+     <parameter>
+          <name>log_archive_dest</name>
+          <value>LOCATION=>/oracle/<TARGET SID>/oraarch</value>
+     </parameter>
+     <parameter>
+          <name>background_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+          <name>core_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+     <name>user_dump_dest</name>
+     <value>/oracle/<TARGET SID>/saptrace/usertrace</value>
+     </parameter>
+</parameters>
+----
+* 示例 *
+
+您可以通过在参数元素中使用默认元素来使用默认值。在以下示例中、`OS_authentication_prefix`参数将采用默认值、因为指定了默认元素：
+
+[listing]
+----
+<parameters>
+     <parameter>
+          <name>os_authent_prefix</name>
+          <default></default>
+     </parameter>
+</parameters>
+----
+* 示例 *
+
+您可以使用空元素将空字符串指定为参数的值。在以下示例中、`OS_authentication_prefix`将设置为空字符串：
+
+[listing]
+----
+<parameters>
+     <parameter>
+          <name>os_authent_prefix</name>
+          <value></value>
+     </parameter>
+</parameters>
+----
+
+NOTE: 您可以通过不指定任何元素来使用源数据库的`init.ora`文件中的值作为参数。
+
+* 示例 *
+
+如果参数具有多个值、则可以提供以逗号分隔的参数值。例如、如果要将数据文件从一个位置移动到另一个位置、则可以使用`db_file_name_convert`参数并指定以逗号分隔的数据文件路径、如以下示例所示：
+
+* 示例 *
+
+如果要将日志文件从一个位置移动到另一个位置、则可以使用`log_file_name_convert`参数并指定以逗号分隔的日志文件路径、如以下示例所示：
+
+. *可选：*指定要在克隆联机时对其执行的任意SQL语句。
++
+您可以使用SQL语句执行诸如在克隆的数据库中重新创建`temp files`之类的任务。
+
++
+
+NOTE: 您必须确保 SQL 语句末尾不包含分号。
+
++
+以下是在克隆操作中执行的示例 SQL 语句：
+
++
+[listing]
+----
+<sql-statements>
+   <sql-statement>
+     ALTER TABLESPACE TEMP ADD
+     TEMPFILE '/mnt/path/clonename/temp_user01.dbf'
+     SIZE 41943040 REUSE AUTOEXTEND ON NEXT 655360
+     MAXSIZE 32767M
+   </sql-statement>
+</sql-statements>
+----
++
+*克隆规范示例*
+
++
+以下示例显示了克隆规范结构，其中包括存储和数据库规范组件：
+
++
+[listing]
+----
+<clone-specification xmlns="http://www.example.com>
+
+   <storage-specification>
+     <storage-mapping>
+        <mountpoint>
+           <source>/oracle/<SOURCE SID>_sapdata</source>
+           <destination>/oracle/<TARGET SID>_sapdata</destination>
+        </mountpoint>
+        <raw-device>
+          <source>/dev/raw/raw1</source>
+          <destination auto-generate="true"/>
+        </raw-device>
+        <raw-device>
+          <source>/dev/raw/raw2</source>
+          <destination auto-generate="true"/>
+        </raw-device>
+     </storage-mapping>
+   </storage-specification>
+
+   <database-specification>
+     <controlfiles>
+        <file>/oracle/<TARGET SID>/origlogA/cntrl/cntrl<TARGET SID>.dbf</file>
+        <file>/oracle/<TARGET SID>/origlogB/cntrl/cntrl<TARGET SID>.dbf</file>
+        <file>/oracle/<TARGET SID>/sapdata1/cntrl/cntrl<TARGET SID>.dbf</file>
+       </controlfiles>
+
+       <redologs>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogA/log_g11m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogA/log_g11m2.dbf</file>
+          <number>1</number>
+          <size unit="M">100</size>
+        </redogroup>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogB/log_g12m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogB/log_g12m2.dbf</file>
+          <number>2</number>
+          <size unit="M">100</size>
+        </redogroup>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogA/log_g13m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogA/log_g13m2.dbf</file>
+          <number>3</number>
+          <size unit="M">100</size>
+        </redogroup>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogB/log_g14m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogB/log_g14m2.dbf</file>
+          <number>4</number>
+          <size unit="M">100</size>
+       </redogroup>
+       </redologs>
+
+    <parameters>
+      <parameter>
+          <name>log_archive_dest</name>
+          <value>LOCATION=>/oracle/<TARGET SID>/oraarch</value>
+     </parameter>
+     <parameter>
+          <name>background_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+          <name>core_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+     <name>user_dump_dest</name>
+     <value>/oracle/<TARGET SID>/saptrace/usertrace</value>
+     </parameter>
+
+    </parameters>
+   </database-specification>
+</clone-specification>
+----
++
+'''
+

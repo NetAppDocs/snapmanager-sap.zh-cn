@@ -1,0 +1,33 @@
+---
+permalink: windows/concept-restoring-a-backup-to-a-different-host.html 
+sidebar: sidebar 
+keywords: brrestore, smsap, restore, command, backup, brbackup, host, run, snapmanager, sap 
+summary: 您可以使用BRRESTORE或smsap restore命令在其他主机上还原使用BRBACKUP创建的备份。新主机还必须运行适用于SAP的SnapManager。 
+---
+= 将备份还原到其他主机
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用BRRESTORE或`smsap restore`命令在其他主机上还原使用BRBACKUP创建的备份。新主机还必须运行适用于SAP的SnapManager。
+
+
+
+== 使SnapManager 配置文件可用
+
+在运行BRRESTORE之前、您必须使原始主机的SnapManager 配置文件可供新主机使用。完成以下步骤：
+
+* 设置存储库的凭据：使用`smsap credential set`命令使新主机能够访问用于原始备份的SnapManager 存储库。
+* 为配置文件设置凭据：使用`smsap credential set`命令使新主机能够访问用于原始备份的SnapManager 配置文件。
+* 在新主机上加载配置文件：使用`smsap profile sync`命令将SnapManager 配置文件信息加载到新主机上。
+
+
+
+
+== 运行BRRESTORE
+
+使用与原始主机上的原始存储相同的路径在新主机上配置新存储。
+
+使用`BRRESTORE`命令将备份还原到新主机。默认情况下、文件会还原到原始路径位置。您可以使用`BRRESTORE`命令的`-m`选项为已还原的文件指定备用路径。有关`BRRESTORE`的详细信息、请参见SAP文档。

@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/task-disable-email-notification-for-multiple-profiles.html 
+sidebar: sidebar 
+keywords: enable, summary, email, notification, multiple, profile, disable, receive, alert, disabling 
+summary: 为多个配置文件启用摘要电子邮件通知后，您可以禁用这些配置文件，使其不再接收电子邮件警报。 
+---
+= 为多个配置文件禁用电子邮件通知
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+为多个配置文件启用摘要电子邮件通知后，您可以禁用这些配置文件，使其不再接收电子邮件警报。
+
+* 关于此任务 *
+
+通过 SnapManager ，您可以为这些配置文件执行的数据库操作禁用摘要电子邮件通知。在SnapManager 命令行界面中、输入`notification remove-summary-notification`命令以禁用多个配置文件的摘要电子邮件通知以及不需要电子邮件通知的存储库数据库的名称。
+
+.步骤
+. 要为存储库数据库上的多个配置文件禁用摘要通知、请输入以下命令：
++
+`* smsap notification remove-summary-notification -repository -port _repo_port_-dbname _repo_service_name_-host _repo_host_-login-username _repo_username_*`
+
+
+
+'''
+以下示例显示了对存储库数据库上的多个配置文件禁用摘要通知：
+
+[listing]
+----
+
+smsap notification remove-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5
+----
+'''

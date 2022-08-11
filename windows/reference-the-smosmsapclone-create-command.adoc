@@ -1,0 +1,166 @@
+---
+permalink: windows/reference-the-smosmsapclone-create-command.html 
+sidebar: sidebar 
+keywords: run, clone, create, command, backed-up, back, up, database, backup, primary, secondary, storage, smsap 
+summary: 您可以运行 clone create 命令为备份的数据库创建克隆。您可以从主存储或二级存储克隆备份。 
+---
+= smsap clone create命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`clone create`命令为备份的数据库创建克隆。您可以从主存储或二级存储克隆备份。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap clone create
+-profile profile_name
+[-backup-id backup_guid | -backup-label backup_label_name | -current]
+-newsid new_sid
+[-host target_host]
+[-label clone_label]
+[-comment string]
+-clonespec full_path_to_clonespec_file
+]
+[-syspassword syspassword]
+[-reserve {yes | no | inherit}]
+
+[-no-resetlogs | -recover-from-location path1 [, path2]][-taskspec taskspec]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_name_`*
++
+指定要克隆的数据库。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-backup-id _guid_`*
++
+使用指定 GUID 克隆备份。GUID 由 SnapManager 在创建备份时生成。您可以使用`smsap backup list-verbose`命令显示每个备份的GUID。
+
+* *`-backup-label _backup_laber_name_`*
++
+指定使用指定标签名称克隆备份。
+
+* *`-当前`*
++
+指定从数据库的当前状态创建备份和克隆。
+
++
+
+NOTE: 如果数据库处于`noschivelog`模式、则SnapManager 将创建脱机备份。
+
+* *`-newsid _new_sid_`*
++
+为克隆的数据库指定一个新的唯一 Oracle 系统标识符。系统标识符值最多为八个字符。Oracle 不允许在同一主机上同时运行具有相同系统标识符的两个数据库。
+
+* *`主机_target_host_`*
++
+指定应在其上创建克隆的主机。
+
+* *`-label _clone_label`*
++
+指定克隆的标签。
+
+* *`-comment _string_`*
++
+指定用于描述此克隆的可选注释。必须将字符串用单引号括起来。
+
++
+
+NOTE: 某些 shell 会删除引号。如果您的 shell 确实如此，则必须使用反斜杠（ \ ）转义引号。例如、您可能需要输入：*。"这是注释"*
+
+* *`-clonSpec _full_path_to_clonese_file_`*
++
+指定克隆规范 XML 文件的路径。此路径可以是相对路径名称，也可以是绝对路径名称。
+
+* *`-sysspassword _sysspassword_`*
++
+指定 sys 特权用户的密码。
+
++
+
+NOTE: 如果为 sys 特权用户提供的数据库凭据与为 sys 特权用户提供的数据库凭据不同，则必须为 sys 特权用户提供密码。
+
+* *`预留`*
++
+将`-reserve`选项设置为yes可确保为新克隆卷启用卷保证空间预留。将`-reserve`选项设置为no可确保为新克隆卷关闭卷保证空间预留。将`-reserve`选项设置为继承可确保新克隆继承父Snapshot副本的空间预留特性。默认设置为 No
+
++
+下表介绍了克隆方法及其对克隆创建操作及其`-reserve`选项的影响。可以使用任一方法克隆 LUN 。
+
++
+|===
+
+
+| 克隆方法 | Description | 结果 
+
+
+ a| 
+LUN 克隆
+ a| 
+此时将在同一卷中创建一个新的克隆 LUN 。
+ a| 
+如果LUN的-reserve选项设置为yes、则会为卷中的完整LUN大小预留空间。
+
+
+
+ a| 
+卷克隆
+ a| 
+此时将创建一个新的FlexClone、并且克隆LUN位于新克隆卷中。使用FlexClone技术。
+ a| 
+如果将卷的-reserve选项设置为yes、则会为聚合中的完整卷大小预留空间。
+
+|===
+* *`-no-resetlogs`*
++
+指定跳过恢复数据库，执行 DBNEWID 实用程序，并且在创建克隆时不使用重置日志打开数据库。
+
+* *`恢复位置`*
++
+指定归档日志备份的外部归档日志位置， SnapManager 会从外部位置获取归档日志文件并使用这些文件进行克隆。
+
+* *`任务规范`*
++
+指定用于克隆操作的预处理活动或后处理活动的任务规范 XML 文件。您必须提供任务规范 XML 文件的完整路径。
+
+* *`转储`*
++
+指定在克隆创建操作后收集转储文件。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认设置为显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下示例将使用为此克隆创建的克隆规范克隆备份：
+
+[listing]
+----
+smsap clone create -profile SALES1 -backup-label full_backup_sales_May -newsid
+CLONE -label sales1_clone -clonespec E:\\spec\\clonespec.xml
+----
+[listing]
+----
+Operation Id [8abc01ec0e794e3f010e794e6e9b0001] succeeded.
+----

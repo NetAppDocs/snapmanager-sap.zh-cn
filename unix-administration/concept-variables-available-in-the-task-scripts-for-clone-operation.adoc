@@ -1,0 +1,119 @@
+---
+permalink: unix-administration/concept-variables-available-in-the-task-scripts-for-clone-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, environment, variable, clone, operation, script, host, database, backup 
+summary: SnapManager 以与所执行的克隆操作相关的环境变量的形式提供上下文信息。例如，您的脚本可以检索原始主机的名称，克隆数据库的名称以及备份的标签。 
+---
+= 克隆操作的任务脚本中可用的变量
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 以与所执行的克隆操作相关的环境变量的形式提供上下文信息。例如，您的脚本可以检索原始主机的名称，克隆数据库的名称以及备份的标签。
+
+下表列出了可在脚本中使用的环境变量：
+
+|===
+| 变量 | Description | 格式。 
+
+
+ a| 
+` sm_original_sid_`
+ a| 
+原始数据库的 SID
+ a| 
+string
+
+
+
+ a| 
+` sm_original_host_`
+ a| 
+与原始数据库关联的主机名
+ a| 
+string
+
+
+
+ a| 
+` sm_original_os_user__`
+ a| 
+原始数据库的操作系统所有者
+ a| 
+string
+
+
+
+ a| 
+` sm_original_os_Group_`
+ a| 
+原始数据库的操作系统组
+ a| 
+string
+
+
+
+ a| 
+` sm_target_sid_`
+ a| 
+克隆数据库的 SID
+ a| 
+string
+
+
+
+ a| 
+` sm_target_host_`
+ a| 
+与克隆数据库关联的主机名
+ a| 
+string
+
+
+
+ a| 
+` sm_target_os_user_user_`
+ a| 
+克隆数据库的操作系统所有者
+ a| 
+string
+
+
+
+ a| 
+` sm_target_os_Group_`
+ a| 
+克隆数据库的操作系统组
+ a| 
+string
+
+
+
+ a| 
+` sm_target_DB_port_`
+ a| 
+目标数据库的端口
+ a| 
+整型
+
+
+
+ a| 
+` sm_target_global_DB_name_`
+ a| 
+目标数据库的全局数据库名称
+ a| 
+string
+
+
+
+ a| 
+` sm_backup_label`
+ a| 
+用于克隆的备份的标签
+ a| 
+string
+
+|===

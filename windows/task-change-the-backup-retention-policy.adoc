@@ -1,0 +1,20 @@
+---
+permalink: windows/task-change-the-backup-retention-policy.html 
+sidebar: sidebar 
+keywords: change, property, properties, eligible, ineligible, deletion, retention, policy, change, backup 
+summary: 您可以更改备份的属性，使其符合保留策略中的删除条件或不符合删除条件。 
+---
+= 更改备份保留策略
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以更改备份的属性，使其符合保留策略中的删除条件或不符合删除条件。
+
+
+
+== 关于此任务
+
+创建备份时，您可以设置其保留策略。您可以稍后选择将该备份保留较保留策略允许的时间长，或者指定您不再需要该备份并希望保留策略对其进行管理。

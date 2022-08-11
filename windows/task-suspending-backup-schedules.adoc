@@ -1,0 +1,22 @@
+---
+permalink: windows/task-suspending-backup-schedules.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, suspend, backup, schedule, resume 
+summary: 通过 SnapManager ，您可以暂停备份计划，直到备份计划恢复为止。 
+---
+= 暂停备份计划
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以暂停备份计划，直到备份计划恢复为止。
+
+您可以暂停活动计划。如果您尝试暂停已暂停的备份计划，可能会遇到错误消息 " 无法暂停： schedule <scheduleename> 已处于暂停状态 " 。
+
+. 要临时暂停备份计划、请输入以下命令：
++
+`smsap schedule suspend -profile profile_name-schedule-nameschedulename (-quiet |-verbose)`
+
+

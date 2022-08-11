@@ -1,0 +1,27 @@
+---
+permalink: windows/task-free-or-delete-retention-policy-exempt-backups.html 
+sidebar: sidebar 
+keywords: backup, retention, class, unlimited, delete, free, hourly, daily, weekly, monthly, policy, exempt backups 
+summary: 不能直接删除或释放保留类为unlimited的备份。要删除或释放这些备份，必须先分配另一个保留类，例如每小时，每天，每周或每月。要删除或释放不受保留策略限制的备份，必须先更新此备份，使其符合删除或释放条件。 
+---
+= 空闲或删除保留策略免除备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+保留类为 " 无限制 " 的备份不能直接删除或释放。要删除或释放这些备份，必须先分配另一个保留类，例如每小时，每天，每周或每月。要删除或释放不受保留策略限制的备份，必须先更新此备份，使其符合删除或释放条件。
+
+.步骤
+. 要更新备份以使其符合保留策略删除条件、请输入以下命令：
++
+`* smsap backup update -profile _profile_name_｛-label _label_[data _-archivelogs]|-id _id_｝-retain (-hourly _-daily _-weekly _-monthly]*`
+
+. 更新备份以使其符合删除条件后，您可以删除备份或释放备份资源。
++
+** 要删除备份、请输入以下命令：+`* smsap backup delete -profile _profile_name_｛-label _label_[data _-archivelogs]|-id _id_|-all｝*`
+** 要释放备份资源、而不是删除备份、请输入以下命令：+`* smsap backup free -profile _profile_name_｛-label _label_[data _-archivelogs]_--id _id__|-all｝(强制)[-verbose ](-quiet)*-dump]*`
+
+
+

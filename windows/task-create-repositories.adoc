@@ -1,0 +1,83 @@
+---
+permalink: windows/task-create-repositories.html 
+sidebar: sidebar 
+keywords: snapmanager, require, repository, host, data, operation, perform, create 
+summary: SnapManager 要求主机上有一个存储库来存放有关您执行的操作的数据。 
+---
+= 创建存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 要求主机上有一个存储库来存放有关您执行的操作的数据。
+
+
+
+== 您将需要什么
+
+确保已完成以下任务：
+
+.步骤
+. 在存储库数据库中创建 Oracle 用户和密码。
+. 授权用户访问存储库。
+
+
+对于存储库、SnapManager for SAP要求安装该存储库的表空间至少具有4 k块大小。您可以使用以下 SQL 命令检查块大小：
+
+[listing]
+----
+select a.username, a.default_tablespace, b.block_size
+from dba_users a, dba_tablespaces b
+a.username = repo_user
+----
+其中：
+
+* `a.default_tablespace = b.tablespace_name`
+* `a.username`=存储库上的用户名
+
+
+
+
+== 关于此任务
+
+如果要升级存储库，则必须重新启动 SnapManager 服务器以重新启动任何关联的计划。
+
+.步骤
+. 要创建存储库、请使用以下常规格式输入repository create命令：
++
+`* smsap repository create -repository -dbname _repo_service_name_-host _repo_host_-login -username _repo_username_-port _repo_port_(-force](-noprompt])(-quiet、-verbose)*`
+
++
+其中：
+
++
+** ` repository -dbname`是存储库数据库的名称。
+** `主机`是存储库的主机名称。
+** `用户名`是有权访问存储库的数据库用户的名称。
+** `端口`是主机的端口。此命令的其他选项如下：
++
+`强制`]`-nodprop`
+
++
+`静默``|`-详细
+
+
+
+
+
+
+NOTE: 如果您有一个同名的现有存储库、并使用`-force`选项、则现有存储库架构中的所有数据都将被覆盖。
+
+
+
+== 创建存储库
+
+以下命令行将创建一个存储库。
+
+[listing]
+----
+smsap repository create -repository -dbname HR1
+-host server1 -login -username admin -port 1521
+----

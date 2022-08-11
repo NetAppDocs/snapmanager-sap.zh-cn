@@ -1,0 +1,30 @@
+---
+permalink: windows/concept-create-backups-using-snapshot-copies.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, backup, primary, local, storage, secondary, remote, postprocess, script, copies, copy, snapshot 
+summary: 通过 SnapManager ，您可以使用后处理脚本在主（本地）存储以及二级（远程）存储上创建备份。 
+---
+= 使用 Snapshot 副本创建备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以使用后处理脚本在主（本地）存储以及二级（远程）存储上创建备份。
+
+作为 Snapshot 副本创建的备份是数据库的虚拟副本，与数据库存储在同一物理介质中。因此，备份操作所需时间更短，所需空间也明显少于完整的磁盘到磁盘备份。使用 SnapManager 可以备份以下内容：
+
+* 所有数据文件，归档日志文件和控制文件
+* 选定数据文件或表空间，所有归档日志文件和控制文件
+
+
+通过 SnapManager 3.2 或更高版本，您可以选择备份以下内容：
+
+* 所有数据文件和控制文件
+* 选定数据文件或表空间以及控制文件
+* 归档日志文件
+
+
+
+NOTE: 数据文件，归档日志文件和控制文件可以位于不同的存储系统，存储系统卷或逻辑单元号（ LUN ）上。如果同一个卷或 LUN 上有多个数据库，您也可以使用 SnapManager 备份数据库。

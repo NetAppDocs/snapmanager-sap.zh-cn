@@ -1,0 +1,38 @@
+---
+permalink: unix-administration/task-protect-archive-log-backups.html 
+sidebar: sidebar 
+keywords: create, creating, profile, enable, protection, archive, log, backup, policy, protect 
+summary: 创建配置文件时，您可以根据归档日志保护策略为归档日志备份启用保护。 
+---
+= 保护归档日志备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+创建配置文件时，您可以根据归档日志保护策略为归档日志备份启用保护。
+
+.步骤
+. 输入以下命令：
++
+`* smsap profile create -profile _profile_<-profile-password _profile_password_]-repository -dbname _repo_dbname_-host _repo_host_-port _repo_port_-login -username _repo_username_-database -dbname dbname _db_db_host_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名__用户名_用户名_用户名_用户名_用户名__用户名__用户名_用户名_用户名__用户名__用户名_用户名____用户名__用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名__ _m_]](-daily (-count _n_）(-duration _m_m_）)(-weekly (-count _n_）(-duration _m_）)(-monthly (-count _n_）(-duration _m_）))](-comment _comment_comment_comment_comment___ment_）)(-snapname-pattern _pattern_pattern_unle_)(-protection_email_res_uny_、电子邮件地址类型(-email) email_address2_-Subject _Subject_Pattern_]]-separate archivelog-backups-retain-archivelog-backups-hours _hours______-天_______-月_月_(-protect (-protection-policy policy_name_）_ noprotect](-include-with-online-dump-online-backups_))*`……
+
++
+[cols="2a,5a"]
+|===
+| 条件 | 那么 ... 
+
+
+ a| 
+* 您希望单独备份归档日志备份并保护归档日志文件 *
+ a| 
+指定以下选项：
+
+** 使用`-separate -archivelog-backups`可以将归档日志文件与数据文件分开。
+** `保护`为归档日志归档日志备份分配一个单独的保护策略。
+** `保护策略`为归档日志备份分配保护策略。
+
+
+|===
+

@@ -1,0 +1,51 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-create-a-protected-backup.html 
+sidebar: sidebar 
+keywords: create, creating, backup, example, dba, select, full, set, secondary, storage, local, protection-enabled, profile, transfer, protection, policy 
+summary: 在此示例中创建备份时， DBA 会选择创建完整备份，设置备份选项并选择对二级存储的保护。虽然备份最初是在本地存储上进行的，但由于此备份基于启用了保护的配置文件，因此备份会根据 Protection Manager 中定义的保护策略计划传输到二级存储。 
+---
+= 使用适用于SAP的SnapManager 创建受保护的备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在此示例中创建备份时， DBA 会选择创建完整备份，设置备份选项并选择对二级存储的保护。虽然备份最初是在本地存储上进行的，但由于此备份基于启用了保护的配置文件，因此备份会根据 Protection Manager 中定义的保护策略计划传输到二级存储。
+
+.步骤
+. 转到SnapManager for SAP客户端。
+. 在 SnapManager 存储库树中，右键单击包含要备份的数据库的配置文件，然后选择 * 备份 * 。
++
+此时将启动SnapManager for SAP备份向导。
+
+. 输入 ...
++
+`*生产_薪资*`
+
++
+作为标签。
+
+. 输入 ...
++
+`*生产薪资1月19日备份*`
+
++
+作为注释。
+
+. 选择 * 自动 * 作为要创建的备份类型。
++
+这样， SnapManager 就可以确定是执行联机备份还是脱机备份。
+
+. 选择 * 每日 * 或 * 每周 * 作为备份频率。
+. 要确认备份格式对于 Oracle 有效，请选中 * 验证备份 * 旁边的框。
++
+此操作使用 Oracle DBVerify 检查块格式和结构。
+
+. 要强制数据库的状态进入适当模式（例如从打开到挂载），请选择 * 如果需要，允许启动或关闭数据库 * ，然后单击 * 下一步 * 。
+. 在要备份的数据库，表空间或数据文件页面中，选择 * 完整备份 * ，然后单击 * 下一步 * 。
+. 要保护二级存储上的备份，请选中 * 保护备份 * ，然后单击 * 下一步 * 。
+. 在 Perform Operation 页面中，验证您提供的信息，然后单击 * 备份 * 。
+. 在进度页面中，查看备份创建的进度和结果。
+. 要查看操作的详细信息，请单击 * 操作详细信息 * 。
+

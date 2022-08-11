@@ -1,0 +1,38 @@
+---
+permalink: windows/concept-advantages-of-using-snapmanager.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, task, database, manage, data, advantage, use 
+summary: 您可以使用SnapManager for SAP对数据库执行不同的任务并高效管理数据。 
+---
+= 使用 SnapManager 的优势
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用SnapManager for SAP对数据库执行不同的任务并高效管理数据。
+
+SnapManager for SAP可与存储系统配合使用、并可用于执行以下任务：
+
+* 为主存储或二级存储创建节省空间的备份并计划备份。
++
+您可以创建完整和部分数据库备份并应用保留期限策略。 SnapManager （ 3.2 或更高版本）使您只能创建数据文件和归档日志的备份。
+
++
+** 通过 SnapManager （ 3.2 或更高版本），您可以在备份和还原操作前后执行预处理或后处理。
+** 使用 SnapManager （ 3.2 或更高版本），您可以使用后处理脚本保护备份。
+
+
+* 使用基于文件的还原操作还原完整或部分数据库。
+* 自动还原和恢复数据库备份。
++
+SnapManager （ 3.2 或更高版本）可自动还原和恢复数据库备份。SnapManager 会通过发现，挂载和应用备份中的归档日志文件来自动恢复还原的数据库。
+
+* 仅为归档日志创建备份时，从归档日志目标中对归档日志文件进行修剪。
+* 通过仅保留具有唯一归档日志文件的备份，自动保留最少数量的归档日志备份。
+* 跟踪操作详细信息，并按主机，配置文件，备份或克隆生成报告。
+* 验证备份状态。
+* 维护与配置文件关联的 SnapManager 操作的历史记录。
+* 在主存储上为备份创建节省空间的克隆。
+

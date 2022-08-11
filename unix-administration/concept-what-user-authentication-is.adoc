@@ -1,0 +1,44 @@
+---
+permalink: unix-administration/concept-what-user-authentication-is.html 
+sidebar: sidebar 
+keywords: role-base, access, control, snapmanager, authenticate, operating, system, os, smsap, credential, set, authentication 
+summary: 除了使用基于角色的访问控制（ Role-Based Access Control ， RBAC ）之外， SnapManager 还会在运行 SnapManager 服务器的主机上使用操作系统（ OS ）登录来对用户进行身份验证。您可以通过操作时的密码提示或使用smsap凭据集来启用用户身份验证。 
+---
+= 什么是用户身份验证
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+除了使用基于角色的访问控制（ Role-Based Access Control ， RBAC ）之外， SnapManager 还可以在运行 SnapManager 服务器的主机上使用操作系统（ OS ）登录来对用户进行身份验证。您可以通过操作时的密码提示或使用`smsap credential set`来启用用户身份验证。
+
+用户身份验证要求取决于操作的执行位置。
+
+* 如果 SnapManager 客户端与 SnapManager 主机位于同一服务器上，您将通过操作系统凭据进行身份验证。
++
+系统不会提示您输入密码，因为您已登录到运行 SnapManager 服务器的主机。
+
+* 如果 SnapManager 客户端和 SnapManager 服务器位于不同的主机上，则 SnapManager 需要使用这两个操作系统凭据对您进行身份验证。
++
+如果您尚未将操作系统凭据保存在 SnapManager 用户凭据缓存中，则 SnapManager 会提示您输入任何操作的密码。如果输入`smsap credential set -host`命令、则会将操作系统凭据保存在SnapManager 凭据缓存文件中、因此SnapManager 不会提示输入任何操作的密码。
+
+
+
+如果您通过 SnapManager 服务器的身份验证，则视为有效用户。执行任何操作的有效用户都必须是执行操作的主机上的有效用户帐户。例如，如果您执行克隆操作，则应能够登录到克隆的目标主机。
+
+
+NOTE: SnapManager for SAP可能无法授权在中央Active Directory服务中创建的用户、例如LDAP和ADS。要确保身份验证不会失败、您必须将`可配置auth.disableServerAuthorization`设置为`* true*`。
+
+作为有效用户，您可以通过以下方式管理凭据：
+
+* 您也可以将 SnapManager 配置为将用户凭据存储在 SnapManager 用户凭据文件中。
++
+默认情况下， SnapManager 不存储主机凭据。例如，如果您的自定义脚本需要访问远程主机，则可能需要更改此设置。远程克隆操作是一个需要远程主机用户登录凭据的 SnapManager 操作示例。要使SnapManager 在SnapManager 用户凭据缓存中记住用户主机登录凭据、请在`smsap.config`文件中将`host.credentials.persist`属性设置为`* true*`。
+
+* 您可以授权用户访问存储库。
+* 您可以授权用户访问配置文件。
+* 您可以查看所有用户凭据。
+* 您可以清除所有资源（主机，存储库和配置文件）的用户凭据。
+* 您可以删除各个资源（主机，存储库和配置文件）的凭据。
+

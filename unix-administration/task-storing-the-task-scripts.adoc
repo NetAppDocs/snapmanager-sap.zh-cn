@@ -1,0 +1,106 @@
+---
+permalink: unix-administration/task-store-the-task-scripts.html 
+sidebar: sidebar 
+keywords: store, pretask, post-task, policy, task, script, backup, clone, create, restore, operation, directory, target, server, storing 
+summary: 您必须将任务前，任务后和策略任务脚本存储在要创建备份或克隆的目标服务器上的指定目录中。对于还原操作，必须将脚本放置在要还原备份的目标服务器上的指定目录中。 
+---
+= 存储任务脚本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须将任务前，任务后和策略任务脚本存储在要创建备份或克隆的目标服务器上的指定目录中。对于还原操作，必须将脚本放置在要还原备份的目标服务器上的指定目录中。
+
+.步骤
+. 创建脚本。
+. 将此脚本保存在以下位置之一：
++
+* 用于备份操作 *
+
++
+[cols="1a,2a"]
+|===
+| 目录 | Description 
+
+
+ a| 
+`*<default_install_directory >/plugins/backup/create/policy*`
+ a| 
+策略脚本会在执行备份操作之前运行。
+
+
+
+ a| 
+`*<default_install_directory >/plugins/backup/create/pre*`
+ a| 
+预处理脚本会在备份前运行。
+
+
+
+ a| 
+`*<default_install_directory >/plugins/backup/create/post*`
+ a| 
+后处理脚本会在执行备份操作后运行。
+
+|===
++
+* 用于还原操作 *
+
++
+[cols="1a,2a"]
+|===
+| 目录 | Description 
+
+
+ a| 
+`*<default_install_directory >/plugins/restore/create/policy*`
+ a| 
+策略脚本会在执行还原操作之前运行。
+
+
+
+ a| 
+`*<default_install_directory >/plugins/restore/create/pre*`
+ a| 
+预处理脚本会在执行还原操作之前运行。
+
+
+
+ a| 
+`*<default_install_directory >/plugins/restore/create/post*`
+ a| 
+后处理脚本会在执行还原操作后运行。
+
+|===
++
+* 用于克隆操作 *
+
++
+[cols="1a,2a"]
+|===
+| 目录 | Description 
+
+
+ a| 
+`*<default_install_directory >/plugins/clone/create/policy*`
+ a| 
+策略脚本会在克隆操作之前运行。
+
+
+
+ a| 
+`*<default_install_directory >/plugins/clone/create/pre*`
+ a| 
+预处理脚本会在克隆操作之前运行。
+
+
+
+ a| 
+`*<default_install_directory >/plugins/clone/create/post*`
+ a| 
+后处理脚本会在克隆操作之后运行。
+
+|===
+

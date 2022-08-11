@@ -1,0 +1,18 @@
+---
+permalink: unix-installation-cmode/concept-restore-process-identification.html 
+sidebar: sidebar 
+keywords: restore, process, support, snapmanager, sap, version, upgrade, types 
+summary: 并非所有SnapManager for SAP版本都支持所有还原过程。升级 SnapManager 后，您需要了解可用于还原备份的还原过程。 
+---
+= 还原进程类型
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+并非所有SnapManager for SAP版本都支持所有还原过程。升级 SnapManager 后，您需要了解可用于还原备份的还原过程。
+
+使用 SnapManager 3.0 或更高版本创建的备份可以通过快速还原和基于文件的还原过程进行还原。但是，只能使用基于文件的还原过程来还原使用 SnapManager 3.0 之前版本创建的备份。
+
+您可以通过运行`-backup show`命令来确定用于创建备份的SnapManager 版本。

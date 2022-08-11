@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/task-configure-snapdrive-in-an-active-active-unix-environment.html 
+sidebar: sidebar 
+keywords: host-cluster-sw-restore-warn, parameter, snapdrive, conf, assign, value, support, restore, operation, active, veritas, storage, foundation, oracle, rac, sfrac, environment 
+summary: 如果已在 SnapDrive.conf 中包含 host-cluster-sw-restore-warn 参数并为分配了值，则必须更改此值，以支持在主动 / 主动 Veritas Storage Foundation for Oracle RAC （ SFRAC ）环境中执行还原操作。 
+---
+= 为主动/主动Veritas SFRAC环境配置适用于UNIX的SnapDrive
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果您已在`snapdrive.conf`中包含`host-cluster-sw-restore-warn`参数并为分配了值、则必须更改此值以支持在主动/主动Veritas Storage Foundation for Oracle RAC (SFRAC)环境中执行还原操作。
+
+在使用主动/主动Veritas Storage Foundation for Oracle RAC (SFRAC)环境时、如果`host-cluster-sw-restore-warn`参数设置为`* on*`、则会显示一条警告消息、并停止还原操作。如果要在主动/主动Veritas SFRAC环境中执行还原操作、必须将`host-cluster-sw-restore-warn`设置为`* off*`。
+
+有关`snapdrive.conf`的信息、请参见SnapDrive 文档。
+
+.步骤
+. 以 root 用户身份登录。
+. 使用文本编辑器打开`snapdrive.conf`文件。
+. 将`host-cluster-sw-restore-warn`的值更改为`* off*`。
+
+
+* 完成后 *
+
+配置后，重新启动适用于 UNIX 的 SnapDrive 服务器。
+
+* 相关信息 *
+
+http://mysupport.netapp.com/["NetApp支持站点上的文档"^]

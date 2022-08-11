@@ -1,0 +1,85 @@
+---
+permalink: unix-administration/concept-backup-types-and-the-number-of-snapshot-copies.html 
+sidebar: sidebar 
+keywords: backup, type, full, partial, snapshot, copies, copy, snapmanager, backup, tablespace, file 
+summary: 备份类型（完整或部分）会影响 SnapManager 创建的 Snapshot 副本数量。对于完整备份， SnapManager 会为每个卷创建一个 Snapshot 副本，而对于部分备份， SnapManager 会为每个表空间文件创建一个 Snapshot 副本。 
+---
+= 备份类型和 Snapshot 副本数量
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+备份类型（完整或部分）会影响 SnapManager 创建的 Snapshot 副本数量。对于完整备份， SnapManager 会为每个卷创建一个 Snapshot 副本，而对于部分备份， SnapManager 会为每个表空间文件创建一个 Snapshot 副本。
+
+
+NOTE: Data ONTAP 会将每个卷的最大 Snapshot 副本数限制为 255 个。只有在将 SnapManager 配置为保留大量备份（其中每个备份包含大量 Snapshot 副本）时，您才能达到此最大值。
+
+要在确保未达到每个卷的 Snapshot 副本最大限制的情况下保持足够的备份池可用，您必须在不再需要备份时将其删除。您可以将 SnapManager 保留策略配置为在达到特定备份频率的特定阈值后删除成功的备份。例如，在 SnapManager 成功创建四个每日备份后， SnapManager 会删除前一天创建的每日备份。
+
+下表显示了 SnapManager 如何根据备份类型创建 Snapshot 副本。这些表中的示例假设数据库Z包含两个卷、每个卷包含两个表空间(TS1和TS2)、每个表空间包含两个数据库文件(`TS1.data1、TS1.data2、TS2.data1`和`TS2.data2`)。
+
+下表显示了这两种类型的备份如何生成不同数量的 Snapshot 副本。
+
+SnapManager 会在卷级别而非表空间级别创建 Snapshot 副本，这通常会减少必须创建的 Snapshot 副本数量。
+
+
+NOTE: 这两个备份还会为日志文件创建 Snapshot 副本。
+
+[cols="1a,1a,1a,1a,1a"]
+|===
+| 数据库中的卷 | 表空间 TS1 （包括 2 个数据库文件） | 表空间 TS2 （包括 2 个数据库文件） | 已创建 Snapshot 副本 | Snapshot 副本总数 
+
+
+ a| 
+/vol/volA
+ a| 
+`TS1.data1`
+ a| 
+`TS2.data1`
+ a| 
+每个卷 1 个
+ a| 
+2.
+
+
+
+ a| 
+/vol/volB
+ a| 
+`TS1.data2`
+ a| 
+`TS2.data2`
+ a| 
+每个卷 1 个
+
+|===
+[cols="1a,1a,1a,1a,1a"]
+|===
+| 数据库中的卷 | 表空间 TS1 （包括 2 个数据库文件） | 表空间 TS2 （包括 2 个数据库文件） | 已创建 Snapshot 副本 | Snapshot 副本总数 
+
+
+ a| 
+/vol/volA
+ a| 
+`TS1.data1`
+ a| 
+`TS2.data1`
+ a| 
+每个文件 2 个
+ a| 
+4.
+
+
+
+ a| 
+/vol/volB
+ a| 
+`TS1.data2`
+ a| 
+`TS2.data2`
+ a| 
+每个文件 2 个
+
+|===

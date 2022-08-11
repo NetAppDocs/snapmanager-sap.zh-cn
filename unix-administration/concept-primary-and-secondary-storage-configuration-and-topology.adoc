@@ -1,0 +1,188 @@
+---
+permalink: unix-administration/concept-primary-and-secondary-storage-configuration-and-topology.html 
+sidebar: sidebar 
+keywords: techco, corportation, payroll, database, server, snapmanager, sap, host, fifty, mile, primary, secondary, storage, configuration, topology 
+summary: 在此示例中、TechCo公司在一个数据库服务器上运行其薪资数据库、该服务器也是SAP主机的SnapManager 、并将其薪资数据库数据和配置文件存储在公司总部的主存储系统上。企业要求通过每天和每周备份到本地存储以及备份到 50 英里以外二级存储站点的存储系统来保护该数据库。 
+---
+= 主存储和二级存储配置和拓扑
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在此示例中、TechCo公司在一个数据库服务器上运行其薪资数据库、该服务器也是SAP主机的SnapManager 、并将其薪资数据库数据和配置文件存储在公司总部的主存储系统上。企业要求通过每天和每周备份到本地存储以及备份到 50 英里以外二级存储站点的存储系统来保护该数据库。
+
+下图显示了支持本地和二级备份保护所需的SnapManager for SAP和NetApp管理控制台数据保护功能组件。
+
+image::../media/scrn_en_drw_smsap_architecture.gif[此图显示了与适用于SAP的SnapManager 和管理控制台的组合数据库保护架构关联的组件]
+
+要管理薪资数据库并支持上一图所示的本地和二级备份保护，请使用以下部署。
+
+* * SnapManager 主机 *
++
+SnapManager 主机 payroll.techco.com 位于公司总部，运行在 UNIX 服务器上，该服务器还运行生成和维护薪资数据库的数据库程序。
+
++
+** * 连接 *
++
+为了支持本地备份和二级备份保护， SnapManager 主机与以下组件建立了网络连接：
+
++
+*** 适用于SAP客户端的SnapManager
+*** SnapManager 存储库，用于运行数据库程序， SnapDrive for UNIX 和 SnapManager
+*** 主存储系统
+*** 二级存储系统
+*** DataFabric Manager 服务器
+
+
+** * 已安装产品 *
++
+对于本示例， SnapManager 主机安装了以下产品：
+
++
+*** SnapManager 服务器
+*** 适用于 UNIX 的 SnapDrive
+*** Host Utilities
+
+
+
+
+* * TechCo 主存储系统 *
++
+薪资数据库（包括关联的数据文件，日志文件和控制文件）位于主存储系统上。它们位于 TechCo 公司总部以及连接主存储和 SnapManager 主机的 SnapManager 主机和网络上。最新的薪资数据库事务和更新将写入主存储系统。为薪资数据库提供本地备份保护的 Snapshot 副本也驻留在主存储系统上。
+
++
+** * 连接 *
++
+为了支持二级备份保护，主存储系统与以下组件建立了网络连接：
+
++
+*** 运行数据库程序， SnapDrive for UNIX 和 SnapManager 的 SnapManager 主机
+*** 二级存储系统
+*** DataFabric Manager 服务器
+
+
+** * 已安装产品 *
++
+对于本示例，必须在这些系统上启用以下许可证：
+
++
+*** Data ONTAP 7.3.1 或更高版本
+*** SnapVaultData ONTAP 主系统
+*** FlexVol （ NFS 必需）
+*** SnapRestore
+*** NFS 协议
+
+
+
+
+* * TechCo 二级存储系统 *
++
+二级存储系统位于 50 英里以外的网络连接二级存储站点，用于存储薪资数据库的二级备份。
+
++
+** * 连接 *
++
+为了支持二级备份保护，二级存储系统会通过网络连接到以下组件：
+
++
+*** 主存储系统
+*** DataFabric Manager 服务器
+
+
+** * 已安装产品 *
++
+对于本示例，必须在二级存储系统上启用以下许可证：
+
++
+*** 数据 ONTAP
+*** SnapVaultData ONTAP 二级系统
+*** SnapRestore
+*** FlexVol （ NFS 必需）
+*** NFS 协议
+
+
+
+
+* * DataFabric Manager 服务器 *
++
+DataFabric Manager 服务器 techco_dfm 位于公司总部的一个位置，可供存储管理员访问。DataFabric Manager 服务器除其他功能外，还负责协调主存储和二级存储之间的备份任务。
+
++
+** * 连接 *
++
+为了支持二级备份保护， DataFabric Manager 服务器会与以下组件保持网络连接：
+
++
+*** NetApp 管理控制台
+*** 主存储系统
+*** 二级存储系统
+
+
+** * 已安装产品 *
++
+在本示例中， DataFabric Manager 服务器已获得以下服务器产品的许可：
+
++
+*** DataFabric Manager
+
+
+
+
+* * SnapManager 存储库 *
++
+SnapManager 存储库位于专用服务器上，用于存储有关 SnapManager 执行的操作的数据，例如备份时间，备份的表空间和数据文件，使用的存储系统，创建的克隆以及创建的 Snapshot 副本。当DBA尝试完全或部分还原时、SnapManager 会查询存储库以确定SnapManager for SAP为还原创建的备份。
+
++
+** * 连接 *
++
+为了支持二级备份保护，二级存储系统会通过网络连接到以下组件：
+
++
+*** SnapManager 主机
+*** 适用于SAP客户端的SnapManager
+
+
+
+
+* * NetApp 管理控制台 *
++
+NetApp 管理控制台是存储管理员使用的图形用户界面控制台，用于配置计划，策略，数据集和资源池分配，以便备份到二级存储系统，存储管理员可以访问这些系统。
+
++
+** * 连接 *
++
+为了支持二级备份保护， NetApp 管理控制台可通过网络连接到以下组件：
+
++
+*** 主存储系统
+*** 二级存储系统
+*** DataFabric Manager 服务器
+
+
+
+
+* *适用于SAP客户端的SnapManager *
++
+SnapManager for SAP客户端是图形用户界面和命令行控制台、在此示例中、DBA用于薪资数据库、用于配置和执行本地备份以及备份到二级存储。
+
++
+** * 连接 *
++
+为了支持本地备份和二级备份保护、SnapManager for SAP客户端可通过网络连接到以下组件：
+
++
+*** SnapManager 主机
+*** SnapManager 存储库，运行数据库程序， SnapDrive for UNIX 和 SnapManager
+*** 数据库主机（如果与运行 SnapManager 的主机分开）
+*** DataFabric Manager 服务器
+
+
+** * 已安装产品 *
++
+要支持本地备份和二级备份保护、必须在此组件上安装SnapManager for SAP客户端软件。
+
+
+
+

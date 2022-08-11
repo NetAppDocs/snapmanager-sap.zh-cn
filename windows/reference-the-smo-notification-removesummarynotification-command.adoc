@@ -1,0 +1,71 @@
+---
+permalink: windows/reference-the-smo-notification-removesummarynotification-command.html 
+sidebar: sidebar 
+keywords: command, disable, summary, notification, profile, repository, database, remove-summary-notification, smsap 
+summary: 此命令会对存储库数据库上的多个配置文件禁用摘要通知。 
+---
+= smsap notification remove-summary-notification命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令会对存储库数据库上的多个配置文件禁用摘要通知。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap notification remove-summary-notification
+-repository
+-dbname repo_service_name
+-port repo_port
+-host repo_host
+-login -username repo_username
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`存储库`*
++
+` repository`后面的选项用于指定存储库的数据库详细信息。
+
+* *`-port _repo_port_`*
++
+指定用于访问存储库的数据库的 TCP 端口号。
+
+* *`-dbname _repo_service_name_`*
++
+指定存储库的数据库的名称。使用全局名称或 SID 。
+
+* *`主机_repo_host_`*
++
+指定运行存储库数据库的主机计算机的名称或 IP 地址。
+
+* *`登录_repo_username_`*
++
+指定访问存储库的数据库所需的登录名。
+
+* *`-静默`*
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+以下示例将对存储库数据库上的多个配置文件禁用摘要通知。
+
+[listing]
+----
+
+smsap notification remove-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login -username oba5
+----

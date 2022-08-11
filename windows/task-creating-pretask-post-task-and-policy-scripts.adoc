@@ -1,0 +1,179 @@
+---
+permalink: windows/task-creating-pretask-post-task-and-policy-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, script, preprocess, activity, post-process, policy, task, backup, restore, clone, operation, installation, directory, pretask, post-task, creating 
+summary: 使用 SnapManager 可以为预处理活动，后处理活动以及备份，还原和克隆操作的策略任务创建脚本。您必须将脚本放置在正确的安装目录中，才能执行 SnapManager 操作的预处理活动，后处理活动和策略任务。 
+---
+= 创建任务前，任务后和策略脚本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以为预处理活动，后处理活动以及备份，还原和克隆操作的策略任务创建脚本。您必须将脚本放置在正确的安装目录中，才能执行 SnapManager 操作的预处理活动，后处理活动和策略任务。
+
+* 预处理和任务后脚本内容 *
+
+所有脚本都必须包括以下内容：
+
+* 特定操作（检查，描述和执行）
+* （可选）预定义的环境变量
+* 特定错误处理代码（返回代码（ RC ））
+
+
+
+NOTE: 您必须包含正确的错误处理代码才能验证脚本。
+
+可以将任务前脚本用于多种用途，例如，在 SnapManager 操作开始之前清理磁盘空间。例如，您还可以使用任务后脚本来估计 SnapManager 是否有足够的磁盘空间来完成此操作。
+
+* 策略任务脚本内容 *
+
+您可以执行策略脚本，而无需执行检查，描述和执行等特定操作。该脚本包含预定义的环境变量（可选）和特定的错误处理代码。
+
+策略脚本会在执行备份，还原和克隆操作之前执行。
+
+* 支持的格式 *
+
+扩展名为 .cmd 的命令文件可用作预处理脚本和后处理脚本。
+
+
+NOTE: 如果选择 shell 脚本文件，则 SnapManager 操作不会响应。要解决此问题，您必须在插件目录中提供命令文件，然后重新执行 SnapManager 操作。
+
+* 脚本安装目录 *
+
+脚本的安装目录会影响脚本的使用方式。您可以将脚本放置在目录中，并在执行备份，还原或克隆操作之前或之后执行此脚本。您必须将脚本放置在表中指定的目录中，并在指定备份，还原或克隆操作时以可选方式使用该脚本。
+
+
+NOTE: 在使用脚本执行 SnapManager 操作之前，您必须确保 plugins 目录具有可执行权限。
+
+|===
+
+
+| 活动 | 备份 | 还原 | 克隆 
+
+
+ a| 
+预处理
+ a| 
+<default_installation_directory>\plugins\backup\create\pre
+ a| 
+<default_installation_directory>\plugins\restore\create\pre
+ a| 
+<default_installation_directory>\plugins\clone\create\pre
+
+
+
+ a| 
+后处理
+ a| 
+<default_installation_directory>\plugins\backup\create\post
+ a| 
+<default_installation_directory>\plugins\restore\create\post
+ a| 
+<default_installation_directory>\plugins\clone\create\post
+
+
+
+ a| 
+基于策略
+ a| 
+<default_installation_directory>\plugins\backup\create\policy
+ a| 
+<default_installation_directory>\plugins\restore\create\policy
+ a| 
+<default_installation_directory>\plugins\clone\create\policy
+
+|===
+* 脚本位置示例 *
+
+以下是安装目录路径中可用的备份和克隆操作的任务前和任务后脚本示例：
+
+* <default_installation_directory>\plugins\examples\backup\create\pre
+* <default_installation_directory>\plugins\examples\backup\create\post
+* <default_installation_directory>\plugins\examples\clone\create\pre
+* <default_installation_directory>\plugins\examples\clone\create\post
+
+
+* 可以在脚本中更改的内容 *
+
+如果要创建新脚本，则只能更改描述和执行操作。每个脚本都必须包含以下变量： context ， timeout 和 parameter 。
+
+您在脚本的描述功能中所述的变量必须在脚本开头声明。您可以在 parameter=（ ）中添加新参数值，然后使用 execute 函数中的参数。
+
+
+
+== 示例脚本
+
+下面是一个脚本示例，其中包含用户指定的返回代码，用于估算 SnapManager 主机中的空间：
+
+[listing]
+----
+@echo off
+REM $Id: //depot/prod/capstan/Rcapstan_ganges/src/plugins/windows/examples/clone/create/policy/validate_sid.cmd#1 $
+REM $Revision: #1 $ $Date: 2011/12/06 $
+REM
+REM
+
+set /a EXIT=0
+
+set name="Validate SID"
+set description="Validate SID used on the target system"
+set parameter=()
+
+rem reserved system IDs
+set INVALID_SIDS=("ADD" "ALL" "AND" "ANY" "ASC" "COM" "DBA" "END" "EPS" "FOR" "GID" "IBM" "INT" "KEY" "LOG" "MON" "NIX" "NOT" "OFF" "OMS" "RAW" "ROW" "SAP" "SET" "SGA" "SHG" "SID" "SQL" "SYS" "TMP" "UID" "USR" "VAR")
+
+if /i "%1" == "-check" goto :check
+if /i "%1" == "-execute" goto :execute
+if /i "%1" == "-describe" goto :describe
+
+:usage:
+	echo usage: %0 "{ -check | -describe | -execute }"
+	set /a EXIT=99
+	goto :exit
+
+:check
+	set /a EXIT=0
+	goto :exit
+
+:describe
+	echo SM_PI_NAME:%name%
+	echo SM_PI_DESCRIPTION:%description%
+	set /a EXIT=0
+	goto :exit
+
+:execute
+	set /a EXIT=0
+
+	rem SM_TARGET_SID must be set
+	if "%SM_TARGET_SID%" == "" (
+		set /a EXIT=4
+		echo SM_TARGET_SID not set
+		goto :exit
+	)
+
+	rem exactly three alphanumeric characters, with starting with a letter
+	echo %SM_TARGET_SID% | findstr "\<[a-zA-Z][a-zA-Z0-9][a-zA-Z0-9]\>" >nul
+	if %ERRORLEVEL% == 1 (
+		set /a EXIT=4
+		echo SID is defined as a 3 digit value starting with a letter. [%SM_TARGET_SID%] is not valid.
+		goto :exit
+	)
+
+	rem not a SAP reserved SID
+	echo %INVALID_SIDS% | findstr /i \"%SM_TARGET_SID%\" >nul
+	if %ERRORLEVEL% == 0 (
+		set /a EXIT=4
+		echo SID [%SM_TARGET_SID%] is reserved by SAP
+		goto :exit
+	)
+
+	goto :exit
+
+
+
+:exit
+	echo Command complete.
+	exit /b %EXIT%
+----

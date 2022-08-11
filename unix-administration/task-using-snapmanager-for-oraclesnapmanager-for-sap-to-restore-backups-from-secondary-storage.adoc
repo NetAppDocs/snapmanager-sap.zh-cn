@@ -1,0 +1,41 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-restore-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: administrator, restore, protect, backup, secondary, storage, copy, data, back, primary, snapmanager 
+summary: 管理员可以从二级存储还原受保护的备份，并可以选择将数据复制回主存储的方式。 
+---
+= 使用SnapManager for SAP从二级存储还原备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+管理员可以从二级存储还原受保护的备份，并可以选择将数据复制回主存储的方式。
+
+* 您需要的内容 *
+
+在尝试还原备份之前，请检查备份的属性，并确保备份在主存储系统上释放并在二级存储上受到保护。
+
+.步骤
+. 从SnapManager for SAP存储库树中、右键单击要还原的备份、然后选择*还原*。
+. 在还原和恢复向导欢迎页面中，单击 * 下一步 * 。
+. 在还原配置信息页面中，单击 * 使用控制文件完成数据文件 / 表空间还原 * 。
+. 单击 * 如果需要，允许关闭数据库 * ，然后单击 * 下一步 * 。
++
+SnapManager 会根据需要更改数据库状态。例如，如果数据库处于脱机状态且需要联机，则 SnapManager 会强制其联机。
+
+. 在恢复配置信息页面中，单击 * 所有日志 * 。然后单击 * 下一步 * 。
++
+SnapManager 会将数据库还原并恢复到最后一个事务，并应用所有必需的日志。
+
+. 在还原源位置配置页面中，选择受保护备份源的 ID ，然后单击 * 下一步 * 。
+. 在卷还原配置信息页面中，单击 * 尝试卷还原 * 以尝试卷还原。
+. 单击 * 回退到基于文件的还原 * 。
++
+这样，如果卷还原方法无法完成， SnapManager 就可以使用基于文件的还原方法。
+
+. 要查看快速还原的资格检查以及有关强制检查和可覆盖检查的信息，请单击 * 预览 * 。
+. 在 Perform Operation 页面上，验证您提供的信息，然后单击 * 还原 * 。
+. 要查看有关此过程的详细信息，请单击 * 操作详细信息 * 。
+

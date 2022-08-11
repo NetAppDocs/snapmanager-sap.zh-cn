@@ -1,0 +1,313 @@
+---
+permalink: windows/task-create-database-backups.html 
+sidebar: sidebar 
+keywords: create, backup, database, portion, tablespace, data, file, control 
+summary: 您可以为整个数据库或数据库的某些部分创建备份，包括表空间，数据文件或控制文件。 
+---
+= 创建数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以为整个数据库或数据库的某些部分创建备份，包括表空间，数据文件或控制文件。
+
+
+
+== 关于此任务
+
+SnapManager 为多个主机端存储堆栈中的数据库提供Snapshot副本功能、包括NFS、Veritas等。
+
+管理员可以选择向 Oracle RMAN 注册备份，这样便于使用 RMAN 以块等更精细的粒度还原和恢复数据库。
+
+定义配置文件时，您可以自定义通过该配置文件的备份创建的 Snapshot 副本的名称。例如、您可以插入一个前缀字符串`*跃点*`来表示高操作备份。
+
+除了为备份创建的 Snapshot 副本定义唯一名称之外，您还可以为备份本身创建唯一标签。创建备份时、最好提供备份的名称、以便您可以使用`-label`参数轻松识别该备份。对于在特定配置文件中创建的所有备份，此名称必须是唯一的。此名称可以包含字母，数字，下划线（ _ ）和连字符（ - ）。不能以连字符开头。标签区分大小写。您可能需要附加操作系统环境变量，系统日期和备份类型等信息。
+
+如果不提供标签、SnapManager 将创建一个默认标签名称、格式为`sscop_mode_datestring`、其中scope为full或partial、模式为offline、online或automatic (字母`c`表示冷、`h`表示热、或`a`表示自动)。
+
+在 SnapManager 3.4 中，您可以通过覆盖 SnapManager 创建的默认备份标签来提供自己的备份标签。您必须将`override.default.backup.pattern`参数的值设置为* true *、并在`new.default.backup.pattern`参数中指定新的备份标签。备份标签模式可以包含数据库名称，配置文件名称，范围，模式和主机名等关键字，这些关键字必须以下划线分隔。例如、`new.default.backup.pattern=dbname_profile_hostname_scope_mode`。
+
+
+NOTE: 时间戳将自动包含在生成的标签末尾。
+
+输入注释时，可以包含空格和特殊字符。相比之下，输入标签时，请勿包含空格或特殊字符。
+
+对于每个备份， SnapManager 会自动生成一个 GUID ，该 GUID 是一个 32 字符的十六进制字符串。要确定GUID、您必须使用`-verbose`选项运行`backup list`命令。
+
+您可以在数据库联机或脱机时为其创建完整备份。要让SnapManager 处理数据库备份、而不管数据库是联机还是脱机、您应使用`-auto`选项。
+
+创建备份时，如果您启用了修剪，并且配置文件中启用了摘要通知，则会触发两封单独的电子邮件。一封电子邮件用于备份操作，另一封用于修剪。您可以通过比较这些电子邮件中包含的备份名称和备份 ID 来关联这些电子邮件。
+
+您可以在数据库处于关闭状态时创建冷备份。如果数据库处于挂载状态，请将其更改为关闭状态并执行脱机备份（冷备份）。
+
+通过 SnapManager （ 3.2 或更高版本），您可以将归档日志文件与数据文件分开备份，从而高效地管理归档日志文件。
+
+要单独创建归档日志备份、您必须使用`-separate-archivelog-backups`选项创建新配置文件或更新现有配置文件以分隔归档日志备份。使用配置文件，您可以执行以下 SnapManager 操作：
+
+* 创建归档日志备份。
+* 删除归档日志备份。
+* 挂载归档日志备份。
+* 释放归档日志备份。
+
+
+备份选项因配置文件设置而异：
+
+* 使用未分隔的配置文件单独创建归档日志备份可以执行以下操作：
++
+** 创建完整备份。
+** 创建部分备份。
+** 指定要为归档日志文件备份的归档日志目标。
+** 指定要从备份中排除的归档日志目标。
+** 指定用于从归档日志目标删除归档日志文件的修剪选项。
+
+
+* 通过使用单独的配置文件进行归档日志备份，您可以执行以下操作：
++
+** 创建纯数据文件备份。
+** 创建仅归档文件的备份。
+** 创建纯数据文件备份时，请包括归档日志备份以及仅用于克隆的联机数据文件备份。
++
+如果已通过 SnapManager 图形用户界面在 * 配置文件创建 * 向导的 * 配置文件设置 * 页面中包含归档日志备份和数据文件， 如果您尚未在 * 备份创建 * 向导中选择 * 归档日志 * 选项， SnapManager 会始终为所有联机备份创建归档日志备份以及数据文件。
+
++
+在这种情况下，您可以从 SnapManager 命令行界面考虑要备份的所有归档日志目标，但 SnapManager 配置文件中指定的排除目标除外。但是，您不能对这些归档日志文件进行修剪。但是、您仍然可以使用`-archivelog`选项指定归档日志文件目标并从SnapManager 命令行界面对归档日志文件进行修整。
+
++
+如果要使用`-auto`选项创建备份并指定`-archivelog`选项、则SnapManager 会根据备份的当前状态创建联机或脱机备份。
+
++
+*** 当数据库脱机且备份中不包含归档日志文件时， SnapManager 会创建脱机备份。
+*** 当数据库处于联机状态时， SnapManager 会创建一个联机备份，其中包括归档日志文件。
+
+
+** 创建仅归档文件的备份时：
++
+*** 指定要与仅归档日志备份一起备份的归档日志目标
+*** 指定要从仅归档日志备份中排除的归档日志目标
+*** 指定用于从归档日志目标删除归档日志文件的修剪选项
+
+
+
+
+* * 不支持的情形 *
++
+** 您不能创建仅归档日志备份以及仅用于脱机数据文件的备份。
+** 如果未备份归档日志文件，则无法对归档日志文件进行修剪。
+** 如果为归档日志文件启用了 Flash Recovery Area （ FRA ），则无法对归档日志文件进行修剪。
++
+如果在Flash Recovery区域中指定归档日志位置、则必须确保同时在`archive_log_dest`参数中指定归档日志位置。
+
+
+
+
+
+
+NOTE: 创建归档日志备份时，必须在双引号内输入完整的归档日志目标路径，并以逗号分隔目标路径。应将路径分隔符指定为两个反斜杠（ \\ ），而不是一个反斜杠。
+
+当您为包含归档日志备份的联机数据文件备份指定标签时、该标签将应用于数据文件备份、而归档日志备份的后缀将为(`_logs`)。可以通过更改SnapManager 配置文件中的参数`suffix.backup.label-amed.logs`来配置此后缀。
+
+例如、您可以将此值指定为`suffix.backup.label-bow.for.logs=arc`、以便_logs的默认值更改为`_arc`。
+
+如果您尚未指定要包括在备份中的任何归档日志目标，则 SnapManager 将包括数据库中配置的所有归档日志目标。
+
+如果任一目标中缺少任何归档日志文件，则 SnapManager 会跳过在缺少归档日志文件之前创建的所有归档日志文件，即使这些文件在其他归档日志目标中可用也是如此。
+
+创建归档日志备份时，您必须指定要包括在备份中的归档日志文件目标，并且可以设置配置参数，使其包含备份中缺少的文件之外的归档日志文件。
+
+
+NOTE: 默认情况下、此配置参数设置为* true *、以包括所有归档日志文件、而不包括缺少的文件。如果您使用自己的归档日志修剪脚本或从归档日志目标手动删除归档日志文件，则可以禁用此参数，以便 SnapManager 可以跳过归档日志文件并继续进行备份。
+
+SnapManager 不支持对归档日志备份执行以下 SnapManager 操作：
+
+* 克隆归档日志备份
+* 还原归档日志备份
+* 验证归档日志备份
+
+
+SnapManager 还支持从闪存恢复区域目标备份归档日志文件。
+
+.步骤
+. 输入以下命令：
++
+`* smsap backup create -profile _profile_name_｛-full｛-online |-offline |-auto｝｛-retain｛-hourly；-daily；-weekly；-monthly；-unlimited｝]；｛-data〔-files _files__files_〕〕__________________________________________________________________________________________________ "-archivelogs "-label _label_]"-comment _comment_]"-backup-dest _path1_、_path2_]]]-exclude-dest _path1_、_path2_]]]]-prunelogs｛-all _-untilssn_________-直到-日期_月_________________________________________________________________________________________________________`
+
++
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+* 指定是要对联机数据库还是脱机数据库进行备份，而不是允许 SnapManager 处理联机数据库还是脱机数据库 *
+ a| 
+指定`-offline`为脱机数据库创建备份。指定`-online`为联机数据库创建备份。
+
+如果使用这些选项、则不能使用`-auto`选项。
+
+
+
+ a| 
+* 指定是否要让 SnapManager 处理数据库备份，而不管数据库是联机还是脱机 *
+ a| 
+指定`-auto`选项。如果使用此选项、则不能使用`-offline`或`-online`选项。
+
+
+
+ a| 
+* 指定是否要对特定文件执行部分备份 *
+ a| 
+ Specify the -data-files option and then list the files, separated by commas. For example, list the file names f1, f2, and f3 after the option.
+在Windows上创建部分数据文件备份的示例
+
+[listing]
+----
+
+smsap backup create -profile nosep -data -files "J:\\mnt\\user\\user.dbf" -online
+-label partial_datafile_backup -verbose
+----
+
+
+ a| 
+* 指定是否要对特定表空间执行部分备份 *
+ a| 
+指定`-data -tablespaces`选项、然后列出以逗号分隔的表空间。例如、在选项后面使用TS1、TS2和TS3。
+
+SnapManager 支持备份只读表空间。创建备份时， SnapManager 会将只读表空间更改为读写。创建备份后，表空间将更改为只读。
+
+创建部分表空间备份的示例
+
+[listing]
+----
+
+smsap backup create -profile nosep -data -tablespaces tb2 -online -label partial_tablespace_bkup -verbose
+----
+
+
+ a| 
+* 指定是否要按以下格式为每个备份创建唯一标签： full_hot_mybackup_label *
+ a| 
+对于Windows、您可以输入以下示例：
+
+[listing]
+----
+
+smsap backup create -online -full -profile targetdb1_prof1
+-label full_hot_my_backup_label   -verbose
+----
+
+
+ a| 
+* 指定是否要分别为归档日志文件和数据文件创建备份 *
+ a| 
+指定以下选项和变量：
+
+** `-archivelog`创建归档日志文件的备份。
+** ` backup-dest`指定要备份的归档日志文件目标。
+** `-exclude-dest`指定要排除的归档日志目标。
+** `-label`指定归档日志文件备份的标签。
+
+
+[NOTE]
+====
+您必须提供` backup-dest`选项或`-exclude-dest`选项。
+
+====
+如果同时提供这两个选项以及备份、则会显示错误消息`您指定的备份选项无效。指定以下任一选项：-backup-dest或exclude-dest`。
+
+在 Windows 上单独创建归档日志文件备份的示例
+
+[listing]
+----
+
+smsap backup create -profile nosep -archivelogs -backup-dest "J:\\mnt\\archive_dest_2\\" -label archivelog_backup -verbose
+----
+
+
+ a| 
+* 指定是否要同时创建数据文件和归档日志文件的备份 *
+ a| 
+指定以下选项和变量：
+
+** 用于指定数据文件的`-data`选项。
+** 用于指定归档日志文件的`-archivelog`选项。在 Windows 上同时备份数据文件和归档日志文件的示例
++
+[listing]
+----
+
+smsap backup create -profile nosep -data -online -archivelogs -backup-dest "J:\\mnt\\archive_dest_2\\" -label data_arch_backup
+-verbose
+----
+
+
+
+
+ a| 
+* 指定是否要在创建备份时对归档日志文件进行修剪 *
+ a| 
+指定以下选项和变量：
+
+** `-prunelog`指定从归档日志目标中删除归档日志文件。
++
+*** `-all`指定从归档日志目标中删除所有归档日志文件。
+*** `-until -scnuntil -scnuntil -scn`指定删除归档日志文件、直到指定SCN为止。
+*** `-直到-dateyyy-mm-dd：HH：mm：ss`指定删除归档日志文件、直到指定时间段为止。
+*** `-之前`选项指定在指定时间段(天、月、周、小时)之前删除归档日志文件。
+*** `-prune-destprune_dest1、[prune_dest2`指定在创建备份时从归档日志目标中删除归档日志文件。
+
+
+
+
+[NOTE]
+====
+如果为归档日志文件启用了 Flash Recovery Area （ FRA ），则无法对归档日志文件进行修剪。
+
+====
+在 Windows 上创建备份时删减所有归档日志文件的示例
+
+[listing]
+----
+
+smsap backup create -profile nosep
+ -archivelogs -label archive_prunebackup1 -backup-dest "E:\\oracle\\MDV\\oraarch\\MDVarch,J:\\
+" -prunelogs -all -prune-dest "E:\\oracle\\MDV\\oraarch\\MDVarch,J:\\" -verbose
+----
+
+
+ a| 
+* 指定是否要添加有关备份的注释 *
+ a| 
+指定`-comment`、后跟问题描述 字符串。
+
+
+
+ a| 
+* 指定是否要强制数据库进入您指定的备份状态，而不管其当前处于何种状态 *
+ a| 
+指定`-force`选项。
+
+
+
+ a| 
+* 指定是否要在创建备份的同时验证备份 *
+ a| 
+指定`-verify`选项。
+
+
+
+ a| 
+* 指定是否要在数据库备份操作完成后收集转储文件 *
+ a| 
+在backup create命令的末尾指定`-dump`选项。
+
+|===
+
+
+
+
+== 示例
+
+[listing]
+----
+smsap backup create -profile targetdb1_prof1 -full -online -force  -verify
+----

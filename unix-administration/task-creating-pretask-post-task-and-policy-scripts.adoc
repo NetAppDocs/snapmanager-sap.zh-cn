@@ -1,0 +1,193 @@
+---
+permalink: unix-administration/task-create-pretask-post-task-and-policy-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, script, preprocessing, activity, post-processing, policy, task, backup, restore, clone, operation, pretask, post-task, creating 
+summary: 使用 SnapManager 可以为预处理活动，后处理活动以及备份，还原和克隆操作的策略任务创建脚本。您必须将脚本放置在正确的安装目录中，才能执行 SnapManager 操作的预处理活动，后处理活动和策略任务。 
+---
+= 创建任务前、任务后和策略脚本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以为预处理活动，后处理活动以及备份，还原和克隆操作的策略任务创建脚本。您必须将脚本放置在正确的安装目录中，才能执行 SnapManager 操作的预处理活动，后处理活动和策略任务。
+
+* 关于此任务 *
+
+* 预处理和任务后脚本内容 *
+
+所有脚本都必须包括以下内容：
+
+* 特定操作（检查，描述和执行）
+* （可选）预定义的环境变量
+* 特定错误处理代码（返回代码（ RC ））
+
+
+
+NOTE: 您必须包含正确的错误处理代码才能验证脚本。
+
+可以将任务前脚本用于多种用途，例如，在 SnapManager 操作开始之前清理磁盘空间。例如，您还可以使用任务后脚本来估计 SnapManager 是否有足够的磁盘空间来完成此操作。
+
+* 策略任务脚本内容 *
+
+您可以执行策略脚本，而无需执行检查，描述和执行等特定操作。该脚本包含预定义的环境变量（可选）和特定的错误处理代码。
+
+策略脚本会在执行备份，还原和克隆操作之前执行。
+
+* 支持的格式 *
+
+扩展名为 .sh 的 shell 脚本文件可用作预处理脚本和后处理脚本。
+
+* 脚本安装目录 *
+
+脚本的安装目录会影响脚本的使用方式。您可以将脚本放置在目录中，并在执行备份，还原或克隆操作之前或之后执行此脚本。您必须将脚本放置在表中指定的目录中，并在指定备份，还原或克隆操作时以可选方式使用该脚本。
+
+
+NOTE: 在使用脚本执行 SnapManager 操作之前，您必须确保 plugins 目录具有可执行权限。
+
+[cols="1a,3a,3a,3a"]
+|===
+| 活动 | 备份 | 还原 | 克隆 
+
+
+ a| 
+预处理
+ a| 
+<default_installation_directory>/plugins/backup/create/pre
+ a| 
+<default_installation_directory>/plugins/restore/create/pre
+ a| 
+<default_installation_directory>/plugins/clone/create/pre
+
+
+
+ a| 
+后处理
+ a| 
+<default_installation_directory>/plugins/backup/create/post
+ a| 
+<default_installation_directory>/plugins/restore/create/post
+ a| 
+<default_installation_directory>/plugins/clone/create/post
+
+
+
+ a| 
+基于策略
+ a| 
+<default_installation_directory>/plugins/backup/create/policy
+ a| 
+<default_installation_directory>/plugins/restore/create/policy
+ a| 
+<default_installation_directory>/plugins/clone/create/policy
+
+|===
+* 脚本位置示例 *
+
+以下是安装目录路径中可用的备份和克隆操作的任务前和任务后脚本示例：
+
+* <default_installation_directory>/plugins/examples/backup/create/pre
+* <default_installation_directory>/plugins/examples/backup/create/post
+* <default_installation_directory>/plugins/examples/clone/create/pre
+* <default_installation_directory>/plugins/examples/clone/create/post
+
+
+* 可以在脚本中更改的内容 *
+
+如果要创建新脚本，则只能更改描述和执行操作。每个脚本必须包含以下变量：`上下文、超时、_`和`参数_`。
+
+您在脚本的描述功能中所述的变量必须在脚本开头声明。您可以在`parameter =()`中添加新参数值、然后使用execute函数中的参数。
+
+'''
+
+
+== 示例脚本
+
+下面是一个脚本示例，其中包含用户指定的返回代码，用于估算 SnapManager 主机中的空间：
+
+[listing]
+----
+
+    #!/bin/bash
+    # $Id: //depot/prod/capstan/main/src/plugins/unix/examples/backup/create/pre/disk_space_estimate.sh#5 $
+    name="disk space estimation ($(basename $0))"
+    description="pre tasks for estimating the space on the target system"
+    context=
+    timeout="0"
+    parameter=()
+    EXIT=0
+    PRESERVE_DIR="/tmp/preserve/$(date +%Y%m%d%H%M%S)"
+    function _exit {
+       rc=$1
+       echo "Command complete."
+       exit $rc
+    }
+    function usage {
+       echo "usage: $(basename $0) { -check | -describe | -execute }"
+       _exit 99
+    }
+    function describe {
+       echo "SM_PI_NAME:$name"
+       echo "SM_PI_DESCRIPTION:$description"
+       echo "SM_PI_CONTEXT:$context"
+       echo "SM_PI_TIMEOUT:$timeout"
+       IFS=^
+       for entry in ${parameter[@]}; do
+           echo "SM_PI_PARAMETER:$entry"
+       done
+       _exit 0
+    }
+    function check {
+       _exit 0
+    }
+    function execute {
+       echo "estimating the space on the target system"
+       # Shell script to monitor or watch the disk space
+       # It will display alert message, if the (free available) percentage
+       # of space is >= 90%
+       # ----------------------------------------------------------------------
+       # Linux shell script to watch disk space (should work on other UNIX oses )
+       # set alert level 90% is default
+       ALERT=90
+       df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
+       do
+         #echo $output
+         usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+         partition=$(echo $output | awk '{ print $2 }' )
+       if [ $usep -ge $ALERT ]; then
+           echo "Running out of space \"$partition ($usep%)\" on $(hostname) as on $(date)" |
+       fi
+       done
+      _exit 0
+     }
+    function preserve {
+        [ $# -ne 2 ] && return 1
+        file=$1
+        save=$(echo ${2:0:1} | tr [a-z] [A-Z])
+        [ "$save" == "Y" ] || return 0
+        if [ ! -d "$PRESERVE_DIR" ] ; then
+           mkdir -p "$PRESERVE_DIR"
+           if [ $? -ne 0 ] ; then
+               echo "could not create directory [$PRESERVE_DIR]"
+               return 1
+           fi
+        fi
+        if [ -e "$file" ] ; then
+            mv "$file" "$PRESERVE_DIR/."
+        fi
+        return $?
+    }
+    case $(echo $1 | tr [A-Z] [a-z]) in
+        -check)    check
+                  ;;
+        -execute)  execute
+                  ;;
+        -describe) describe
+                  ;;
+     *)         echo "unknown option $1"
+              usage
+              ;;
+     esac
+----
+'''

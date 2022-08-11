@@ -1,0 +1,57 @@
+---
+permalink: windows/reference-the-smosmsap-history-operation-show-command.html 
+sidebar: sidebar 
+keywords: command, enable, view, history, snapmanager, operation, associate, profile, smsap, operation-show 
+summary: 使用此命令可以查看与配置文件关联的特定 SnapManager 操作的历史记录。 
+---
+= smsap history operation-show命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用此命令可以查看与配置文件关联的特定 SnapManager 操作的历史记录。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap history operation-show
+-profile profile
+{-label label | -id id}
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`-profile _profiles_`*
++
+指定配置文件的名称。此名称最长为 30 个字符，并且在主机中必须是唯一的。
+
+* *`-label _label |-idi_`*
++
+指定要查看其历史记录的 SnapManager 操作 ID 或标签。
+
+* *`-静默`*
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+[listing]
+----
+smsap history operation-show -profile PROFILE1 -label backup1 -verbose
+----

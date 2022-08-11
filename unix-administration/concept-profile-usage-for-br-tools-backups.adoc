@@ -1,0 +1,183 @@
+---
+permalink: unix-administration/concept-profile-usage-for-br-tools-backups.html 
+sidebar: sidebar 
+keywords: backint, snapmanager, profile, repository, backup 
+summary: 当您运行使用BACKINT接口的Br*工具命令时、SnapManager 将使用存储库中的配置文件。存储库由运行Br*工具命令的用户的SnapManager 凭据决定。 
+---
+= BR*工具备份的配置文件使用情况
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+当您运行使用BACKINT接口的Br*工具命令时、SnapManager 将使用存储库中的配置文件。存储库由运行Br*工具命令的用户的SnapManager 凭据决定。
+
+默认情况下、SnapManager 会使用与SAP数据库系统标识符同名的配置文件。
+
+
+
+== 关于创建凭据以访问存储库
+
+您可以使用`smsap credential set`命令为Br*工具用户设置存储库凭据。
+
+
+
+== 关于指定其他SnapManager 配置文件名称
+
+只要系统标识符对于SnapManager 配置文件位于给定存储库中的所有主机都是唯一的、则默认配置文件名称就足以满足要求。您可以使用数据库系统标识符值创建SnapManager 配置文件并为其命名。
+
+但是、如果在不同的主机上使用相同的系统标识符、或者如果要在给定的SnapManager 实例上指定多个SAP配置文件以与Br*工具结合使用、则需要为Br*工具命令定义配置文件名称。
+
+在SAP应用程序中计划的数据库操作以用户身份运行。在SAP应用程序中计划的Br*工具操作将以`sidadm`的形式运行。这些用户必须有权访问存储库和配置文件。
+
+要设置用户的凭据、请执行以下步骤：
+
+. 以`sidadm`的身份登录。
+. 输入命令以设置存储库凭据：
++
+`* smsap credential set command*`
+
+. 输入以下命令以同步配置文件：
++
+`* smsap profile sync*`
+
+. 输入命令、为已发现的配置文件设置密码：
++
+`* smsap凭据集*`
+
+
+
+
+
+== 关于创建备份实用程序参数文件
+
+br* tools命令可以选择将备份实用程序参数(.utl参数)文件传递到BACKINT接口。默认情况下、此文件的名称是`initsid.utl`、其中SID是数据库的系统标识符。
+
+默认情况下、Br*工具会使用`initsid.sap文件`中的`_util_param_file_`参数指定的参数文件。备份实用程序参数文件通常与`initsid.sap文件`存储在同一目录中。
+
+将`profile_name =<profile>`添加到`.utl`文件并保存。` profile`是要用于Br*工具命令的SnapManager 配置文件的名称。
+
+下表列出了`.utl`文件中包含的用于备份保留、快速还原和数据保护等操作的其他备份实用程序参数：
+
+[cols="1a,3a"]
+|===
+| 操作 | 备份实用程序参数 
+
+
+ a| 
+备份保留
+ a| 
+* 密钥：保留
+* 值：无限制、每小时、每天、每周、每月
+
+
+
+
+ a| 
+快速还原
+ a| 
+* 关键：快速
+* 值：需要、覆盖、回退和关闭
+
+
+
+
+ a| 
+数据保护
+ a| 
+* 关键字：保护
+* 值：是；否；留空
+
+
+
+NOTE: 值参数中提到的不同选项与命令行界面中使用的`-protect`选项类似。
+
+
+
+ a| 
+将数据从二级存储备份到根据用户首选项设置的位置
+ a| 
+* 密钥：preferred_backup_locations
+* value：以逗号分隔的列表形式显示的数据保护节点名称。
+* 默认值：未设置任何值。
+
+
+
+NOTE: 有关添加数据保护策略节点名称的信息、请参见 xref:concept-about-different-protection-policies.adoc[关于保护策略说明]。
+
+
+
+ a| 
+将数据从二级存储还原到首选位置
+ a| 
+* 密钥：restore_from_nated_backup_location
+* 值：是；否
+* 默认值：是
+
+
+|===
+下表介绍了这些操作的不同备份实用程序参数：
+
+[cols="1a,1a,1a"]
+|===
+| 操作 | 密钥 | 价值 
+
+
+ a| 
+备份保留
+ a| 
+fast=
+ a| 
+回退
+
+
+
+ a| 
+快速还原
+ a| 
+保留=
+ a| 
+每小时
+
+
+
+ a| 
+数据保护
+ a| 
+保护=
+ a| 
+否
+
+|===
+
+
+== 将备份实用程序参数添加到Br*工具初始化文件
+
+SAP会为`$ORACLE_HOME/DBS/`中的每个SAP数据库实例创建一个名为`initsid.sp`的备份配置文件。您可以使用此文件指定用于Br*工具命令的默认备份实用程序参数(`.utl`)文件。
+
+. 编辑`initsid.sap`文件并找到以`util_PAR =`开头的行。
+. 取消此行的注释、并将路径添加到包含配置文件名称的备份实用程序参数文件中、例如、`util_param_file = initSA1.utl`。
+. 如果您为`util_PAR文件`指定一个值、请确保该文件存在。
++
+如果未找到文件、则BRBACKUP命令将失败、因为它们会尝试将该文件包含在备份中。
+
+
+
+如果发现以下任一错误情况、则需要使用`-u`选项作为配置文件名称：
+
+* `参数文件不存在`
+* `无配置文件名称条目`
+
+
+orasidd和sidadm都需要访问配置文件、该配置文件将用于创建或管理使用Br*工具创建的备份。
+
+
+
+== 在Br*工具命令中指定备份实用程序参数文件名
+
+您也可以在Br*工具命令中使用-r选项指定备份实用程序参数(.utl参数)文件。命令行上的值将覆盖SAP初始化文件中指定的值。
+
+br*工具会搜索`$ORACLE_HOME/DBS/`目录中的参数文件。如果将文件存储在其他位置、则需要使用-r选项提供完整路径。例如：
+
+`*+ brbackup -r /opt/netapp_fcp_Price _10g_enterprise_inst_vol1/DBS/initCER.utl ...++`

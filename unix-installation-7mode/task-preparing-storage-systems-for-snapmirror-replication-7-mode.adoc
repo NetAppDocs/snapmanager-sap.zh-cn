@@ -1,0 +1,118 @@
+---
+permalink: unix-installation-7mode/task-prepare-storage-systems-for-snapmirror-replication-7-mode.html 
+sidebar: sidebar 
+keywords: snapmanager, snapmirror, technology, mirror, snapshot, copies, copy, configure, initialize, data-protection, relationship, destination, volume, prepare, preparing, storage, system, replication 
+summary: 在使用SnapManager的集成SnapMirror技术镜像Snapshot副本之前、必须在源卷和目标卷之间配置并初始化数据保护关系。初始化时、SnapMirror会为源卷创建一个Snapshot副本、然后将该副本及其引用的所有数据块传输到目标卷。此外，它还会将源卷上任何其他较晚的 Snapshot 副本传输到目标卷。 
+---
+= 准备用于SnapMirror复制的存储系统
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在使用SnapManager的集成SnapMirror技术镜像Snapshot副本之前、您必须在源卷和目标卷之间配置并初始化_data-protection relationship_。初始化时、SnapMirror会为源卷创建一个Snapshot副本、然后将该副本及其引用的所有数据块传输到目标卷。此外，它还会将源卷上任何其他较晚的 Snapshot 副本传输到目标卷。
+
+* 关于此任务 *
+
+您可以使用ONTAP 命令行界面或OnCommand 系统管理器执行这些任务。以下操作步骤 基于您使用的是命令行界面的假设。有关详细信息，请参见 https://library.netapp.com/ecm/ecm_download_file/ECMP1368826["《Data ONTAP 8.2 7-模式数据保护联机备份和恢复指南》"^]。
+
+
+NOTE: 您不能使用SnapManager 镜像qtree。SnapManager 仅支持卷镜像。
+
+不能使用SnapManager 进行同步镜像。SnapManager 仅支持异步镜像。
+
+
+IMPORTANT: 如果要将数据库文件和事务日志存储在不同的卷上，则必须在数据库文件的源卷和目标卷之间以及事务日志的源卷和目标卷之间创建关系。
+
+. 在源系统控制台上、使用`options snapmirror.access`命令指定允许直接从源系统复制数据的系统的主机名。
++
+* 示例 *
+
++
+以下条目允许复制到destination_systemb：
+
++
+[listing]
+----
+options snapmirror.access host=destination_systemB
+----
+. 在目标系统上、创建或编辑`/etc/snapmirror.conf`文件以指定要复制的卷。
++
+* 示例 *
+
++
+以下条目指定从source_systema的vol0复制到destination_systemb的vol2：
+
++
+[listing]
+----
+source_systemA:vol0 destination_systemB:vol2
+----
+. 在源和目标系统控制台上、使用`snapmirror on`命令启用SnapMirror。
++
+* 示例 *
+
++
+以下命令将启用SnapMirror：
+
++
+[listing]
+----
+snapmirror on
+----
+. 在目标系统控制台上、使用`vol create`命令创建大小等于或大于源卷的SnapMirror目标卷。
++
+* 示例 *
+
++
+以下命令会在聚合aggr1上创建一个名为vol2的2 GB目标卷：
+
++
+[listing]
+----
+vol create vol2 aggr1 2g
+----
+. 在目标系统控制台上、使用vol restrict命令将目标卷标记为restricted。
++
+* 示例 *
+
++
+以下命令会将目标卷vol2标记为受限：
+
++
+[listing]
+----
+vol restrict vol2
+----
+. 在源系统控制台上、使用`snap sched`命令禁用任何计划的传输。
++
+* 示例 *
+
++
+您必须禁用计划传输、以避免计划与SnapDrive 冲突。
+
++
+以下命令将禁用计划传输：
+
++
+[listing]
+----
+snap sched vol1 -----
+----
+. 在目标系统控制台上、使用`snapmirror initialize`命令在源卷和目标卷之间创建关系、并初始化此关系。
++
+初始化过程会向目标卷执行 _baseline transfer_ 。SnapMirror 为源卷创建 Snapshot 副本，然后将该副本及其引用的所有数据块传输到目标卷。它还会将源卷上的任何其他 Snapshot 副本传输到目标卷。
+
++
+* 示例 *
+
++
+以下命令会在source_systema上的源卷vol0和destination_systemb上的目标卷vol2之间创建SnapMirror关系、并初始化此关系：
+
++
+[listing]
+----
+snapmirror initialize -S source_systemA:vol0 destination_systemB:vol2
+----
+

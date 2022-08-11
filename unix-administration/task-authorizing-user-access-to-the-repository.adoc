@@ -1,0 +1,27 @@
+---
+permalink: unix-administration/task-authorize-user-access-to-the-repository.html 
+sidebar: sidebar 
+keywords: addition, role-based, access, control, rbac, snapmanager, enable, set, credential, database, repository, restrict, prevent, host, profile, database, authorizing, authorize 
+summary: 除了基于角色的访问控制（ Role-Based Access Control ， RBAC ）之外，您还可以通过 SnapManager 为数据库用户设置访问存储库的凭据。您可以使用凭据限制或阻止对 SnapManager 主机，存储库，配置文件和数据库的访问。 
+---
+= 授权访问存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+除了基于角色的访问控制（ Role-Based Access Control ， RBAC ）之外，您还可以通过 SnapManager 为数据库用户设置访问存储库的凭据。您可以使用凭据限制或阻止对 SnapManager 主机，存储库，配置文件和数据库的访问。
+
+* 关于此任务 *
+
+如果使用 credential set 命令设置凭据，则 SnapManager 不会提示您输入密码。
+
+您可以在安装 SnapManager 或更高版本时设置用户凭据。
+
+.步骤
+. 输入以下命令：
++
+`* smsap凭据集-repository -dbname _repo_service_name_-host _repo_host_-login -username _repo_username_[-password _repo_password_]-port _repo_port_*`
+
+

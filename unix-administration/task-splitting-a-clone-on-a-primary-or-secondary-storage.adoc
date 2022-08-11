@@ -1,0 +1,47 @@
+---
+permalink: unix-administration/task-split-a-clone-on-a-primary-or-secondary-storage.html 
+sidebar: sidebar 
+keywords: clone, split, complete, metadata, remove, repository, primary, secondary, storage, delete, free 
+summary: 您可以使用 clone split 命令拆分克隆。克隆拆分完成后，克隆元数据将从存储库数据库中删除，并且可以删除或释放与克隆关联的备份。 
+---
+= 拆分主存储或二级存储上的克隆
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`clone split`命令拆分克隆。克隆拆分完成后，克隆元数据将从存储库数据库中删除，并且可以删除或释放与克隆关联的备份。
+
+* 关于此任务 *
+
+成功执行拆分操作后创建的新配置文件用于管理拆分克隆。新配置文件将与 SnapManager 中的任何其他现有配置文件类似。您可以使用此配置文件执行备份，还原和克隆操作。
+
+此外，您还可以为新配置文件配置电子邮件通知。这样，可以向数据库管理员通知使用配置文件执行的数据库操作的状态。
+
+
+NOTE: 如果仅在 FlexClone 上执行拆分操作，则 SnapManager 支持拆分操作。
+
+如果拆分操作失败，则会显示相应的错误消息，其中包含失败原因。多个操作的状态也会显示在操作日志中。例如：
+
+[listing]
+----
+--[ INFO] The following operations were completed:
+Clone Split : Success
+Profile Create : Failed
+Clone Detach : Success
+----
+您可以选择在克隆拆分操作成功或失败后收集转储文件。
+
+
+NOTE: 输入`clone split`命令后、在克隆拆分操作开始之前、不应停止SnapManager 服务器。
+
+
+NOTE: 即使您未为 Oracle 帐户（ osaccount 和 osgroup ）提供任何值， SnapManager 也会生成配置文件。
+
+.步骤
+. 输入以下命令：
++
+`* smsap clone split -profile _clone-profile_-host _hostname_(-label _clone-label _)--id _clone-id_]-split标签_split操作标签_-comment _comment_ new-profile _new-profile-name_(-profile-password _new-profile_password)-redban -redban -name _host_name _nssns_name _-s_db _nss_nss_name _ ]-osaccount _osaccount_-osgroup _osgroup_[-retain "-hourly-count _n_][-duration _m_m_]][-daily-count _n_]]]]-weekly-count _n_][-duration m_]]]]]-monthly-count _n_n_unrestent-unle_`
+
+

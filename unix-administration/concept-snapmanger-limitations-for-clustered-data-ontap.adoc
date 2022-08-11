@@ -1,0 +1,22 @@
+---
+permalink: unix-administration/concept-snapmanger-limitations-for-clustered-data-ontap.html 
+sidebar: sidebar 
+keywords: limitation, functionality, functionalities, snapmanager, cluster, data, ontap 
+summary: 如果您使用的是集群模式 Data ONTAP ，则必须了解某些功能和 SnapManager 操作的限制。 
+---
+= 集群模式 Data ONTAP 的 SnapManager 限制
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果您使用的是集群模式 Data ONTAP ，则必须了解某些功能和 SnapManager 操作的限制。
+
+如果在集群模式 Data ONTAP 上使用 SnapManager ，则不支持以下功能：
+
+* 如果 SnapManager 与 OnCommand Unified Manager 集成，则具有数据保护功能
+* 一种数据库，其中一个 LUN 属于运行 7- 模式 Data ONTAP 的系统，而另一个 LUN 属于运行集群模式 Data ONTAP 的系统
+* SnapManager for SAP不支持迁移SVM、而集群模式Data ONTAP 不支持此迁移
+* SnapManager for SAP不支持使用集群模式Data ONTAP 8.2.1功能为卷和qtree指定不同的导出策略
+

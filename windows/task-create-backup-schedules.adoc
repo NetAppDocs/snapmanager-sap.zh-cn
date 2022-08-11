@@ -1,0 +1,171 @@
+---
+permalink: windows/task-create-backup-schedules.html 
+sidebar: sidebar 
+keywords: schedule, backup, time, frequency, suit, data, environment, create 
+summary: 您可以计划在适合您的数据和环境的时间和频率进行备份。 
+---
+= 创建备份计划
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以计划在适合您的数据和环境的时间和频率进行备份。
+
+
+
+== 关于此任务
+
+从SnapManager 3.2 for SAP中、您可以单独计划归档日志文件的备份。但是，您必须使用创建的配置文件来分隔归档日志文件。
+
+如果同时计划了数据文件和归档日志文件的备份，则 SnapManager 会先创建数据文件备份。
+
+如果将计划间隔选择为`-onetimeonly`、则所有修剪选项均可用。如果您选择的计划间隔不是`-onetimeonly`、则不支持修剪选项`-until -scn`和`-until - date`、并显示以下错误消息：`您指定的归档日志修剪选项、计划间隔每小时的-until -scn或-until日期无效。为计划间隔指定-onetimeonly选项、或者使用选项all或-before｛-months |-days |-weeks|-hours｝`之一对归档日志进行修剪。
+
+在Microsoft Windows Server故障转移集群(WSFC)和Microsoft集群服务器(MSCS)环境中发生故障转移时、您必须重新启动适用于SAP的SnapManager 服务器、以便将服务(虚拟)地址映射到活动主机、并根据活动SnapManager 主机调整SnapManager 计划。
+
+
+NOTE: 如果另一个存储库中存在相同的配置文件和计划名称，则不会在该存储库中启动备份计划操作。此操作将退出、并显示以下消息：`operation is already running`。
+
+.步骤
+. 输入以下命令：
++
+`* smsap schedule create -profile _profile_name_｛-full｛-online |-offline |-auto｝｛-retain (-hourly；-daily；-weekly；-monthly；-unlimited]；(-data (-files _files_)))_-tablesaces _-weekly (-snapvers__unlimited)______-snapvpaths (-snap_-snap__-snap__-snap___-snap__-snap_-snap__-snap__-snap_-snapvers-snap__-snap__-snap_-snap_-snap_-snap_-snap__-snap_-snap_-snap_-snap_-snap_- [、_path2_]]<-exclude-dest _path1_、_path2_]]<-prunelog｛-all _-untilSCN _untisn___-截至日期_yyyy-mm-dd HH：mm：ss_____-在｛-months _-weeks _- days _-hours _-hours｝-prunts_schedule_-schedule__-time______s_dest___-schedule__-time______-time___-time___-s_dest__-time__-s_dest__-time__-sq_-sq__-time_-sq___-time_-sq_-sq_-sq_-sq_-sq_-sq__-time_-sq_-sq_-sq_-sq_-sq_-sq_-sq_- ：`-verbose]*
+
++
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+* 计划联机或脱机数据库的备份 *
+ a| 
+指定`-脱机`或`-联机`以计划脱机或联机数据库的备份。如果指定了这些参数、则不能使用`-auto`。
+
+
+
+ a| 
+* 让 SnapManager 处理数据库的计划，而不管它是联机还是脱机 *
+ a| 
+指定`-auto`。如果指定`-auto`、则不能使用`-offline`或`-online`。
+
+
+
+ a| 
+* 计划数据文件的备份 *
+ a| 
+指定`-data``-files`以列出以逗号分隔的文件。例如，使用文件名 f1 ， f2 ， f3 。
+
+
+
+ a| 
+* 计划对特定表空间进行部分备份 *
+ a| 
+指定`表空间`以列出以逗号分隔的表空间。例如，使用 TS1 ， TS2 ， TS3 。
+
+
+
+ a| 
+* 计划归档日志文件的备份 *
+ a| 
+指定以下内容：
+
+** `-archivelog`用于计划归档日志文件的备份
+** ` backup-dest`用于计划要包含在备份中的归档日志文件目标
+** `-exclude-dest`用于计划要从备份中排除的归档日志目标
+
+
+
+
+ a| 
+* 指定保留类值 *
+ a| 
+指定`-retain`并指示是否应根据以下保留类之一保留备份：
+
+** `-每小时`
+** `-每日`
+** `-每周`
+** `-每月`
+** `无限制` SnapManager 默认为每小时。
+
+
+
+
+ a| 
+* 计划对归档日志文件进行删减 *
+ a| 
+指定以下内容：`-prunelog`在计划备份时对归档日志文件进行修整。`-prune-dest`指定从中对归档日志文件进行修剪的归档日志目标
+
+
+
+ a| 
+* 包括计划名称 *
+ a| 
+指定`-schedule-name`。
+
+
+
+ a| 
+* 按特定时间间隔计划数据库备份 *
+ a| 
+指定`interval`选项、然后从以下选项中选择创建备份的时间间隔：
+
+** `-每小时`
+** `-每日`
+** `-每周`
+** `-每月`
+** `-仅限单个时间`
+
+
+
+
+ a| 
+* 配置计划 *
+ a| 
+指定`-cronstring`并包含以下七个子表达式、用于描述各个选项：
+
+** 1 表示秒。
+** 2 表示分钟。
+** 3 表示小时。
+** 4 表示一个月中的一天。
+** 5 表示月份。
+** 6 表示一周中的一天。
+** （可选） 7 表示年份。
+
+
+[NOTE]
+====
+如果您在`-cronstring`和`-start-time`中使用不同时间计划备份、则备份计划将被`-start-time`覆盖并触发。
+
+====
+
+
+ a| 
+* 添加有关备份计划的注释 *
+ a| 
+指定`-schedule-comment`、后跟问题描述 字符串。
+
+
+
+ a| 
+* 指定计划操作的开始时间 *
+ a| 
+以yyyy-mm-dd hh：mm格式指定`-start-time`。
+
+
+
+ a| 
+* 在计划备份时更改计划备份操作的用户 *
+ a| 
+指定`-runasuser`。此操作将以创建计划的用户（ root 用户或 Oracle 用户）身份运行。但是，如果您拥有数据库配置文件和主机的有效凭据，则可以使用自己的用户 ID 。
+
+
+
+ a| 
+* 使用任务前和任务后规范 XML 文件 * 启用备份计划操作的任务前或任务后活动
+ a| 
+指定` taskSpec`选项、并提供任务规范XML文件的绝对路径、以便在备份计划操作之前或之后执行预处理或后处理活动。
+
+|===
+

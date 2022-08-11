@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/concept-creating-task-specification-file-and-scripts-for-snapmanager-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, task, specification, extensible, markup, language, xml, pretask, backup, restore, clone, operation, creating, create, file, script, operation 
+summary: 'SnapManager for SAP使用任务规范可扩展标记语言(Extensible Markup Language、XML)文件、该文件指示备份、还原和克隆操作的任务前和任务后。您可以在 XML 文件中为备份，还原和克隆操作前后要执行的任务添加任务前脚本和任务后脚本名称。' 
+---
+= 为 SnapManager 操作创建任务规范文件和脚本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager for SAP使用任务规范可扩展标记语言(Extensible Markup Language、XML)文件、该文件指示备份、还原和克隆操作的任务前和任务后。您可以在 XML 文件中为备份，还原和克隆操作前后要执行的任务添加任务前脚本和任务后脚本名称。
+
+在 SnapManager （ 3.1 或更早版本）中，只能对克隆操作运行任务前和任务后脚本。在适用于SAP的SnapManager (3.2或更高版本)中、您可以为备份、还原和克隆操作运行任务前和任务后脚本。
+
+在 SnapManager （ 3.1 或更早版本）中，任务规范部分是克隆规范 XML 文件的一部分。在SnapManager 3.2 for SAP中、任务规范部分是一个单独的XML文件。
+
+
+NOTE: SnapManager 3.3 或更高版本不支持使用在 SnapManager 3.2 之前的版本中创建的克隆规范 XML 文件。
+
+在适用于SAP的SnapManager (3.2或更高版本)中、您必须确保满足以下条件才能成功执行SnapManager 操作：
+
+* 对于备份和还原操作，请使用任务规范 XML 文件。
+* 对于克隆操作，请提供两个规范文件：一个克隆规范 XML 文件和一个任务规范 XML 文件。
++
+如果要启用任务前或任务后活动，您可以选择添加任务规范 XML 文件。
+
+
+
+您可以使用 SnapManager 图形用户界面（ GUI ），命令行界面（ CLI ）或文本编辑器创建任务规范文件。要启用适当的编辑功能，您必须对文件使用 .xml 扩展名。您可能需要保存此文件，以便将来执行备份，还原和克隆操作时使用它。
+
+任务规范 XML 文件包括两个部分：
+
+* 预任务部分包括可在备份，还原和克隆操作之前运行的脚本。
+* 后任务部分包含可在备份，还原和克隆操作之后运行的脚本。
+
+
+任务前和任务后部分中包含的值必须遵循以下准则：
+
+* 任务名称：任务名称必须与脚本名称匹配、运行`plugin.sh -describe`命令时会显示该脚本名称。
++
+
+NOTE: 如果不匹配、则可能会收到以下错误消息：`The file not found`。
+
+* 参数名称：参数的名称必须是可用作环境变量设置的字符串。
++
+该字符串必须与自定义脚本中的参数名称匹配、该脚本会在运行`plugin.sh -describe`命令时显示。
+
+
+
+您可以根据以下示例任务规范文件的结构创建规范文件：
+
+[listing]
+----
+
+<task-specification>
+  <pre-tasks>
+<task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </pre-tasks>
+  <post-tasks>
+    <task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </post-tasks>
+</task-specification>
+----
+
+NOTE: 任务规范 XML 文件不应包含任何策略。
+
+在 SnapManager 图形用户界面中，您可以设置参数值并保存 XML 文件。您可以使用备份创建向导，还原或恢复向导以及克隆创建向导的任务启用页面加载现有任务规范 XML 文件，并将选定文件用于任务前或任务后活动。
+
+可以使用相同或不同的参数和值组合多次执行任务。例如，您可以使用 " 保存 " 任务保存多个文件。
+
+
+NOTE: 无论任务规范文件的文件扩展名如何， SnapManager 都会使用任务规范文件中提供的 XML 标记来执行备份，还原和克隆操作的预处理或后处理活动。

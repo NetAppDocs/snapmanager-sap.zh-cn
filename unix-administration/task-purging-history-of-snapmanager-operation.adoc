@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-purge-history-of-snapmanager-operation.html 
+sidebar: sidebar 
+keywords: delete, history, snapmanager, operation, require, detail, deleting 
+summary: 如果不再需要 SnapManager 操作的历史记录详细信息，则可以删除该历史记录。 
+---
+= 删除SnapManager 操作历史记录
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果不再需要 SnapManager 操作的历史记录详细信息，则可以删除该历史记录。
+
+.步骤
+. 要删除SnapManager 操作的历史记录、请输入以下命令：
++
+``* smsap history purge -profile｛_-name、profile_name profile_name1、profile_name2_]| all-repository-login (-password _repo_password_）-username _repo_username_-dbname _repo_dbname_-host _repo_host_-port _repo_port_｝-operation｛-verbose _name_operation.
+
+

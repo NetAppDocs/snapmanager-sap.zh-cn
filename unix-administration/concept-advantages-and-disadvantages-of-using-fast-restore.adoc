@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/concept-advantages-and-disadvantages-of-using-fast-restore.html 
+sidebar: sidebar 
+keywords: dba, aware, advantage, disadvantage, volume-base, fast, restore, disadvantage 
+summary: DBA 应了解使用基于卷的快速恢复的优缺点。 
+---
+= 使用快速还原的优势和劣势
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+DBA 应了解使用基于卷的快速恢复的优缺点。
+
+使用快速恢复还原数据库备份具有以下优势：
+
+* 基于卷的还原可减少还原备份所需的时间。
+* SnapManager 可提供快速恢复资格检查。SnapManager 将分析数据库备份并显示有关它是否可以执行基于卷的还原的信息。
+* 您可以预览还原操作并决定是继续使用建议的路径还是使用选定过程覆盖建议。
+
+
+使用快速还原还原数据库备份具有以下缺点：
+
+* 还原整个文件系统，包括不视为备份一部分的文件。卷上的其他文件，文件系统或 LUN 也将还原。
+* SnapManager 会删除在还原到的 Snapshot 之后创建的所有 Snapshot 副本。实际上，您将丢失 Snapshot 副本日期之后的历史记录。例如，如果您已还原星期一的备份，则无法还原星期二的备份。
+
+
+您可以按照以下建议避免这些缺点：
+
+* 根据最佳实践优化数据库布局。
+* 保护二级存储的备份。但是，如果从主存储中删除 Snapshot 副本，则无法使用快速还原从二级存储中还原它们。
+

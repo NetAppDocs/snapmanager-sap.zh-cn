@@ -1,0 +1,31 @@
+---
+permalink: windows/task-create-or-update-post-scripts.html 
+sidebar: sidebar 
+keywords: create, post, script, default, install, directory, plugin, update 
+summary: 您可以创建新的 POST 脚本，也可以使用 default_install_directory\plugins\backup\create\post 中提供的脚本。 
+---
+= 创建或更新POST脚本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以创建新的POST脚本、也可以使用`default_install_directory` plugins\backup\create\post中提供的脚本。
+
+
+
+== 关于此任务
+
+您必须以特定方式对脚本进行结构调整，以便可以在 SnapManager 操作的上下文中执行该脚本。根据预期操作，可用输入参数和返回代码约定创建脚本。
+
+.步骤
+. 创建新脚本或使用可用的示例脚本。
+. 根据需要修改或包括函数，变量和参数。
+. 保存自定义脚本。
+. 在后处理任务规范 XML 文件中添加脚本名称和所需输入，或者通过选择正确的脚本和输入参数从图形用户界面提供输入。
++
+
+NOTE: 您不必在任务规范 XML 文件中提供二级存储详细信息。
+
+

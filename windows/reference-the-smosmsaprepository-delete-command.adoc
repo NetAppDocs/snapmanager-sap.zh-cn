@@ -1,0 +1,88 @@
+---
+permalink: windows/reference-the-smosmsaprepository-delete-command.html 
+sidebar: sidebar 
+keywords: command, delete, repository, store, database, profile, associate, credential, smsap 
+summary: 此命令将删除用于存储数据库配置文件和关联凭据的存储库。只有在存储库中没有配置文件时，才能删除存储库。 
+---
+= smsap repository delete命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令将删除用于存储数据库配置文件和关联凭据的存储库。只有在存储库中没有配置文件时，才能删除存储库。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap repository delete
+-repository
+-port repo_port
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`存储库`*
++
+` repository`后面的选项用于指定存储库的数据库详细信息。
+
+* *`-port _repo_port_`*
++
+指定用于访问存储库的数据库的 TCP 端口号。
+
+* *`-dbname _repo_service_name_`*
++
+指定存储库的数据库的名称。使用全局名称或 SID 。
+
+* *`主机_repo_host_`*
++
+指定运行存储库数据库的主机计算机的名称或 IP 地址。
+
+* *`登录`*
++
+启动存储库登录详细信息。
+
+* *`用户名_repo_username_`*
++
+指定访问存储库的数据库所需的用户名。
+
+* *`强制`*
++
+尝试强制删除存储库，即使操作不完整也是如此。如果操作不完整， SnapManager 会发出提示，询问您是否确实要删除存储库。
+
+* *`-noprop`*
++
+删除存储库之前不会提示您。使用`-noprop`选项可确保不会显示此提示、从而可以更轻松地使用脚本删除存储库。
+
+* *`-静默`*
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+以下示例将删除 SALESDB 数据库中的存储库。
+
+[listing]
+----
+smsap repository delete -repository -dbname SALESDB
+-host server1 -login -username admin -port 1527 -force -verbose
+----

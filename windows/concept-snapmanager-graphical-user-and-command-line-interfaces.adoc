@@ -1,0 +1,14 @@
+---
+permalink: windows/concept-snapmanager-graphical-user-and-command-line-interfaces.html 
+sidebar: sidebar 
+keywords: snapmanager, client, graphical, user, interface, gui, command-line, cli 
+summary: SnapManager 客户端包括一个图形用户界面（ GUI ）和一个命令行界面（ CLI ）。 
+---
+= SnapManager 图形用户界面和命令行界面
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 客户端包括一个图形用户界面（ GUI ）和一个命令行界面（ CLI ）。

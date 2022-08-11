@@ -1,0 +1,15 @@
+---
+permalink: unix-installation-7mode/reference-trademark.html 
+sidebar: sidebar 
+keywords: trademark, information 
+summary: Trademark information 
+---
+= Trademark information
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Active IQ ， AltaVault ，架构设计， ASUP ， AutoSupport ， Campaign Express ，集群模式 Data ONTAP ，客户健康， Data ONTAP ， DataMotion ， Element ， Fitness ， Flash Accel ， Flash Cache ， Flash Pool ， FlexArray ， FlexCache ， FlexClone ， FlexPod ， FlexScale ， FlexShare ， FlexVol ， FPolicy ， FFueled by SolidFire ， GetSuccessful ， Helix 设计， LockVault ，管理 ONTAP ， MetroCluster ， MultiStore ， NetApp ， NetApp Insight ， OnCommand ， ONTAP ， ONTAPI ， RAID DP ， RAID-TEC ， SANscreen ， SANshare ， SANtricity ， SecureShare ，精简性，模拟 ONTAP ， Snap Creator ， SnapCenter ， SnapCopy ， SnapDrive ， SnapIntegrator ， SnapLock ， SnapManager ， SnapMirror ， SnapMover ， SnapProtect ， SnapRestore ， Snapshot ， SnapValidator ， SnapVault ， SolidFire ， SolidFire Helix ， StorageGRID ， SyncMirror ， Tech OnTap ， Unbound Cloud 和 WAFL 以及其他名称是 NetApp ， Inc. 在美国和 / 或其他国家或地区的商标或注册商标。所有其他品牌或产品均为其各自所有者的商标或注册商标，应予同样对待。有关最新的 NetApp 商标列表，请参见网站。
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]

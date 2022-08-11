@@ -1,0 +1,30 @@
+---
+permalink: windows/concept-scheduling-database-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, schedule, database, backup, basis, off-peak, performance, profile, information, retention, policy 
+summary: '通过适用于SAP的SnapManager (3.2或更高版本)、您可以计划在非高峰时段定期进行数据库备份、以保持高性能。要计划备份，您可以创建一个配置文件，其中包括数据库信息和保留策略，然后设置备份计划。' 
+---
+= 计划数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过适用于SAP的SnapManager (3.2或更高版本)、您可以计划在非高峰时段定期进行数据库备份、以保持高性能。要计划备份，您可以创建一个配置文件，其中包括数据库信息和保留策略，然后设置备份计划。
+
+
+NOTE: 您必须以管理员身份计划备份。如果您尝试以非现有用户的身份计划备份， SnapManager 将显示错误消息： Invalid user ： username ： cannot create schedule backup for a given use.
+
+以下是一些与计划相关的任务：
+
+* 计划每小时，每天，每周，每月或一次进行数据库备份。
+* 查看与配置文件关联的计划备份列表。
+* 更新计划的备份。
+* 临时暂停计划。
+* 恢复暂停的计划。
+* 删除计划
+
+
+
+NOTE: 如果正在为该计划运行计划备份，则会禁用 * 立即运行菜单操作 * 复选框。

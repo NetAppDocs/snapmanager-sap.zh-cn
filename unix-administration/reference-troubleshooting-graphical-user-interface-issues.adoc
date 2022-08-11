@@ -1,0 +1,206 @@
+---
+permalink: unix-administration/reference-troubleshooting-graphical-user-interface-issues.html 
+sidebar: sidebar 
+keywords: information, common, graphical, user, interface, gui, issue, resolve, troubleshooting 
+summary: 您可以找到一些常见的已知图形用户界面（ GUI ）问题的相关信息，这些问题可能有助于您解决这些问题。 
+---
+= 排除图形用户界面问题
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到一些常见的已知图形用户界面（ GUI ）问题的相关信息，这些问题可能有助于您解决这些问题。
+
+|===
+| 问题描述 | 说明 | 临时解决策 
+
+
+ a| 
+访问SnapManager 图形用户界面以执行操作时、可能会显示以下错误消息：`sMSAP-20111：主机上的用户身份验证失败。`
+ a| 
+如果在运行 SnapManager 服务器的主机中更改了用户的密码，则会发生此问题描述。更改密码后，为启动 GUI 的用户创建的凭据缓存将无效。SnapManager 图形用户界面仍会使用缓存中的凭据进行身份验证，因此身份验证将失败。
+ a| 
+您必须执行以下任务之一：
+
+* 删除密码已更改的用户的凭据，然后运行以下命令在缓存中添加新凭据：
++
+.. `smsap credential delete`
+.. `smsap凭据集`
+
+
+* 运行`smsap credential clear命令`清除整个缓存。如果出现提示，请重新打开 GUI 并设置凭据。
+
+
+
+
+ a| 
+使用 Java Web Start 访问 SnapManager 图形用户界面时会显示安全警告。
+ a| 
+使用 Java Web Start 访问 SnapManager 图形用户界面时，将显示一条安全警告。之所以出现此问题描述，是因为 JNLP JAR 是自签名的，而 SnapManager 使用的 Java 版本在高安全级别不允许自签名 JAR 。
+ a| 
+在 Java 控制面板中将安全设置更改为中，或者将 SnapManager 图形用户界面 URL 添加到异常列表中。
+
+
+
+ a| 
+SnapManager Web Start 图形用户界面显示的版本不正确。
+ a| 
+在启动 Web Start GUI 时，将 SnapManager 从更高版本降级为早期版本后，将启动更高版本的 SnapManager Web Start GUI 。
+ a| 
+此外，您还必须执行以下步骤来清除缓存：
+
+. 启动控制台。
+. 输入以下内容：`* javaws -viewer*`
+. 在 Java 缓存查看器屏幕上，右键单击 SnapManager 应用程序并选择 * 删除 * 。
+
+
+
+
+ a| 
+重新启动 GUI 并尝试检查某个配置文件的备份时，您只会看到这些配置文件的名称。
+ a| 
+只有在打开配置文件后， SnapManager 才会显示有关该配置文件的任何信息。
+ a| 
+执行以下步骤：
+
+. 右键单击配置文件，然后从菜单中选择 * 打开 * 。
++
+SnapManager 将显示配置文件身份验证对话框。
+
+. 输入主机用户名和密码。
++
+SnapManager 将显示备份列表。
+
+
+
+
+NOTE: 只要凭据有效并保留在缓存中，您只需要对配置文件进行一次身份验证。
+
+
+
+ a| 
+在GUI中打开第一个存储库时、将显示类似以下内容的错误消息：`配置文件名称XXXX与先前加载的存储库冲突。`
+ a| 
+存储库中不能存在命名相同的配置文件。此外，一次只能打开一个存储库。
+ a| 
+请参考两个不同操作系统(OS)用户的冲突配置文件、或者通过对存储库发出SQL语句来重命名配置文件：`* update smsap_33_profile set name ="new_name "、其中name ="old_name"*`
+
+
+
+ a| 
+此时将显示类似以下内容的错误消息：smsap-01092：`Unable to initialize repository repo1@ does not exist：repo1smsap-11-6：cannot resolve host does not exist`
+ a| 
+此存储库无法访问，可能是因为它不再存在。GUI 会从凭据文件初始化存储库列表。
+ a| 
+此错误消息会询问您是否要删除此存储库，以便将来不再尝试加载它。如果不需要访问此存储库，请单击 * 删除 * 将其从图形用户界面视图中删除。此操作会删除凭据文件中对存储库的引用，并且图形用户界面不会再次尝试加载存储库。
+
+
+
+ a| 
+由于主机凭据无法在 SUSE Linux Enterprise Server 10 和 SUSE Linux Enterprise Server 11 平台中进行身份验证，配置文件创建失败。
+ a| 
+SnapManager 使用可插拔身份验证模块（ PAM ）对用户进行身份验证。在SUSE Linux Enterprise Server 10和11版平台中、默认情况下、在`/etc/pam`目录中没有提供所需身份验证详细信息的`SnapManager`文件。因此，主机凭据将失败。
+ a| 
+要成功登录到 SUSE Linux Enterprise Server 10 和 11 平台中的主机，请执行以下步骤：
+
+. 在``/etc/pm.d/.``中创建`SnapManager`文件
+. 将以下内容添加到``/etc/pam``/SnapManager的`SnapManager`文件中：
++
+[listing]
+----
+
+#%PAM-1.0
+auth     include   common-auth
+account  include   common-account
+password include   common-password
+session  include   common-session
+----
+. 保存此文件，然后重试配置文件创建操作。
+
+
+
+
+ a| 
+SnapManager 加载数据库树结构所需时间较长，并导致 SnapManager 图形用户界面上显示超时错误消息。
+ a| 
+当您尝试从 SnapManager 图形用户界面执行部分备份操作时， SnapManager 会尝试加载所有配置文件的凭据，如果存在任何无效条目，则 SnapManager 会尝试验证此条目，从而导致显示超时错误消息。
+ a| 
+在SnapManager 命令行界面(CLI)中使用`credential delete`命令删除未使用的主机、存储库和配置文件的凭据。
+
+
+
+ a| 
+在克隆拆分操作后， SnapManager 无法生成新配置文件，您不知道是否已创建新配置文件。
+ a| 
+如果在克隆拆分操作后未创建新配置文件， SnapManager 将无法提示您。由于未显示失败操作的消息，因此您可能会假定已创建配置文件。
+ a| 
+要了解是否为克隆拆分操作创建了新的配置文件，请执行以下步骤：
+
+. 单击 * 监控 * 选项卡，右键单击克隆拆分操作条目，然后选择 * 属性 * 。
+. 在配置文件属性窗口中，单击 * 日志 * 选项卡以查看克隆拆分操作和配置文件创建日志。
+
+
+
+
+ a| 
+在 SnapManager 图形用户界面中看不到在备份，还原或克隆操作之前或之后发生的预处理或后处理活动的自定义脚本。
+ a| 
+启动相应向导后，如果在自定义备份，还原或克隆脚本位置添加自定义脚本，则自定义脚本不会显示在 Available Scripts 列表下。
+ a| 
+重新启动 SnapManager 主机服务器，然后打开 SnapManager 图形用户界面。
+
+
+
+ a| 
+不能使用在 SnapManager （ 3.1 或更早版本）中创建的克隆规范 XML 文件执行克隆操作。
+ a| 
+在SnapManager 3.2 for SAP中、任务规范部分(任务规范)作为单独的任务规范XML文件提供。
+ a| 
+如果您使用的是SnapManager 3.2 for SAP、则必须从克隆规范XML中删除任务规范部分、或者创建新的克隆规范XML文件。SnapManager 3.3或更高版本不支持在SnapManager 3.2或更早版本中创建的克隆规范XML文件。
+
+
+
+ a| 
+在SnapManager 命令行界面中使用`smsap credential clear`命令或在SnapManager 图形用户界面中单击*管理*>*凭据*>*清除*缓存*来清除用户凭据后、GUI上的SnapManager 操作无法继续。
+ a| 
+系统将清除为存储库，主机和配置文件设置的凭据。SnapManager 会在开始任何操作之前验证用户凭据。如果用户凭据无效， SnapManager 将无法进行身份验证。从存储库中删除主机或配置文件后，用户凭据仍可在缓存中使用。这些不必要的凭据条目会降低 GUI 中 SnapManager 操作的速度。
+ a| 
+根据缓存的清除方式重新启动 SnapManager 图形用户界面。
+
+[NOTE]
+====
+* 如果已从 SnapManager 图形用户界面中清除凭据缓存，则无需退出 SnapManager 图形用户界面。
+* 如果已从 SnapManager 命令行界面清除凭据缓存，则必须重新启动 SnapManager 图形用户界面。
+* 如果您手动删除了加密的凭据文件，则必须重新启动 SnapManager 图形用户界面。
+
+
+====
+设置为存储库，配置文件主机和配置文件提供的凭据。在 SnapManager 图形用户界面中，如果存储库树下未映射任何存储库，请执行以下步骤：
+
+. 单击 * 任务 * > * 添加现有存储库 *
+. 右键单击存储库，单击 * 打开 * ，然后在 * 存储库凭据身份验证 * 窗口中输入用户凭据。
+. 右键单击存储库下的主机，单击 * 打开 * ，然后在 * 主机凭据身份验证 * 中输入用户凭据。
+. 右键单击主机下的配置文件，单击 * 打开 * ，然后在 * 配置文件凭据身份验证 * 中输入用户凭据。
+
+
+
+
+ a| 
+从配置文件属性窗口的*保护管理器保护策略*下拉菜单和配置文件创建向导的策略设置页面中选择*无*时、将显示错误消息`由于以下原因无法列出保护策略：Protection Manager暂时不可用`。
+ a| 
+未为保护管理器配置 SnapManager ，或者保护管理器未运行。
+ a| 
+无需执行任何操作。
+
+
+
+ a| 
+由于浏览器的安全套接字层（ Secure Sockets Layer ， SSL ）密码强度较弱，您无法使用 Java Web Start 图形用户界面打开 SnapManager 图形用户界面。
+ a| 
+SnapManager 不支持小于 128 位的 SSL 密码。
+ a| 
+升级浏览器版本并检查密码强度。
+
+|===

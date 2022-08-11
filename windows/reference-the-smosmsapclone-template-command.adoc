@@ -1,0 +1,64 @@
+---
+permalink: windows/reference-the-smosmsapclone-template-command.html 
+sidebar: sidebar 
+keywords: command, create, clone, specification, template, smsap 
+summary: 此命令可用于创建克隆规范模板。 
+---
+= smsap clone template命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令可用于创建克隆规范模板。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap clone template
+-profile name
+[-backup-id guid  | -backup-label backup_name]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_name_`*
++
+指定要创建克隆规范的数据库。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-backup-id _guid_`*
++
+使用指定 GUID 从备份创建克隆规范。GUID 由 SnapManager 在创建备份时生成。使用`smsap backup list`命令显示每个备份的GUID。
+
+* *`-backup-label _backup_laber_name_`*
++
+使用指定的备份标签从备份创建克隆规范。
+
+* *`-静默`*
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+以下示例将从标签为 full_backup_sales 的备份创建一个克隆规范模板。smsap clone template命令完成后、克隆规范模板即完成。
+
+[listing]
+----
+smsap clone template -profile SALES1 -backup-label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----

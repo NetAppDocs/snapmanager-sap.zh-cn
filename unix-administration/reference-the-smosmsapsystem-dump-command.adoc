@@ -1,0 +1,49 @@
+---
+permalink: unix-administration/reference-the-smosmsapsystem-dump-command.html 
+sidebar: sidebar 
+keywords: run, system, dump, command, create, jar, file, contain, diagnostic, information, server, environment, smsap 
+summary: 您可以运行 system dump 命令来创建包含有关服务器环境的诊断信息的 JAR 文件。 
+---
+= smsap system dump命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`ssystem dump`命令来创建包含有关服务器环境的诊断信息的JAR文件。
+
+
+
+== 语法
+
+[listing]
+----
+smsap system dump
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* ``*-静默*``
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== system dump 命令示例
+
+以下示例使用smsap system dump命令创建JAR文件：
+
+[listing]
+----
+smsap system dump
+Path:/userhomedirectory/.netapp/smsap/3.3.0/smsap_dump_hostname.jar
+----

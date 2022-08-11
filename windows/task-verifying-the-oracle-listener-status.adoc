@@ -1,0 +1,29 @@
+---
+permalink: windows/task-verifying-the-oracle-listener-status.html 
+sidebar: sidebar 
+keywords: verify, oracle, listener, lsnrctl, status, command 
+summary: 您可以使用 lsnrctl status 命令验证 Oracle 侦听器状态。 
+---
+= 验证 Oracle 侦听器状态
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用 lsnrctl status 命令验证 Oracle 侦听器状态。
+
+* 您必须连接到数据库。
+
+
+侦听器端口详细信息如下：
+
+* 标准SAP Oracle安装会将侦听器端口设置为1527。
+* 引用托管数据库侦听器端口的任何内容的值均应为1527。
+* 引用存储库数据库侦听器端口的任何内容的值均应为1521."。
+
+
+Oracle侦听器的日志位于`%ORACLE_HOME%\network\log`、其中`ORACLE_HOME为\ORACLE\SID\Oracle version`。
+
+. 在命令提示符处、输入命令：`lsnrctl status`
+

@@ -1,0 +1,36 @@
+---
+permalink: unix-administration/task-view-clone-split-estimate.html 
+sidebar: sidebar 
+keywords: clone, split, estimate, help, total, free, space, available, aggregate, database, view 
+summary: 克隆拆分估计值可帮助您了解聚合上的可用总空间，克隆与原始数据库之间共享的空间量以及克隆专用的空间。此外，您还可以查看创建底层克隆的日期和时间以及克隆的期限。根据此估计值，您可以决定是否拆分克隆。 
+---
+= 查看克隆拆分估计值
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+克隆拆分估计值可帮助您了解聚合上的可用总空间，克隆与原始数据库之间共享的空间量以及克隆专用的空间。此外，您还可以查看创建底层克隆的日期和时间以及克隆的期限。根据此估计值，您可以决定是否拆分克隆。
+
+* 关于此任务 *
+
+要查看克隆拆分估计值，必须输入原始克隆的配置文件名称以及克隆操作的标签或 GUID 。如果克隆位于其他主机中，则可以指定主机名。
+
+.步骤
+. 要查看克隆拆分估计值、请输入以下命令：
++
+`* smsap clone ssplit—estimate -profile _profiles_[-host _hostname_][-label _clone-label ______- id _clone-id_][-quiet _-verbes]*`
+
+
+
+'''
+以下示例显示了用于克隆拆分存储估计的命令：
+
+[listing]
+----
+
+					smsap clone split-estimate
+-profile p1 -label clone_test_label
+----
+'''

@@ -1,0 +1,38 @@
+---
+permalink: unix-installation-7mode/task-post-rollback-tasks.html 
+sidebar: sidebar 
+keywords: perform, additional, step, rollback, repository, database, downgrade, snapmanager, host, schedule, version, post, task 
+summary: 回滚存储库数据库并将 SnapManager 主机从 SnapManager 3.2 降级到 SnapManager 3.0 后，您必须执行一些其他步骤，才能查看在早期版本的存储库数据库中创建的计划。 
+---
+= 回滚后任务
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+回滚存储库数据库并将 SnapManager 主机从 SnapManager 3.2 降级到 SnapManager 3.0 后，您必须执行一些其他步骤，才能查看在早期版本的存储库数据库中创建的计划。
+
+. 导航到`cd /opt/netapp/smsap/stores`。
++
+`re存储库`目录可能包含每个存储库的两个文件。带有数字符号（ # ）的文件名使用 SnapManager 3.1 或更高版本创建，而带有连字符（ - ）的文件名使用 SnapManager 3.0 创建。
+
++
+* 示例 *
+
++
+文件名可能如下：
+
++
+** `re存储库#SMSAP300#SMSAPREPO1#10.72.197.141#1521`
+** `repostree-smsap300a-smsaprepo1-10.72.197.141-1521`
+
+
+. 将文件名中的数字符号（ # ）替换为连字符（ - ）。
++
+* 示例 *
+
++
+具有数字符号(#)的文件名现在包含连字符(-)：`re存储器-SMSAP300A-SMSAPREPO1-10.72.197.141-151.`
+
+

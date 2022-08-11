@@ -1,0 +1,29 @@
+---
+permalink: unix-administration/task-create-system-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, system, dump, command, log, information, snapmanager, environment, log, level, collect, operation, profile, creating, create, system-level, file 
+summary: 您可以使用smsap system dump命令获取有关SnapManager 主机和环境的日志信息。您可以指定不同的日志级别来收集有关特定操作，配置文件或主机和环境的信息。 
+---
+= 创建系统级转储文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`smsap system dump`命令获取有关SnapManager 主机和环境的日志信息。您可以指定不同的日志级别来收集有关特定操作，配置文件或主机和环境的信息。
+
+.步骤
+. 输入以下命令：
++
+`* smsap system dump*`
+
++
+生成的转储
+
++
+[listing]
+----
+Path:/<user-home>/.netapp/smsap/3.3.0/smsap_dump_server_host.jar
+----
+

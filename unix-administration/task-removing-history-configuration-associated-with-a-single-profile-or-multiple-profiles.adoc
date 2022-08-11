@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-remove-history-configuration-associated-with-a-single-profile-or-multiple-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, remove, history, setting, operation, purge, information, associate, single, multiple, profile, removing 
+summary: 使用 SnapManager 可以删除 SnapManager 操作的历史记录设置。此操作将清除与一个或多个配置文件关联的所有历史记录信息。 
+---
+= 删除与单个或多个配置文件关联的历史记录设置
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以删除 SnapManager 操作的历史记录设置。此操作将清除与一个或多个配置文件关联的所有历史记录信息。
+
+.步骤
+. 要删除与单个或多个配置文件关联的SnapManager 操作历史记录、请输入以下命令：
++
+``* smsap history remove -profile｛_-name、profile_name [profile_name1、profile_name2_]| all-repository-login [-password _repo_password_]-username _repo_username_-dbname _repo_dbname_-host _repo_host_-port _repo_port_｝-operation _operation.
+
+

@@ -1,0 +1,110 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-show-command.html 
+sidebar: sidebar 
+keywords: backup, show, command, display, detail, information, backup, protection, status, retention, class, primary, secondary, storage, smsap 
+summary: 您可以使用 backup show 命令显示有关备份的详细信息，包括备份的保护状态，备份保留类以及主存储和二级存储上的备份。 
+---
+= smsap backup show命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`backup show`命令显示有关备份的详细信息、包括其保护状态、备份保留类以及主存储和二级存储上的备份。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup show
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定要显示备份的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* ``*-标签_label-*``
++
+指定备份的标签。
+
+* ``*-数据*``
++
+指定数据文件。
+
+* ``*—archivelogs*``
++
+指定归档日志文件。
+
+* ``*—id _id_*``
++
+指定备份 ID 。
+
+* ``*-静默*``
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台中显示错误，警告和信息性消息，以及任何克隆和验证信息。
+
+
+
+'''
+
+
+== 示例
+
+以下示例显示了有关备份的详细信息：
+
+[listing]
+----
+smsap backup show -profile SALES1 -label BTNFS -verbose
+Backup id: 8abc013111a450480111a45066210001
+Backup status: SUCCESS
+Primary storage resources: EXISTS
+Protection sate: PROTECTED
+Retention class: DAILY
+Backup scope: FULL
+Backup mode: OFFLINE
+Mount status: NOT MOUNTED
+Backup label: BTNFS
+Backup comment:
+
+Backup start time: 2007-03-30 15:26:30
+Backup end time: 2007-03-30 15:34:13
+Verification status: OK
+Backup Retention Policy: NORMAL
+Backup database: hsdb1
+Checkpoint: 2700620
+Tablespace: SYSAUX
+Datafile: /mnt/ssys1/data/hsdb/sysaux01.dbf [ONLINE]
+...
+Control Files:
+File: /mnt/ssys1/data/control03.ctl
+...
+Archive Logs:
+File: /mnt/ssys1/data/archive_logs/2_131_626174106.dbf
+...
+Host: Host1
+Filesystem: /mnt/ssys1/data
+File: /mnt/ssys1/data/hsdb/SMSAPBakCtl_1175283005231_0
+...
+Volume: hs_data
+Snapshot: SMSAP_HSDBR_hsdb1_F_C_1_
+8abc013111a450480111a45066210001_0
+File: /mnt/ssys1/data/hsdb/SMSAPBakCtl_1175283005231_0
+...
+Protected copies on Secondary Storage:
+  14448939 - manow
+  88309228 - graffe
+----
+'''

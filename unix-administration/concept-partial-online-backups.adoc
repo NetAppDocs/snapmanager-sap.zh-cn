@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/concept-partial-online-backups.html 
+sidebar: sidebar 
+keywords: full, backup, perform, partial, backup, tablespace, database, snapmanager, online 
+summary: 您可以选择对数据库中的表空间执行部分备份，而不是执行完整备份。虽然 SnapManager 为卷创建 Snapshot 副本以进行完整备份，但 SnapManager 为每个指定表空间创建一个 Snapshot 副本以进行部分备份。 
+---
+= 部分联机备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以选择对数据库中的表空间执行部分备份，而不是执行完整备份。虽然 SnapManager 为 _full_ 备份创建卷的 Snapshot 副本，但 SnapManager 为 _partial_ 备份创建每个指定表空间的 Snapshot 副本。
+
+由于表空间级别是 Oracle 允许进入备份模式的最低级别，因此 SnapManager 会在表空间级别处理备份，即使您在表空间中指定了数据文件也是如此。
+
+对于部分备份，与完整备份相比，每个表空间在备份模式下的时间更短。在联机备份期间，用户始终可以使用数据库；但是，数据库必须执行更多工作，主机必须执行更多物理 I/O此外，由于 SnapManager 正在为指定的每个表空间或包含指定数据文件的每个表空间创建 Snapshot 副本，而不是为整个卷创建 Snapshot 副本，因此会创建更多的 Snapshot 副本。
+
+SnapManager 为特定表空间或数据文件创建 Snapshot 副本。部分备份算法是一个循环， SnapManager 会重复此循环，直到为每个指定的表空间或数据文件创建 Snapshot 副本为止。
+
+
+NOTE: 虽然您可以执行部分备份，但建议始终对整个数据库执行完整备份。
+
+在部分备份期间， SnapManager 会执行以下操作：
+
+. 将包含数据文件的表空间置于备份模式。
+. 为表空间使用的所有卷创建 Snapshot 副本。
+. 使表空间退出备份模式。
+. 继续执行此过程，直到为所有表空间或文件创建 Snapshot 副本为止。
+. 强制执行日志切换，然后归档日志文件。
+. 生成备份控制文件。
+. 为日志文件和备份控制文件创建 Snapshot 副本。
+

@@ -1,0 +1,32 @@
+---
+permalink: windows/concept-deprecated-versions-of-oracle-database.html 
+sidebar: sidebar 
+keywords: oracle, database, 9i, support, snapmanager, 10gr2, deprecate, version 
+summary: SnapManager 3.2 或更高版本不支持 Oracle 数据库 9i ， SnapManager 3.3.1 或更高版本不支持 Oracle 数据库 10gR2 （ 10.2.0.4 之前的版本）。 
+---
+= 已弃用的 Oracle 数据库版本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 3.2 或更高版本不支持 Oracle 数据库 9i ， SnapManager 3.3.1 或更高版本不支持 Oracle 数据库 10gR2 （ 10.2.0.4 之前的版本）。
+
+如果您使用的是 Oracle 9i 或 10gR2 （ 10.2.0.4 之前的版本）数据库，并且要升级到 SnapManager 3.2 或更高版本，则无法创建新的配置文件；此时将显示警告消息。
+
+如果您使用的是 Oracle 9i 或 10gR2 （ 10.2.0.4 之前的版本）数据库，并且要升级到 SnapManager 3.2 或更高版本，则必须执行以下操作之一：
+
+* 将 Oracle 9i 或 10gR2 （ 10.2.0.4 之前的版本）数据库升级到 Oracle 10gR2 （ 10.2.0.5 ）， 11gR1 或 11gR2 数据库，然后升级到 SnapManager 3.2 或 3.3 。
++
+如果要升级到 Oracle 12_c_ ，则必须升级到 SnapManager 3.3.1 或更高版本。
+
++
+
+NOTE: 只有 SnapManager 3.3.1 才支持 Oracle 数据库 12_c_ 。
+
+* 使用修补版本的 SnapManager 3.1 管理 Oracle 9i 数据库。
++
+如果要管理 Oracle 10gR2 ， 11gR1 或 11gR2 数据库，可以使用 SnapManager 3.2 或 3.3 ；如果要管理 Oracle 12__c_ 数据库以及其他受支持的数据库，则可以使用 SnapManager 3.3.1 或更高版本。
+
+

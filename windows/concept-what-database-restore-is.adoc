@@ -1,0 +1,60 @@
+---
+permalink: windows/concept-what-database-restore-is.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, perform, file-based, backup, restore, operation, database 
+summary: 使用 SnapManager 可以执行基于文件的备份和还原操作。 
+---
+= 什么是数据库还原
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 SnapManager 可以执行基于文件的备份和还原操作。
+
+下表介绍了还原方法：
+
+|===
+| 还原过程 | 详细信息 
+
+
+ a| 
+基于文件的还原
+ a| 
+存储端完整文件系统还原（从主系统或二级系统）： SnapManager 执行完整逻辑单元号（ LUN ）还原。
+
+|===
+
+
+== 存储端完整文件系统还原
+
+如果无法执行卷还原，但可以在存储系统上还原整个文件系统，则会执行存储端完整文件系统还原。
+
+执行存储端文件系统还原时，将发生以下情况：
+
+* 在 SAN 环境中，文件系统使用的所有 LUN （以及底层卷组（如果有）都会还原到存储系统上。
+
+
+执行存储端文件系统还原时，根据存储位置，将发生以下情况：
+
+* 从主存储系统还原 SnapManager 时， LUN （ SAN ）会通过 SFSR 原位还原。
+* 从二级存储系统还原 SnapManager 时， LUN （ SAN ）会通过网络从二级存储系统复制回主存储系统。
+
+
+由于文件系统已完全还原，因此也会还原不属于备份的文件。如果要还原的文件系统中存在非还原过程中的文件，则需要覆盖。
+
+
+
+== 主机端文件还原
+
+在无法执行存储端文件系统还原和存储端文件还原时，主机端文件副本还原是 SAN 环境中的最后一种解决方法。
+
+主机端文件副本还原涉及以下任务：
+
+* 克隆存储
+* 将克隆的存储连接到主机
+* 将文件从克隆文件系统复制回活动文件系统
+* 断开克隆存储与主机的连接
+* 删除克隆存储
+

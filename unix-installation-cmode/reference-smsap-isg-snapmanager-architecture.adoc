@@ -1,0 +1,65 @@
+---
+permalink: unix-installation-cmode/reference-smsap-isg-snapmanager-architecture.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, component, work, together, comprehensive, powerful, backup, restore, recovery, clone, solution, oracle, database, architecture 
+summary: SnapManager for SAP包含一些组件、这些组件可以协同工作、为Oracle数据库提供全面而强大的备份、还原、恢复和克隆解决方案。 
+---
+= SnapManager 架构
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager for SAP包含一些组件、这些组件可以协同工作、为Oracle数据库提供全面而强大的备份、还原、恢复和克隆解决方案。
+
+image::../media/smsap_architcture_cmode.gif[cmode的smsap架构图]
+
+
+
+== 适用于 UNIX 的 SnapDrive
+
+SnapManager 要求 SnapDrive 与存储系统建立连接。在安装 SnapManager 之前，必须在每个目标数据库主机上安装 SnapDrive for UNIX 。
+
+
+
+== 适用于SAP的SnapManager
+
+您必须在每个目标数据库主机上安装SnapManager for SAP。
+
+您可以从安装了SnapManager for SAP的数据库主机使用命令行界面(CLI)或UI。您也可以从 SnapManager 支持的操作系统上运行的任何系统使用 Web 浏览器远程使用 SnapManager UI 。
+
+
+NOTE: 支持的JRE版本为1.8。
+
+
+
+== 目标数据库
+
+目标数据库是要通过执行备份，还原，恢复和克隆操作使用 SnapManager 管理的 Oracle 数据库。
+
+目标数据库可以是独立的 Real Application Clusters （ RAC ），也可以驻留在 Oracle Automatic Storage Management （ ASM ）卷上。有关受支持的 Oracle 数据库版本，配置，操作系统和协议的详细信息，请参见 NetApp 互操作性表工具。
+
+
+
+== SnapManager 存储库
+
+SnapManager 存储库位于 Oracle 数据库中，用于存储有关配置文件，备份，还原，恢复和克隆的元数据。一个存储库可以包含有关对多个数据库配置文件执行的操作的信息。
+
+SnapManager 存储库不能驻留在目标数据库中。在执行 SnapManager 操作之前， SnapManager 存储库数据库和目标数据库必须处于联机状态。
+
+
+
+== 主存储系统
+
+SnapManager 会备份NetApp主存储系统上的目标数据库。
+
+
+
+== 二级存储系统
+
+在数据库配置文件上启用数据保护后， SnapManager 在主存储系统上创建的备份将使用 SnapVault 和 SnapMirror 技术复制到二级 NetApp 存储系统。
+
+* 相关信息 *
+
+http://mysupport.netapp.com/matrix["NetApp 互操作性表工具"^]

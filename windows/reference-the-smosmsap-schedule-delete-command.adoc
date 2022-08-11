@@ -1,0 +1,40 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-delete-command.html 
+sidebar: sidebar 
+keywords: command, delete, backup, schedule, smsap 
+summary: 此命令将删除不再需要的备份计划。 
+---
+= smsap schedule delete命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令将删除不再需要的备份计划。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap schedule delete
+-profile profile_name
+-schedule-name schedule_name
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定与要删除备份计划的数据库相关的配置文件的名称。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-schedule-name _schedule_name_`*
++
+指定创建备份计划时提供的计划名称。
+
+

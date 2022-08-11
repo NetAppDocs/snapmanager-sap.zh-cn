@@ -1,0 +1,63 @@
+---
+permalink: windows/task-updating-target-database-hostname-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, provide, ability, update, host, name, target, database, profile, updating, associate 
+summary: 'SnapManager \（3.2或更高版本\) for SAP可用于更新SnapManager 配置文件中目标数据库的主机名。' 
+---
+= 更新与配置文件关联的目标数据库主机名
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager (3.2或更高版本) for SAP可以更新SnapManager 配置文件中目标数据库的主机名。
+
+* 本地用户的主目录必须了解配置文件到存储库的映射。
+* 必须关闭 SnapManager 图形用户界面（ GUI ）会话。
+
+
+您只能使用命令行界面使用新主机名更新配置文件。
+
+* 不支持在配置文件中更改目标数据库主机名的情形 *
+
+不支持在以下情况下更改配置文件中的目标数据库主机名：
+
+* 使用 SnapManager 图形用户界面更改目标数据库主机名
+* 更新配置文件的目标数据库主机名后回滚存储库数据库
+* 运行一个命令，为新的目标数据库主机名更新多个配置文件
+* 在运行任何 SnapManager 操作时更改目标数据库主机名
+
+
+
+NOTE: 更新配置文件中的目标数据库主机名后，只会更改目标数据库主机名。配置文件上设置的所有其他配置参数均会保留。
+
+更新目标数据库主机名后，如果克隆或挂载的备份在新主机中不可用，则无法删除或卸载此备份。在这种情况下，从新主机运行 SnapManager 操作会导致故障以及早期主机中的陈旧条目。要执行 SnapManager 操作，您必须使用配置文件更新还原到早期的主机名。
+
+.步骤
+. 输入以下命令：
++
+`smsap profile update -profileprofile "-profile-passwordprofile_password]-database-dbnamedb_dbname-hostdb_host [-siddb_sidi][-login-usernamedb_username-passdb_password-portdb_portdport_port]]]｛-mmanerman｛-edman-ederman file _｛-login-user-mail-try_trusername-zhn.-zhn.-zhn.-trip-zhun.-zh.-zh.-zh.-zh.-zhun.-zh.-zh.-zh.-trip.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-`
+
++
+此命令的其他选项如下：
+
++
+【 -force】 【 -noprompt】
+
++
+|===
+| 如果您要 ... | 那么 ... 
+
+
+ a| 
+* 更改目标数据库主机名 *
+ a| 
+指定 -hostnew_db_host
+
+|===
+. 要查看配置文件的目标数据库主机名、请输入以下命令：
++
+`smsap profile show`
+
+

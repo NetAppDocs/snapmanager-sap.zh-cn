@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/reference-mounting-a-flexclone-fails-in-nfs-environment.html 
+sidebar: sidebar 
+keywords: snapmanager, create, flexclone, volume, nfs, environment, export, file, clone, backup, fail, mount, error, message 
+summary: 当 SnapManager 在 NFS 环境中为卷创建 FlexClone 时， /etc/exports 文件中会添加一个条目。克隆或备份无法挂载到 SnapManager 主机上，并显示错误消息。 
+---
+= 在 NFS 环境中挂载 FlexClone 卷失败
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+当SnapManager 在NFS环境中为卷创建FlexClone时、会在`/etc/exports`文件中添加一个条目。克隆或备份无法挂载到 SnapManager 主机上，并显示错误消息。
+
+错误消息是：`` 0001-034命令错误：挂载失败：挂载：/opt/snapManager_20090914112850837_vol14 on /opt/NTAPsmsap/mnt/-ora_data02-20090914112850735_1 -警告未知选项"zone=vol14" nfs挂载：filer1vol_2001450735_1：snapv1.709-权限被拒绝。
+
+同时、存储系统控制台会生成以下消息：`mon Sep 14 23：58：37 pdt [filer1：export.auto.update.disabled: warning]：在运行vol clone create命令时、没有为vol14更新/etc/exports。请手动更新/etc/exports或将/etc/exports.new复制到其中`。
+
+此消息可能未捕获到 AutoSupport 消息中。
+
+
+NOTE: 在 NFS 上克隆 FlexVol 卷时，可能会遇到类似的问题。您可以按照相同步骤启用`nfs.export.auto-update`选项。
+
+* 操作 *
+
+. 设置`nfs.export.auto-update`选项`_on_`、以便自动更新`/etc/exports`文件。
+
+
+`*选项nfs.export.auto-update _on_*`
+
+
+NOTE: 在 HA 对配置中，确保将两个存储系统的 NFS 导出选项都设置为 on 。

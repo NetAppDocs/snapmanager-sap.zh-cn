@@ -1,0 +1,55 @@
+---
+permalink: windows/reference-the-smosmsapprofile-delete-command.html 
+sidebar: sidebar 
+keywords: run, profile, delete, command, database, smsap 
+summary: 您可以运行 profile delete 命令来删除数据库的配置文件。 
+---
+= smsap profile delete命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`profile delete`命令删除数据库的配置文件。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap profile delete
+-profile profile
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`-profile _profiles_`*
++
+指定要删除的配置文件。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下示例将删除此配置文件：
+
+[listing]
+----
+smsap profile delete -profile SALES1
+Operation Id [Ncaf00af0242b3e8dba5c68a57a5ae932] succeeded.
+----

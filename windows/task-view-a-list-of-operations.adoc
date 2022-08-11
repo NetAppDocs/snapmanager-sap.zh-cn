@@ -1,0 +1,37 @@
+---
+permalink: windows/task-view-a-list-of-operations.html 
+sidebar: sidebar 
+keywords: view, summary, operation, perform, profile, list 
+summary: 您可以查看对配置文件执行的所有操作的摘要列表。 
+---
+= 查看操作列表
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看对配置文件执行的所有操作的摘要列表。
+
+
+
+== 关于此任务
+
+列出与特定配置文件关联的操作时，您可以查看以下信息：
+
+* 运行操作的开始和结束日期
+* 操作状态
+* 操作 ID
+* 操作类型
+* 运行它的主机
+
+
+.步骤
+. 要列出所有操作的摘要信息、请使用以下命令：
++
+`* smsap操作列表配置文件-profile _profile_name_-ac分隔 符_character_[-quiet |-verbose ]*`
+
++
+指定`分隔符`选项后、该命令将在单独的行中列出每一行、并使用指定的字符分隔该行中的属性。
+
+

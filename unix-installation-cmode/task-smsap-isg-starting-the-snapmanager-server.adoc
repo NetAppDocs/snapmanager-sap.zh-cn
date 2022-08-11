@@ -1,0 +1,34 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-start-the-snapmanager-server.html 
+sidebar: sidebar 
+keywords: start, snapmanager, server, target, database, host 
+summary: 您必须从目标数据库主机启动 SnapManager 服务器。 
+---
+= 启动SnapManager 服务器
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须从目标数据库主机启动 SnapManager 服务器。
+
+.步骤
+. 登录到目标数据库主机并启动 SnapManager 服务器：
++
+`* smsap_server start*`
+
++
+此时将显示以下消息：`SnapManager Server started on secure port port_number with PID PID_number.`
+
++
+
+NOTE: 默认端口为 272.14 。
+
+
+
+您可以验证 SnapManager 是否运行正常：
+
+`* smsap_server verify*`
+
+此时将显示以下消息：`Operation ID _operation_ID_number_ succeeded.`

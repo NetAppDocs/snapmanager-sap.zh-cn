@@ -1,0 +1,49 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-provision-the-new-dataset.html 
+sidebar: sidebar 
+keywords: smsap_paydb, dataset, create, storage, administrator, protection, manager, assign, system, resource, provision, backup, node 
+summary: 创建smsap_paydb数据集后、存储管理员使用Protection Manager分配存储系统资源以配置数据集的备份节点。 
+---
+= 使用Protection Manager配置新数据集
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+创建smsap_paydb数据集后、存储管理员使用Protection Manager分配存储系统资源以配置数据集的备份节点。
+
+* 您需要的内容 *
+
+在配置新创建的数据集之前，存储管理员会向 DBA 配对节点授予在配置文件中指定的数据集的名称。
+
+在这种情况下、数据集名称是smsap_prod01.sample.com_P01。
+
+.步骤
+. 转到 Protection Manager 的 NetApp 管理控制台。
+. 从菜单栏中，单击 * 数据 * > * 数据集 * > * 概述 * 。
++
+数据集窗口的数据集选项卡显示了一个数据集列表，其中包含刚刚通过 SnapManager 创建的数据集。
+
+. 找到并选择*。smsap_prod01.sample.com_p01*数据集。
++
+选择此数据集后、图形区域将显示smsap_P01数据集及其备份节点未配置。其遵从性状态将标记为不遵从。
+
+. 在smsap_P01数据集仍突出显示的情况下、单击*编辑*。
++
+Protection Manager的NetApp管理控制台将显示*。smsap_prod01.sample.com_p01*数据集的编辑数据集窗口。此窗口的导航窗格显示数据集的主节点，备份连接和备份节点的配置选项。
+
+. 从导航窗格中，找到数据集备份节点的选项，然后选择 * 配置 / 资源池 * 。
++
+编辑数据集窗口将显示默认配置策略的设置以及可用资源池的列表。
+
+. 在此示例中、选择* p01_backup_resource*资源池、然后单击*>*。
++
+选定资源池将列在 " 此节点的资源池 " 字段中。
+
+. 单击 * 完成 * 以保存所做的更改。
+
+
+* 结果 *
+
+Protection Manager 会自动为二级备份节点配置来自 paydb_backup_resource 池的资源。

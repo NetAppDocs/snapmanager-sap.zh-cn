@@ -1,0 +1,21 @@
+---
+permalink: windows/task-delete-profiles.html 
+sidebar: sidebar 
+keywords: delete, profile, successful, incomplete, backup, free, deleting 
+summary: 您可以随时删除配置文件，只要该配置文件不包含成功或不完整的备份即可。您可以删除包含已释放或已删除备份的配置文件。 
+---
+= 删除配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以随时删除配置文件，只要该配置文件不包含成功或不完整的备份即可。您可以删除包含已释放或已删除备份的配置文件。
+
+.步骤
+. 要删除配置文件、请输入以下命令：
++
+`* smsap profile delete -profile _profile_name_*`
+
+

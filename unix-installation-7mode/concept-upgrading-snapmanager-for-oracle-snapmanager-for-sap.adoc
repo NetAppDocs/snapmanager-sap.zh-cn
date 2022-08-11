@@ -1,0 +1,14 @@
+---
+permalink: unix-installation-7mode/concept-upgrading-snapmanager-for-oracle-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: upgrade, version, snapmanager, sap, host, simultaneously, perform, roll, host-by-host, manner, upgrading 
+summary: 您可以从任何早期版本升级到适用于SAP的SnapManager 的最新版本。您可以同时升级所有 SnapManager 主机，也可以执行滚动升级，以便按主机交错升级主机。 
+---
+= 升级 SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以从任何早期版本升级到适用于SAP的SnapManager 的最新版本。您可以同时升级所有 SnapManager 主机，也可以执行滚动升级，以便按主机交错升级主机。

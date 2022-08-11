@@ -1,0 +1,27 @@
+---
+permalink: windows/reference-unable-to-restore-rac-database-from-one-of-the-rac-nodes-where-the-profile-was-not-created.html 
+sidebar: sidebar 
+keywords: oracle, rac, environment, node, cluster, restore, backup, operation, fail, profile 
+summary: 在两个节点都属于同一集群的 Oracle RAC 环境中，如果您尝试从与创建备份的节点不同的节点执行还原操作，则还原操作将失败。 
+---
+= 无法从未创建配置文件的一个 RAC 节点还原 RAC 数据库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在两个节点都属于同一集群的 Oracle RAC 环境中，如果您尝试从与创建备份的节点不同的节点执行还原操作，则还原操作将失败。
+
+例如，如果您在节点 A 中创建备份并尝试从节点 B 还原，还原操作将失败。
+
+* 操作 *
+
+在从节点 B 执行还原操作之前，请在节点 B 中执行以下操作：
+
+.步骤
+. 添加存储库。
+. 运行命令`smo profile sync`以同步此配置文件。
+. 运行命令`smo credential set`为要用于还原操作的配置文件设置凭据。
+. 运行命令`smo profile update`以更新配置文件以添加新主机名和相应的SID。
+

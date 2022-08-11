@@ -1,0 +1,18 @@
+---
+permalink: windows/concept-restoration-of-the-data-from-files.html 
+sidebar: sidebar 
+keywords: restore, alternate, location, file, storage, media, application, snapvault, snapmirror, system, local, host 
+summary: 在从备用位置还原之前，您需要从任何存储介质还原必要的文件，并将文件从 SnapVault 或 SnapMirror 等应用程序还原到本地主机上挂载的文件系统。 
+---
+= 从文件还原数据
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在从备用位置还原之前，您需要从任何存储介质还原必要的文件，并将文件从 SnapVault 或 SnapMirror 等应用程序还原到本地主机上挂载的文件系统。
+
+您可以使用从备用位置还原操作将文件从备用文件系统复制到活动文件系统。
+
+您需要通过创建还原规范来指定用于还原原始文件的备用位置。

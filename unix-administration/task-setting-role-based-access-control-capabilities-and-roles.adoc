@@ -1,0 +1,278 @@
+---
+permalink: unix-administration/task-set-role-based-access-control-capabilities-and-roles.html 
+sidebar: sidebar 
+keywords: enable, role-based, access, control, rbac, snapmanager, snapdrive, capabilities, capability, setting, role, operation 
+summary: 在使用 SnapDrive 为 SnapManager 启用基于角色的访问控制（ Role-Based Access Control ， RBAC ）后，您可以向角色添加 RBAC 功能和用户以执行 SnapManager 操作。 
+---
+= 设置基于角色的访问控制功能和角色
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在使用 SnapDrive 为 SnapManager 启用基于角色的访问控制（ Role-Based Access Control ， RBAC ）后，您可以向角色添加 RBAC 功能和用户以执行 SnapManager 操作。
+
+* 您需要的内容 *
+
+您必须在 Data Fabric Manager 服务器中创建一个组，并将该组添加到主存储系统和二级存储系统。运行以下命令：
+
+* `dfm group create _smsap_grp_`
+* `dfm group add _smsap_grpprimary_storage_system_`
+* `dfm group add _smsap_grpsecondary _storage_system_`
+
+
+* 关于此任务 *
+
+您可以使用 Operations Manager Web 界面或 Data Fabric Manager 服务器命令行界面（ CLI ）来修改 RBAC 功能和角色。
+
+下表列出了执行 SnapManager 操作所需的 RBAC 功能：
+
+[cols="1a,2a,3a"]
+|===
+| SnapManager 操作 | 未启用数据保护时所需的 RBAC 功能 | 启用数据保护时所需的 RBAC 功能 
+
+
+ a| 
+配置文件创建或配置文件更新
+ a| 
+sd.storage.read (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+配置文件保护
+ a| 
+dfm.Database.Write (smsap_grp)
+
+sd.storage.read (smsap_grp)
+
+sd.Config.Read (smsap_grp)
+
+sd.Config.Write (smsap_grp)
+
+sd.Config.Delete (smsap_grp)
+
+GlobalDataProtection
+ a| 
+无
+
+
+
+ a| 
+创建备份
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.Write (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Delete (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Write (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Delete (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+备份创建（使用 DBverify ）
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.Write (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Delete (smsap_grp)
+
+sd.snapshot.Clone (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Write (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Delete (SMSAP `_配置文件_`数据集)
+
+sd.snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+备份创建（使用 RMAN ）
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.Write (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Delete (smsap_grp)
+
+sd.snapshot.Clone (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Write (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Delete (SMSAP `_配置文件_`数据集)
+
+sd.snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+备份还原
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.Write (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Delete (smsap_grp)
+
+sd.snapshot.Clone (smsap_grp)
+
+sd.snapshot.Restore (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Write (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Delete (SMSAP `_配置文件_`数据集)
+
+sd.snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Restore (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+备份删除
+ a| 
+sd.snapshot.Delete (smsap_grp)
+ a| 
+sd.Snapshot.Delete (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+备份验证
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Clone (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+备份挂载
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Clone (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+备份卸载
+ a| 
+sd.snapshot.Clone (smsap_grp)
+ a| 
+sd.Snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+克隆创建
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Clone (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+克隆删除
+ a| 
+sd.snapshot.Clone (smsap_grp)
+ a| 
+sd.Snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+
+
+ a| 
+克隆拆分
+ a| 
+sd.storage.read (smsap_grp)
+
+sd.snapshot.read (smsap_grp)
+
+sd.snapshot.Clone (smsap_grp)
+
+sd.snapshot.Delete (smsap_grp)
+
+sd.Storage.Write (smsap_grp)
+ a| 
+sd.storage.read (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Read (SMSAP `_配置文件_`数据集)
+
+sd.snapshot.Clone (SMSAP `_配置文件_`数据集)
+
+sd.Snapshot.Delete (SMSAP `_配置文件_`数据集)
+
+sd.storage.Write (SMSAP `_profile_m`数据集)
+
+|===
+有关定义 RBAC 功能的详细信息，请参见 _Unified Manager OnCommand 操作管理器管理指南 _ 。
+
+.步骤
+. 访问 Operations Manager 控制台。
+. 从设置菜单中，选择 * 角色 * 。
+. 选择一个现有角色或创建一个新角色。
+. 要为数据库存储资源分配操作，请单击 * 添加功能 * 。
+. 在编辑角色设置页面上，要保存对角色所做的更改，请单击 * 更新 * 。
+
+
+* 相关信息 *
+
+http://support.netapp.com/documentation/productsatoz/index.html["《OnCommand Unified Manager Operations Manager管理指南》"^]

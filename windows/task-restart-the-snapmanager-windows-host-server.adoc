@@ -1,0 +1,26 @@
+---
+permalink: windows/task-restart-the-snapmanager-windows-host-server.html 
+sidebar: sidebar 
+keywords: restart, snapmanager, server, service, window, host 
+summary: 您可以通过服务窗口重新启动 SnapManager 服务器。 
+---
+= 重新启动SnapManager 主机服务器
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以通过服务窗口重新启动 SnapManager 服务器。
+
+.步骤
+. 单击 * 开始 * > * 控制面板 * > * 管理工具 * > * 服务 * 。
+. 在服务窗口中、选择适用于SAP的NetApp SnapManager 3.3。
+. 您可以通过以下方式之一重新启动服务器：
++
+.. 在左侧面板中，单击 * 重新启动 * 。
+.. 右键单击适用于SAP的NetApp SnapManager 3.3、然后从下拉菜单中选择*重新启动*。
+.. 双击NetAppSnapManager 3.3 for SAP、然后在打开的属性窗口中、单击*重新启动*。
+
+
+

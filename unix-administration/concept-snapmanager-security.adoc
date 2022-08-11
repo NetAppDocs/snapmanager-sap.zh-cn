@@ -1,0 +1,67 @@
+---
+permalink: unix-administration/concept-snapmanager-security.html 
+sidebar: sidebar 
+keywords: snapmanager, operation, credential, security, authentication, role-based, access, control, rbac, lun, data, file, database 
+summary: 只有在具有相应凭据的情况下，才能执行 SnapManager 操作。SnapManager 中的安全性受用户身份验证和基于角色的访问控制（ Role-Based Access Control ， RBAC ）的制约。通过 RBAC ，数据库管理员可以限制 SnapManager 对数据库中存放数据文件的卷和 LUN 执行的操作。 
+---
+= SnapManager 如何保持安全性
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+只有在具有相应凭据的情况下，才能执行 SnapManager 操作。SnapManager 中的安全性受用户身份验证和基于角色的访问控制（ Role-Based Access Control ， RBAC ）的制约。通过 RBAC ，数据库管理员可以限制 SnapManager 对数据库中存放数据文件的卷和 LUN 执行的操作。
+
+数据库管理员使用 SnapDrive 为 SnapManager 启用 RBAC 。然后，数据库管理员在 Operations Manager 图形用户界面（ GUI ）或命令行界面（ CLI ）中为 SnapManager 角色分配权限，并将这些角色分配给用户。RBAC 权限检查会在 DataFabric Manager 服务器中进行。
+
+除了基于角色的访问之外， SnapManager 还通过密码提示或设置用户凭据来请求用户身份验证，从而保持安全性。有效用户通过 SnapManager 服务器进行身份验证和授权。
+
+SnapManager 凭据和用户身份验证与 SnapManager 3.0 截然不同：
+
+* 在 SnapManager 3.0 之前的版本中，您可以在安装 SnapManager 时设置任意服务器密码。任何要使用 SnapManager 服务器的用户都需要 SnapManager 服务器密码。需要使用`smsap credential set -host`命令将SnapManager 服务器密码添加到用户凭据中。
+* 在 SnapManager （ 3.0 及更高版本）中， SnapManager 服务器密码已替换为单个用户操作系统（ OS ）身份验证。如果您运行的客户端与主机不在同一服务器上，则 SnapManager 服务器将使用您的操作系统用户名和密码执行身份验证。如果不希望系统提示您输入操作系统密码、可以使用`smsap credential set -host`命令将数据保存到SnapManager 用户凭据缓存中。
++
+
+NOTE: 当smsap.config文件中的`host.credentials.persist`属性设置为`* true*`时、`smsap credential set -host`命令会记住您的凭据。
+
+
+
+* 示例 *
+
+用户 1 和用户 2 共享一个名为 Prof2 的配置文件。如果用户 2 没有访问 Host1 的权限，则无法在 Host1 中执行 database1 的备份。如果用户 1 没有访问 Host3 的权限，则无法将数据库克隆到 Host3 。
+
+下表介绍了分配给用户的不同权限：
+
+[cols="2a,1a,1a"]
+|===
+| 权限类型 | 用户 1 | 用户 2. 
+
+
+ a| 
+主机密码
+ a| 
+Host1 ， Host2
+ a| 
+Host2 ， Host3
+
+
+
+ a| 
+存储库密码
+ a| 
+参考 1
+ a| 
+参考 1
+
+
+
+ a| 
+配置文件密码
+ a| 
+Prof1 ， Prof2
+ a| 
+2
+
+|===
+如果用户 1 和用户 2 没有任何共享配置文件，则假定用户 1 对名为 Host1 和 Host2 的主机具有权限，而用户 2 对名为 Host2 的主机具有权限。用户2甚至无法在主机1上运行非配置文件命令、例如dump和`ssystem verify`。

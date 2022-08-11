@@ -1,0 +1,24 @@
+---
+permalink: windows/task-authorizing-user-access-to-the-repository.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, set, credential, user, repository, restrict, prevent, access, host, database, authorize, authorizing 
+summary: 通过 SnapManager ，您可以为数据库用户设置访问存储库的凭据。您可以使用凭据限制或阻止对 SnapManager 主机，存储库，配置文件和数据库的访问。 
+---
+= 授权访问存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以为数据库用户设置访问存储库的凭据。您可以使用凭据限制或阻止对 SnapManager 主机，存储库，配置文件和数据库的访问。
+
+如果使用 credential set 命令设置凭据，则 SnapManager 不会提示您输入密码。
+
+您可以在安装 SnapManager 或更高版本时设置用户凭据。
+
+. 输入以下命令：
++
+`smsap credential set -repository -dbname repo_service_name -host repo_host -login -username repo_username (-password repo_password)-port repo_port`
+
+

@@ -1,0 +1,106 @@
+---
+permalink: unix-installation-7mode/task-prepare-storage-systems-for-snapvault-replication-7-mode.html 
+sidebar: sidebar 
+keywords: snapmanager, integrate, snapvault, technology, archive, snapshot, copies, copy, disk, configure, intialize, data-protection, relationship, source, volume, destination, volume, initialization, data, block, preparing, prepare, storage, system, replication 
+summary: 在使用SnapManager的集成SnapVault 技术将Snapshot副本归档到磁盘之前、必须在源卷和目标卷之间配置并初始化数据保护关系。初始化时， SnapVault 会创建源卷的 Snapshot 副本，然后将该副本及其引用的所有数据块传输到目标卷。 
+---
+= 准备用于SnapVault 复制的存储系统
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在使用SnapManager的集成SnapVault 技术将Snapshot副本归档到磁盘之前、您必须在源卷和目标卷之间配置并初始化_data-protection relationship_。初始化时， SnapVault 会创建源卷的 Snapshot 副本，然后将该副本及其引用的所有数据块传输到目标卷。
+
+* 您需要的内容 *
+
+* 您必须已在SnapManager 配置向导中为主存储位置配置数据集。
+* 所有LUN都必须位于qtree中、每个qtree具有一个LUN。
+
+
+
+IMPORTANT: 如果要将数据库文件和事务日志存储在不同的卷上，则必须在数据库文件的源卷和目标卷之间以及事务日志的源卷和目标卷之间创建关系。
+
+.步骤
+. 在源和目标系统控制台上、启用SnapVault ：
++
+* 示例 *
+
++
+[listing]
+----
+options snapvault.enable on
+----
+. 在源系统控制台上、使用`options snapvault.access`命令指定允许直接从源系统复制数据的系统的主机名。
++
+* 示例 *
+
++
+以下命令允许复制到destination_systemb：
+
++
+[listing]
+----
+options snapvault.access host=destination_systemB
+----
+. 在目标系统控制台上、使用`options snapvault.access`命令指定可将复制的数据还原到的系统的主机名。
++
+* 示例 *
+
++
+以下命令允许将复制的数据还原到source_systema：
+
++
+[listing]
+----
+options snapvault.access host=destination_systemA
+----
+. 在源系统控制台上、使用`ndmpd on`命令启用NDMP。
++
+* 示例 *
+
++
+以下命令将启用NDMP：
+
++
+[listing]
+----
+ndmpd on
+----
+. 在目标系统控制台上、使用`vol create`命令创建大小等于或大于源卷的SnapMirror目标卷。
++
+* 示例 *
+
++
+以下命令会在聚合aggr1上创建一个名为vol2的2 GB目标卷：
+
++
+[listing]
+----
+vol create vol2 aggr1 2g
+----
+. 在OnCommand 统一管理器(UM) NetApp管理控制台中、为目标卷添加资源池：
++
+.. 单击*数据*>*资源池*以打开*资源池*页面。
+.. 在资源池页面上、单击*添加*以启动*添加资源池*向导。
+.. 按照向导中的提示为目标卷指定聚合。
+.. 单击*完成*退出向导。
+
+
+. 在UM NetApp管理控制台中、将资源池分配给在SnapManager 配置向导中创建的数据集：
++
+.. 单击*数据*>*数据集*以打开数据集页面。
+.. 在*数据集*页面上、选择您创建的数据集、然后单击*编辑*。
+.. 在*编辑数据集*页面上、单击*备份*>*配置/资源池*以打开*配置数据集节点*向导。
+.. 按照向导中的提示将资源池分配给数据集。
++
+资源池分配用于指定源卷和目标卷之间的数据保护关系。
+
+.. 单击*完成*退出向导并初始化数据保护关系。
++
+初始化过程会向目标卷执行 _baseline transfer_ 。SnapVault 会为源卷创建Snapshot副本、然后将此副本及其引用的所有数据块传输到目标卷。
+
+
+
+

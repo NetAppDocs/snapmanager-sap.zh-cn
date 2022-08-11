@@ -1,0 +1,21 @@
+---
+permalink: windows/task-updating-a-backup-schedule.html 
+sidebar: sidebar 
+keywords: list, schedule, operation, update, scheduling, frequency, cronstring, expression, user, backup, updating 
+summary: 您可以查看计划的操作列表，并在必要时对其进行更新。您可以更新计划频率，计划开始时间， cronstring 表达式以及计划备份的用户。 
+---
+= 更新备份计划
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看计划的操作列表，并在必要时对其进行更新。您可以更新计划频率，计划开始时间， cronstring 表达式以及计划备份的用户。
+
+.步骤
+. 要更新备份计划、请输入以下命令：
++
+`smsap schedule update -profile profile_name-schedule-nameschedulename "-schedule-commentschedule comment]-interval｛-hourly |-daily _-weekly |-monthly |-onetimestart-cronstringcronstring-runasuserrunasuser "-quiet |-verbose`
+
+

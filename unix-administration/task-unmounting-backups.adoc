@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/task-unmount-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, automatic, unmount, backup, unavailable, host, server, unmount, external, tool, oracle, recovery, manager, rman, file, backup, state, remove, access 
+summary: SnapManager 会自动卸载备份，使其不可供主机服务器使用。如果您使用 Oracle 恢复管理器（ RMAN ）等外部工具访问备份中的文件，则还可以通过 SnapManager 卸载，并更改备份状态以删除访问权限。 
+---
+= 卸载备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 会自动卸载备份，使其不可供主机服务器使用。如果您使用 Oracle 恢复管理器（ RMAN ）等外部工具访问备份中的文件，则还可以通过 SnapManager 卸载，并更改备份状态以删除访问权限。
+
+* 关于此任务 *
+
+如果要从远程主机卸载数据库备份，则必须确保两个主机上的自动存储管理（ Automatic Storage Management ， ASM ）凭据相同。
+
+您可以选择在卸载备份操作成功或失败后收集转储文件。
+
+如果挂载点处于繁忙状态、则卸载操作可能会在一段时间内失败、并显示一条错误消息、例如、``--(错误) flow-11019：Failure in Disconnect：SD-10046：You cannot unmount the backup as the mount point is busy with the following mount paths and PID's：/opt/netapp/smsap/05/mnt/-db-nt-nt-nt_nft-nft-nft_vfs20r202740_27303_20303/-db_20127303.
+
+您必须确定导致卸载操作失败的会话的 PID 。运行以下命令以停止会话：
+
+`* kill _pid_*`
+
+然后，您可以成功运行卸载操作。
+
+.步骤
+. 输入以下命令：
++
+`* smsap backup unmount -profile _profile_name_｛label _label_[data _-archivelogs]|-id _id_｝(-quiet _-verbose)*`
+
+

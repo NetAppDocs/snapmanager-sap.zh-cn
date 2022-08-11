@@ -1,0 +1,39 @@
+---
+permalink: unix-administration/concept-cloning-methods.html 
+sidebar: sidebar 
+keywords: clone, database, crate, operation, cloning, method 
+summary: 您可以使用以下两种方法之一克隆数据库。您选择的方法会影响克隆创建操作。 
+---
+= 克隆方法
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用以下两种方法之一克隆数据库。您选择的方法会影响`clone create`操作。
+
+下表介绍了克隆方法及其对`clone create`操作及其`-reserve`选项的影响。可以使用任一方法克隆 LUN 。
+
+[cols="1a,1a,2a"]
+|===
+| 克隆方法 | Description | clone create -reserve 
+
+
+ a| 
+LUN 克隆
+ a| 
+此时将在同一卷中创建一个新的克隆 LUN 。
+ a| 
+如果LUN的`-reserve`设置为`yes`、则会为卷中的完整LUN大小预留空间。
+
+
+
+ a| 
+卷克隆
+ a| 
+此时将创建一个新的 FlexClone ，并且克隆 LUN 位于新克隆卷中。使用 FlexClone 技术。
+ a| 
+如果将卷的`-reserve`设置为`yes`、则会为聚合中的完整卷大小预留空间。
+
+|===

@@ -1,0 +1,69 @@
+---
+permalink: windows/reference-the-smosmsap-clone-update-command.html 
+sidebar: sidebar 
+keywords: command, update, information, clone, comment, smsap 
+summary: 此命令可更新有关克隆的信息。您可以更新此注释。 
+---
+= smsap clone update命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令可更新有关克隆的信息。您可以更新此注释。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap clone update
+-profile profile_name
+[-label label | -id id]
+-comment  commment_text
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定包含要更新的克隆的配置文件的名称。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-id _id_`*
++
+指定克隆的 ID 。此 ID 由 SnapManager 在创建克隆时生成。使用`smsap clone list`命令显示每个克隆的ID。
+
+* *`-label _label`*
++
+指定克隆的标签。
+
+* *`-注释`*
++
+显示在创建克隆时输入的注释。这是一个可选参数。
+
+* *`-静默`*
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+
+
+== 命令示例
+
+以下示例将更新克隆注释。
+
+[listing]
+----
+smsap clone update -profile anson.pcrac5
+-label clone_pcrac51_20080820141624EDT  -comment See updated clone
+----

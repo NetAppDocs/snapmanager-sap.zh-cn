@@ -1,0 +1,18 @@
+---
+permalink: windows/task-check-the-snapmanager-software-version.html 
+sidebar: sidebar 
+keywords: version, product, run, local, host, command, check, snapmanager, software 
+summary: 您可以通过运行 version 命令来确定本地主机上运行的产品版本。 
+---
+= 检查SnapManager 软件版本
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以通过运行`version`命令来确定您在本地主机上运行的产品版本。
+
+.步骤
+. 要检查SnapManager 版本、请输入以下命令：`smsap version`
+

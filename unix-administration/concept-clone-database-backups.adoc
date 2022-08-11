@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/concept-clone-database-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, flexclone, technology, writable, space-efficient, clone, database, modify, backup, clone 
+summary: SnapManager 使用 FlexClone 技术为数据库备份创建可写的节省空间克隆。您可以在不更改备份源的情况下修改克隆。 
+---
+= 数据库备份克隆
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 使用 FlexClone 技术为数据库备份创建可写的节省空间克隆。您可以在不更改备份源的情况下修改克隆。
+
+您可能需要克隆数据库，以便在非生产环境中进行测试或升级。您可以克隆主存储或二级存储上的数据库。克隆可以与数据库位于同一主机上，也可以位于不同主机上。
+
+借助 FlexClone 技术， SnapManager 可以使用数据库的 Snapshot 副本，以避免创建整个物理磁盘到磁盘副本。与物理副本相比， Snapshot 副本所需的创建时间更短，占用的空间更少。
+
+有关 FlexClone 技术的详细信息，请参见 Data ONTAP 文档。
+
+* 相关信息 *
+
+http://support.netapp.com/documentation/productsatoz/index.html["Data ONTAP 文档"^]

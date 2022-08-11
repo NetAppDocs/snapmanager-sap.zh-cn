@@ -1,0 +1,60 @@
+---
+permalink: unix-administration/reference-the-smosmsap-profile-destroy-command.html 
+sidebar: sidebar 
+keywords: command, delete, split, clone, database, profile, snapmanager, process, smsap, destroy 
+summary: 此命令将删除拆分的克隆（数据库）以及克隆拆分过程中 SnapManager 生成的配置文件。 
+---
+= smsap profile destroy命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令将删除拆分的克隆（数据库）以及克隆拆分过程中 SnapManager 生成的配置文件。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap profile destroy
+-profile _profile_
+[-host _hostname_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_*`
++
+指定成功执行克隆拆分过程后 SnapManager 生成的配置文件。
+
+* `*—主机_hostname_*`
++
+指定存在拆分克隆的主机名。
+
+* `*-静默*`
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 命令示例
+
+以下示例将删除名为 SALES1 的配置文件。
+
+[listing]
+----
+smsap profile destroy -profile SALES1
+----
+'''

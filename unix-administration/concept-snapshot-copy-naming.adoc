@@ -1,0 +1,164 @@
+---
+permalink: unix-administration/concept-snapshot-copy-naming.html 
+sidebar: sidebar 
+keywords: naming, name, snapshot, copy, convention, pattern, copies 
+summary: 您可以指定一种命名约定或模式来描述与您创建或更新的配置文件相关的 Snapshot 副本。您还可以在所有 Snapshot 副本名称中包含自定义文本。 
+---
+= Snapshot 副本命名
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以指定一种命名约定或模式来描述与您创建或更新的配置文件相关的 Snapshot 副本。您还可以在所有 Snapshot 副本名称中包含自定义文本。
+
+您可以在创建配置文件时或创建配置文件后更改 Snapshot 副本命名模式。更新后的模式仅适用于尚未发生的 Snapshot 副本；现有的 Snapshot 副本将保留先前的 snapname 模式。
+
+以下示例显示了为卷创建的两个 Snapshot 副本名称。列出的第二个 Snapshot 副本的名称中间有 _F_H_1_ 。"1" 表示它是备份集中创建的第一个 Snapshot 副本。列出的第一个 Snapshot 副本是最新的，并且具有 "2" ，这意味着它是创建的第二个 Snapshot 副本。"1" Snapshot 副本包括数据文件； "2" Snapshot 副本包括控制文件。由于必须在数据文件 Snapshot 副本之后创建控制文件 Snapshot 副本，因此需要两个 Snapshot 副本。
+
+[listing]
+----
+smsap_profile_sid_f_h_2_8ae482831ad14311011ad14328b80001_0
+smsap_profile_sid_f_h_1_8ae482831ad14311011ad14328b80001_0
+----
+默认模式包括所需的 SMID ，如下所示：
+
+* 默认模式：smsap_｛profile｝_｛db-SID｝_｛scope｝_｛mode｝_｛smid｝
+* 示例：smsap_my_profile_rc51_f_h_2_8abc01e915a55ac50115a55Acc8d0001_0
+
+
+您可以在 Snapshot 副本名称中使用以下变量：
+
+[cols="1a,3a,2a"]
+|===
+| 变量名称 | Description | 示例值 
+
+
+ a| 
+SMID （必需）
+ a| 
+创建 Snapshot 副本名称时， SnapManager 唯一 ID 是唯一必需的元素。此 ID 可确保您创建唯一的 Snapshot 名称。
+ a| 
+8abc01e915 a55ac50115a55Acc8d0001_0
+
+
+
+ a| 
+类（可选）
+ a| 
+与配置文件备份关联的保留类，以每小时（ h ），每天（ d ），每周（ w ），每月（ m ）或无限制（ u ）表示。
+ a| 
+D
+
+
+
+ a| 
+注释（可选）
+ a| 
+与配置文件的备份关联的注释。Snapshot 副本名称完成后，此字段中的空格将转换为下划线。
+ a| 
+sample_comtion_spaces_replaced
+
+
+
+ a| 
+日期（可选）
+ a| 
+为配置文件执行备份的日期。如果需要，日期值将填充为零。（ YYYYMMD ）
+ a| 
+20070218
+
+
+
+ a| 
+DB-host （可选）
+ a| 
+与要创建或更新的配置文件关联的数据库主机名。
+ a| 
+my_host
+
+
+
+ a| 
+DB-name （可选）
+ a| 
+与您创建的 Snapshot 副本关联的数据库名称。
+ a| 
+RAC5
+
+
+
+ a| 
+DB-SID （可选）
+ a| 
+与您创建的 Snapshot 副本关联的数据库 SID 。
+ a| 
+rac51
+
+
+
+ a| 
+标签（可选）
+ a| 
+与配置文件备份关联的标签。
+ a| 
+sample_label
+
+
+
+ a| 
+模式（可选）
+ a| 
+指定备份是联机完成（ h ）还是脱机完成（ c ）。
+ a| 
+H
+
+
+
+ a| 
+配置文件（可选）
+ a| 
+与您创建的备份关联的配置文件名称。
+ a| 
+my_profile
+
+
+
+ a| 
+范围（可选）
+ a| 
+指定备份是全满（ f ）还是部分（ p ）。
+ a| 
+F
+
+
+
+ a| 
+时间（可选）
+ a| 
+为配置文件执行备份的时间。此变量的时间值使用 24 小时制时钟，必要时使用零填充。例如， 5 ： 32 和 8 秒显示为 053208 （ hhmmss ）。
+ a| 
+170530
+
+
+
+ a| 
+时区（可选）
+ a| 
+为目标数据库主机指定的时区。
+ a| 
+估计
+
+
+
+ a| 
+用户文本（可选）
+ a| 
+您可以输入的自定义文本。
+ a| 
+生产
+
+|===
+
+NOTE: SnapManager for SAP不支持在Snapshot副本名称的长格式中使用冒号(：)符号。

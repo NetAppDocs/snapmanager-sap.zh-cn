@@ -1,0 +1,65 @@
+---
+permalink: windows/task-configure-e-mail-notification-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: create, profile, configure, receive, email, notification, completion, database, operation, profile 
+summary: 在创建新配置文件时，您可以将配置为在数据库操作完成时接收电子邮件通知。 
+---
+= 为新配置文件配置电子邮件通知
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在创建新配置文件时，您可以将配置为在数据库操作完成时接收电子邮件通知。
+
+
+
+== 您将需要什么
+
+* 您必须配置用于发送警报的电子邮件地址。
+* 您必须对多个电子邮件地址使用逗号分隔列表。
++
+您必须确保逗号和下一个电子邮件地址之间没有空格。
+
++
+
+NOTE: 您必须确保在双引号内输入一组电子邮件地址。
+
+
+
+.步骤
+. 输入以下命令：
++
+`* smsap profile create -profile _profile_[-profile-password _profile_password_]-repository -dbname _repo_service_name_-host _repo_host_-port _repo_port_-login -username _repo_controllusername_-database -dbname _dbname -host _db_db_db_host_用户名_用户名__用户名__用户名__用户名_用户名___用户名_用户名____用户名__用户名__用户名______用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_用户名_ dbdbdb `_n_](-duration _m_m_）](-weekly (-count _n_）(-duration _m_m_）)(-monthly (-count _n_）(-duration _m_]）)(-comment _comment_ment_](-snapname-pattern pattern_）)(-protect ())))(-notification (-ject_address2_email _unfail__address2___unfail______address2_、__unfail______address2_
+
++
+此命令的其他选项如下：
+
++
+`强制`
+
++
+`静默``|`-详细
+
++
+
+NOTE: SnapManager 支持电子邮件地址最多包含 1000 个字符。
+
++
+如果您使用配置文件同时创建数据文件和归档日志文件的备份（用于创建单独的归档日志备份），并且数据文件备份创建失败，则会发送电子邮件通知，并将数据备份作为操作名称，而不是数据备份和归档日志备份。成功执行数据文件和归档日志文件备份操作后，您将看到如下输出：
+
++
+[listing]
+----
+
+Profile Name    : PROF_31
+Operation Name 	: Data Backup and Archive Logs Backup
+Database SID   	: TENDB1
+Database Host 	 : repo1.rtp.org.com
+Start Date 	    : Fri Sep 23 13:37:21 EDT 2011
+End Date 	      : Fri Sep 23 13:45:24 EDT 2011
+Status 	        : SUCCESS
+Error messages 	:
+----
+

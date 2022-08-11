@@ -1,0 +1,77 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-verify-command.html 
+sidebar: sidebar 
+keywords: run, backup, verify, command, oracle, smsap 
+summary: 您可以运行 backup verify 命令来查看备份格式对于 Oracle 是否有效。 
+---
+= smsap backup verify命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup verify`命令来查看备份格式对于Oracle是否有效。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup verify
+-profile _profile_name_
+[-label _backup_name- | [-id _guid_\]
+[-retain {-hourly | -daily | -weekly | -monthly | -unlimited}\] [-force\]
+[-dump\] [-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* ``*—profile _profile_name_*``
++
+指定要验证备份的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* ``*—id _guid_*``
++
+使用指定 GUID 验证备份。GUID 由 SnapManager 在创建备份时生成。您可以使用smsap backup list命令显示每个备份的GUID。
+
+* ``*-标签_label-name_*``
++
+使用指定标签验证备份。
+
+* ``*-dump*``
++
+在备份验证操作成功或失败后收集转储文件。
+
+* ``*-force*``
++
+强制数据库进入执行验证操作所需的状态。
+
+* ``*-静默*``
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 示例
+
+以下是验证备份的示例：
+
+[listing]
+----
+smsap backup verify -profile SALES1 -label full_backup_sales_May -quiet
+----
+[listing]
+----
+DBVERIFY - Verification starting : FILE = +SMSAP_1_1161675083835/smsmsap/datafile/data.277.582482539 ...
+----
+'''

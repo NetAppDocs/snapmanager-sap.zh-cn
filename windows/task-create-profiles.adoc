@@ -1,0 +1,136 @@
+---
+permalink: windows/task-create-profiles.html 
+sidebar: sidebar 
+keywords: create, profile, assign, oracle, database, policy, set, retention, count, class 
+summary: 创建配置文件时，您可以为此配置文件分配特定的 Oracle 数据库用户帐户。您可以为配置文件设置保留策略，并为每个保留类设置保留计数和持续时间。 
+---
+= 创建配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+创建配置文件时，您可以为此配置文件分配特定的 Oracle 数据库用户帐户。您可以为配置文件设置保留策略，并为每个保留类设置保留计数和持续时间。
+
+
+
+== 关于此任务
+
+如果未提供数据库的`登录`、`密码`和`端口`参数值、则操作系统(OS)身份验证模式将使用默认凭据。
+
+创建配置文件时， SnapManager 会执行还原资格检查，以确定可用于还原数据库的还原机制。
+
+通过 SnapManager （ 3.2 或更高版本），您可以在创建新配置文件或更新现有配置文件时将归档日志文件与数据文件分开。使用配置文件分离备份后，您可以仅创建数据库的数据文件备份或归档日志备份。您可以使用新配置文件或更新后的配置文件创建包含数据文件和归档日志文件的备份。但是，您不能使用配置文件创建完整备份或还原设置。
+
+* 用于创建完整备份和部分备份的配置文件 *
+
+您可以创建配置文件来创建完整的数据库备份，其中包含数据文件，控制文件和归档日志文件，以及包含指定数据文件或表空间，所有控制文件和所有归档日志文件的部分数据库备份。SnapManager 不允许使用为完整备份和部分备份创建的配置文件创建单独的归档日志备份。
+
+* 用于创建仅数据文件备份和仅归档文件备份的配置文件 *
+
+创建新配置文件时、您可以使用`-separate -archivelog-backups`将归档日志备份与数据文件备份分开。您还可以更新现有配置文件，以便将归档日志备份与数据文件备份分开。
+
+通过使用新的配置文件选项分隔归档日志备份，您可以执行以下 SnapManager 操作：
+
+* 创建归档日志备份
+* 删除归档日志备份
+* 挂载归档日志备份
+* 释放归档日志备份
+
+
+创建配置文件以将归档日志备份与数据文件备份分开时、如果创建该配置文件的数据库中不存在归档日志文件、则会显示一条警告消息。
+
+
+WARNING: `归档的日志文件不在活动文件系统中。备份`中不会包含早于<archive log threads version>日志文件的归档日志文件版本
+
+即使为此数据库创建备份，归档日志文件也不会在数据库备份中可用。
+
+
+NOTE: 如果在创建配置文件时遇到错误、请使用`smsap system dump`命令。创建配置文件后、如果遇到错误、请使用`smsap operation dump`和`smsap profile dump`命令。
+
+.步骤
+. 要使用用户名、密码和端口(Oracle身份验证)创建配置文件、请输入以下命令：
++
+`* smsap profile create -profileprofile "-profile-passwordprofile_password]-repositor-dbnamerepo_dbname-host-portrepo_port-login-usernamerepo_username-database-dbnamedb_patternname-host1_s1_dsb_sb]-logis_dursd-username-try_username-zhun-zh.[-mail-mail-try_username-zh.-zh.-zh.-zh.-zh.-zh.-net-trusers-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.`
+
++
+此命令的其他选项如下：
+
++
+`强制`]`-nodprop`
+
++
+[`Quiet`|`verbose`]
+
++
+在创建配置文件时，您还可以根据要访问数据库的方式包括其他选项。
+
++
+|===
+| 条件 | 那么 ... 
+
+
+ a| 
+* 要使用数据库身份验证创建配置文件 *
+ a| 
+指定数据库登录详细信息。
+
+
+
+ a| 
+* 您要为备份指定备份保留策略 *
+ a| 
+指定保留类的保留计数或持续时间，或者同时指定这两者。持续时间以类的单位为单位（例如，小时表示每小时，天表示每天）。
+
+** `-每小时`是每小时保留类、其中的保留计数和保留持续时间分别为`-计数n`、`-持续时间m`。
+** `-每日`是每日保留类、其保留计数和保留持续时间分别为`-计数n`、`-持续时间m`。
+** `-每周`是每周保留类、其中、保留计数和保留持续时间分别为`-计数n`、`-持续时间m`。
+** `月-月`是每月保留类别、其保留计数和保留期限分别为`计数n`、`持续时间m`。
+
+
+
+
+ a| 
+* 您希望为数据库操作的完成状态启用电子邮件通知 *
+ a| 
+指定以下选项和变量：
+
+** 使用`摘要通知`、您可以为存储库数据库下的多个配置文件配置摘要电子邮件通知。
+** 使用` notification`、您可以收到有关配置文件数据库操作完成状态的电子邮件通知。
+** 使用`-success-emailemailemail_address2`、您可以收到有关使用新配置文件或现有配置文件成功执行数据库操作的电子邮件通知。
+** 使用`-failure-emailemailemail_address2`、您可以收到有关使用新配置文件或现有配置文件执行的数据库操作失败的电子邮件通知。
+** `-subjectsubject_text`指定创建新配置文件或现有配置文件时电子邮件通知的主题文本。如果未为存储库配置通知设置、而您尝试使用命令行界面配置配置文件或摘要通知、则控制台日志中会记录以下消息：`sMSAP-145777：Notification Settings not configured`。
++
+如果您已配置通知设置、并尝试使用命令行界面配置摘要通知、但未启用存储库的摘要通知、则控制台日志中会显示以下消息：`sMSAP-14575：summary notification configuration not available for this repository`
+
+
+
+
+
+ a| 
+* 您希望将归档日志文件与数据文件分开备份 *
+ a| 
+指定以下选项和变量：
+
+** 使用`-separate -archivelog-backups`可以将归档日志备份与数据文件备份分开。
+** `-retain-archivelog-backups`设置归档日志备份的保留期限。您必须指定正保留期限。
++
+归档日志备份会根据归档日志保留期限进行保留。数据文件备份会根据现有保留策略进行保留。
+
+** `包括-联机备份`包括归档日志备份以及联机数据库备份。
++
+通过此选项，您可以同时创建联机数据文件备份和归档日志备份以进行克隆。如果设置了此选项，则每当创建联机数据文件备份时，都会立即创建归档日志备份以及数据文件。
+
+** `-no-include-with -online-backups`不包括归档日志备份和数据库备份。
+
+
+
+
+ a| 
+* 您可以在成功执行配置文件创建操作 * 后收集转储文件
+ a| 
+在`profile create`命令的末尾指定` dump`选项。
+
+|===
+

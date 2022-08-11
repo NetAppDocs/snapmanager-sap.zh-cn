@@ -1,0 +1,60 @@
+---
+permalink: unix-installation-cmode/task-update-the-existing-repository.html 
+sidebar: sidebar 
+keywords: update, exist, repository, upgrade, snapmanager, path, access, exist 
+summary: 如果要从 SnapManager 3.3.x 升级到 SnapManager 3.4 或更高版本，则无需更新现有存储库，但对于所有其他升级路径，您必须更新现有存储库，以便在升级后可以访问它。 
+---
+= 更新现有存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果要从 SnapManager 3.3.x 升级到 SnapManager 3.4 或更高版本，则无需更新现有存储库，但对于所有其他升级路径，您必须更新现有存储库，以便在升级后可以访问它。
+
+
+
+== 您将需要什么
+
+* 升级后的 SnapManager 服务器必须已启动并经过验证。
+* 必须存在现有存储库的备份。
+
+
+
+
+== 关于此任务
+
+* 如果要从 SnapManager 3.1 之前的任何版本升级到 SnapManager 3.3 或更高版本，则必须先升级到 SnapManager 3.2 。
++
+升级到 SnapManager 3.2 后，您可以升级到 SnapManager 3.3 或更高版本。
+
+* 更新存储库后，您将无法将此存储库与早期版本的 SnapManager 结合使用。
+
+
+.步骤
+. 更新现有存储库：`smsap repository update -repository -dbname repository_service_name -host repository_host_name -login -username repository_user_name -port repository_port`
++
+** 存储库用户名，存储库服务名称和存储库主机名可以包含字母数字字符，减号，下划线和句点。
+** 存储库端口可以是任何有效的端口号。更新现有存储库时使用的其他选项如下：
+** `force`选项
+** `noprop`选项
+** `quiet`选项
+** `verbose`选项
+
+
++
+* 示例 *
+
+
+
+[listing]
+----
+smsap repository update -repository -dbname HR1
+-host server1 -login -username admin -port 1521
+----
+
+
+== 完成后
+
+重新启动 SnapManager 服务器以重新启动任何关联的计划。

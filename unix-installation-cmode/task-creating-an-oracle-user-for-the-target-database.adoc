@@ -1,0 +1,31 @@
+---
+permalink: unix-installation-cmode/task-create-an-oracle-user-for-the-target-database.html 
+sidebar: sidebar 
+keywords: oracle, database, user, require, log, in, perform, snapmanager, operation, sysdba, privilege, exist, target, create 
+summary: Oracle 数据库用户需要登录到数据库并执行 SnapManager 操作。如果目标数据库不存在具有 sysdba 权限的用户，则必须使用 sysdba 权限创建此用户。 
+---
+= 为目标数据库创建Oracle数据库用户
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Oracle 数据库用户需要登录到数据库并执行 SnapManager 操作。如果目标数据库不存在具有 _sysdba_ 权限的用户，则必须使用 _sysdba_ 权限创建此用户。
+
+
+
+== 关于此任务
+
+SnapManager 可以使用目标数据库具有 _sysdba_ 权限的任何 Oracle 用户。例如， SnapManager 可以使用默认的 _sys_ 用户。但是，即使用户存在，您也可以为目标数据库创建新用户并分配 _sysdba_ 权限。
+
+您还可以使用操作系统身份验证方法，其中操作系统（ OS ）允许 Oracle 数据库使用操作系统维护的凭据对用户进行身份验证，以便登录到数据库并执行 SnapManager 操作。如果您通过操作系统进行身份验证，则无需指定用户名或密码即可连接到 Oracle 数据库。
+
+.步骤
+. 登录到SQL *加号：`sqlplus "/" as sysdba"`
+. 使用管理员密码创建新用户：`* create useruser_name identified by admin_password；*`
++
+`user_name`是要创建的用户的名称、`admin_password`是要分配给该用户的密码。
+
+. 将sysdba权限分配给新的Oracle用户：`*授予sysdba到user_name；*`
+

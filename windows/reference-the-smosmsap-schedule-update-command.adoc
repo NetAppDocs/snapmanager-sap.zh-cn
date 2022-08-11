@@ -1,0 +1,81 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-update-command.html 
+sidebar: sidebar 
+keywords: command, update, schedule, backup, smsap 
+summary: 此命令用于更新备份计划。 
+---
+= smsap schedule update命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令用于更新备份计划。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap schedule update
+-profile profile_name
+-schedule-name schedule_name
+[-schedule-comment schedule_comment]
+-interval {-hourly | -daily | -weekly | -monthly | -onetimeonly}
+-cronstring cron_string
+-start-time {start_time <yyyy-MM-dd HH:mm>}
+-runasuser runasuser
+[-taskspec taskspec]
+-force
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定与要计划备份的数据库相关的配置文件的名称。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-schedule-name _schedule_name_`*
++
+指定为计划提供的名称。
+
+* *`-schedule-comment _schedule_comtion_`*
++
+指定用于描述备份计划的可选注释。
+
+* *`间隔｛-hourly |-daily；-weekly；-monthly；-onetimeonly｝`*
++
+指示创建备份的时间间隔。您可以将备份计划为每小时，每天，每周，每月或仅一次。
+
+* *`-cronstring _cron_string_`*
++
+指定使用 cronstring 计划备份。cron 表达式用于配置 CronTrigger 实例。cron 表达式是由七个子表达式实际构成的字符串：
+
++
+** 1 表示秒
+** 2 表示分钟
+** 3 表示小时
+** 4 表示一个月中的一天
+** 5 表示月份
+** 6 表示一周中的一天
+** 7 表示年份（可选）
+
+
+* *`-开始时间_yyyy-mm-dd HH：MM_`*
++
+指定计划操作的开始时间。计划开始时间应采用 yyyy-mm-dd HH ： mm 格式。
+
+* *`- runasuser _runasuser_`*
++
+指定在计划备份时更改计划备份操作的用户。
+
+* *`-taskspec_taskspec_`*
++
+指定可用于备份操作的预处理活动或后处理活动的任务规范 XML 文件。应提供XML文件的完整路径、以提供`-taskspecs`选项。
+
+

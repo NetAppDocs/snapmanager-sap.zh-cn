@@ -1,0 +1,73 @@
+---
+permalink: windows/reference-the-smosmsapbackup-list-command.html 
+sidebar: sidebar 
+keywords: run, backup, list, command, display, information, profile, information, retention, class, protection, smsap, status 
+summary: 您可以运行 backup list 命令以显示有关配置文件中备份的信息，包括有关保留类和保护状态的信息。 
+---
+= smsap backup list命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup list`命令以显示有关配置文件中备份的信息、包括有关保留类和保护状态的信息。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap backup list
+-profile profile_name
+-delimiter character
+[-data | -archivelogs | -all]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定要列出备份的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-分隔符_character-`*
++
+在单独的行上显示每行。行中的属性以指定的字符分隔。
+
+* *`数据`*
++
+指定数据文件。
+
+* *`-archivelog`*
++
+指定归档日志文件。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。包括 -verbose 选项以显示备份 ID 。
+
+
+
+
+
+== 示例
+
+以下示例列出了 SALES1 配置文件的备份：
+
+[listing]
+----
+smsap backup list -profile SALES1 -verbose
+Start Date          Status  Scope  Mode    Primary  Label      Retention   Protection
+------------------- ------- ------ ------- -------- -----      --------    ----------
+2007-08-10 14:12:31 SUCCESS FULL   ONLINE  EXISTS   backup2    HOURLY      NOT REQUESTED
+2007-08-05 12:08:37 SUCCESS FULL   ONLINE  EXISTS   backup4    UNLIMITED   NOT REQUESTED
+2007-08-04 22:03:09 SUCCESS FULL   ONLINE  EXISTS   backup6    UNLIMITED   NOT REQUESTED
+----

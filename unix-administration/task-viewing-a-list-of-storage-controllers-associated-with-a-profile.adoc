@@ -1,0 +1,46 @@
+---
+permalink: unix-administration/task-view-a-list-of-storage-controllers-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: view, list, storage, system, associate, particular, profile 
+summary: 您可以查看与特定配置文件关联的存储系统列表。 
+---
+= 查看与配置文件关联的存储系统列表
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看与特定配置文件关联的存储系统列表。
+
+* 关于此任务 *
+
+此列表将显示与特定配置文件关联的存储系统名称。
+
+
+NOTE: 如果没有可用于此配置文件的备份，则无法查看与此配置文件关联的存储系统名称。
+
+.步骤
+. 要显示与特定配置文件关联的存储系统的信息、请输入以下命令：
++
+`* smsap存储列表-profile _profiles_[-quiet |-verbose]*`
+
+
+
+'''
+
+
+== 示例
+
+[listing]
+----
+smsap storage list -profile mjubllian
+----
+[listing]
+----
+Sample Output:
+Storage Controllers
+--------------------
+STCO1110-RTP07OLD
+----
+'''

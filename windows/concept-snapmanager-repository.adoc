@@ -1,0 +1,19 @@
+---
+permalink: windows/concept-snapmanager-repository.html 
+sidebar: sidebar 
+keywords: repository, store, information, snapmanager, operation, time, backup, tablespace, data, data, file, storage, system, clone, snapshot, copies, copy, create 
+summary: 存储库可存储与不同 SnapManager 操作相关的信息，例如备份时间，备份的表空间和数据文件，使用的存储系统，创建的克隆以及创建的 Snapshot 副本。 
+---
+= SnapManager 存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+存储库可存储与不同 SnapManager 操作相关的信息，例如备份时间，备份的表空间和数据文件，使用的存储系统，创建的克隆以及创建的 Snapshot 副本。
+
+存储库数据库不能位于同一数据库中，也不能位于 SnapManager 正在备份的同一数据库中。这是因为存储库会存储在备份操作期间创建的数据库 Snapshot 副本的名称。必须在与要备份的数据库不同的数据库中创建存储库。这意味着您必须至少有两个数据库： SnapManager 存储库数据库和由 SnapManager 管理的目标数据库。运行 SnapManager 服务时，两个数据库都必须已启动且正在运行。
+
+
+NOTE: 存储库数据库关闭时，不能使用 GUI 或命令行界面执行任何 SnapManager 操作。

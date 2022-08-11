@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/concept-licenses-required-for-data-protection.html 
+sidebar: sidebar 
+keywords: ensure, license, require, data, protection, install, enable, primary, secondary, storage, system 
+summary: 您必须确保在主存储系统和二级存储系统上安装并启用数据保护所需的许可证。 
+---
+= SnapManager 中的数据保护所需的许可证
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须确保在主存储系统和二级存储系统上安装并启用数据保护所需的许可证。
+
+主存储系统可接收 Oracle 数据库的最新事务更新，存储数据并为数据库提供本地备份保护。主存储系统还维护数据库数据文件，日志文件和控制文件。二级存储系统充当受保护备份的远程存储。
+
+要保护数据，必须在主存储系统上安装并启用以下许可证：
+
+
+NOTE: 如果要在二级存储系统上启用数据保护，还必须在二级存储系统上安装和启用这些许可证。
+
+* 以 7- 模式（ 7.3.1 或更高版本）运行的 Data ONTAP 或集群模式 Data ONTAP （ 8.2 或更高版本）
+* SnapVault （取决于保护策略）
+* SnapRestore
+* SnapMirror （取决于保护策略）
+* 网络文件系统（ NFS ）和克隆需要 FlexClone 。
++
+此外，只有在将 SnapDrive 配置为在 SAN 环境中使用 FlexClone 时，存储区域网络（ SAN ）才需要 FlexClone 。
+
+* 相应的协议，例如 NFS ， Internet 小型计算机系统接口（ iSCSI ）或光纤通道（ FC ）
+
+
+SnapVault 或 SnapMirror 应基于所使用的保护策略位于主存储系统和二级存储系统上。基本备份保护策略仅要求在支持系统上安装 SnapVault 。包含镜像保护的策略要求在支持系统上安装 SnapMirror 。备份和镜像灾难恢复策略要求在支持系统上安装 SnapMirror 。

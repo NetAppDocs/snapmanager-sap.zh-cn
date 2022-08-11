@@ -1,0 +1,41 @@
+---
+permalink: unix-administration/concept-what-full-and-partial-backups-are.html 
+sidebar: sidebar 
+keywords: entire, database, portion, tablespace, data, file, full, partial, backup 
+summary: 您可以选择备份整个数据库或只备份一部分数据库。如果选择备份数据库的一部分，则可以选择备份一组表空间或数据文件。您可以选择对表空间和数据文件进行单独备份。 
+---
+= 什么是完整备份和部分备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以选择备份整个数据库或只备份一部分数据库。如果选择备份数据库的一部分，则可以选择备份一组表空间或数据文件。您可以选择对表空间和数据文件进行单独备份。
+
+下表列出了每种备份类型的优势和后果：
+
+[cols="1a,2a,2a"]
+|===
+| 备份类型 | 优势 | 缺点 
+
+
+ a| 
+已满
+ a| 
+最大限度地减少 Snapshot 副本的数量。对于联机备份，在整个备份操作期间，每个表空间都处于备份模式。SnapManager 会为数据库使用的每个卷创建一个 Snapshot 副本，并为日志文件占用的每个卷创建一个 Snapshot 副本。
+ a| 
+对于联机备份，在整个备份操作期间，每个表空间都处于备份模式。
+
+
+
+ a| 
+部分
+ a| 
+最大限度地减少每个表空间在备份模式下花费的时间。SnapManager 按表空间对其所获取的 Snapshot 副本进行分组。每个表空间都处于备份模式，时间长度足以创建 Snapshot 副本。这种对 Snapshot 副本进行分组的方法可以最大限度地减少联机备份期间日志文件中的物理块写入。
+ a| 
+备份可能需要在同一个卷中为多个表空间创建 Snapshot 副本。此方法可通过发生原因 SnapManager 在备份操作期间为单个卷创建多个 Snapshot 副本。
+
+|===
+
+NOTE: 尽管您可以执行部分备份、但您必须始终对整个数据库执行完整备份。

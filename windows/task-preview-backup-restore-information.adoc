@@ -1,0 +1,68 @@
+---
+permalink: windows/task-preview-backup-restore-information.html 
+sidebar: sidebar 
+keywords: preview, information, backup, restore, process, snapmanager, sap, analyze, determine, successful 
+summary: 您可以在备份还原过程发生之前预览有关该过程的信息、以查看在备份上找到的SnapManager for SAP的还原资格信息。SnapManager 会分析备份上的数据，以确定还原过程是否可以成功完成。 
+---
+= 预览备份还原信息
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在备份还原过程发生之前预览有关该过程的信息、以查看在备份上找到的SnapManager for SAP的还原资格信息。SnapManager 会分析备份上的数据，以确定还原过程是否可以成功完成。
+
+
+
+== 关于此任务
+
+还原预览可提供以下信息：
+
+* 可以使用哪种还原机制（存储端文件系统还原，存储端文件还原或主机端文件副本还原）来还原每个文件。
+* 为什么在指定`-verbose`选项时未使用更高效的机制来还原每个文件。
+
+
+如果您在`backup restore`命令中指定了`-preview`选项、则SnapManager 不会还原任何内容、但会列出要还原的文件并指示如何还原这些文件。
+
+
+NOTE: 您可以预览所有类型的还原机制。预览最多可显示 20 个文件的相关信息。
+
+.步骤
+. 输入以下命令：
++
+`* smsap backup restore -profile _profile_name_-label _label _-complete -preview -verbes*`
+
++
+* 示例 *
+
++
+例如，输入：
+
++
+[listing]
+----
+smsap backup restore -profile targetdb1_prof1
+      -label full_bkup_sales_nov_08  -complete -preview -verbose
+----
++
+以下示例显示了可还原的文件，并列出了每个文件使用的不同方法：
+
++
+[listing]
+----
+The following files will be restored via storage side full file system
+restore:
+E:\disks\sysaux.dbf
+E:\disks\system.dbf
+
+The following files will be restored via host side file copy restore:
+E:\disks\undotbs1.dbf
+E:\disks\undotbs2.dbf
+----
+. 查看无法使用其他还原过程的任何原因。
+. 如果仅显示可覆盖的原因、请在不使用`-preview`选项的情况下开始还原操作。
++
+您仍然可以覆盖非强制检查。
+
+

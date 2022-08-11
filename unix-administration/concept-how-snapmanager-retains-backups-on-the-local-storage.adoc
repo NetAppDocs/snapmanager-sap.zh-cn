@@ -1,0 +1,176 @@
+---
+permalink: unix-administration/concept-how-snapmanager-retains-backups-on-the-local-storage.html 
+sidebar: sidebar 
+keywords: 'snapmanager, enable, create, backup, retention, policies, policy, successful, storage, retain, local, database summary: SnapManager enables you to create backups that meet retention policies, which specify how many successful backups on local storage should be retained. You can specify the number of successful backups that should be retained in the profile for a given database.' 
+---
+= SnapManager 如何在本地存储上保留备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过 SnapManager ，您可以创建符合保留策略的备份，这些策略指定应在本地存储上保留多少成功的备份。您可以指定在配置文件中为给定数据库保留的成功备份数。
+
+您可以为以下项创建备份：
+
+* 主存储上每天备份 10 天
+* 主存储上每月备份 2 个月
+* 在二级存储上进行 7 天的每日备份
+* 在二级存储上每周备份 4 周
+* 在二级存储上每月备份 6 个月
+
+
+对于 SnapManager 中的每个配置文件，您可以更改以下非受限保留类的值：
+
+* 每小时
+* 每天
+* 每周
+* 每月
+
+
+SnapManager 会通过考虑保留计数（例如 15 个备份）和保留期限（例如 10 天的每日备份）来确定是否应保留备份。如果备份的期限超过为其保留类设置的保留期限，或者备份数量超过保留数量，则备份将过期。例如，如果备份计数为 15 （ SnapManager 已成功创建备份 15 ），并且为 10 天的每日备份设置了持续时间要求，则五个最旧的成功备份将过期。
+
+备份过期后， SnapManager 会释放或删除已过期的备份。SnapManager 始终会保留上次创建备份。
+
+SnapManager 仅会计入保留计数中成功备份的数量，不会考虑以下因素：
+
+[cols="1a,1a"]
+|===
+| 备份不包含在保留计数中 | 其他详细信息 
+
+
+ a| 
+备份失败
+ a| 
+SnapManager 会保留有关备份成功和失败的信息。虽然备份失败只需要极少的存储库空间，但您可能希望将其删除。失败的备份会保留在存储库中，直到您删除它们为止。
+
+
+
+ a| 
+指定为无限制保留的备份或其他保留类的备份
+ a| 
+SnapManager 不会删除指定无限制保留的备份。此外， SnapManager 仅考虑同一保留类中的备份（例如， SnapManager 仅考虑每小时保留计数的每小时备份）。
+
+
+
+ a| 
+从本地存储挂载的备份
+ a| 
+挂载 Snapshot 副本后，这些副本也会进行克隆，因此不符合保留条件。如果 Snapshot 副本已克隆，则 SnapManager 无法删除这些副本。
+
+
+
+ a| 
+用于在本地存储上创建克隆的备份
+ a| 
+SnapManager 会保留用于创建克隆的所有备份，但不会将其视为备份保留计数。
+
+
+
+ a| 
+在二级存储上克隆或挂载且使用镜像保护策略的备份
+ a| 
+如果 SnapManager 删除了主存储资源上用于备份的 Snapshot 副本，并且镜像了这些 Snapshot 副本，则下次备份到二级存储时将失败。
+
+|===
+从主存储资源释放备份时，备份使用的主资源（ Snapshot 副本）将被销毁，但备份元数据仍可用。SnapManager 不会在备份保留计数中考虑已释放的备份。
+
+SnapManager 为每个保留类提供默认保留计数和持续时间。例如，对于每小时保留类计数，默认情况下， SnapManager 会保留四个每小时备份。您可以在创建或更新配置文件时覆盖这些默认值并设置这些值、也可以更改`smsap.config`文件中保留计数和持续时间的默认值。
+
+可以通过备份到二级存储来保护主存储上的备份。虽然 SnapManager 负责管理主存储上备份的保留和计划，但 Protection Manager 负责管理二级存储上备份的保留和计划。
+
+根据本地备份的保留策略，当本地备份到期时，它们将被删除或释放，具体取决于它们是否受保护。
+
+* 如果这些备份受到保护，则会释放本地备份。其存储资源或 Snapshot 副本将被删除，但备份仍保留在 SnapManager 存储库中，可从二级存储进行还原。您不必释放备份（例如，使用 backup free 命令）。备份将被释放，直到二级存储上不再存在备份，此时备份将被删除。
+* 如果这些备份不受保护，则会删除本地备份。
+
+
+与联机数据库备份过程不同，在仅归档日志备份操作中， SnapManager 不会归档重做日志文件。在执行仅归档日志备份操作之前，您必须添加任务前脚本以归档重做日志文件。任务前脚本必须运行`alter system switch logfile`命令。
+
+以下示例显示了 SnapManager 根据三个每日备份保留策略（将计数设置为保留 3 ）对各种类型的备份执行的操作：
+
+[cols="1a,1a,1a,1a"]
+|===
+| 备份日期 | Status | 已执行保留策略操作 | 说明 
+
+
+ a| 
+5/10
+ a| 
+成功
+ a| 
+保留
+ a| 
+这是最新成功的备份，因此会保留该备份。
+
+
+
+ a| 
+5/9
+ a| 
+成功，已克隆
+ a| 
+跳过
+ a| 
+SnapManager 不会在保留策略计数中考虑用于克隆的备份。成功备份的计数会省略此备份。
+
+
+
+ a| 
+5/8.
+ a| 
+成功，已挂载
+ a| 
+跳过
+ a| 
+SnapManager 不会在保留策略计数中考虑挂载的备份。成功备份的计数会省略此备份。
+
+
+
+ a| 
+5/7.
+ a| 
+失败
+ a| 
+跳过
+ a| 
+失败的备份不会计入在内。
+
+
+
+ a| 
+5/5.
+ a| 
+成功
+ a| 
+保留
+ a| 
+SnapManager 可确保这第二次成功的每日备份。
+
+
+
+ a| 
+5/3.
+ a| 
+成功
+ a| 
+保留
+ a| 
+SnapManager 可确保这是第三次成功的每日备份。
+
+
+
+ a| 
+5/2
+ a| 
+成功
+ a| 
+删除
+ a| 
+SnapManager 会计算此成功备份的数量，但在 SnapManager 每天成功完成三次备份后，此备份将被删除。
+
+|===
+* 相关信息 *
+
+http://mysupport.netapp.com/["NetApp支持站点上的文档"^]

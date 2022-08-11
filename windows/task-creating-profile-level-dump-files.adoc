@@ -1,0 +1,29 @@
+---
+permalink: windows/task-creating-profile-level-dump-files.html 
+sidebar: sidebar 
+keywords: find, log, information, particular, profile, smsap, dump, command, name, profile-level, creating, create 
+summary: 您可以使用带有特定配置文件名称的smsap profile dump命令来查找有关该配置文件的日志信息。 
+---
+= 创建配置文件级别的转储文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用带有特定配置文件名称的smsap profile dump命令来查找有关该配置文件的日志信息。
+
+. 输入以下命令：`smsap profile dump -profileprofile_name`
++
+转储文件位置：
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_8abc01c814649ebd0114649ec69d0001.jar
+----
++
+
+NOTE: 如果在创建配置文件时遇到错误、请使用smsapsystem dump命令。成功创建配置文件后、请使用smsapoperation dump和smsapprofile dump命令。
+
+

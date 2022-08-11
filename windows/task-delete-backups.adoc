@@ -1,0 +1,45 @@
+---
+permalink: windows/task-delete-backups.html 
+sidebar: sidebar 
+keywords: delete, backup, free, space, occupy, remove, snapshot, copies, copy, volume 
+summary: 您必须删除不再需要的备份，这样可以释放这些备份占用的空间。如果删除备份，则每个卷的 Snapshot 副本数将减少达到 255 个限制的可能性。 
+---
+= 删除备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须删除不再需要的备份，这样可以释放这些备份占用的空间。如果删除备份，则每个卷的 Snapshot 副本数将减少达到 255 个限制的可能性。
+
+
+
+== 您将需要什么
+
+* 您必须确保未使用此备份创建克隆。
+
+
+
+
+== 关于此任务
+
+您可以删除无限制保留的备份，而不更改保留类。
+
+您可以选择在备份删除操作成功或失败后收集转储文件。
+
+如果要删除归档日志备份，则需要检查为归档日志备份设置的保留期限。如果归档日志备份处于保留期限内，并且恢复已还原的数据库需要归档日志文件，则无法删除归档日志备份。
+
+.步骤
+. 输入以下命令以验证操作是否已完成：
++
+`* smsap操作列表-profile _profile_name_-dump -quiet -verbes*`
+
+. 要删除备份、请输入以下命令：
++
+`* smsap backup delete -profile _profile_name_"-label _label_[data _-archivelogs]_- id _id_____-所有](-force][-dump](-quiet _-verbose)*`
+
++
+使用`-force`选项强制删除备份。强制删除操作不完整的备份可能会使备份处于不一致状态。
+
+

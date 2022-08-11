@@ -1,0 +1,16 @@
+---
+layout: astra 
+sidebar: sidebar 
+permalink: index.html 
+lead: SnapManager for SAP automates and simplifies the complex, manual, and time-consuming processes associated with the backup, recovery, and cloning of databases. You can use SnapManager with ONTAP SnapMirror technology to create copies of backups on another volume and with ONTAP SnapVault technology to archive backups efficiently to disk. 
+summary: SnapManager for SAP可自动执行和简化与数据库备份、恢复和克隆相关的复杂、手动且耗时的流程。您可以使用采用 ONTAP SnapMirror 技术的 SnapManager 在另一个卷上创建备份副本，并使用 ONTAP SnapVault 技术将备份高效归档到磁盘。 
+---
+= SnapManager for SAP文档
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+

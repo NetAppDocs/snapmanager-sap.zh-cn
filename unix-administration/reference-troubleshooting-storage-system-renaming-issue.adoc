@@ -1,0 +1,93 @@
+---
+permalink: unix-administration/reference-troubleshooting-storage-system-renaming-issue.html 
+sidebar: sidebar 
+keywords: face, issue, renaming, rename, storage, system, successful, troubleshooting 
+summary: 重命名存储系统或成功重命名存储系统后，您可能会遇到问题。 
+---
+= 对存储系统重命名问题描述进行故障排除
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+重命名存储系统或成功重命名存储系统后，您可能会遇到问题。
+
+在尝试重命名存储系统时、此操作可能会失败、并显示以下错误消息：`sMSAP-05085 No storage controller "FAS3020-rtp07New" is found to be associated with the profile`
+
+您必须输入运行`smsap storage list`命令时列出的存储系统的IP地址或名称。
+
+重命名存储系统后，如果 SnapManager 无法识别存储系统， SnapManager 操作可能会失败。要解析此问题描述，您必须在 DataFabric Manager 服务器主机和 SnapManager 服务器主机中执行一些额外步骤。
+
+在 DataFabric Manager 服务器主机中执行以下步骤：
+
+. 在DataFabric Manager服务器主机中位于``/etc/hosts``的主机文件中删除早期存储系统的IP地址和主机。
+. 将新存储系统的新IP地址和主机添加到DataFabric Manager服务器主机中位于``/etc/hosts``的主机文件中。
+. 输入以下命令以更改存储主机名：
++
+`* dfm host rename -a _old_host_namenew_host_name_*`
+
+. 输入以下命令、设置主机中的新IP地址：
++
+`* dfm host set _old_host_name_or_objid_ hostPrimaryAddress =_new_storage_controller_IP_address_*`
+
++
+
+NOTE: 只有在将 IP 地址指定为新存储系统名称时，才必须执行此步骤。
+
+. 输入以下命令以更新DataFabric Manager服务器主机中的新存储系统名称：
++
+`* dfm host diag _old_storage_name_*`
+
++
+您可以通过输入以下命令来验证先前的存储控制器名称是否已替换为新的存储控制器名称：
+
++
+`* dfm主机发现new_storage_name*`
+
+
+
+在 SnapManager 服务器主机中以 root 用户身份执行以下步骤。
+
+
+NOTE: 输入新的存储控制器名称时，请确保使用系统别名，而不是完全限定域名（ FQDN ）。
+
+. 输入以下命令以删除先前的存储系统名称：
++
+`* SnapDrive 配置delete _old_storage_name_*`
+
++
+
+NOTE: 如果不删除早期的存储系统名称，则所有 SnapManager 操作都将失败。
+
+. 在目标数据库主机的`etc/hosts`的主机文件中删除早期存储系统的IP地址和主机。
+. 将新存储系统的新IP地址和主机添加到目标数据库主机中位于``/etc/hosts``的主机文件中。
+. 输入以下命令以添加新的存储系统名称：
++
+`* SnapDrive 配置集root _new_storage_name_*`
+
+. 输入以下命令映射早期和更高版本的存储系统名称：
++
+`* SnapDrive config migrate set _old_storage_namenew_storage_name_*`
+
+. 输入以下命令、删除早期存储系统的管理路径：
++
+``* SnapDrive config delete -mgmtpath _old_storage_name_*``
+
+. 输入以下命令、为新存储系统添加管理路径：
++
+`* SnapDrive 配置集-mgmtpath _new_storage_name_*`
+
+. 输入以下命令、使用新的存储系统名称更新数据文件和归档日志文件的数据集：
++
+`* SnapDrive 数据集更改主机名-dn _dataset_name_-oldname _old_storage_name_-newname _new_storage_name_*`
+
+. 输入以下命令以更新新存储系统名称的配置文件：
++
+`* smsap storage rename -profile _profile_name_-oldname _old_storage_name_-newname _new_storage_name_*`
+
+. 输入以下命令、验证与配置文件关联的存储系统：
++
+`* smsap存储列表-profile _profile_name_*`
+
+

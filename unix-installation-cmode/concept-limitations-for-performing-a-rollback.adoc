@@ -1,0 +1,43 @@
+---
+permalink: unix-installation-cmode/concept-limitations-for-performing-a-rollback.html 
+sidebar: sidebar 
+keywords: scenario, perform, rollback, task, limitation 
+summary: 您必须了解无法执行回滚的情形。但是，对于其中某些情形，您可以在执行回滚之前执行一些额外任务。 
+---
+= 执行回滚的限制
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须了解无法执行回滚的情形。但是，对于其中某些情形，您可以在执行回滚之前执行一些额外任务。
+
+在以下情况下，您无法执行回滚或必须执行其他任务：
+
+* 如果在执行滚动升级后执行以下操作之一：
++
+** 创建新配置文件。
+** 拆分克隆。
+** 更改配置文件的保护状态。
+** 分配保护策略，保留类或 SnapVault 和 SnapMirror 关系。
++
+在这种情况下，执行回滚后，您必须手动删除已分配的保护策略，保留类或 SnapVault 和 SnapMirror 关系。
+
+** 更改备份的挂载状态。
++
+在这种情况下，您必须先将挂载状态更改为其原始状态，然后再执行回滚。
+
+** 还原备份。
+** 将身份验证模式从数据库身份验证更改为操作系统（ OS ）身份验证。
++
+在这种情况下，执行回滚后，您必须手动将身份验证模式从操作系统更改为数据库。
+
+
+
+* 配置文件的主机名发生更改
+* 如果配置文件是分开的，以便创建归档日志备份
++
+在这种情况下，您无法回滚到低于 SnapManager 3.2 的版本。
+
+

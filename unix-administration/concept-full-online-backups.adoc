@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/concept-full-online-backups.html 
+sidebar: sidebar 
+keywords: full, online, backup, snapmanager, database, create, snapshot, copies, copy, volume, level, tablespace 
+summary: 在完全联机备份期间， SnapManager 会备份整个数据库，并在卷级别（而不是表空间级别）创建 Snapshot 副本。 
+---
+= 完全联机备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在完全联机备份期间， SnapManager 会备份整个数据库，并在卷级别（而不是表空间级别）创建 Snapshot 副本。
+
+SnapManager 会为每个备份创建两个 Snapshot 副本。如果数据库所需的所有文件都位于一个卷中，则两个 Snapshot 副本都会显示在该卷中。
+
+指定完整备份时， SnapManager 将执行以下操作：
+
+. 将整个数据库置于联机备份模式
+. 为包含数据库文件的所有卷创建 Snapshot 副本
+. 使数据库退出联机备份模式
+. 强制执行日志切换，然后归档日志文件
++
+此操作还会将重做信息转储到磁盘。
+
+. 生成备份控制文件
+. 为日志文件和备份控制文件创建 Snapshot 副本
+
+
+执行完整备份时， SnapManager 会将整个数据库置于联机备份模式。单个表空间(例如、`/oracle/CER/sapdata1/system_1/system.data1`)在联机备份模式下的时间长于指定的特定表空间或数据文件。
+
+当数据库进入备份模式时， Oracle 会将整个块写入日志，而不仅仅是写入备份之间的增量。由于数据库在联机备份模式下的工作负载较多，因此选择完整备份会给主机带来更大的负载。
+
+尽管执行完整备份会给主机带来更大的负载，但完整备份所需的 Snapshot 副本更少，从而降低了存储需求。

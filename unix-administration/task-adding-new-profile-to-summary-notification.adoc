@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/task-add-new-profile-to-summary-notification.html 
+sidebar: sidebar 
+keywords: configure, summary, email, notification, repository, database, profile, command 
+summary: 为存储库数据库配置摘要电子邮件通知后，您可以使用 summary notification 命令将新配置文件添加到摘要通知中。 
+---
+= 向摘要电子邮件通知添加新配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+为存储库数据库配置摘要电子邮件通知后，您可以使用 summary notification 命令将新配置文件添加到摘要通知中。
+
+.步骤
+. 输入以下命令：
++
+`* smsap profile create -profile _profile_name_"-profile-password _profile_password_]-repository-dbname _repo_service_name_-host _repo_host_-port _repo_port_-login-username _repo_username_-database -dbname _dbname _db_db_db_dbname -host _-host _用户名__rm_username ___smi_username __smi_smi_username __smi_smi_username __smi_smi_smi_username __smi_username __smi_smi_username __smi_smi_username __smi_smi_smi_username __smi_smi_smi_smi_username __smi_smi_smi_username __smi_smi_smi_username __smi_smi_smi_smi_username _ [-weekly-count _n_][-duration _m_]][-monthly-count_n_][-duration _m_]]][-comment _comment_][-snapname-pattern _pattern_]]][-protect [-protection-policy _policy_name_]]]]]*`
+
++
+此命令的其他选项如下：
+
++
+``、``、强制、
+
++
+``(-quiet)``(-verbose)
+
+

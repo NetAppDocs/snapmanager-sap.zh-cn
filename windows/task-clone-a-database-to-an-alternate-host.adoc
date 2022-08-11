@@ -1,0 +1,33 @@
+---
+permalink: windows/task-clone-a-database-to-an-alternate-host.html 
+sidebar: sidebar 
+keywords: clone, command, database, alternate, host 
+summary: 您可以使用 clone create 命令在备用主机上克隆数据库备份。 
+---
+= 将数据库克隆到备用主机
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`clone create`命令在备用主机上克隆数据库备份。
+
+
+
+== 您将需要什么
+
+* 创建配置文件或具有现有配置文件。
+* 创建完整备份或具有现有数据库备份。
+* 创建克隆规范或具有现有克隆规范。
+
+
+.步骤
+. 要将数据库克隆到备用主机、请输入以下命令：
++
+`* smsap clone create -backup-label _backup_laber_name -newsid _new_sid_-host _target_host_-label _clone_label _-comment _comation_text_-profile _profile_name_-clonSpec _full_path_to_clonesetfile_*`
+
++
+Oracle 不允许在同一主机上同时运行具有相同 SID 的两个数据库。因此，您必须为每个克隆提供一个新的 SID 。但是，您可以在另一台具有相同 SID 的主机上创建一个数据库。
+
+

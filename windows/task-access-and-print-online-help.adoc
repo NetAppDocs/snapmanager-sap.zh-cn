@@ -1,0 +1,25 @@
+---
+permalink: windows/task-access-and-print-online-help.html 
+sidebar: sidebar 
+keywords: online, help, instruction, task, snapmanager, graphical, user, interface, windows, wizard, access, print 
+summary: 联机帮助提供了有关可使用 SnapManager 图形用户界面执行的任务的说明。联机帮助还提供了窗口和向导上的字段说明。 
+---
+= 访问并打印联机帮助
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+联机帮助提供了有关可使用 SnapManager 图形用户界面执行的任务的说明。联机帮助还提供了窗口和向导上的字段说明。
+
+.步骤
+. 执行以下操作之一：
++
+** 在主窗口中，单击 * 帮助 * > * 帮助目录 * 。
+** 在任何窗口或向导中，单击 * 帮助 * 以显示特定于该窗口的帮助。
+
+
+. 使用左窗格中的 * 目录 * 在各个主题之间导航。
+. 单击帮助窗口顶部的打印机图标以打印各个主题。
+

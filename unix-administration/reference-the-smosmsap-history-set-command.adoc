@@ -1,0 +1,95 @@
+---
+permalink: unix-administration/reference-the-smosmsap-history-set-command.html 
+sidebar: sidebar 
+keywords: run, history, set, command, configure, operation, smsap 
+summary: 您可以运行 history set 命令来配置要查看其历史记录的操作。 
+---
+= smsap history set命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`history set`命令来配置要查看历史记录的操作。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap history set
+-profile {-name _profile_name_ [_profile_name1, profile_name2_\] | -all
+-repository -login [password _repo_password_\] -username _repo_username_
+-host _repo_host_
+-dbname _repo_dbname_
+-port _repo_port_}
+-operation {-operations _operation_name_ [_operation_name1, operation_name2_\] | -all}
+-retain
+{-count _retain_count_ | -daily _daily_count_ | -monthly _monthly_count_ | -weekly _weekly_count_}
+[-quiet | -verbose]]
+----
+
+
+== Parameters
+
+* `*配置文件*`
++
+指定配置文件的名称。此名称最长可为 30 个字符，并且在主机中必须是唯一的。
+
+* `*—存储库*`
++
+指定存储配置文件的数据库的详细信息。
+
+* `*—dbname _repo_dbname_*`
++
+指定存储配置文件的数据库的名称。您可以使用全局名称或系统标识符。
+
+* `*—host _repo_host_*`
++
+指定存储库数据库所在主机的名称或 IP 地址。
+
+* `*-登录*`
++
+指定存储库登录详细信息。
+
+* `*-用户名_repo_username_*`
++
+指定访问存储库数据库所需的用户名。
+
+* `*-端口_repo_port_*`
++
+指定用于访问存储库数据库的传输控制协议（ Transmission Control Protocol ， TCP ）端口号。
+
+* `*-operation｛-operations _operation_name____operation_name1、operation_name2_]|-all*`
++
+指定要为其配置历史记录的 SnapManager 操作。
+
+* `*-retain｛-count _retain_count_______- daily _ count_____- monthly _ count_｝*`
++
+指定创建备份，验证备份，还原和恢复以及创建和拆分克隆操作的保留类。保留类会根据操作计数，天数，周数或月数进行设置。
+
+* `*-静默*`
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 命令示例
+
+以下示例显示了有关备份操作的信息：
+
+[listing]
+----
+smsap history set -profile -name PROFILE1 -operation -operations backup -retain -daily 6
+ -verbose
+----
+'''

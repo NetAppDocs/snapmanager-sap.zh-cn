@@ -1,0 +1,104 @@
+---
+permalink: unix-administration/reference-supported-partition-devices.html 
+sidebar: sidebar 
+keywords: partition, device, support, snapmanager 
+summary: 您必须了解 SnapManager 中支持的不同分区设备。 
+---
+= 支持的分区设备
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须了解 SnapManager 中支持的不同分区设备。
+
+下表提供了分区信息以及如何为不同的操作系统启用分区信息：
+
+[cols="3a,1a,1a,1a,1a"]
+|===
+| 操作系统 | 单个分区 | 多个分区 | 非分区设备 | 文件系统或原始设备 
+
+
+ a| 
+Red Hat Enterprise Linux 5 倍
+
+或
+
+Oracle Enterprise Linux 5 倍
+ a| 
+是的。
+ a| 
+否
+ a| 
+否
+ a| 
+ext3*
+
+
+
+ a| 
+Red Hat Enterprise Linux 6x
+
+或
+
+Oracle Enterprise Linux 6 倍
+ a| 
+是的。
+ a| 
+否
+ a| 
+否
+ a| 
+ext3 或 ext4*
+
+
+
+ a| 
+SUSE Linux Enterprise Server 11
+ a| 
+是的。
+ a| 
+否
+ a| 
+否
+ a| 
+ext3*
+
+
+
+ a| 
+SUSE Linux Enterprise Server 10
+ a| 
+否
+ a| 
+否
+ a| 
+是的。
+ a| 
+ext3***
+
+
+
+ a| 
+*
+
+对于非MPIO环境、输入以下命令：
+
+`sfdisk -us -f -L -q /dev/device_name`
+
+对于 MPIO 环境，输入以下命令：
+
+* `sfdisk -us -f -L -q /dev/device_name`
+* `kpartx -a -p /dev/mapper/ device_name`
+
+
+
+
+ a| 
+*？*？*？*？*？*？*？*？*
+
+不适用。
+
+|===
+有关支持的操作系统版本的详细信息，请参阅互操作性表。

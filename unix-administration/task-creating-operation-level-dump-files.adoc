@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/task-create-operation-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, operation, dump, command, name, id, fail, log, information, level, information, host, environment 
+summary: 您可以使用带有失败操作名称或ID的smsap operation dump命令来获取有关特定操作的日志信息。您可以指定不同的日志级别来收集有关特定操作，配置文件，主机或环境的信息。 
+---
+= 创建操作级别的转储文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`smsap operation` dump命令以及失败操作的名称或ID来获取有关特定操作的日志信息。您可以指定不同的日志级别来收集有关特定操作，配置文件，主机或环境的信息。
+
+.步骤
+. 输入以下命令：
++
+`* smsap操作dump -id _guid_*`
+
+
+
+
+NOTE: smsap operation dump命令可提供`smsap profile dump`命令提供的一组超级信息、进而提供smsap system dump命令提供的一组超级信息。
+
+转储文件位置：
+
+[listing]
+----
+Path:/<user-home>
+/.netapp/smsap/3.3.0/smsap_dump_8abc01c814649ebd0114649ec69d0001.jar
+----

@@ -1,0 +1,53 @@
+---
+permalink: windows/reference-the-smosmsap-storage-list-command.html 
+sidebar: sidebar 
+keywords: run, storage, list, command, display, system, associate, profile, smsap 
+summary: 您可以运行 storage list 命令以显示与特定配置文件关联的存储系统列表。 
+---
+= smsap storage list命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`storage list`命令来显示与特定配置文件关联的存储系统列表。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap storage list
+-profile profile
+----
+
+
+== Parameters
+
+* *`-profile _profiles_`*
++
+指定配置文件的名称。此名称最长可为 30 个字符，并且在主机中必须是唯一的。
+
+
+
+
+
+== 示例
+
+以下示例显示了与配置文件 mjullian 关联的存储系统：
+
+[listing]
+----
+smsap storage list -profile mjullian
+----
+[listing]
+----
+
+Sample Output:
+Storage Controllers
+--------------------
+FAS3020-RTP07OLD
+----

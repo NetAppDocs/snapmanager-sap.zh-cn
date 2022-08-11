@@ -1,0 +1,192 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-create-command.html 
+sidebar: sidebar 
+keywords: run, backup, create, command, database, storage, system, smsap 
+summary: 您可以运行 backup create 命令在一个或多个存储系统上创建数据库备份。 
+---
+= smsap backup create命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup create`命令在一个或多个存储系统上创建数据库备份。
+
+
+
+== 语法
+
+
+NOTE: 运行此命令之前，必须使用 profile create 命令创建数据库配置文件。
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup create
+-profile profile_name
+{[-full{-auto | -online | -offline} [-retain {_-hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-unlimited_} [-verify\]  |
+[-data [[-files _files_ [_files_]] |
+pass:quotes[[-tablespaces _tablespaces_ [_tablespaces_]] pass:quotes[[-label _label_]] {-auto | -online | -offline}
+pass:quotes[[-retain {_-hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-unlimited_} [-verify] |
+pass:quotes[[-archivelogs [-label _label_]] pass:quotes[[-comment _comment_\]}
+[-protect | -noprotect | -protectnow\]
+[-backup-dest _path1_ [ _, path2_\]\]
+[-exclude-dest path1 [ _, path2_\]\]
+[-prunelogs {-all | -until-scn _until-scn_ | -until-date _yyyy-MM-dd:HH:mm:ss_\] | -before {-months | -days | -weeks | -hours}}
+-prune-dest _prune_dest1_,[_prune_dest2_\]\]
+[-taskspec _taskspec_\]
+[-dump]-force
+[-quiet | -verbose]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定与要备份的数据库相关的配置文件的名称。配置文件包含数据库的标识符和其他数据库信息。
+
+* `*-自动*`*选项*
++
+如果数据库处于已挂载或脱机状态， SnapManager 将执行脱机备份。如果数据库处于打开或联机状态， SnapManager 将执行联机备份。如果您将`-force`选项与`-offline`选项结合使用、则SnapManager 会强制执行脱机备份、即使数据库当前处于联机状态也是如此。
+
+* `*-联机*`*选项*
++
+指定联机数据库备份。
+
++
+您可以为 Real Application Clusters （ RAC ）数据库创建联机备份，前提是主数据库处于打开状态，或者主数据库已挂载且实例处于打开状态。如果本地实例处于关闭状态或任何实例均未处于打开状态、则可以使用`-force`选项进行联机备份。Oracle 版本必须为 10.2.0.5 ；否则，如果挂载 RAC 中的任何实例，数据库将挂起。
+
++
+** 如果本地实例处于关闭状态、并且至少有一个实例处于打开状态、则可以使用`-force`选项将本地实例更改为已挂载状态。
+** 如果没有实例处于 OPEN 状态，您可以使用 -force 选项将本地实例更改为 OPEN 状态。
+
+
+* `*-脱机*`*选项*
++
+指定数据库处于关闭状态时的脱机备份。如果数据库处于打开或挂载状态，备份将失败。如果使用`-force`选项、则SnapManager 会尝试更改数据库状态、以关闭数据库以进行脱机备份。
+
+* `*-全满*`*选项*
++
+备份整个数据库。其中包括所有数据，归档日志和控制文件。无论您执行哪种类型的备份，都会备份归档的重做日志和控制文件。如果您只想备份数据库的一部分、请使用`-files`选项或`-tablespaces`选项。
+
+* `*-数据*`*选项*
++
+指定数据文件。
+
+* `*-文件_list_*`
++
+仅备份指定的数据文件以及归档的日志和控制文件。使用空格分隔文件名列表。如果数据库处于 OPEN 状态， SnapManager 将验证相应的表空间是否处于联机备份模式。
+
+* `*—表空间_tablespaces_*`
++
+仅备份指定的数据库表空间以及归档的日志和控制文件。使用空格分隔表空间名称。如果数据库处于 OPEN 状态， SnapManager 将验证相应的表空间是否处于联机备份模式。
+
+* `*-标签_label-*`
++
+指定此备份的可选名称。此名称在配置文件中必须是唯一的。此名称可以包含字母，数字，下划线（ _ ）和连字符（ - ）。不能以连字符开头。如果不指定标签， SnapManager 将创建 scope_type_date 格式的默认标签：
+
++
+** 范围为 F 表示完整备份， P 表示部分备份。
+** 键入 C 表示脱机（冷）备份，键入 H 表示联机（热）备份，键入 A 表示自动备份，例如 P_A_20081010060037IST 。
+** date 是备份的年份，月份，日期和时间。
++
+SnapManager 使用 24 小时制时钟。
+
+
+
++
+例如，如果您在数据库于 2007 年 1 月 16 日下午 5 ： 45 ： 16 脱机的情况下执行完整备份东部标准时间， SnapManager 将创建标签 F_C_20070116174516EST 。
+
+* `*—注释_string_*`
++
+指定用于描述此备份的可选注释。将字符串用单引号（ ' ）括起来。
+
++
+
+NOTE: 某些 shell 会去除引号。在这种情况下，必须使用反斜杠（ \ ）包含引号。例如，您可能需要输入以下内容： ` ' this is a comation\'` 。
+
+* `*—verif*`*选项*
++
+运行 Oracle 数据库实用程序，验证备份中的文件是否未损坏。
+
++
+
+NOTE: 如果指定`-verify`选项、则备份操作将在验证操作完成之前完成。
+
+* `*-force*`*选项*
++
+如果数据库未处于正确状态，则强制更改状态。例如， SnapManager 可能会根据您指定的备份类型和数据库所处的状态将数据库的状态从联机更改为脱机。
+
++
+对于联机RAC数据库备份、如果本地实例处于关闭状态或任何实例均未处于打开状态、请使用`-force`选项。
+
++
+
+NOTE: Oracle 版本必须为 10.2.0.5 ；否则，如果挂载 RAC 中的任何实例，数据库将挂起。
+
++
+** 如果本地实例处于关闭状态、并且至少有一个实例处于打开状态、则使用`-force`选项将本地实例更改为已挂载状态。
+** 如果没有实例处于OPEN状态、则使用`-force`选项可将本地实例更改为OPEN状态。
+
+
+* `*-静默*`
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台中显示错误，警告和信息性消息。
+
+* `*-protect`-noprotect |-protectnow*
++
+指示是否应将备份保护到二级存储。noprotect 选项指定不应将备份保护到二级存储。仅保护完整备份。如果未指定任何选项，则在备份为完整备份且配置文件指定保护策略时， SnapManager 会将备份作为默认备份提供保护。`-protectnow`选项仅适用于在7-模式下运行的Data ONTAP。选项指定立即将备份保护到二级存储。
+
+* `*—保留｛-hourly |-daily |-weekly |-monthly |-unlimited｝*`
++
+指定备份应保留在每小时，每天，每周，每月还是无限制的基础上。如果未指定`保留`选项、则保留类默认为`-每小时`选项。要永久保留备份、请使用`-unlimited`选项。使用`-unlimited`选项、备份将不符合保留策略删除的条件。
+
+* `*—archivelogs*`*选项*
++
+创建归档日志备份。
+
+* `*-backup-dest _path1_、[、_[path2]_]*`
++
+指定要为归档日志备份备份而备份的归档日志目标。
+
+* `*-排除-目标_path1_、[、_[path2]_]*`
++
+指定要从备份中排除的归档日志目标。
+
+* `*-prunelog｛-all _-until -scnuntil -scnuntil -scn _--until - date _yyyy-mm-dd：HH：mm：ss___-在｛-months _-days _-weeks _-hours｝*`之前
++
+根据创建备份时提供的选项，从归档日志目标中删除归档日志文件。`-all`选项将从归档日志目标中删除所有归档日志文件。`-tile-scn`选项将删除归档日志文件、直到指定系统更改编号(SCN)为止。`-tilt-date`选项将删除归档日志文件、直到指定时间段为止。`-before`选项可删除指定时间段(天、月、周、小时)之前的归档日志文件。
+
+* `*-prune-dest _prune_dest1、prune_dest2_*`
++
+在创建备份时，从归档日志目标中删除归档日志文件。
+
+* `*—taskspec_taskspec_*`
++
+指定可用于备份操作的预处理活动或后处理活动的任务规范 XML 文件。在提供 -taskspec. 选项时，应提供 XML 文件的完整路径。
+
+* `*-dump*`*选项*
++
+在数据库备份操作成功或失败后收集转储文件。
+
+
+
+'''
+
+
+== 命令示例
+
+以下命令将创建完整的联机备份，创建备份到二级存储，并将保留策略设置为每日：
+
+[listing]
+----
+smsap backup create -profile SALES1 -full -online
+-label full_backup_sales_May -profile SALESDB -force -retain -daily
+Operation Id [8abc01ec0e79356d010e793581f70001] succeeded.
+----
+'''

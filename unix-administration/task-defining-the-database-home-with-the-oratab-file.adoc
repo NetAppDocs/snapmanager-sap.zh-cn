@@ -1,0 +1,55 @@
+---
+permalink: unix-administration/task-define-the-database-home-with-the-oratab-file.html 
+sidebar: sidebar 
+keywords: snapmanager, oratab, file, operation, determine, oracle, database, home, directory, software, installation, defining, define 
+summary: SnapManager 在操作期间使用 oratab 文件来确定 Oracle 数据库主目录。Oracle 数据库的条目必须位于 oratab 文件中， SnapManager 才能正常工作。oratab 文件是在 Oracle 软件安装期间创建的。 
+---
+= 使用oratab文件定义数据库主目录
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在操作期间、SnapManager 会使用`oratab`文件来确定Oracle数据库主目录。要使SnapManager 正常工作、Oracle数据库的条目必须位于`oratab`文件中。在Oracle软件安装期间会创建`oratab`文件。
+
+
+NOTE: 对于SAP系统、Oracle主目录会在`oratab`文件中设置、就像对于仅使用Oracle的系统一样。SAP系统还具有一个数据库主目录、通常为`/oracle/sid/_xxx_yy_、`其中`xxx`表示数据库版本、`yy`为32或64。
+
+根据主机操作系统、`oratab`文件位于不同位置、如下表所示：
+
+|===
+| 主机操作系统 | 文件位置 
+
+
+ a| 
+Linux
+ a| 
+/etc/oratab
+
+
+
+ a| 
+Solaris
+ a| 
+/var/opt/oracle/oratab
+
+
+
+ a| 
+IBM AIX
+ a| 
+/etc/oratab
+
+|===
+示例`oratab`文件包含以下信息：
+
+[listing]
+----
++ASM1:/u01/app/11.2.0/grid:N   # line added by Agent
+oelpro:/u01/app/11.2.0/oracle:N         # line added by Agent
+# SnapManager generated entry          (DO NOT REMOVE THIS LINE)
+smsapclone:/u01/app/11.2.0/oracle:N
+----
+
+NOTE: 安装Oracle后、您必须确保`oratab`文件位于上表中指定的位置。如果`oratab`文件不在您的操作系统中的正确位置、您必须联系技术支持以获得帮助。

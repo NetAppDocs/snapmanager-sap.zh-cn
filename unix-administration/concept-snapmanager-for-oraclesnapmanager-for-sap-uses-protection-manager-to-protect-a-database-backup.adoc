@@ -1,0 +1,16 @@
+---
+permalink: unix-administration/concept-snapmanager-for-oraclesnapmanager-for-sap-uses-protection-manager-to-protect-a-database-backup.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, protection, manager, install, unix, host, server, respectively, database, administrator, dba, primary, storage, backup 
+summary: 'SnapManager for SAP和Protection Manager分别安装在UNIX主机和服务器上时、使SnapManager 数据库管理员(DBA)能够配置并执行基于策略的Oracle数据库备份到二级存储、 并在必要时将备份的数据从二级存储还原到主存储。' 
+---
+= SnapManager for SAP使用Protection Manager保护数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager for SAP和Protection Manager分别安装在UNIX主机和服务器上时、使SnapManager 数据库管理员(DBA)能够配置并执行基于策略的Oracle数据库备份到二级存储、 并在必要时将备份的数据从二级存储还原到主存储。
+
+在以下示例中，使用 SnapManager 的 DBA 会为主存储上的本地备份创建一个配置文件，并为二级存储的受保护备份创建另一个配置文件。然后，此 DBA 将与使用 Protection Manager 控制台的网络存储管理员合作，为该数据库配置从主存储到二级存储的基于策略的备份。

@@ -1,0 +1,34 @@
+---
+permalink: unix-installation-7mode/task-create-an-oracle-user-for-the-repository-database-instance.html 
+sidebar: sidebar 
+keywords: oracle, user, require, log, access, repository, database, instance, create, connect, resource, privileges, creating 
+summary: 需要 Oracle 用户登录和访问存储库数据库实例。您必须创建具有连接和资源权限的用户。 
+---
+= 为存储库数据库实例创建Oracle用户
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+需要 Oracle 用户登录和访问存储库数据库实例。您必须使用 _connec_ 和 _resources_ 权限创建此用户。
+
+. 登录到SQL *加：
++
+`* sqlplus "/" as sysdba'*`
+
+. 创建一个新用户并为该用户分配管理员密码：
++
+`*由_admin_password_标识的创建用户_user_name_默认表空间_tablespace_name_ quota unlimited on _tablespace_name；_*`
+
++
+** ` user_name_`是您要为存储库数据库创建的用户的名称。
+** ` admin_password_`是要分配给用户的密码。
+** `_tablespace_name_`是为存储库数据库创建的表空间的名称。
+
+
+. 向新Oracle用户分配_connec_和_resources_权限：
++
+`*授予连接、资源给_user_name；_*`
+
+

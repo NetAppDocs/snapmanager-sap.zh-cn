@@ -1,0 +1,302 @@
+---
+permalink: unix-administration/reference-troubleshooting-snapmanager.html 
+sidebar: sidebar 
+keywords: information, common, issue, resolve, troubleshooting, snapmanager 
+summary: 您可以找到有关可能发生的一些最常见问题以及如何解决这些问题的信息。 
+---
+= 对 SnapManager 进行故障排除
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到有关可能发生的一些最常见问题以及如何解决这些问题的信息。
+
+下表介绍了常见问题和可能的解决方案：
+
+[cols="1a,3a"]
+|===
+| 问题驱动型问题 | 可能的解决方案 
+
+
+ a| 
+目标数据库和侦听器是否正在运行？
+ a| 
+运行`lsnrctl status`命令。确保已将数据库实例注册到侦听器中。
+
+
+
+ a| 
+存储是否可见？
+ a| 
+运行`SnapDrive storage show -all`命令。
+
+
+
+ a| 
+存储是否可写？
+ a| 
+编辑刚刚创建的挂载点中的文件。使用`touch filename`命令。如果创建了该文件，则您的存储是可写的。您必须确保 SnapManager 运行时所使用的用户（例如 UNIX 上以 root 用户身份）可以写入存储。
+
+
+
+ a| 
+SnapManager 服务器是否正在运行？
+ a| 
+运行`smsap_server status`并尝试使用`smsap_server start`命令启动服务器。
+
+在使用图形用户界面（ GUI ）或命令行界面（ CLI ）启动与配置文件相关的 SnapManager 命令之前，服务器必须正在运行。您可以在不启动服务器的情况下创建或更新存储库，但要执行所有其他 SnapManager 操作，服务器必须正在运行。
+
+要启动SnapManager 服务器、请输入以下命令：``smsap_server start.``
+
+
+
+ a| 
+是否已正确设置运行 SnapManager 所需的所有组件？
+ a| 
+运行`smsap system verify`命令以验证是否已正确设置SnapDrive。
+
+
+
+ a| 
+您的 SnapManager 版本是否正确？
+ a| 
+使用`smsap version`命令检查SnapManager 版本。
+
+
+
+ a| 
+您是否查看过 SnapManager 日志文件以确定错误消息是否有助于隔离问题描述？
+ a| 
+SnapManager 会将所有日志条目记录到一组轮换日志文件中。日志文件位于``/var/log/smsap.``
+
+日志文件位于``C：\program_files\NetApp\SnapManager for SAP\logs中。``
+
+在以下位置查看日志可能也会很有帮助：
+
+`` usr_home/.netapp/smsap/3.3.0.0/log/``
+
+每个操作日志都会写入其自己的日志文件、格式为`smsap_of_date_time.log`
+
+
+
+ a| 
+如果归档日志存储在未运行 Data ONTAP 的存储系统上，是否已将其排除在使用 SnapManager 进行备份的考虑范围之外？
+ a| 
+使用`smsap.config`文件可以排除某些归档日志文件。对于UNIX、这些文件位于以下位置：`/opt/netapp/smsap/properties/smsap.config`
+
+使用文件中所述的格式排除本地归档日志。对于追加信息，请 `S" 设置配置属性` " 主题。
+
+您还可以在使用 SnapManager 命令行界面创建备份时排除归档日志目标。对于追加信息，请参见 "`创建数据库备份` " 主题。
+
+您还可以在使用 SnapManager 图形用户界面创建备份时排除归档日志目标。
+
+
+
+ a| 
+如果将 SnapManager 与 NFS 数据库结合使用，是否具有 FlexClone 许可证？
+ a| 
+要在 NFS 数据库中充分利用 SnapManager ，需要 FlexClone 许可证。SnapManager 使用 FlexClone 功能完成以下任务：
+
+* 挂载 NFS 数据库的备份
+* 验证 NFS 数据库的备份
+* 克隆 NFS 数据库
+
+
+
+
+ a| 
+是否无法连接到存储库？
+ a| 
+如果连接到存储库失败、请在存储库数据库上运行`lsnrctl status`命令并检查活动服务名称。当 SnapManager 连接到存储库数据库时，它会使用数据库的服务名称。根据侦听器的设置方式，此名称可能是短服务名称或完全限定服务名称。当 SnapManager 连接到数据库进行备份，还原或其他操作时，它会使用主机名和 SID 。如果存储库由于当前无法访问而未正确初始化，您将收到一条错误消息，询问是否要删除该存储库。您可以从当前视图中删除存储库，以便可以对其他存储库执行操作。
+
+此外、运行`ps -eaf grep _instance - name_`命令检查存储库实例是否正在运行。
+
+
+
+ a| 
+系统是否可以解析主机名？
+ a| 
+检查指定的主机名是否位于其他子网上。如果您收到一条错误消息、指出SnapManager 无法解析主机名、请在主机文件中添加主机名。将主机名添加到位于`/etc/hosts：`的文件中
+
+`* xxx.xxx.xxx主机名IP地址*`
+
+
+
+ a| 
+SnapDrive 是否正在运行？
+ a| 
+检查SnapDrive 守护进程是否正在运行：
+
+`*—snapdrived status*`
+
+如果守护进程未运行，则会显示一条消息，指出存在连接错误。
+
+
+
+ a| 
+哪些存储系统配置为可使用 SnapDrive 进行访问？
+ a| 
+运行命令：
+
+`*—SnapDrive 配置列表*`
+
+
+
+ a| 
+如何提高 SnapManager 图形用户界面的性能？
+ a| 
+* 确保您具有存储库，配置文件主机和配置文件的有效用户凭据。
++
+如果凭据无效，请清除存储库，配置文件主机和配置文件的用户凭据。重置先前为存储库，配置文件主机和配置文件设置的相同用户凭据。有关追加信息重新设置用户凭据的信息，请参见 `S" 清除凭据缓存后设置凭据` " 。
+
+* 关闭未使用的配置文件。
++
+如果打开的配置文件数量更多，则 SnapManager 图形用户界面性能会降低。
+
+* 检查是否在 SnapManager 图形用户界面的 * 管理 * 菜单下的用户首选项窗口中启用了 * 启动时打开 * 。
++
+如果启用此选项、则/root/.netapp/smsap/3.3.0.0/guI/state中提供的用户配置`(user.config)文件将显示为openOnStartup=profile。`
+
++
+由于已启用*启动时打开*、因此您必须在用户配置`(user.config)`文件中使用`lastOpenProfile`检查SnapManager 图形用户界面中是否存在最近打开的配置文件：`lastOpenProfiles=_Profile1、PROFILE2、PROFILE3、..._`
+
++
+您可以删除列出的配置文件名称，并且始终保持最小数量的配置文件处于打开状态。
+
+* 与未受保护的配置文件相比，受保护的配置文件刷新所需时间更长。
++
+受保护的配置文件将根据用户配置`(user.config)`文件的`protectionStatusRefreshRate`参数中指定的值以一定时间间隔刷新。
+
++
+您可以将此值从默认值（ 300 秒）增加，以便仅在指定时间间隔后刷新受保护的配置文件。
+
+* 在基于 UNIX 的环境上安装新版本的 SnapManager 之前，请删除以下位置提供的 SnapManager 客户端条目：
++
+`/root/.netapp`
+
+
+
+
+
+ a| 
+如果在后台同时启动和运行多个 SnapManager 操作，则 SnapManager 图形用户界面需要较长时间才能刷新。右键单击备份（该备份已删除，但仍显示在 SnapManager 图形用户界面中）时，备份或克隆窗口中不会启用该备份的备份选项。
+ a| 
+您需要等待 SnapManager 图形用户界面刷新，然后检查备份状态。
+
+
+
+ a| 
+如果 Oracle 数据库未设置为英语，您会怎么做？
+ a| 
+如果 Oracle 数据库的语言未设置为英语，则 SnapManager 操作可能会失败。将 Oracle 数据库的语言设置为英语：
+
+. 在`/etc/init.d/smsap_server`中的初始注释下添加以下内容
++
+** NLS_LANG_= 美洲
+** 导出 NLS_LANG
+
+
+. 使用以下命令重新启动SnapManager 服务器：`smsap_server restart`
+
+
+
+NOTE: 如果Oracle用户的登录脚本`.bash_profile、.bashrc、`和`.cshrc`设置为`* NLS_LANG*`、则必须编辑此脚本、使其不会覆盖`* NLS_LANG*`。
+
+
+
+ a| 
+如果存储库数据库指向多个 IP 且每个 IP 都有不同的主机名，则在备份计划操作失败时，您会怎么做？
+ a| 
+. 停止 SnapManager 服务器。
+. 从要触发备份计划的主机中删除存储库目录中的计划文件。
++
+计划文件名可以采用以下格式：
+
++
+** `repository_repo_username#repository_database_name#repository_host#repo_port`
+** `repository-repo_usernamesoritory_database_name-repository_host-repo_port`
++
+
+NOTE: 您必须确保以与存储库详细信息匹配的格式删除计划文件。
+
+
+
+. 重新启动 SnapManager 服务器。
+. 从 SnapManager 图形用户界面打开同一存储库下的其他配置文件，以确保不会遗漏这些配置文件的任何计划信息。
+
+
+
+
+ a| 
+如果 SnapManager 操作失败并出现凭据文件锁定错误，您会怎么做？
+ a| 
+SnapManager 会在更新前锁定凭据文件，并在更新后将其解锁。如果同时运行多个操作，其中一个操作可能会锁定凭据文件以进行更新。如果另一个操作同时尝试访问锁定的凭据文件，则操作将失败并显示文件锁定错误。
+
+根据同时运行的频率、在smsap.config文件中配置以下参数：
+
+* `fileLock.retryInterval`= 100毫秒
+* `fileLock.timeout`= 5000毫秒
+
+
+
+NOTE: 分配给参数的值必须以毫秒为单位。
+
+
+
+ a| 
+如果备份验证操作的中间状态在 " 监控 " 选项卡中显示失败，即使备份验证操作仍在运行，您会怎么做？
+ a| 
+此错误消息会记录在 sm_gui.log 文件中。您必须在日志文件中查看以确定 operation.s检测 信号间隔和 operation.s检测 信号阈值参数的新值，这些参数将解决此问题描述。
+
+. 在smsap.config文件中添加以下参数：
++
+** `operation.s检测 信号间隔`= 5000
+** `operation.s检测 信号阈值`= 5000 SnapManager 分配的默认值为5000。
+
+
+. 为这些参数分配新值。
++
+
+NOTE: 分配给参数的值必须以毫秒为单位。
+
+. 重新启动 SnapManager 服务器并重新执行此操作。
+
+
+
+
+ a| 
+遇到堆空间问题描述时应如何操作？
+ a| 
+在SnapManager for SAP操作期间遇到堆空间问题描述 时、必须执行以下步骤：
+
+. 导航到SnapManager for SAP安装目录。
+. 从` installationdirectory_/bin/sunchjava`路径打开`Launchjava`文件。
+. 增加`java -Xmx160m` java heave-space参数的值。
++
+例如，您可以将默认值 160 米增加到 200 米。
+
++
+
+NOTE: 如果在早期版本的SnapManager for SAP中增加了Java heap-space参数的值、则应保留该值。
+
+
+
+
+
+ a| 
+如果无法使用受保护的备份还原或克隆，您会怎么做？
+ a| 
+如果您将 SnapManager 3.3.1 与集群模式 Data ONTAP 结合使用并升级到 SnapManager 3.4 ，则会发现此问题描述。在 SnapManager 3.3.1 中，备份会使用后脚本进行保护。从 SnapManager 3.4 开始，备份将使用创建配置文件时选择的 _SnapManager_cDOT_Mirror_ 或 _SnapManager_cDOT_Vault_policies 进行保护。升级到 SnapManager 3.4 后，您可能仍在使用旧配置文件，因此备份将使用备份脚本进行保护。 但是，您不能使用它们通过 SnapManager 进行还原或克隆。
+
+您必须更新配置文件并选择 _SnapManager_cDOT_Mirror_ 或 _SnapManager_cDOT_Vault_policy ，然后删除 SnapManager 3.3.1 中用于数据保护的后处理脚本。
+
+
+
+ a| 
+如果计划的备份不受保护（ SnapVault ），您会怎么做？
+ a| 
+升级到SnapManager 3.4并更新配置文件以使用_SnapManager_cDOT_Vault_policy进行保护后、您必须删除旧的备份计划并创建新计划、以便在创建计划时指定SnapVault 标签。
+
+|===

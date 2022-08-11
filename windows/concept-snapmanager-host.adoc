@@ -1,0 +1,24 @@
+---
+permalink: windows/concept-snapmanager-host.html 
+sidebar: sidebar 
+keywords: snapmanager, host, windows, server, netapp, product 
+summary: SnapManager 主机是一个 Windows 服务器，它也运行其他 NetApp 产品。 
+---
+= SnapManager 主机
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 主机是一个 Windows 服务器，它也运行其他 NetApp 产品。
+
+SnapManager 主机安装了以下产品：
+
+* 适用于 Windows 的 SnapDrive
+* Host Utilities
+
+
+SnapManager 主机作为服务运行。
+
+SnapManager 主机还支持用于SAP Br*工具的BACKINT接口。

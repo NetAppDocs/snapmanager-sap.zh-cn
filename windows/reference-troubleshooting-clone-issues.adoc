@@ -1,0 +1,99 @@
+---
+permalink: windows/reference-troubleshooting-clone-issues.html 
+sidebar: sidebar 
+keywords: information, clone, operation, resolve, troubleshoot, issue 
+summary: 您可以找到有关克隆操作期间可能发生的情况以及如何解决这些问题的信息。 
+---
+= 对克隆问题进行故障排除
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以找到有关克隆操作期间可能发生的情况以及如何解决这些问题的信息。
+
+|===
+| 现象 | 说明 | 临时解决策 
+
+
+ a| 
+如果将归档目标设置为`use_DB_recovery_file_dest`、则克隆操作将失败。
+ a| 
+当归档目标引用 use_DB_recovery_file_dest 时，闪存恢复区域（ Flash Recovery Area ， FRA ）会主动管理归档日志。在克隆或还原操作期间， SnapManager 不使用 FRA 位置，因此操作失败。
+ a| 
+将归档目标更改为实际归档日志位置，而不是 FRA 位置。
+
+
+
+ a| 
+克隆操作失败、并显示以下错误消息：`cannot Perform operation：clone Create。根发生原因： ORACLE-001 ：执行 SQL 时出错： [alter database open RESETLOGS ； ] 。命令返回：ora-01195：文件1的联机备份需要更多恢复才能保持一致`。
+ a| 
+如果 Oracle 侦听器无法连接到数据库，则会发生此问题描述。
+ a| 
+如果使用 SnapManager 图形用户界面克隆备份，请执行以下操作：
+
+. 在存储库树中，单击 * 存储库 * > * 主机 * > * 配置文件 * 以显示备份。
+. 右键单击要克隆的备份，然后选择 * 克隆 * 。
+. 在克隆初始化页面上，输入必需值并选择克隆规范方法。
+. 在克隆规范页面上，选择 * 参数 * 。
+. 单击*参数*选项卡。
+. 在*参数Name*字段中、输入名称`local_listener`、然后单击*确定*。
+. 选中 local_listener 行的 * 覆盖默认值 * 复选框。
+. 单击任何参数、然后双击local_listener参数、并输入以下值：``(address=(protocol=tcp)(host=<yor_host_name>)(port=<port#>))``
+. 单击 * 保存到文件 * 。
+. 单击 * 下一步 * 并继续执行克隆创建向导。
+
+
+如果使用命令行界面克隆备份，则必须在克隆规范文件的 * <parameters>* 标记中包含以下信息：
+
+[listing]
+----
+
+<parameters>
+  <parameter>
+  <name>local_listener</name>
+  <value>(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=<hostname>)(PORT=<port#>)))</value>
+  </parameter>
+</parameters>
+----
+
+
+ a| 
+克隆操作失败，并显示一条错误消息，指出您正在使用的挂载点已在使用中。
+ a| 
+SnapManager 不允许您通过现有挂载点挂载克隆。因此，不完整的克隆不会删除挂载点。
+ a| 
+指定要由克隆使用的其他挂载点，或者卸载有问题的挂载点。
+
+
+
+ a| 
+克隆操作失败，并显示一条错误消息，指出数据文件的扩展名不是 .dbf 。
+ a| 
+某些版本的 Oracle NID 实用程序无法处理数据文件，除非这些文件使用扩展名 .dbf 。
+ a| 
+* 重命名数据文件以使其扩展名为 .dbf 。
+* 重复备份操作。
+* 克隆新备份。
+
+
+
+
+ a| 
+克隆操作因要求未满足而失败。
+ a| 
+您正在尝试创建克隆；但尚未满足某些前提条件。
+ a| 
+按照 _creating a cloner_ 中所述继续操作以满足前提条件。
+
+
+
+ a| 
+SnapManager for SAP无法克隆Oracle 10gR2 (10.2.0.5)物理Oracle数据防护备用数据库。
+ a| 
+在对使用Oracle Data Guard服务创建的Oracle 10gR2 (10.2.0.5)物理备用数据库执行脱机备份时、SnapManager for SAP不会禁用托管恢复模式。由于此问题描述，所做的脱机备份不一致。当SnapManager for SAP尝试克隆脱机备份时、它甚至不会尝试对克隆的数据库执行任何恢复。由于备份不一致、克隆的数据库需要恢复、因此SAP无法成功创建克隆。
+ a| 
+将 Oracle 数据库升级到 Oracle 11gR1 （ 11.1.0.7 修补程序）。
+
+|===

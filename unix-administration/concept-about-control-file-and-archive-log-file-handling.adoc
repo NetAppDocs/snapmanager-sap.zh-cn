@@ -1,0 +1,46 @@
+---
+permalink: unix-administration/concept-about-control-file-and-archive-log-file-handling.html 
+sidebar: sidebar 
+keywords: snapmanager, control, file, log, backup, archive, recovery, operation, handling 
+summary: SnapManager 包括控制文件，并可选择在每次备份时包含归档日志文件。归档日志文件用于恢复操作。 
+---
+= 关于控制文件和归档日志文件处理
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 包括控制文件，并可选择在每次备份时包含归档日志文件。归档日志文件用于恢复操作。
+
+数据库使用控制文件来标识数据库文件的名称，位置和大小。SnapManager 会在每个备份中包含控制文件，因为在还原过程中会使用控制文件。
+
+对数据库所做的更改会使用联机重做日志进行跟踪，这些日志最终会归档，称为归档重做日志（或归档日志）。通过 SnapManager （ 3.2 或更高版本），您可以使用不同的保留和频率分别备份数据文件和归档日志文件。SnapManager 只能对归档日志进行备份，也可以对数据文件和归档日志进行组合备份。SnapManager 可全面自动管理归档日志，不需要任何手动干预即可恢复数据库，还可以在创建备份后从一个或多个归档日志目标中删除归档日志。
+
+
+NOTE: 要查看备份中包含哪些表空间和数据文件，请使用 backup show 命令或备份属性窗口。
+
+下表说明了 SnapManager 在每次操作期间如何处理控制和归档日志文件：
+
+[cols="1a,2a,2a"]
+|===
+| 操作类型 | 控制文件 | 归档日志文件 
+
+
+ a| 
+备份
+ a| 
+随每个备份一起提供
+ a| 
+可以包含在每个备份中
+
+
+
+ a| 
+还原
+ a| 
+可以单独还原，也可以与表空间或数据文件一起还原
+ a| 
+可用于恢复过程
+
+|===

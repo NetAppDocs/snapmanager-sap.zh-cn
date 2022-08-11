@@ -1,0 +1,43 @@
+---
+permalink: windows/concept-collecting-additional-log-information-for-easier-debugging.html 
+sidebar: sidebar 
+keywords: additional, log, debug, fail, snapmanager, operation, external, environment, variable, server.log.level, file, collect 
+summary: 如果您需要其他日志来调试失败的 SnapManager 操作，则必须设置外部环境变量 server.log.level 。此变量将覆盖默认日志级别并转储日志文件中的所有日志消息。例如，您可以将日志级别更改为 DEBUG ，这样可以记录其他消息，并有助于调试问题。 
+---
+= 收集其他日志信息以简化调试
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果您需要其他日志来调试失败的SnapManager 操作、则必须设置外部环境变量`server.log.level`。此变量将覆盖默认日志级别并转储日志文件中的所有日志消息。例如，您可以将日志级别更改为 DEBUG ，这样可以记录其他消息，并有助于调试问题。
+
+SnapManager 日志位于以下位置：
+
+* `snapManager_install_directory\log`
+
+
+要覆盖默认日志级别，必须执行以下步骤：
+
+. 在SnapManager 安装目录中创建`platform.override`文本文件。
+. 在`platform.override`文本文件中添加`server.log.level`参数。
+. 分配一个值(*；trace、debug、info、warn、error、 fagal、或progress_*)。`server.log.level`参数。
++
+例如、要将日志级别更改为_error_、请将`sserver.log.level`的值设置为_error_。
+
++
+`server.log.level=error`
+
+. 重新启动 SnapManager 服务器。
+
+
+
+NOTE: 如果不需要其他日志信息、您可以从`platform.override`文本文件中删除`server.log.level`参数。
+
+SnapManager 会根据用户在`smsap.config`文件中定义的以下参数值管理服务器日志文件的卷：
+
+* `log.max_log_files`
+* `log.max_log_file_size`
+* `log.max_rolling_operation_factory_logs`
+

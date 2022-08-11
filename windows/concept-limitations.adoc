@@ -1,0 +1,163 @@
+---
+permalink: windows/concept-limitations.html 
+sidebar: sidebar 
+keywords: aware, scenario, limitation, environment, work, snapmanager 
+summary: 您必须了解可能影响环境的情形和限制。 
+---
+= 使用 SnapManager 时的限制
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须了解可能影响环境的情形和限制。
+
+* 与数据库布局和平台相关的限制 *
+
+* SnapManager 支持文件系统上的控制文件，而不支持原始设备上的控制文件。
+* SnapManager 在 Microsoft 集群（ MSCS ）环境中运行，但无法识别 MSCS 配置的状态（主动或被动），并且不会将存储库的主动管理传输到 MSCS 集群中的备用服务器。
+* 存储库数据库可能位于可使用多个 IP 地址访问的主机上。
++
+如果使用多个 IP 地址访问存储库，则会为每个 IP 地址创建计划文件。如果为某个 IP 地址（例如 IP1 ）下的配置文件（例如配置文件 A ）创建计划备份，则仅更新该 IP 地址的计划文件。如果从其他 IP 地址（例如 IP2 ）访问配置文件 A ，则不会列出计划备份，因为 IP2 的计划文件没有在 IP1 下创建的计划的条目。
+
++
+您可以等待从该 IP 地址触发计划并更新计划文件，也可以重新启动服务器。
+
+
+
+* 与 SnapManager 配置相关的限制 *
+
+* SnapManager 支持 MultiStore 存储系统上具有以下要求的数据库：
++
+** 您必须配置 SnapDrive 以设置 MultiStore 存储系统的密码。
+** 如果底层卷不在同一个 MultiStore 存储系统中，则 SnapDrive 无法为 MultiStore 存储系统中的 qtree 中的 LUN 或文件创建 Snapshot 副本。
+
+
+* SnapManager 不支持从一个客户端（无论是从命令行界面还是从图形用户界面）访问在不同端口上运行的两个 SnapManager 服务器。
++
+目标主机和远程主机上的端口号应相同。
+
+* SnapManager 操作失败，在存储库数据库关闭时，您无法访问图形用户界面。
++
+执行任何 SnapManager 操作时，您必须验证存储库数据库是否正在运行。
+
+* SnapManager 不支持实时分区移动（ LPM ）和实时应用程序移动（ LAM ）。
+* SnapManager 不支持 Oracle Wallet Manager 和透明数据加密（ TDE ）。
+* SnapManager 不支持原始设备映射（ Raw Device Mapping ， RDM ）环境中的 MetroCluster 配置，因为虚拟存储控制台（ Virtual Storage Console ， VSC ）尚不支持 MetroCluster 配置。
+
+
+* 与配置文件管理相关的限制 *
+
+* 如果您更新配置文件以分离归档日志备份，则无法对主机执行回滚操作。
+* 如果您从 GUI 启用了配置文件以创建归档日志备份，然后尝试使用 " 多配置文件更新 " 窗口或 " 配置文件更新 " 窗口更新此配置文件，则无法修改此配置文件以创建完整备份。
+* 如果在 " 多配置文件更新 " 窗口中更新多个配置文件，并且某些配置文件启用了 * 单独备份归档 * 选项，而其他配置文件禁用了此选项，则 * 单独备份归档 * 选项将被禁用。
+* 如果您更新多个配置文件，并且某些配置文件已启用 * 单独备份归档 * 选项，而其他配置文件已禁用此选项，则多配置文件更新窗口中的 * 单独备份归档 * 选项将被禁用。
+* 如果重命名配置文件，则无法回滚主机。
+
+
+* 与滚动升级或回滚操作相关的限制 *
+
+* 如果您尝试在未对存储库中的主机执行回滚操作的情况下为主机安装早期版本的 SnapManager ，则可能无法执行以下操作：
++
+** 查看在早期或更高版本的 SnapManager 中为主机创建的配置文件。
+** 访问在早期或更高版本的 SnapManager 中创建的备份或克隆。
+** 在主机上执行滚动升级或回滚操作。
+
+
+* 在分离配置文件以创建归档日志备份后，您将无法对相关主机存储库执行回滚操作。
+
+
+* 与备份操作相关的限制 *
+
+* 在恢复期间，如果备份已挂载，则 SnapManager 不会再次挂载备份，而会使用已挂载的备份。
++
+如果备份由其他用户挂载，而您无权访问先前挂载的备份，则另一用户必须为您提供权限。
+
++
+所有归档日志文件都对分配给组的用户具有读取权限；如果备份由其他用户组挂载，则您可能没有对归档日志文件的访问权限。用户可以手动为已挂载的归档日志文件授予权限，然后重试还原或恢复操作。
+
+* SnapManager 会将备份状态设置为 "`protected` " ，即使数据库备份的其中一个 Snapshot 副本已传输到二级存储系统也是如此。
+* 您只能使用任务规范文件从 SnapManager 3.2 或更高版本进行计划内备份。
+* 如果存储库数据库指向多个 IP 地址，并且每个 IP 地址都具有不同的主机名，则一个 IP 地址的备份计划操作将成功，而另一个 IP 地址的备份计划操作将失败。
+* 在 ONTAP 环境中， SnapManager 不支持源卷使用多个二级目标。
+
+
+* 与还原操作相关的限制 *
+
+* SnapManager 不支持在 Windows 中使用快速还原或基于卷的还原操作来还原数据库备份。
++
+尝试从 SnapManager 命令行界面执行快速还原操作时， SnapManager 3.3 会显示一条错误消息。
+
+
+
+* 与克隆操作相关的限制 *
+
+* SnapManager 3.3 或更高版本不支持使用在 SnapManager 3.2 之前的版本中创建的克隆规范 XML 文件。
+* 如果临时表空间位于与数据文件位置不同的位置，则克隆操作会在数据文件位置创建表空间。
++
+但是，如果临时表空间是位于与数据文件位置不同位置的 Oracle 托管文件（ OMF ），则克隆操作不会在数据文件位置创建表空间。SnapManager 不会管理这些 OMF 。
+
+* 如果选择`-resetlogs`选项、则SnapManager 无法克隆RAC数据库。
+
+
+* 与归档日志文件和备份相关的限制 *
+
+* SnapManager 不支持从闪存恢复区域目标中删减归档日志文件。
+* SnapManager 不支持从备用目标中删减归档日志文件。
+* 归档日志备份会根据保留持续时间和默认的每小时保留级别进行保留。
++
+使用 SnapManager 命令行界面或图形用户界面修改归档日志备份保留类时，不会考虑将修改后的保留类用于备份，因为归档日志备份会根据保留期限进行保留。
+
+* 如果从归档日志目标位置删除归档日志文件，则归档日志备份不会包含早于缺少的归档日志文件的归档日志文件。
++
+如果缺少最新的归档日志文件，则归档日志备份操作将失败。
+
+* 如果从归档日志目标位置删除归档日志文件，则对归档日志文件进行删减将失败。
+* 即使从归档日志目标删除归档日志文件或归档日志文件损坏， SnapManager 也会整合归档日志备份。
+
+
+* 与更改目标数据库主机名相关的限制 *
+
+更改目标数据库主机名时，不支持以下 SnapManager 操作：
+
+* 从 SnapManager 图形用户界面更改目标数据库主机名。
+* 更新配置文件的目标数据库主机名后回滚存储库数据库。
+* 同时为新的目标数据库主机名更新多个配置文件。
+* 在运行任何 SnapManager 操作时更改目标数据库主机名。
+
+
+* 与 SnapManager 命令行界面或图形用户界面相关的限制 *
+
+* 从SnapManager 图形用户界面生成的用于`profile create`操作的SnapManager 命令行界面命令没有历史记录配置选项。
++
+您不能使用`profile create`命令从SnapManager 命令行界面配置历史记录保留设置。
+
+* 如果 Windows 客户端上没有可用的 Java Runtime Environment （ JRE ），则 SnapManager 不会在 Mozilla Firefox 中显示图形用户界面。
+* SnapManager 3.3 不会在 Windows Server 2008 和 Windows 7 上的 Microsoft Internet Explorer 6 中显示 SnapManager 图形用户界面。
+* 使用 SnapManager 命令行界面更新目标数据库主机名时，如果存在一个或多个打开的 SnapManager 图形用户界面会话，则所有打开的 SnapManager 图形用户界面会话都将无法响应。
+* 在 Windows 上安装 SnapManager 并在 UNIX 中启动 CLI 时，将显示 Windows 不支持的功能。
+
+
+* 与 SnapMirror 和 SnapVault 相关的限制 *
+
+* 在某些情况下，如果卷已建立 SnapVault 关系，则无法删除与第一个 Snapshot 副本关联的最后一个备份。
++
+只有在中断关系时，才能删除备份。此问题描述是由于基本 Snapshot 副本存在 ONTAP 限制。在 SnapMirror 关系中，基本 Snapshot 副本由 SnapMirror 引擎创建，而在 SnapVault 关系中，基本 Snapshot 副本是使用 SnapManager 创建的备份。对于每个更新，基本 Snapshot 副本都会指向使用 SnapManager 创建的最新备份。
+
+
+
+* 与 Data Guard 备用数据库相关的限制 *
+
+* SnapManager 不支持逻辑数据防护备用数据库。
+* SnapManager 不支持 Active Data Guard 备用数据库。
+* SnapManager 不允许联机备份数据防护备用数据库。
+* SnapManager 不允许对数据防护备用数据库进行部分备份。
+* SnapManager 不允许还原数据防护备用数据库。
+* SnapManager 不允许对数据防护备用数据库的归档日志文件进行删减。
+* SnapManager 不支持数据防护代理。
+
+
+* 相关信息 *
+
+http://mysupport.netapp.com/["NetApp支持站点上的文档"^]

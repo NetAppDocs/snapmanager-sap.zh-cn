@@ -1,0 +1,335 @@
+---
+permalink: unix-administration/reference-troubleshooting-known-issues.html 
+sidebar: sidebar 
+keywords: aware, snapmanager, troubleshooting, known, issue 
+summary: 您应了解使用 SnapManager 时可能发生的一些已知问题，以及如何解决这些问题。 
+---
+= 对已知问题进行故障排除
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您应了解使用 SnapManager 时可能发生的一些已知问题，以及如何解决这些问题。
+
+
+
+== SnapManager for SAP无法将此配置文件标识为集群模式配置文件
+
+如果SnapManager for SAP安装目录中的`cmode_profiles.config`文件中不存在集群模式配置文件名称、则可能会触发以下错误消息：
+
+`请使用SnapDrive 配置集-dfm user_name appliage_name配置DFM服务器。`
+
+此外、在升级适用于SAP的SnapManager 时、如果删除``/opt/netapp/smsap/*``文件夹、则包含集群模式配置文件名称的`cmode_profiles.config`文件也会被删除。此问题描述还会触发相同的错误消息。
+
+* 临时解决策 *
+
+更新配置文件：`* smsap profile update-profile _<profile_name>_*`
+
+
+NOTE: 如果SnapManager for SAP安装在``/opt/netapp/smsap/``路径中、则文件位置将为``/opt/netapp/smsap/cmode_profile/cmode_profiles.config``
+
+
+
+== 服务器无法启动
+
+启动服务器时，您可能会看到类似以下内容的错误消息：
+
+`sMSAP-01104：调用命令时出错：smsap-17107：SnapManager 服务器无法在端口8074上启动、因为以下错误：java.net.BindException:地址已在使用`
+
+这可能是因为SnapManager 侦听端口(默认为27314和2731515)当前正在由其他应用程序使用。
+
+如果`smsap_server`命令已在运行、但SnapManager 未检测到现有进程、则也可能发生此错误。
+
+* 临时解决策 *
+
+您可以重新配置 SnapManager 或其他应用程序以使用不同的端口。
+
+要重新配置SnapManager 、请编辑以下文件：``/opt/NTAP/smsap/properties/smsap.config``
+
+您可以分配以下值：
+
+* SMSAP Server.port=27314
+* SMSAP Server.rmiRegistry.port=27315
+* remote.registry.ocijdbc.port= 27315
++
+remote.registry.ocijdbc.port 必须与 Server.rmiRegistry.port 相同。
+
+
+
+要启动SnapManager 服务器、请输入以下命令：`* smsap_server start*`
+
+
+NOTE: 如果服务器已在运行，则会显示一条错误消息。
+
+如果服务器已在运行，请执行以下步骤：
+
+. 输入以下命令以停止服务器：`* smsap_server stop*`
+. 输入以下命令重新启动服务器：`* smsap_server start*`
+
+
+
+
+== 终止当前正在运行的 SnapManager 操作
+
+如果 SnapManager 服务器挂起而您无法成功执行任何操作，则可以终止 SnapManager 及其操作。
+
+* 临时解决策 *
+
+SnapManager 可与 SnapManager 和 Protection Manager 配合使用。要列出正在运行的不同进程并停止上次运行的进程，必须执行以下步骤。
+
+. 列出正在运行的所有SnapDrive 进程：`ps`
++
+`* p*`
+
++
+示例
+
++
+`* ps`代表SnapDrive *
+
+. 停止SnapDrive 进程：`* kill <pid>*`
++
+` pid_`是您使用`ps`命令发现的进程列表。
+
++
+
+NOTE: 请勿停止所有 SnapDrive 进程。您可能只想结束正在运行的最后一个进程。
+
+. 如果其中一项操作涉及从二级存储还原受保护的备份，请打开 Protection Manager 控制台并执行以下操作：
++
+.. 从系统菜单中，选择 * 作业 * 。
+.. 选择 * 还原 * 。
+.. 检查与 SnapManager 配置文件中的数据集是否匹配的数据集名称。
+.. 右键单击并选择 * 取消 * 。
+
+
+. 列出 SnapManager 进程：
++
+.. 以 root 用户身份登录。
+.. 使用 ps 命令列出进程。
++
+示例：`* ps | grep java *`
+
+
+
+. 结束SnapManager 进程：`* kill <pid>*`
+
+
+
+
+== 无法删除或释放上次受保护的备份
+
+在二级存储上为配置文件创建第一个备份时， SnapManager 会将有关该备份的所有信息发送到 Protection Manager 。对于与此配置文件相关的后续备份， SnapManager 仅发送修改后的信息。如果删除最后一个受保护的备份， SnapManager 将无法识别备份之间的差异，因此必须找到一种方法来重新建立这些关系的基线。因此，尝试删除最后一个受保护的备份会导致显示一条错误消息。
+
+* 临时解决策 *
+
+您可以删除此配置文件，也可以仅删除此配置文件备份。
+
+要删除此配置文件，请执行以下步骤：
+
+. 删除配置文件的备份。
+. 更新配置文件并在配置文件中禁用保护。
++
+此操作将删除数据集。
+
+. 删除上次受保护的备份。
+. 删除配置文件。
+
+
+要仅删除备份，请执行以下步骤：
+
+. 为配置文件创建另一个备份副本。
+. 将该备份副本传输到二级存储。
+. 删除上一个备份副本。
+
+
+
+
+== 如果目标名称属于其他目标名称，则无法管理归档日志文件目标名称
+
+创建归档日志备份时，如果用户排除了属于其他目标名称的目标，则其他目标名称也会被排除。
+
+例如、假设有三个可排除的目标：``/dest、/dest1、``和``/dest2。`` 在创建归档日志文件备份时、如果使用命令排除``/dest``、请执行此操作
+
+[listing]
+----
+smsap backup create -profile almsamp1 -data -online -archivelogs  -exclude-dest /dest
+----
+、SnapManager for SAP将排除以/dest开头的所有目标。
+
+* 临时解决策 *
+
+* 在`v$archive_dest`中配置目标后、添加路径分隔符。例如、将``/dest``更改为``/dest/``。
+* 创建备份时，请包括目标，而不是排除任何目标。
+
+
+
+
+== 还原自动存储管理（ Automatic Storage Management ， ASM ）和非 ASM 存储上多路传输的控制文件失败
+
+如果在 ASM 和非 ASM 存储上多路传输控制文件，则备份操作将成功。但是，当您尝试从该成功备份还原控制文件时，还原操作将失败。
+
+
+
+== SnapManager 克隆操作失败
+
+在 SnapManager 中克隆备份时， DataFabric Manager 服务器可能无法发现卷，并显示以下错误消息：
+
+`sMSAP-13032：无法执行操作：克隆创建。根发生原因 ：smsap-11007：从快照克隆时出错：flow-11019：ExecuteConnectionSteps失败：SD-00018：发现/mnt/datfile_clone3的存储时出错：SD-10016：执行SnapDrive 命令"/usr/sbin/SnapDrive storage show -fs /mnt/datafile_clone3"：0002-vol_clone3：sd-10016：执行命令时出错"/usr/sbin/snapdrive storage show -fs /snapfiler_snapfiler_x.x.x.c3`：用户无法读取卷上的存储操作：VM.11.007.19_storage_storage.11.003.1%.snap_storage3：用户可能会出现警告
+
+`原因：指定的资源无效。在Operations Manager服务器10.x.x.x`上找不到其ID
+
+如果存储系统包含大量卷，则会发生这种情况。
+
+* 临时解决策 *
+
+您必须执行以下操作之一：
+
+* 从Data Fabric Manager服务器中运行
++
+`* dfm host discover _storage_system_*`
+
++
+您还可以在 Shell 脚本文件中添加命令，并在 DataFabric Manager 服务器中计划作业以频繁运行此脚本。
+
+* 增加`Snapdrive.conf`文件中的` dft-rbac重试次数_`值。
++
+SnapDrive 使用默认刷新间隔值和默认重试次数。默认值` dft-rbac retry-sept-secs_`为15秒、` dft-rbac retries _`为12次迭代。
+
++
+
+NOTE: Operations Manager 刷新间隔取决于存储系统的数量，存储系统中的存储对象数量以及 DataFabric Manager 服务器上的负载。
+
+
+
+作为建议，请执行以下操作：
+
+. 从DataFabric Manager服务器中、对与数据集关联的所有二级存储系统手动运行以下命令：
++
+`* dfm host discover _storage_system_*`
+
+. 将执行主机发现操作所需时间加倍、并将该值分配给`、dfm、rbac、retry-sepage-secs_`。
++
+例如、如果该操作需要11秒、则可以将` dfm_rbac重试-睡眠-秒_`的值设置为22 (11*2)。
+
+
+
+
+
+== 存储库数据库大小会随着时间而增加，而不会随着备份数量而增加
+
+由于 SnapManager 操作会在存储库数据库表的架构中插入或删除数据，从而导致索引空间使用量较高，因此存储库数据库大小会随着时间的推移而增加。
+
+* 临时解决策 *
+
+您必须根据 Oracle 准则监控和重建索引，以控制存储库架构占用的空间。
+
+
+
+== 存储库数据库关闭时，无法访问 SnapManager 图形用户界面， SnapManager 操作失败
+
+SnapManager 操作失败，在存储库数据库关闭时，您无法访问图形用户界面。
+
+下表列出了您可能要执行的不同操作及其例外情况：
+
+[cols="1a,3a"]
+|===
+| 操作 | 例外情况 
+
+
+ a| 
+打开已关闭的存储库
+ a| 
+在`sm_guy.log中记录了以下错误消息：[WARN ]：smsap-01106：查询存储库时出错：closed Connection java.sql.SQLException：closed Connection.`
+
+
+
+ a| 
+按 F5 刷新已打开的存储库
+ a| 
+GUI中显示存储库异常、同时在`sm_guy.log`文件中记录NullPointerException。
+
+
+
+ a| 
+正在刷新主机服务器
+ a| 
+在`sumo_gui/log`文件中记录了NullPointerException。
+
+
+
+ a| 
+创建新配置文件
+ a| 
+配置文件配置窗口中显示 NullPointerException 。
+
+
+
+ a| 
+刷新配置文件
+ a| 
+在`sm_gux.log中记录了以下SQL异常：[警告]：smsap-01106：查询存储库时出错：已关闭连接。`
+
+
+
+ a| 
+访问备份
+ a| 
+在``sm_gux.log中记录了以下错误消息：无法延迟初始化收集。``
+
+
+
+ a| 
+查看克隆属性
+ a| 
+在`sm_gui/log`和``sumo_gux.log中记录了以下错误消息：Failed to lazy initialize a collection.``
+
+|===
+* 临时解决策 *
+
+要访问 GUI 或执行任何 SnapManager 操作，必须确保存储库数据库正在运行。
+
+
+
+== 无法为克隆的数据库创建临时文件
+
+如果目标数据库的临时表空间文件放置在与数据文件的挂载点不同的挂载点中，则克隆创建操作会成功，但 SnapManager 无法为克隆的数据库创建临时文件。
+
+* 临时解决策 *
+
+您必须执行以下任一操作：
+
+* 确保目标数据库的布局，以便将临时文件放置在与数据文件相同的挂载点。
+* 在克隆的数据库中手动创建或添加临时文件。
+
+
+
+
+== 无法将协议从 NFSv3 迁移到 NFSv4
+
+您可以通过在`snapdrive.conf`文件中启用`enable-migrate-nfs-version`参数将协议从NFSv3迁移到NFSv4。在迁移期间、无论装载点选项是什么、SnapDrive 都会仅考虑协议版本、例如`RW、largefiles、nosuid、`等。
+
+但是，将协议迁移到 NFSv4 后，在还原使用 NFSv3 创建的备份时，会发生以下情况：
+
+* 如果在存储级别启用了 NFSv3 和 NFSv4 ，则还原操作将成功完成，但会使用备份期间可用的挂载点选项进行挂载。
+* 如果在存储级别仅启用了 NFSv4 ，则还原操作将成功，并且仅保留协议版本（ NFSv4 ）。
++
+但是、不会保留`RW、largefiles、nosuid、`等其他挂载点选项。
+
+
+
+* 临时解决策 *
+
+您必须在还原之前手动关闭数据库，卸载数据库挂载点并使用可用选项进行挂载。
+
+
+
+== 备份 Data Guard 备用数据库失败
+
+如果使用主数据库的服务名称配置了任何归档日志位置，则 Data Guard 备用数据库的备份将失败。
+
+* 临时解决策 *
+
+在图形用户界面中，必须清除与主数据库的服务名称对应的 * 指定外部归档日志位置 * 。

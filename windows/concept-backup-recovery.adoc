@@ -1,0 +1,23 @@
+---
+permalink: windows/concept-backup-recovery.html 
+sidebar: sidebar 
+keywords: snapmanager, perform, restore, recover, operation, backup 
+summary: 在 SnapManager 中，必须同时执行还原和恢复操作。您不能执行还原操作，稍后再执行 SnapManager 恢复操作。 
+---
+= 备份恢复
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在 SnapManager 中，必须同时执行还原和恢复操作。您不能执行还原操作，稍后再执行 SnapManager 恢复操作。
+
+在 SnapManager 3.2 或更早版本中，您可以使用 SnapManager 还原和恢复备份，也可以使用 SnapManager 还原备份，并使用 Oracle 恢复管理器（ RMAN ）等其他工具来恢复数据。由于 SnapManager 可以向 RMAN 注册其备份，因此您可以使用 RMAN 以更精细的粒度（如块）还原和恢复数据库。这种集成将 Snapshot 副本的速度和空间效率优势与使用 RMAN 进行还原的精细控制相结合。
+
+
+NOTE: 您必须先恢复数据库，然后才能使用它。您可以使用任何工具或脚本恢复数据库。
+
+从适用于SAP的SnapManager 3.2开始、SnapManager 支持使用归档日志备份自动还原数据库备份。即使外部位置提供了归档日志备份， SnapManager 也会使用外部位置的归档日志备份来还原数据库备份。
+
+如果向数据库添加了新的数据文件， Oracle 建议您立即进行新的备份。此外，如果还原在添加新数据文件之前创建的备份并尝试恢复到添加新数据文件之后的某个时间点，则自动 Oracle 恢复过程可能会失败，因为它无法创建数据文件。有关恢复备份后添加的数据文件的过程，请参见 Oracle 文档。

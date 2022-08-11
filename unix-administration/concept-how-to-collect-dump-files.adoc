@@ -1,0 +1,40 @@
+---
+permalink: unix-administration/concept-how-to-collect-dump-files.html 
+sidebar: sidebar 
+keywords: dump, snapmanager, command, collect, file, successful, fail, operation 
+summary: 您可以在 SnapManager 命令中包含 -dump ，以便在 SnapManager 操作成功或失败后收集转储文件。 
+---
+= 如何收集转储文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在SnapManager 命令中包含`-dump`、以便在SnapManager 操作成功或失败后收集转储文件。
+
+您可以为以下 SnapManager 操作收集转储文件：
+
+* 正在创建配置文件
+* 正在更新配置文件
+* 创建备份
+* 验证备份
+* 删除备份
+* 释放备份
+* 挂载备份
+* 卸载备份
+* 还原备份
+* 创建克隆
+* 正在删除克隆
+* 拆分克隆
+
+
+
+NOTE: 创建配置文件时，只有在操作成功时，才能收集转储文件。如果在创建配置文件时遇到错误、则必须使用`smsap system dump`命令。对于成功的配置文件、您可以使用`smsap operation dump`和`smsap profile dump`命令收集转储文件。
+
+* 示例 *
+
+[listing]
+----
+ smsap backup create -profile targetdb1_prof1 -auto -full -online -dump
+----

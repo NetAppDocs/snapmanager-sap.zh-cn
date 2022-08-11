@@ -1,0 +1,21 @@
+---
+permalink: windows/task-viewing-a-list-of-scheduled-operations.html 
+sidebar: sidebar 
+keywords: view, list, schedule, operation, profile 
+summary: 您可以查看配置文件的计划操作列表。 
+---
+= 查看已计划操作的列表
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以查看配置文件的计划操作列表。
+
+.步骤
+. 要显示有关计划操作的信息、请输入以下命令：
++
+`smsap schedule list -profile profile_name[-quiet |-verbos]`
+
+

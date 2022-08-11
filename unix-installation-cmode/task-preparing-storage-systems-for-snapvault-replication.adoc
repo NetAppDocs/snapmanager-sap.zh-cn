@@ -1,0 +1,108 @@
+---
+permalink: unix-installation-cmode/task-prepare-storage-systems-for-snapvault-replication.html 
+sidebar: sidebar 
+keywords: snapmanager, perform, disk-to-disk, backup, replication, configure, data-protection, relationship, source, destination, volume, initialize, snapvault, data, block, prepare, storage, system, replication 
+summary: 在使用SnapManager 执行磁盘到磁盘备份复制之前、您需要在源卷和目标卷之间配置数据保护关系、然后初始化此关系。初始化时， SnapVault 会创建源卷的 Snapshot 副本，然后将该副本及其引用的所有数据块传输到目标卷。 
+---
+= 准备用于SnapVault 复制的存储系统
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+在使用SnapManager 执行磁盘到磁盘备份复制之前、您需要在源卷和目标卷之间配置_data-protection relationship_、然后初始化此关系。初始化时， SnapVault 会创建源卷的 Snapshot 副本，然后将该副本及其引用的所有数据块传输到目标卷。
+
+
+
+== 您将需要什么
+
+* 您必须是集群管理员。
+
+
+
+
+== 关于此任务
+
+您可以使用ONTAP 命令行界面(CLI)或OnCommand 系统管理器创建SnapVault 关系。以下操作步骤介绍了 CLI 使用情况。
+
+
+IMPORTANT: 如果要将数据库文件和事务日志存储在不同的卷上，则必须在数据库文件的源卷和目标卷之间以及事务日志的源卷和目标卷之间创建关系。
+
+下图显示了用于初始化 SnapVault 关系的操作步骤：
+
+image::../media/snapvault_steps_clustered.gif[此图显示了用于初始化 SnapVault 关系的操作步骤：标识目标集群,creating a destination volume,creating a policy]
+
+.步骤
+. 确定目标集群。
+. 在目标集群上、使用`volume create`命令和`-type` DP选项创建与源卷大小相同或大于源卷的SnapVault 目标卷。
++
+
+IMPORTANT: 目标卷的语言设置必须与源卷的语言设置匹配。
+
++
+* 示例 *
+
++
+以下命令会在 SVM2 中的聚合 node01_aggr 上创建一个名为 dstvolB 的 2 GB 目标卷：
+
++
+[listing]
+----
+cluster2::> volume create -vserver SVM2 -volume dstvolB -aggregate node01_aggr -type DP
+-size 2GB
+----
+. 在目标SVM上、使用`snapmirror policy create`命令创建SnapVault 策略。
++
+* 示例 *
+
++
+以下命令将创建 SVM 范围的策略 SVM1-vault ：
+
++
+[listing]
+----
+SVM2::> snapmirror policy create -vserver SVM2 -policy SVM1-vault
+----
++
+
+NOTE: 请勿为 SnapVault 关系定义 cron 计划或 Snapshot 副本策略。在创建备份计划时为您执行此操作。
+
+. 使用带有`-type XDP`参数和`-policy`参数的`snapmirror create`命令创建SnapVault 关系并分配存储策略。
++
+XDP 类型将此关系定义为 SnapVault 关系。
+
++
+* 示例 *
+
++
+以下命令会在 SVM1 上的源卷 srcvolA 和 SVM2 上的目标卷 dstvolB 之间创建 SnapVault 关系，并分配策略 SVM1-vault ：
+
++
+[listing]
+----
+SVM2::> snapmirror create -source-path SVM1:srcvolA -destination-path SVM2:dstvolB
+-type XDP -policy SVM1-vault
+----
+. 使用`snapmirror initialize`命令初始化此关系。
++
+初始化过程会向目标卷执行 _baseline transfer_ 。SnapMirror 为源卷创建 Snapshot 副本，然后将该副本及其引用的所有数据块传输到目标卷。
+
++
+* 示例 *
+
++
+以下命令将初始化 SVM1 上的源卷 srcvolA 与 SVM2 上的目标卷 dstvolB 之间的关系：
+
++
+[listing]
+----
+SVM2::> snapmirror initialize -destination-path SVM2:dstvolB
+----
+
+
+* 相关信息 *
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["《 ONTAP 9 集群对等快速指南》"^]
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-buvault/home.html["《使用 SnapVault 备份 ONTAP 9 卷快速指南》"^]

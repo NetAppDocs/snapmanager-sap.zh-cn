@@ -1,0 +1,42 @@
+---
+permalink: unix-administration/concept-database-state-needed-for-restore-process.html 
+sidebar: sidebar 
+keywords: state, database, restore, process, perform 
+summary: 要还原的数据库的状态取决于要执行的还原过程的类型以及要包含的文件类型。 
+---
+= 还原过程需要数据库状态
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要还原的数据库的状态取决于要执行的还原过程的类型以及要包含的文件类型。
+
+下表列出了数据库应处于的状态，具体取决于选定的还原选项以及要包含在还原中的文件类型：
+
+[cols="1,1,1,1"]
+|===
+| 还原类型 | 包含的文件 | 此实例的数据库状态 | 其他实例的数据库状态（仅限 RAC ） 
+
+
+.3+| 仅还原 | 控制文件 | 关闭 | 关闭 
+
+
+| 系统文件 | 挂载或关闭 | 挂载或关闭 
+
+
+| 无系统文件 | 任何状态 | 任何状态 
+
+
+.3+| 还原和恢复 | 控制文件 | 关闭 | 关闭 
+
+
+| 系统文件 | 挂载 | 挂载或关闭 
+
+
+| 无系统文件 | 挂载或打开 | 任意 
+|===
+SnapManager 还原操作所需的数据库状态取决于所执行的还原类型（完整，部分或控制文件）。除非指定强制选项，否则 SnapManager 不会将数据库过渡到较低的状态（例如从打开过渡到挂载）。
+
+SnapManager for SAP不会验证SAP是否正在运行。SnapManager for SAP会等待超时时间过后、然后关闭数据库、从而可能会增加一小时的额外还原时间。

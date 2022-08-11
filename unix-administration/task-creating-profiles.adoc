@@ -1,0 +1,228 @@
+---
+permalink: unix-administration/task-create-profiles.html 
+sidebar: sidebar 
+keywords: creating, create, profile, assign, oracle, database, account, retention, policy, protection, backup, duration, class 
+summary: 创建配置文件时，您可以为此配置文件分配特定的 Oracle 数据库用户帐户。您可以为配置文件设置保留策略，为使用此配置文件的所有备份启用对二级存储的备份保护，以及为每个保留类设置保留计数和持续时间。 
+---
+= 创建配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+创建配置文件时，您可以为此配置文件分配特定的 Oracle 数据库用户帐户。您可以为配置文件设置保留策略，为使用此配置文件的所有备份启用二级存储备份保护，以及为每个保留类设置保留计数和持续时间。
+
+* 关于此任务 *
+
+如果未提供数据库的`登录`、`密码`和`端口`参数值、则操作系统(OS)身份验证模式将使用默认凭据。
+
+创建配置文件时， SnapManager 会执行还原资格检查，以确定可用于还原数据库的还原机制。如果数据库位于 qtree 上，并且父卷不符合快速或基于卷的还原条件，则分析可能会出错。
+
+通过 SnapManager （ 3.2 或更高版本），您可以在创建新配置文件或更新现有配置文件时将归档日志文件与数据文件分开。使用配置文件分离备份后，您可以仅创建数据库的数据文件备份或归档日志备份。您可以使用新配置文件或更新后的配置文件创建包含数据文件和归档日志文件的备份。但是，您不能使用配置文件创建完整备份或还原设置。
+
+* 用于创建完整备份和部分备份的配置文件 *
+
+您可以创建配置文件来创建完整的数据库备份，其中包含数据文件，控制文件和归档日志文件，以及包含指定数据文件或表空间，所有控制文件和所有归档日志文件的部分数据库备份。SnapManager 不允许使用为完整备份和部分备份创建的配置文件创建单独的归档日志备份。
+
+* 用于创建仅数据文件备份和仅归档文件备份的配置文件 *
+
+创建新配置文件时、您可以使用`-separate -archivelog-backups`将归档日志备份与数据文件备份分开。您还可以更新现有配置文件，以便将归档日志备份与数据文件备份分开。
+
+通过使用新的配置文件选项分隔归档日志备份，您可以执行以下 SnapManager 操作：
+
+* 创建归档日志备份
+* 删除归档日志备份
+* 挂载归档日志备份
+* 释放归档日志备份
+
+
+创建配置文件以将归档日志备份与数据文件备份分开时、如果创建该配置文件的数据库中不存在归档日志文件、则会显示一条警告消息。
+
+
+WARNING: `归档的日志文件不在活动文件系统中。备份`中不会包含早于<archive log threads version>日志文件的归档日志文件版本
+
+即使为此数据库创建备份，归档日志文件也不会在数据库备份中可用。
+
+
+NOTE: 如果在创建配置文件时遇到错误、请使用`smsap system dump`命令。创建配置文件后、如果遇到错误、请使用`smsap operation` dump and `smsap profile dump`命令。
+
+. 要使用用户名、密码和端口(Oracle身份验证)创建配置文件、请输入以下命令：
++
+`* smsap profile create -profileprofile "-profile-password _profile_password_]-repositor-dbname _repo_dbname_-host _repo_host_-port _repo_port_-login -username _repo_username_-database -nssname db_dbname_-host _db_host_[-host_as_username__username___-username__-smias__username____-username_-smith___smithusername ____smithusername _-smithusername ___smithusername _-smi_smi_smithusername __smi_smith_smien_smi_smi_smith_smithusername _smi_smien_smien_smi__smien_smithusername _smithusername _smien_sdusername _smien_sdusername ___s _m_]](-daily (-count _n_）(-duration _m_m_）)(-weekly (-count _n_）(-duration _m_）)(-monthly (-count _n_）(-duration _m_）))](-comment _comment_comment_comment_comment___ment_）)(-snapname-pattern _pattern_pattern_unle_)(-protection_email_res_uny_、电子邮件地址类型(-email) email_address2_-Subject _Subject_Pattern_]]-separate archivelog-backups-retain-archivelog-backups-hours _hours______-天_______-月_月_(-protect (-protection-policy policy_name_）_ noprotect](-include-with-online-dump-online-backups_))*`……
+
++
+此命令的其他选项如下：
+
++
+``、``、-force]、-noprompt]、
+
++
+````(-quiet | verbose)
+
++
+
+NOTE: 对于Real Application Clusters (RAC)环境、在创建新配置文件时、必须将`db_unique_name`参数的值提供为`_db_dbname_`。
+
++
+在创建配置文件时，您还可以根据要访问数据库的方式包括其他选项。
+
++
+|===
+| 条件 | 那么 ... 
+
+
+ a| 
+* 您希望使用操作系统身份验证来创建配置文件 *
+ a| 
+为 DBA 组中的操作系统帐户指定变量（通常是用于安装 Oracle 的帐户）。请指定以下内容，而不是添加用户名，密码和端口：
+
+** `-osaccount _account_name_`作为操作系统帐户的名称
+** `-osgroup _osgroup_`作为与操作系统帐户关联的组
+
+
+
+
+ a| 
+* 要使用自动存储管理（ Automatic Storage Management ， ASM ）实例身份验证来创建配置文件 *
+ a| 
+指定 ASM 实例身份验证的凭据。
+
+** `-asmusername _asmintation_username_`是用于登录到ASM实例的用户名。
+** `-asmpassword _asminstance_password_`是用于登录到ASM实例的密码。
+
+
+
+
+ a| 
+* 要使用数据库身份验证创建配置文件 *
+ a| 
+指定数据库登录详细信息。如果密码包含感叹号（！），美元符号（ $ ）或重音符（` ）等特殊字符，则 SnapManager 不允许您从命令行界面（ CLI ）创建经过数据库身份验证的配置文件。
+
+
+
+ a| 
+* 您正在使用目录作为 Oracle Recovery Manager （ RMAN ）存储库 *
+ a| 
+指定以下选项和变量：
+
+** `-tnsnamname _tnsnames_`作为在`tnsnames.ora`文件中定义的tnsnamname。
+** `-login -username _username_`作为连接到RMAN目录所需的用户名。
++
+如果未指定， SnapManager 将使用操作系统身份验证信息。您不能对 RAC 数据库使用操作系统身份验证。
+
+** `-password _password_`作为连接到RMAN目录所需的RMAN密码。
+
+
+
+
+ a| 
+* 您正在使用控制文件作为 RMAN 存储库 *
+ a| 
+指定`-controlfile`选项。
+
+
+
+ a| 
+* 您要为备份指定备份保留策略 *
+ a| 
+指定保留类的保留计数或持续时间，或者同时指定这两者。持续时间以类的单位为单位（例如，小时表示每小时，天表示每天）。
+
+** `-每小时`是每小时保留类、其中`(-count _n_）``(-duration _m_）`分别是保留计数和保留持续时间。
+** `-每日`是每日保留类、其中`(-count _n_）``(-duration _m_）`分别是保留计数和保留期限。
+** `-每周`是每周保留类、其中`(-count _n_）``(-duration _m_m_）`分别是保留计数和保留期限。
+** `-每月`是每月保留类别、其中`(-count _n_）``(-duration _m_）`分别是保留计数和保留期限。
+
+
+
+
+ a| 
+* 您要为配置文件启用备份保护 *
+ a| 
+指定以下选项和变量：
+
+** `保护`启用备份保护。
++
+如果您使用的是在 7- 模式下运行的 Data ONTAP ，则此选项会在 Data Fabric Manager （ DFM ）服务器中创建一个应用程序数据集，并添加与数据库，数据文件，控制文件和归档日志相关的成员。如果数据集已存在，则在创建配置文件时会重复使用同一数据集。
+
+** 使用`-protection-policy _policy_`可以指定保护策略。
++
+如果您使用的是在 7- 模式下运行的 Data ONTAP ，并且 SnapManager 与 Protection Manager 集成在一起，则必须指定其中一个 Protection Manager 策略。
+
++
+
+NOTE: 要列出可能的保护策略、请使用smsap `protection-policy list`命令。
+
++
+如果您使用的是集群模式 Data ONTAP ，则必须选择 _SnapManager_cDOT_Mirror_ 或 _SnapManager_cDOT_Vault_Vault 。
+
++
+
+NOTE: 在以下情况下，配置文件创建操作失败：
+
++
+*** 如果您使用的是集群模式 Data ONTAP ，但选择保护管理器策略
+*** 如果您使用的是在 7- 模式下运行的 Data ONTAP ，但选择 _SnapManager_cDOT_Mirror_ 或 _SnapManager_cDOT_Vault_policy
+*** 如果您创建了 SnapMirror 关系，但选择了 _SnapManager_cDOT_Vault_policy 或创建了 SnapVault 关系，但选择了 _SnapManager_cDOT_Mirror_ 策略
+*** 如果尚未创建 SnapMirror 或 SnapVault 关系，但选择了 _SnapManager_cDOT_Vault_or _SnapManager_cDOT_Mirror_ 策略
+
+
+** `-noprotect`表示不保护使用配置文件创建的数据库备份。
+
+
+
+NOTE: 如果指定了`保护`而未指定`保护策略`、则数据集将没有保护策略。如果在创建配置文件时指定了`-protect`而未设置`-protection-policy`、则可以稍后通过`smsap profile update`命令进行设置、也可以由存储管理员使用Protection Manager控制台进行设置。
+
+
+
+ a| 
+* 您希望为数据库操作的完成状态启用电子邮件通知 *
+ a| 
+指定以下选项和变量：
+
+** 使用`摘要通知`、您可以为存储库数据库下的多个配置文件配置摘要电子邮件通知。
+** 使用` notification`、您可以收到有关配置文件数据库操作完成状态的电子邮件通知。
+** 使用`-success-email _email_address2_`、您可以收到有关使用新配置文件或现有配置文件成功执行数据库操作的电子邮件通知。
+** 使用`-failure-email _email_address2_`、您可以收到有关使用新配置文件或现有配置文件执行的数据库操作失败的电子邮件通知。
+** `-Subject _Subject_text_`指定创建新配置文件或现有配置文件时电子邮件通知的主题文本。如果未为存储库配置通知设置、而您尝试使用命令行界面配置配置文件或摘要通知、则控制台日志中会记录以下消息：`sMSAP-145777：Notification Settings not configured。`
++
+如果您已配置通知设置、并尝试使用命令行界面配置摘要通知、但未启用存储库的摘要通知、则控制台日志中会显示以下消息：`sMSAP-14575：summary notification configuration not available for this repository`
+
+
+
+
+
+ a| 
+* 您希望将归档日志文件与数据文件分开备份 *
+ a| 
+指定以下选项和变量：
+
+** 使用`-separate -archivelog-backups`可以将归档日志备份与数据文件备份分开。
+** `-retain-archivelog-backups`设置归档日志备份的保留期限。您必须指定正保留期限。
++
+归档日志备份会根据归档日志保留期限进行保留。数据文件备份会根据现有保留策略进行保留。
+
+** `保护`可保护归档日志备份。
+** `-protection-policy`将保护策略设置为归档日志备份。
++
+归档日志备份会根据归档日志保护策略进行保护。数据文件备份会根据现有保护策略进行保护。
+
+** `包括-联机备份`包括归档日志备份以及联机数据库备份。
++
+通过此选项，您可以同时创建联机数据文件备份和归档日志备份以进行克隆。如果设置了此选项，则每当创建联机数据文件备份时，都会立即创建归档日志备份以及数据文件。
+
+** `-no-include-with -online-backups`不包括归档日志备份和数据库备份。
+
+
+
+
+ a| 
+* 您可以在成功执行配置文件创建操作 * 后收集转储文件
+ a| 
+在`profile create`命令的末尾指定-dump选项。
+
+|===
++
+创建配置文件时， SnapManager 会分析这些文件，以备日后需要对配置文件中指定的文件执行基于卷的还原操作时使用。
+
+

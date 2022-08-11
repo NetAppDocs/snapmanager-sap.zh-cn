@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/task-resume-backup-schedules.html 
+sidebar: sidebar 
+keywords: administrator, option, suspend, backup, schedule, resuming, resume 
+summary: 管理员可以选择恢复暂停的备份计划。 
+---
+= 恢复备份计划
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+管理员可以选择恢复暂停的备份计划。
+
+* 关于此任务 *
+
+如果您尝试恢复活动计划、可能会遇到错误消息：`"cannot resume"：schedule <scheduleename> already in resume state"`。
+
+. 要恢复暂停的备份计划、请输入以下命令：
++
+`* smsap schedule resume -profile _profile_name_-schedule-name _scheduleename_[-quiet |-verbone]*`
+
+

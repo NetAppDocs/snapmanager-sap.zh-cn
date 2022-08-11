@@ -1,0 +1,77 @@
+---
+permalink: unix-installation-7mode/task-perform-a-rollback-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, rollback, single, multiple, snapmanager, server, host, command-line, cli 
+summary: 您可以使用命令行界面（ CLI ）在一个或多个 SnapManager 服务器主机上执行回滚。 
+---
+= 在一台或多台主机上执行回滚
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用命令行界面（ CLI ）在一个或多个 SnapManager 服务器主机上执行回滚。
+
+* 您需要的内容 *
+
+您必须确保执行回滚的所有前提条件均已完成。
+
+.步骤
+. 要在单个主机上执行回滚、请输入以下命令：
++
+`* smsaprepository rollback-repository-dbname _repo_service_name_-host _repo_host_-login -username _repo_username_-port _repo_port_-rollbackhost _host_wing_target_database_*`
+
++
+* 示例 *
+
++
+以下示例显示了用于回滚主机 A 上挂载的所有目标数据库以及存储库主机 repo_host 上名为 repoA 的存储库数据库的命令：
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA
+----
+. 要在多个主机上执行回滚、请输入以下命令：
++
+`* smsaprepository rollbackup-repository-dbname _repo_service_name_-host _repo_host_-login-username _repo_username_-port _repo_port_-rollback _hosthost_wing_target_database1、host_wing_target_database2_*`
+
++
+
+NOTE: 对于多个主机，请输入以逗号分隔的主机名，并确保逗号和下一个主机名之间没有空格。
+
++
+如果您使用的是 Real Application Clusters （ RAC ）配置，则必须手动回滚所有与 RAC 关联的主机。您可以使用 -allhosts 对所有主机执行回滚。
+
++
+* 示例 *
+
++
+以下示例显示了用于回滚主机，主机 A ，主机 B 上挂载的所有目标数据库的命令，以及位于存储库主机 repo_host 上名为 repoA 的存储库数据库：
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA,hostB
+----
++
+与主机的目标数据库的配置文件关联的主机，配置文件，计划，备份和克隆将还原到早期的存储库。
+
+

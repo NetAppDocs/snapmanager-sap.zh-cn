@@ -1,0 +1,83 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-update-command.html 
+sidebar: sidebar 
+keywords: run, backup, update, command, retention, policy, smsap 
+summary: 您可以运行 backup update 命令来更新备份保留策略。 
+---
+= smsap backup update命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup update`命令来更新备份保留策略。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup update
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _guid_\]
+[-retain {-hourly | -daily | -weekly | -monthly | -unlimited}\]
+[-comment _comment_text_\]
+[-quiet | -verbose]]
+----
+
+
+== Parameters
+
+* ``*—profile _profile_name_*``
++
+指定要更新备份的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* ``*—id _guid_*``
++
+使用指定 GUID 验证备份。GUID 由 SnapManager 在创建备份时生成。您可以使用smsap backup list命令显示每个备份的GUID。
+
+* ``*-标签_label-*``
++
+将备份标签和备份范围指定为数据文件或归档日志。
+
+* ``*-数据*``
++
+指定数据文件。
+
+* ``*—archivelogs*``
++
+指定归档日志文件。
+
+* ``*—comment _comation_text_*``
++
+输入有关备份更新的文本（最多 200 个字符）。您可以包含空格。
+
+* ``*-静默*``
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* ``*-详细*``
++
+在控制台中显示错误，警告和信息性消息。
+
+* ``*—保留｛-hourly；-daily；-weekly；-monthly；-unlimited｝*``
++
+指定备份应保留在每小时，每天，每周，每月还是无限制的基础上。如果未指定`保留`、则保留类默认为`-每小时`。要永久保留备份、请使用`-unlimited`选项。使用`-unlimited`选项、备份将不符合删除条件。
+
+
+
+'''
+
+
+== 示例
+
+以下示例将更新备份，将保留策略设置为无限制：
+
+[listing]
+----
+smsap backup update -profile SALES1 -label full_backup_sales_May
+-retain -unlimited -comment save_forever_monthly_backup
+----
+'''

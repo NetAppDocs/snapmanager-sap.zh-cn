@@ -1,0 +1,27 @@
+---
+permalink: unix-installation-7mode/concept-what-a-rollback-is.html 
+sidebar: sidebar 
+keywords: rollback, operation, enable, revert, version, snapmanager, perform, roll, upgrade 
+summary: 通过回滚操作，您可以在执行滚动升级后还原到早期版本的 SnapManager 。 
+---
+= 什么是回滚
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+通过回滚操作，您可以在执行滚动升级后还原到早期版本的 SnapManager 。
+
+
+NOTE: 在执行回滚之前，您必须确保可以解析存储库数据库下的所有主机。
+
+执行回滚时，将回滚以下内容：
+
+* 使用要回滚的 SnapManager 版本创建，释放和删除的备份
+* 从使用要回滚的 SnapManager 版本创建的备份创建的克隆
+* 使用要回滚的 SnapManager 版本修改的配置文件凭据
+* 使用要回滚的 SnapManager 版本修改的备份的保护状态
+
+
+不支持您使用的 SnapManager 版本中提供的功能，但回滚到的版本中不提供这些功能。例如，在从 SnapManager 3.3 或更高版本回滚到 SnapManager 3.1 时，为 SnapManager 3.3 或更高版本中的配置文件设置的历史记录配置不会回滚到 SnapManager 3.1 中的配置文件。这是因为历史记录配置功能在 SnapManager 3.1 中不可用。

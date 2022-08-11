@@ -1,0 +1,103 @@
+---
+permalink: unix-administration/reference-the-smosmsap-notification-set-command.html 
+sidebar: sidebar 
+keywords: notification, set, command, configure, mail, server, smsap 
+summary: 您可以使用 notification set 命令配置邮件服务器。 
+---
+= smsap notification set命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用`notification set`命令配置邮件服务器。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap notification set
+-sender-email _email_address_
+-mailhost _mailhost_
+-mailport _mailport_
+[-authentication
+-username _username_
+-password _password_]]
+pass:quotes[-repository
+-dbname _repo_service_name_
+-port _repo_port_]]
+pass:quotes[-host _repo_host_
+-login -username _repo_username_
+[-quiet | -verbose]]
+
+----
+
+
+== Parameters
+
+* `*—发件人电子邮件_email_address_*`
++
+指定发送电子邮件警报的发件人的电子邮件地址。在SnapManager 3.2 for SAP中、您可以在指定电子邮件地址的域名时使用连字符(-)。例如，您可以将发件人电子邮件地址指定为 -sender-email07lbfmdatacenter@continental-corporation.com 。
+
+* `*—mailhost _mailhost_*`
++
+指定处理电子邮件通知的主机服务器的名称或 IP 地址。
+
+* `*—mailport _mailport_*`
++
+指定邮件服务器端口号。
+
+* `*—authentication -username _username_-password _password_*`
++
+指定电子邮件地址的身份验证详细信息。您必须指定用户名和密码。
+
+* `*—存储库*`
++
+指定存储库数据库的详细信息。
+
+* `*-端口_repo_port_*`
++
+指定用于访问存储库数据库的传输控制协议（ Transmission Control Protocol ， TCP ）端口号。
+
+* `*-dbname _repo_service_name_*`
++
+指定存储库数据库的名称。您可以使用全局名称或系统标识符。
+
+* `*—host _repo_host_*`
++
+指定存储库数据库所在主机的名称或 IP 地址。
+
+* `*-登录*`
++
+指定存储库登录详细信息。这是可选的。如果未指定，则 SnapManager 默认为操作系统身份验证连接模式。
+
+* `*-用户名_repo_username_*`
++
+指定访问存储库数据库所需的用户名。
+
+* `*-静默*`
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 示例
+
+以下示例将配置邮件服务器：
+
+[listing]
+----
+smsap notification set -sender-email admin@org.com -mailhost hostname.org.com -mailport 25 authentication -username davis -password davis -repository -port 1521 -dbname SMSAPREPO -host hotspur
+-login -username grabal21 -verbose
+----
+'''

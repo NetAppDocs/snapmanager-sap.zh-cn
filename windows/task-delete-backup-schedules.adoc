@@ -1,0 +1,21 @@
+---
+permalink: windows/task-delete-backup-schedules.html 
+sidebar: sidebar 
+keywords: delete, backup, schedule 
+summary: 您可以删除不再需要的备份计划。 
+---
+= 删除备份计划
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以删除不再需要的备份计划。
+
+.步骤
+. 要删除备份计划、请输入以下命令：
++
+`* smsap schedule delete -profile _profile_name_-schedule-name _scheduleename_[-quiet |-verbone]*`
+
+

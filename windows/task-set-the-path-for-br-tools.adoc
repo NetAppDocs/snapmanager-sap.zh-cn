@@ -1,0 +1,26 @@
+---
+permalink: windows/task-set-the-path-for-br-tools.html 
+sidebar: sidebar 
+keywords: set, path, br, tools, command 
+summary: 要使用Br*工具命令、必须设置Br*工具的路径。 
+---
+= 设置Br*工具的路径
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+要使用Br*工具命令、必须设置Br*工具的路径。
+
+
+
+== 关于此任务
+
+如果未设置路径、而您尝试使用Br*工具执行系统转储操作、则会在`config_summary.txt中记录以下错误消息："brtools" is not recognized as an internal or external command、operabled program or batch file`
+
+.步骤
+. 单击*开始*>*我的计算机*、然后右键单击*属性*>*高级*>*环境变量*。
+. 在*环境变量*窗口中、单击*新建*以添加新的Br*工具路径、或者单击*编辑*以编辑系统变量和用户变量的现有Br*工具路径。
+. 单击*确定*以保存所做的更改。
+

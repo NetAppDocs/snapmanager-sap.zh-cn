@@ -1,0 +1,101 @@
+---
+permalink: windows/task-install-snapmanager-for-oracle-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: install, snapmanager, host, database, manage, instance, sap 
+summary: 您可以在要管理一个或多个数据库的主机上安装 SnapManager 。每个主机只能安装一个 SnapManager 实例。 
+---
+= 安装SnapManager for SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在要管理一个或多个数据库的主机上安装 SnapManager 。每个主机只能安装一个 SnapManager 实例。
+
+
+
+== 您将需要什么
+
+* 您必须已完成所需的安装前任务。
+* 必须下载最新的 SnapManager 安装包。
+* 必须在所有目标主机上安装和配置适用于 Windows 的适当版本的 SnapDrive 。
++
+有关安装和配置 SnapDrive for Windows 的信息，请参见 _Windows SnapDrive 安装和管理指南 _ 。
+
+
+
+.步骤
+. 双击 SnapManager 安装文件：
++
+|===
+| 操作系统 | 然后使用 ... 
+
+
+ a| 
+Windows x86
+ a| 
+`netapp.smsap.windows-x86-version.exe`
+
+
+
+ a| 
+Windows x64
+ a| 
+`netapp.smsap.windows-x64-version.exe`
+
+|===
++
+此时将显示以下消息：`无法验证发布者。确实要运行此软件？`
+
+. 单击 * 确定 * 。
+. 在*简介*窗口中、单击*下一步*。
+. 在*选择安装文件夹*窗口中、单击*下一步*接受默认安装位置或选择新位置。
++
+默认位置为：`C：\Program Files\NetApp\SnapManager for SAP`。
+
+. 在*菜单可用性*窗口中、单击*下一步*。
+. 在*指定服务属性*窗口中、输入Windows服务的帐户和密码信息。
++
+指定帐户必须是以下组的成员：
+
++
+** 存储系统的本地管理组
+** 本地管理员的组
+** ORA_DBA 组，您可以指定该服务是必须在重新启动后自动启动还是应手动启动。
+
+
+. 在*安装前摘要*窗口中、单击*安装*。
+. 在*安装完成*窗口中、单击*下一步*。
+. 在*重要信息*窗口中、单击*完成*退出安装程序。
+
+
+
+
+== 完成后
+
+完成安装后，您可以验证安装是否成功：
+
+. 启动 SnapManager 服务器：
++
+.. 在Windows服务窗口中、为SAP*选择* NetApp SnapManager _version_。
+.. 在左侧面板中，单击 * 启动 * 。
+
+
+. 验证 SnapManager 系统是否正常运行：
++
+.. 单击*开始*>*程序*>* NetApp *>*适用于SAP*的SnapManager >*启动SMSAP命令行界面(CLI)*。
+.. 在命令行界面(CLI)中、输入以下命令：+`* smsap system verify*`
++
+此时将显示以下消息：`Operation ID number succeeded`。
+
++
+number 是操作 ID 编号。
+
+
+
+
+
+* 相关信息 *
+
+http://mysupport.netapp.com/["NetApp支持站点上的文档"^]

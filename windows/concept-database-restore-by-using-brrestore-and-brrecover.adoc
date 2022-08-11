@@ -1,0 +1,25 @@
+---
+permalink: windows/concept-database-restore-by-using-brrestore-and-brrecover.html 
+sidebar: sidebar 
+keywords: brrestore, brrecover, command, work, backup, brbackup, database, restore 
+summary: BRRESTORE和BRRECOVER命令仅适用于使用BRBACKUP创建的备份。 
+---
+= 使用BRRESTORE和BRRECOVER还原数据库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+`BRRESTORE`和`BRRECOVER`命令仅适用于使用`BRBACKUP`创建的备份。
+
+有关`BRRESTORE`和`BRRECOVER`命令的特定说明和语法、请参见SAP文档。
+
+如果SnapManager 配置文件名称与SAP数据库系统标识符不同、则必须指定包含SnapManager 配置文件名称的参数文件的名称。您可以通过以下方式之一执行此操作：
+
+* 在`BRBACKUP`命令中使用`-r`选项指定备份实用程序参数文件(`initsid.utl`)。
+* 在Br*工具初始化文件(`initsid.sap`)中指定参数文件。
+
+
+
+NOTE: 使用`BRBACKUP`创建的备份(数据文件、控制文件或联机重做日志文件)可以使用`smsap``restore`命令从二级或三级存储系统还原。但是、建议使用`BRBACKUP`和`SAP_DIR`来备份其他SAP配置文件、例如SAP日志文件、内核文件和传输请求、并使用`BRRESTORE`进行还原。

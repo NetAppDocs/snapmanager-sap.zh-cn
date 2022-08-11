@@ -1,0 +1,61 @@
+---
+permalink: unix-administration/task-restore-backups-using-fast-restore.html 
+sidebar: sidebar 
+keywords: force, snapmanager, sap, volume-based, snaprestore, condition, restore, eligibility, restoring 
+summary: 如果满足所有强制快速还原资格条件、您可以强制SnapManager for SAP使用基于卷的SnapRestore 过程、而不是其他还原过程。 
+---
+= 使用快速恢复还原备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果满足所有强制快速还原资格条件、您可以强制SnapManager for SAP使用基于卷的SnapRestore 过程、而不是其他还原过程。
+
+* 关于此任务 *
+
+您可以将backup restore命令与`-fast`结合使用：
+
+`*备份还原-fast [需要我们的支持、覆盖、回退和关闭]*`
+
+只有在要对完整备份执行完整还原时、才能使用`-fast`选项。`-fast`选项包括以下参数：
+
+* `require`：如果满足所有强制还原资格条件且未找到可覆盖的检查、则可以执行卷还原。
++
+如果您指定了`-fast`选项、但未为`-fast`指定任何参数、则SnapManager 会默认使用`-Require`参数。
+
+* `override`：用于覆盖非强制资格检查并执行基于卷的快速还原。
+* `backfallt`：用于使用SnapManager 确定的任何方法还原数据库。
++
+如果未指定`-fast`、则SnapManager 会使用`-backfp`参数作为默认值。
+
+* `off`：可以避免执行所有资格检查所需的时间、以便执行基于文件的还原过程、而不是快速还原过程。
+
+
+如果备份未通过强制性资格检查，则无法成功完成快速还原。
+
+SnapManager 仅在基于 UNIX 的环境中执行基于卷的快速恢复； SnapManager 不会在 Windows 环境中执行快速恢复。
+
+在对数据文件备份执行 VBSR 时，如果数据文件和归档日志文件位于同一个卷中，并且归档日志文件不在活动文件系统中，则数据库还原和恢复将成功。但是，未来的归档日志 Snapshot 会作为 VBSR 的一部分被删除，从而导致存储库中归档日志备份的条目过时。
+
+.步骤
+. 输入以下命令：
++
+`* smsap backup restore -profile _profile_name_-label _label _-complete-fast require-verbose *`
+
++
+* 示例 *
+
++
+[listing]
+----
+smsap backup restore -profile targetdb1_prof1
+      -label full_bkup_sales_nov_08  -complete -fast require -verbose
+----
+. 查看快速还原资格检查。
+. 如果资格检查确定没有强制检查失败、如果可以覆盖某些条件、并且您要继续执行还原过程、请输入以下命令：
++
+`*备份还原-fast overrider*`
+
+

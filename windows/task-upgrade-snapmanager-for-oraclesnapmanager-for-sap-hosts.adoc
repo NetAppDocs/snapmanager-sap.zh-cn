@@ -1,0 +1,71 @@
+---
+permalink: windows/task-upgrade-snapmanager-for-oraclesnapmanager-for-sap-hosts.html 
+sidebar: sidebar 
+keywords: upgrade, exist, snapmanager, host, version, simultaneous, result, downtime, schedule, operation, time 
+summary: 您可以升级所有现有 SnapManager 主机以使用最新版本的 SnapManager 。所有主机都会同时升级。但是，这可能会导致所有 SnapManager 主机停机，并在此期间执行计划的操作。 
+---
+= 升级SnapManager 主机
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以升级所有现有 SnapManager 主机以使用最新版本的 SnapManager 。所有主机都会同时升级。但是，这可能会导致所有 SnapManager 主机停机，并在此期间执行计划的操作。
+
+.步骤
+. 通过执行以下步骤停止 SnapManager 服务器：
++
+.. 在* Windows Services*窗口中、选择*适用于SAP*的NetApp SnapManager。
+.. 在左侧面板中，单击 * 停止 * 。
+
+
+. 双击 SnapManager 安装文件。
++
+|===
+| 操作系统 | 然后使用 ... 
+
+
+ a| 
+Windows x86
+ a| 
+`netapp.smsap.windows-x86-version_number.exe`
+
+
+
+ a| 
+Windows x64
+ a| 
+`netapp.smsap.windows-x64-version_number.exe`
+
+|===
++
+此时将显示以下消息：`无法验证发布者。确实要运行此软件？`
+
+. 单击 * 确定 * 。
++
+此时将显示简介窗口。
+
+. 单击 * 下一步 * 。
++
+此时将显示选择安装文件夹窗口。
+
+. 单击 * 下一步 * 接受默认安装位置或选择新位置。
++
+默认位置为：`C：\Program Files\NetApp\SnapManager for SAP`。
+
+. 在*菜单可用性*窗口中、单击*下一步*。
+. 在*指定服务属性*窗口中、输入Windows服务的帐户和密码信息。
++
+指定帐户必须是以下组的成员：
+
++
+** 存储系统的本地管理组
+** 本地管理员的组
+** 您可以指定的 ORA_DBA 组：服务必须在重新启动后自动启动，还是服务必须手动启动。
+
+
+. 在*安装前摘要*窗口中、单击*安装*。
+. 在*安装完成*窗口中、单击*下一步*。
+. 在*重要信息*窗口中、单击*完成*退出安装程序。
+

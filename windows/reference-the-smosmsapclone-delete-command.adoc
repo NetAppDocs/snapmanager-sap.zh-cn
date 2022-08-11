@@ -1,0 +1,102 @@
+---
+permalink: windows/reference-the-smosmsapclone-delete-command.html 
+sidebar: sidebar 
+keywords: run, clone, delete, command, operation, smsap 
+summary: 您可以运行 clone delete 命令删除克隆。如果克隆正在由任何操作使用，则不能删除该克隆。 
+---
+= smsap clone delete命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`clone delete`命令删除克隆。如果克隆正在由任何操作使用，则不能删除该克隆。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap clone delete
+-profile profile_name
+[-id guid | -label clone_name]
+[-login
+[-username db_username -password db_password -port db_port]
+]
+[-syspassword syspassword]
+-force
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定包含要删除的克隆的配置文件的名称。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`强制`*
++
+即使存在与克隆关联的资源，也会删除此克隆。
+
+* *`-id _guid_`*
++
+指定要删除的克隆的 GUID 。GUID 由 SnapManager 在创建克隆时生成。您可以使用`smsap clone list`命令显示每个克隆的GUID。
+
+* *`-label _name_`*
++
+指定要删除的克隆的标签。
+
+* *`-sysspassword _sysspassword_`*
++
+指定 sys 特权用户的密码。
+
++
+
+NOTE: 如果为 sys 特权用户提供的数据库凭据与为 sys 特权用户提供的数据库凭据不同，则必须为 sys 特权用户提供密码。
+
+* *`登录`*
++
+用于输入数据库登录详细信息。
+
+* *`用户名_db_username_`*
++
+指定访问数据库所需的用户名。
+
+* *`密码_db_password_`*
++
+指定访问数据库所需的密码。
+
+* *`端口_db_port_`*
++
+指定用于访问配置文件所述数据库的 TCP 端口号。
+
+* *`转储`*
++
+指定在克隆删除操作后收集转储文件。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下示例将删除此克隆：
+
+[listing]
+----
+smsap clone delete -profile SALES1 -label SALES_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----

@@ -1,0 +1,40 @@
+---
+permalink: windows/task-consolidating-archive-log-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, consolidate, archivelog-only, archive, log, backup, duplicate, consolidation, consolidating 
+summary: SnapManager 可以释放重复的仅归档日志备份，从而在每次进行备份时整合仅归档日志备份。默认情况下，整合处于启用状态。 
+---
+= 整合归档日志备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 可以释放重复的仅归档日志备份，从而在每次进行备份时整合仅归档日志备份。默认情况下，整合处于启用状态。
+
+SnapManager 可识别归档日志文件位于其他备份中的仅归档日志备份，并释放这些备份以使用唯一归档日志文件保持最少数量的仅归档日志备份。
+
+如果归档日志保留期限为 archivelog only 备份，则会根据归档日志保留期限删除这些备份。
+
+如果数据库在归档日志整合期间处于关闭或挂载状态，则 SnapManager 会将数据库更改为挂载状态。
+
+如果归档日志文件的备份或修剪失败，则不会执行整合。只有在成功备份和成功修剪操作之后，才会整合仅归档日志的备份。
+
+. 要整合仅归档日志备份、请修改配置参数整合、并在SnapManager 配置文件(smsap.config)中将此值设置为true。
++
+设置参数后，将整合仅归档日志备份。
+
++
+如果新创建的仅归档日志备份在任何早期的仅归档日志备份中包含相同的归档日志文件，则会释放早期的仅归档日志备份。
+
++
+
+NOTE: SnapManager 不会整合随数据文件备份一起创建的归档日志备份。SnapManager 整合了仅归档日志备份。
+
++
+
+NOTE: 即使用户从归档日志目标手动删除归档日志文件，或者归档日志文件损坏且可能包含在备份中， SnapManager 也会整合归档日志备份。
+
+. 要禁用归档日志备份的整合、请修改配置参数consolidation、并在SnapManager 配置文件(smsap.config)中将此值设置为false。
+

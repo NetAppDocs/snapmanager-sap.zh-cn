@@ -1,0 +1,82 @@
+---
+permalink: windows/reference-the-smosmsapbackup-free-command.html 
+sidebar: sidebar 
+keywords: run, backup, free, command, snapshot, copies, copy, remove, metadata, repository, smsap 
+summary: 您可以运行 backup free 命令来释放备份的 Snapshot 副本，而无需从存储库中删除备份元数据。 
+---
+= smsap backup free命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以运行`backup free`命令来释放备份的Snapshot副本、而无需从存储库中删除备份元数据。
+
+
+
+== 语法
+
+[listing]
+----
+
+smsap backup free
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id guid | -all]
+-force
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameters
+
+* *`配置文件_profile_name_`*
++
+指定与要释放的备份关联的配置文件。配置文件包含数据库的标识符和其他数据库信息。
+
+* *`-id _guid_`*
++
+使用指定 GUID 指定备份的资源。GUID 由 SnapManager 在创建备份时生成。您可以使用`smsap backup list`命令显示每个备份的GUID。包括`-verbose`选项以显示备份ID。
+
+* *`-label _label`*
++
+指定具有指定标签的备份。
+
+* *`数据`*
++
+指定数据文件。
+
+* *`-archivelog`*
++
+指定归档日志文件。
+
+* *`-全部`*
++
+指定所有备份。要删除指定的备份、请使用`-id`或`-label`选项。
+
+* *`强制`*
++
+强制删除 Snapshot 副本。
+
+* *`-静默`*
++
+在控制台中仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* *`-详细`*
++
+在控制台中显示错误，警告和信息性消息。
+
+
+
+
+
+== 示例
+
+以下示例将释放备份：
+
+[listing]
+----
+smsap backup free -profile SALES1 -label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----

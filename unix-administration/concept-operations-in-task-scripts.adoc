@@ -1,0 +1,72 @@
+---
+permalink: unix-administration/concept-operations-in-task-scripts.html 
+sidebar: sidebar 
+keywords: pretask, post-task, script, create, follow, standard, snapmanager, sap, plug-in, structure, operation, task 
+summary: 您创建的任务前或任务后脚本必须遵循适用于SAP的标准SnapManager 插件结构。 
+---
+= 任务脚本中的操作
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您创建的任务前或任务后脚本必须遵循适用于SAP的标准SnapManager 插件结构。
+
+任务前和任务后脚本必须包括以下操作：
+
+* 检查
+* 描述
+* 执行
+
+
+如果未在任务前或任务后脚本中指定其中任一操作，则此脚本将无效。
+
+对任务前或任务后脚本运行`smsap plugin check`命令时、这些脚本返回的状态显示错误(因为返回的状态值不是零)。
+
+[cols="1a,4a"]
+|===
+| 操作 | Description 
+
+
+ a| 
+检查
+ a| 
+SnapManager 服务器会运行`plugin.sh -check`命令、以确保系统对插件脚本具有执行权限。您还可以在远程系统上检查文件权限。
+
+
+
+ a| 
+描述
+ a| 
+SnapManager 服务器会运行`plugin.sh -describe`命令来获取有关脚本的信息并与规范文件提供的元素匹配。插件脚本必须包含以下问题描述信息：
+
+* `sm_pI_name`：脚本名称。您必须为此参数提供一个值。
+* `sm_pI_description`：脚本用途的问题描述。您必须为此参数提供一个值。
+* `sm_pI_context`：应运行脚本的环境、例如root或orasid.您必须为此参数提供一个值。
+* `sm_pI_timeout`：SnapManager 等待脚本完成处理并终止执行的最长时间(以毫秒为单位)。您必须为此参数提供一个值。
+* `sm_pI_parameter`：插件脚本执行处理所需的一个或多个自定义参数。每个参数都应列在一个新的输出行中，并包含参数的名称和问题描述。脚本完成处理后，环境变量将为脚本提供参数值。
+
+
+以下是后续 _ 活动脚本的示例输出。
+
+[listing]
+----
+plugin.sh - describe
+
+SM_PI_NAME:Followup_activities
+SM_PI_DESCRIPTION:this script contains follow-up activities to be executed after the clone create
+operation.
+SM_PI_CONTEXT:root
+SM_PI_TIMEOUT:60000
+SM_PI_PARAMETER:SCHEMAOWNER:Name of the database schema owner.
+Command complete.
+----
+
+
+ a| 
+执行
+ a| 
+SnapManager 服务器会运行`plugin.sh -execute`命令启动脚本以执行此脚本。
+
+|===

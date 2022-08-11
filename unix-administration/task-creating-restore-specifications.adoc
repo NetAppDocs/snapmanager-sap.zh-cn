@@ -1,0 +1,106 @@
+---
+permalink: unix-administration/task-create-restore-specifications.html 
+sidebar: sidebar 
+keywords: restore, specification, file, xml, original, alternate, location, file, restore, snapmanager, specification, location, creating, create 
+summary: 还原规范文件是一个 XML 文件，其中包含可从中还原文件的原始位置和备用位置。SnapManager 使用此规范文件从指定位置还原文件。 
+---
+= 创建还原规范
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+还原规范文件是一个 XML 文件，其中包含可从中还原文件的原始位置和备用位置。SnapManager 使用此规范文件从指定位置还原文件。
+
+* 关于此任务 *
+
+您可以使用任何文本编辑器创建还原规范文件。您必须对文件使用 .xml 扩展名。
+
+.步骤
+. 打开文本文件。
+. 输入以下内容：
++
+`*<restore-specification xmlns="http://www.netapp.com">*`[]
+
+. 使用以下示例中所示的格式输入任何文件映射信息：
++
+[listing]
+----
+<file-mapping>
+    <original-location>/path/dbfilename.dbf</original-location>
+    <alternate-location>/path/dbfilename1.dbf</alternate-location>
+</file-mapping>
+----
++
+文件映射指定从何处还原文件。原始位置是指备份时文件在活动文件系统上的位置。备用位置是指从其中还原文件的位置。
+
+. 使用示例中所示的格式输入任何挂载的文件系统映射信息：
++
+[listing]
+----
+<mountpoint-mapping>
+     <original-location>/path/db_name</original-location>
+     <snapname>snapname</snapname>
+     <alternate-location>/path/vaultlocation</alternate-location>
+</mountpoint-mapping>
+<mountpoint-mapping>
+     <original-location>+DiskGroup_1</original-location>
+     <snapname>snapname</snapname>
+     <alternate-location>+DiskGroup_2</alternate-location>
+</mountpoint-mapping>
+----
++
+mountpoint是指目录路径`/mnt/myfs/`)。mountpoint 映射指定从中还原文件的挂载点。原始位置是备份时挂载点在活动文件系统中的位置。备用位置是指用于还原原始位置中文件的挂载点。`_snapname_`是备份原始文件的Snapshot副本的名称。
+
++
+
+NOTE: Snapshot 副本名称是必需的组件，因为同一文件系统可以在一个备份操作中使用多次（例如，一次用于数据文件，一次用于日志）。
+
+. 使用示例中所示的格式输入原始设备映射标记和位置：
++
+[listing]
+----
+<raw-device-mapping>
+     <original-location>/path/raw_device_name</original-location>
+     <alternate-location>/path/raw_device_name</alternate-location>
+</raw-device-mapping>
+----
++
+原始设备映射指定恢复原始设备的位置。
+
+. 输入以下内容：
++
+`*</restore-specification >*`
+
+. 将此文件另存为 .xml 文件并关闭规范。
+
+
+
+
+== 还原规范示例
+
+以下示例显示了还原规范结构：
+
+[listing]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<restore-specification xmlns="http://www.netapp.com">
+<!-- "Restore from file(s)" -->
+     <file-mapping>
+          <original-location>/mnt/pathname/dbname/users01.dbf</original-location>
+          <alternate-location>/mnt/vault/users01.dbf</alternate-location>
+     </file-mapping>
+<!-- "Restore from host mounted file system(s)" -->
+     <mountpoint-mapping>
+          <original-location>/mnt/pathname/dbname/fs</original-location>
+          <snapname>Snapshotname</snapname>
+          <alternate-location>/mnt/vaultlocation</alternate-location>
+     </mountpoint-mapping>
+<!-- "Restore from raw device" -->
+     <raw-device-mapping>
+          <original-location>/pathname/devicename</original-location>
+          <alternate-location>/pathname/devicename</alternate-location>
+     </raw-device-mapping>
+</restore-specification>
+----

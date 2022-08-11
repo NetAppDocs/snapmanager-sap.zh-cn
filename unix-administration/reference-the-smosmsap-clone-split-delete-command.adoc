@@ -1,0 +1,55 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-split-delete-command.html 
+sidebar: sidebar 
+keywords: delete, clone, command, split, operation, cycle, entry, repository, database, smsap, split-delete 
+summary: 使用此命令可以从存储库数据库中删除克隆拆分操作周期条目。 
+---
+= smsap clone split—delete命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用此命令可以从存储库数据库中删除克隆拆分操作周期条目。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-delete
+-profile _profile_ [-host _hostname_\]
+[-label _split-label_ | -id _split-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_*`
++
+指定克隆的配置文件名称。
+
+* `*—主机_hostname_*`
++
+指定克隆所在的主机名。
+
+* `*—label _split—label _*`
++
+指定克隆拆分启动进程生成的标签名称。
+
+* `*—id _split—id_*`
++
+指定克隆拆分启动进程生成的唯一 ID 。
+
+* `*-静默*`
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台上显示错误，警告和信息性消息。
+
+

@@ -1,0 +1,30 @@
+---
+permalink: windows/task-freeing-or-deleting-retention-policy-exempt-backups.html 
+sidebar: sidebar 
+keywords: backup, retention, class, unlimited, delete, free, hourly, daily, weekly, monthly, policy, exempt 
+summary: '保留类为 " 无限制 " 的备份不能直接删除或释放。要删除或释放这些备份，必须先分配另一个保留类，例如每小时，每天，每周或每月。要删除或释放不受保留策略限制的备份，必须先更新此备份，使其符合删除或释放条件。' 
+---
+= 释放或删除保留策略免除备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+保留类为 " 无限制 " 的备份不能直接删除或释放。要删除或释放这些备份，必须先分配另一个保留类，例如每小时，每天，每周或每月。要删除或释放不受保留策略限制的备份，必须先更新此备份，使其符合删除或释放条件。
+
+. 要更新备份以使其符合保留策略删除条件、请输入以下命令：
++
+`smsap backup update -profile profile_name｛-label label [data |-archivelogs]`-id id id｝-retain (-hourly _-daily _-weekly _-monthly)
+
+. 更新备份以使其符合删除条件后，您可以删除备份或释放备份资源。
++
+** 要删除备份、请输入以下命令：+`smsap backup delete -profile profile_name｛-label label [data |-archivelogs]|-id id |-all｝`
+** 要释放备份资源、而不是删除备份、请输入以下命令：+`smsap backup free -profile profile_name｛-label label [data _-archivelogs]|-id id ID _-all｝(强制)[-dump](-quiet _-verbose)`
+
+
+
+
+* 相关信息 *
+
+xref:reference-the-smosmsapbackup-update-command.adoc[smsap backup update命令]

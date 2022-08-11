@@ -1,0 +1,106 @@
+---
+permalink: unix-administration/concept-managing-profiles-for-efficient-backups.html 
+sidebar: sidebar 
+keywords: create, profile, snapmanager, database, operation, manage, managing, efficient 
+summary: 您必须在 SnapManager 中为要执行操作的数据库创建配置文件。您必须选择配置文件，然后选择要执行的操作。 
+---
+= 管理配置文件以实现高效备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须在 SnapManager 中为要执行操作的数据库创建配置文件。您必须选择配置文件，然后选择要执行的操作。
+
+
+
+== 与配置文件相关的任务
+
+您可以执行以下任务：
+
+* 创建配置文件，以便能够对主存储，二级存储甚至三级存储进行完整或部分备份和备份。
++
+您还可以创建配置文件，以便将归档日志备份与数据文件备份分开。
+
+* 验证配置文件。
+* 更新配置文件。
+* 删除配置文件。
+
+
+
+
+== 关于配置文件和身份验证
+
+创建配置文件时，您可以指定一个数据库并选择以下方法之一来连接到该数据库：
+
+* 使用用户名，密码和端口进行 Oracle 身份验证
+* 无用户名，密码或端口的操作系统（ OS ）身份验证。
++
+对于操作系统身份验证，您必须输入操作系统帐户用户和组信息。
+
++
+
+NOTE: 要对 Real Application Cluster （ RAC ）数据库使用操作系统身份验证， SnapManager 服务器必须在 RAC 环境的每个节点上运行，并且 RAC 环境中的所有 Oracle 实例的数据库密码必须相同。SnapManager 使用数据库用户名和密码连接到配置文件中的每个 RAC 实例。
+
+* 将`sqlnet.authentication_services`设置为`*无*`时进行数据库身份验证。然后， SnapManager 会对目标数据库的所有连接使用数据库用户名和密码。
++
+
+NOTE: 要对自动存储管理（ Automatic Storage Management ， ASM ）实例使用数据库身份验证，必须输入用于登录到 ASM 实例的用户名和密码。
+
+
+
+您只能在以下环境中将`sqlnet.authentication_services`设置为`*无*`：
+
+[cols="1a,1a,1a,1a"]
+|===
+| 数据库布局 | Oracle 版本 | 是否支持目标数据库的数据库身份验证 | 是否支持 ASM 实例的数据库身份验证 
+
+
+ a| 
+任何非 ASM 和非 RAC 数据库
+ a| 
+Oracle 10g 和 Oracle 11g （低于 11.2.0.3 ）
+ a| 
+是的。
+ a| 
+否
+
+
+
+ a| 
+UNIX 上的独立 ASM 数据库
+ a| 
+Oracle 11.2.0.3 及更高版本
+ a| 
+是的。
+ a| 
+是的。
+
+
+
+ a| 
+UNIX 上 RAC 数据库上的 ASM 实例
+ a| 
+Oracle 11.2.0.3
+ a| 
+否
+ a| 
+否
+
+
+
+ a| 
+NFS 上的 RAC 数据库
+ a| 
+Oracle 11.2.0.3
+ a| 
+是的。
+ a| 
+否
+
+|===
+
+NOTE: 禁用`sqlnet.authentication_services`并将身份验证方法更改为数据库身份验证后、必须将`sqlnet.authentication_services`设置为`* none*`。
+
+如果您是首次访问配置文件，则必须输入您的配置文件密码。输入凭据后，您可以在配置文件中查看数据库备份。

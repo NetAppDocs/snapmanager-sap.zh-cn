@@ -1,0 +1,70 @@
+---
+permalink: unix-administration/concept-general-layout-and-configuration.html 
+sidebar: sidebar 
+keywords: recommend, general, database, layout, storage, configuration, help, avoid, issue, relate, disk, group, file, type, tablespace 
+summary: 了解建议的常规数据库布局和存储配置有助于避免与磁盘组，文件类型和表空间相关的问题。 
+---
+= 建议的常规数据库布局和存储配置
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+了解建议的常规数据库布局和存储配置有助于避免与磁盘组，文件类型和表空间相关的问题。
+
+* 请勿在数据库中包含多种类型的 SAN 文件系统或卷管理器中的文件。
++
+构成数据库的所有文件必须位于同一类型的文件系统上。
+
+* SnapManager 需要 4 k 块大小的倍数。
+* 在`oratab`文件中包括数据库系统标识符。
++
+在`oratab`文件中为要管理的每个数据库添加一个条目。SnapManager 依靠`oratab`文件来确定要使用的Oracle主目录。
+
+
+
+如果要利用基于卷的新还原或完整磁盘组还原，请考虑以下与文件系统和磁盘组相关的准则：
+
+* 包含数据文件的磁盘组不能包含其他类型的文件。
+* 数据文件磁盘组的逻辑单元号（ LUN ）必须是存储卷中的唯一对象。
+
+
+以下是卷分隔的一些准则：
+
+* 卷中只能包含一个数据库的数据文件。
+* 以下每个文件分类都必须使用单独的卷：数据库二进制文件，数据文件，联机重做日志文件，归档重做日志文件和控制文件。
+* 您无需为临时数据库文件创建单独的卷，因为 SnapManager 不会备份临时数据库文件。
+
+
+SAP使用标准布局安装Oracle数据库。在此布局中、SAP会将Oracle控制文件的副本放置在`E：\oracle\sid\origlogA、E：\oracle\sid\origlogB`和`E：\oracle\sid\sapdata1 file systems`中。
+
+sapdata1文件系统中的控制文件与将控制文件和数据文件分隔为不同卷的SnapManager 要求相冲突、必须进行调整以实现快速还原功能。
+
+
+NOTE: 由于BR*工具备份包含Oracle和SAP配置文件、这些配置文件位于Oracle安装的DBS子目录中、因此Oracle安装必须位于存储上。
+
+如果是新安装、则可以使用SAPINST修改控制文件的位置、并将通常放置在sapdata1文件系统中的控制文件移动到与数据文件不位于同一卷中的文件系统。(SAPINST是SAP用于安装SAP系统的工具。)
+
+但是、对于已安装的系统、您必须从文件系统移动控制文件、才能使用SnapManager 快速还原。为此、您可以在不包含数据文件的卷中创建新文件系统、将控制文件移动到该文件系统、然后创建从先前文件系统到新文件系统目录的符号链接。移动控制文件时、必须停止SAP和Oracle数据库、以避免数据库错误。
+
+在进行任何修改之前、列出包含控制文件的sapdata1目录中的文件可能如下所示：
+
+[listing]
+----
+hostname:/
+#  ls -l /oracle/SID/sapdata1/cntrl
+-rw-r----- 1 orasid  dba  9388032 Jun 19 01:51 cntrlSID.dbf
+----
+修改后、此列表可能如下所示：
+
+[listing]
+----
+hostname:/
+# ls -sl /oracle/SID/sapdata1
+0 lrwxrwxrwx 1 root root 19 2008-08-06 14:55 cntrl -> /oracle/SID/control
+0 -rw-r--r-- 1 root root 0 2008-08-06 14:57 data01.dbf
+
+# ls -sl /oracle/SID/control
+0 -rw-r--r-- 1 root root 0 2008-08-06 14:56 cntrlSID.dbf
+----

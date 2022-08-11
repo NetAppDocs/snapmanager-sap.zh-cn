@@ -1,0 +1,35 @@
+---
+permalink: unix-installation-7mode/reference-smsap-isg-host-requirements.html 
+sidebar: sidebar 
+keywords: install, snapmanager, sap, host, database, backup, host, minimum, requirement, configuration, unix, requirement 
+summary: 您必须在托管要备份的数据库的每个主机上安装SnapManager for SAP。您必须确保主机满足 SnapManager 配置的最低要求。 
+---
+= UNIX 主机要求
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您必须在托管要备份的数据库的每个主机上安装SnapManager for SAP。您必须确保主机满足 SnapManager 配置的最低要求。
+
+* 在安装 SnapManager 之前，必须在数据库主机上安装 SnapDrive 。
+* 您可以在物理机或虚拟机上安装 SnapManager 。
+* 您必须在共享同一存储库的所有主机上安装相同版本的 SnapManager 。
+* 如果您使用的是Oracle数据库11.2.0.2或11.2.0.3、则必须安装Oracle修补程序`13366202`。
++
+如果您使用的是DNFS、则还必须安装My Oracle Support (MOS)报告`1495104.1`中列出的修补程序、以获得最佳性能和稳定性。
+
+
+
+要使用SnapManager 图形用户界面(GUI)、您必须在以下平台之一上运行主机。此外、GUI还要求在主机上安装Java Runtime Environment (JRE) 1.8。
+
+* Red Hat Enterprise Linux
+* Oracle Enterprise Linux
+* SUSE Enterprise Linux
+* Solaris SPARC、x86和x86_64
+* IBM AIX
+
+
+
+NOTE: SnapManager 还可在VMware ESX虚拟化环境中运行。

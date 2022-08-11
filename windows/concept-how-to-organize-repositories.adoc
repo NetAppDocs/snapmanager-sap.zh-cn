@@ -1,0 +1,35 @@
+---
+permalink: windows/concept-how-to-organize-repositories.html 
+sidebar: sidebar 
+keywords: organize, snapmanager, repository, repositories, business, application, type, usage 
+summary: 您可以根据业务需求对 SnapManager 存储库进行组织。您可以通过多种方式对其进行组织，包括按应用程序类型和使用情况进行组织。 
+---
+= 如何组织存储库
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以根据业务需求对 SnapManager 存储库进行组织。您可以通过多种方式对其进行组织，包括按应用程序类型和使用情况进行组织。
+
+您可以通过多种方式组织存储库。这种方式有两种：
+
+|===
+| Type | 特性 
+
+
+ a| 
+按应用程序
+ a| 
+如果您有多个运行不同应用程序的 Oracle 数据库，则可以为每种应用程序类型创建一个 SnapManager 存储库。每个 SnapManager 存储库都具有特定应用程序类型的数据库的配置文件。该应用程序类型的所有生产，开发和测试数据库都将由同一个 SnapManager 存储库进行管理。此选项有助于对类似数据库进行分组并简化克隆。但是，如果您有多种应用程序类型，则可能需要管理多个 SnapManager 存储库，如果您选择实施另一种应用程序类型，则需要创建另一个 SnapManager 存储库。由于这些 SnapManager 存储库将管理生产数据库，因此其中每个存储库都必须位于高可用性服务器上，这可能会很贵。此外，必须在同一个 SnapManager 存储库中管理生产数据库以及相同类型的开发和测试数据库，这可能是一个安全问题描述。
+
+
+
+ a| 
+按使用情况
+ a| 
+您可以根据使用情况（例如生产，开发，测试和培训）在 SnapManager 存储库之间分布数据库。此选项会将存储库数量限制为您拥有的不同类型的数据库。由于所有生产数据库都由一个 SnapManager 存储库管理，因此只能为生产数据库管理员授予对此存储库的访问权限。此外，如果您选择为新应用程序类型部署另一个数据库，则只需在相应的 SnapManager 存储库中注册该数据库，而无需创建新存储库。只能为包含所有生产数据库配置文件的 SnapManager 存储库提供高可用性。
+
+|===
+SnapManager for Oracle 和 SnapManager for SAP 不应共享同一个存储库。对于适用于 Oracle 的 SnapManager 和适用于 SAP 的 SnapManager ，如果您的环境中安装了不同的存储库（不同的 Oracle 数据库用户），则必须对每个产品使用不同的存储库。在相同或不同的数据库中使用不同的存储库，可以为每个产品提供独立的升级周期，从而提高灵活性。

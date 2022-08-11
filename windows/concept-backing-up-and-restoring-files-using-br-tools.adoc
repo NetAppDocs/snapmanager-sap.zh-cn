@@ -1,0 +1,20 @@
+---
+permalink: windows/concept-backing-up-and-restoring-files-using-br-tools.html 
+sidebar: sidebar 
+keywords: addition, back up, database, file, br, tool, restore, sap, system, storage 
+summary: 除了备份数据库文件之外、您还可以使用Br*工具备份和还原任何文件、例如存储系统上存储的SAP系统文件。 
+---
+= 使用Br*工具备份和还原文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+除了备份数据库文件之外、您还可以使用Br*工具备份和还原任何文件、例如存储系统上存储的SAP系统文件。
+
+按照SAP BR*工具文档中的BRBACKUP和BRRESTORE命令进行操作。在使用SnapManager for SAP时、以下追加信息 适用：
+
+* 这些文件必须存储在存储系统上。
+* 请确保您对要备份的文件拥有权限。例如、备份SAP系统文件(`BRBACKUP backup_mode=sap_dir`)或Oracle系统文件(`BRBACKUP backup_mode=ora_dir`)需要主机上的root权限。在运行BRBACKUP之前、请使用`su root`命令。
+

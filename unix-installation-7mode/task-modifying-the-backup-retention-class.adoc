@@ -1,0 +1,60 @@
+---
+permalink: unix-installation-7mode/task-modify-the-backup-retention-class.html 
+sidebar: sidebar 
+keywords: upgrading, upgrade, snapmanager, assign, default, backup, retention, class, exist, modify, value, requirement, modify 
+summary: 升级后， SnapManager 会为现有备份分配默认备份保留类。您可以根据备份要求修改默认保留类值。 
+---
+= 修改备份保留类
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+升级后， SnapManager 会为现有备份分配默认备份保留类。您可以根据备份要求修改默认保留类值。
+
+* 关于此任务 *
+
+分配给现有备份的默认备份保留类如下：
+
+[cols="2a,3a"]
+|===
+| 备份类型 | 升级后分配保留类 
+
+
+ a| 
+备份将永久保留
+ a| 
+无限制
+
+
+
+ a| 
+其他备份
+ a| 
+每天
+
+|===
+
+NOTE: 您可以删除永久保留的备份、而无需更改保留类。
+
+如果升级到 SnapManager 3.0 或更高版本，则会将以下两个值中的较大值分配给现有配置文件：
+
+* 配置文件的先前保留计数
+* 在`smsap.config`文件中指定的每日备份的保留计数和持续时间的默认值
+
+
+.步骤
+. 修改在`smsap.config`文件中分配给`retain .hourly.count`和`retain .hourly.duration`的值。
++
+`smsap.config`文件位于`默认安装位置_/properties/smsap.config`。
+
++
+您可以输入以下值：
+
++
+** retain.hourly.count =`* 12 *`
+** retain.hourly.duration =`* 2 *`
+
+
+

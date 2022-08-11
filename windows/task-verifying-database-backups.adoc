@@ -1,0 +1,32 @@
+---
+permalink: windows/task-verifying-database-backups.html 
+sidebar: sidebar 
+keywords: backup, verify, command, block, database, corrupt, operation, invoke, oracle, utility, data, file, backup 
+summary: 您可以使用 backup verify 命令验证数据库备份中的块是否未损坏。验证操作将为备份中的每个数据文件调用 Oracle Database Verify 实用程序。 
+---
+= 验证数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以使用 backup verify 命令验证数据库备份中的块是否未损坏。验证操作将为备份中的每个数据文件调用 Oracle Database Verify 实用程序。
+
+使用 SnapManager ，您可以在方便您和系统上的用户的任何时间执行验证操作。创建备份后，您可以立即执行验证。您必须指定包含备份的配置文件以及您创建的备份的标签或 ID 。
+
+
+NOTE: 如果您使用的是 SnapManager 3.0 和 Oracle 数据库 11.1.0.7 ，则在 Windows 环境中备份验证操作将失败。您必须使用 Oracle 数据库 11.2.0.1 或更高版本。
+
+
+NOTE: 您可以指定 -dump 以在执行备份验证操作后收集转储文件。
+
+. 输入以下命令：
++
+`smsap backup verify -profile profile_name (-label label |-id id id id)【强制】(-dump])【-quiet (-静默)|-verbose (-verbose)】`
+
+
+
+* 相关信息 *
+
+xref:reference-the-smosmsapbackup-verify-command.adoc[smsap backup verify命令]

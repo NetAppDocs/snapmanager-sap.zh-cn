@@ -1,0 +1,53 @@
+---
+permalink: unix-administration/reference-the-smo-smsap-history-show-command.html 
+sidebar: sidebar 
+keywords: smsap, command, history, enable, detail, information, specific, profile, show 
+summary: 使用此命令可以查看特定配置文件的详细历史记录信息。 
+---
+= smsap history show命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用此命令可以查看特定配置文件的详细历史记录信息。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap history show
+-profile _profile_]
+----
+
+
+== Parameters
+
+* `*—profile _profile_*`
++
+指定配置文件的名称。此名称最长为 30 个字符，并且在主机中必须是唯一的。
+
+* `*-静默*`
++
+在控制台上仅显示错误消息。默认情况下会显示错误和警告消息。
+
+* `*-详细*`
++
+在控制台上显示错误，警告和信息性消息。
+
+
+
+'''
+
+
+== 命令示例
+
+[listing]
+----
+ smsap history show -profile -name PROFILE1
+ -verbose
+----
+'''

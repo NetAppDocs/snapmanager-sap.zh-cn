@@ -1,0 +1,51 @@
+---
+permalink: unix-administration/concept-database-backups-created-using-brbackup-and-brarchive.html 
+sidebar: sidebar 
+keywords: brbackup, command, create, backup, sap, database, snapshot, copy, storage, system, cli, interface, offline, redo, log, file, brarchive 
+summary: 'BRBACKUP命令可使用存储系统上的Snapshot副本创建SAP数据库的备份。您可以从SAP主机的命令行界面(CLI)、BR*工具CLI或图形用户界面(GUI)运行BRBACKUP命令。要备份脱机重做日志文件、您可以使用BRARCHIVE命令。' 
+---
+= 使用BRBACKUP和BRARCHIVE创建的数据库备份
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+BRBACKUP命令可使用存储系统上的Snapshot副本创建SAP数据库的备份。您可以从SAP主机的命令行界面(CLI)、Br*工具CLI或图形用户界面(GUI)运行`BRBACKUP`命令。要备份脱机重做日志文件、您可以使用`BRARCHIVE`命令。
+
+BRBACKUP可备份SAP数据库的数据文件、控制文件和联机重做日志文件。您应使用`BRBACKUP`和`SAP_DIR`选项备份其他SAP配置文件、例如SAP日志文件、内核文件和传输请求、并使用`BRRESTORE`进行还原。
+
+如果`sqlnet.ora`中的`_SQLNet.authentication_services_`参数值设置为`* none*`、请确保Oracle数据库用户(系统)具有sysoper权限。系统是在创建Oracle数据库期间创建的默认用户。要启用SYSOPE权限、请运行以下命令：
+
+`*向系统授予sysoper；*`
+
+您应使用br*工具命令或SnapManager 命令来管理归档日志文件。
+
+不应结合使用SnapManager 配置文件和Br*工具命令来管理与以下操作相关的归档日志备份：
+
+* 使用BRBACKUP和BRARCHIVE命令以及SnapManager 配置文件(使用用于分隔归档日志备份的选项创建)创建数据文件和归档日志文件的单独备份
+* 在使用SnapManager 配置文件创建备份时删除归档日志文件
+
+
+
+NOTE: 如果将SnapManager for SAP配置文件和Br*工具命令结合使用来管理归档日志文件、则SnapManager 不会显示任何警告或错误消息。
+
+您应创建一个配置文件、而不使用用于分隔归档日志备份的选项、并将此配置文件用于常规的Br*工具操作。
+
+您可以使用`BRRESTORE`还原备份。对于使用`BRBACKUP`和`-m all`或`-m full`选项创建的数据库备份(备份包括数据文件、控制文件或联机重做日志文件)、您也可以使用SnapManager 命令行界面或图形用户界面还原备份。
+
+有关SnapManager 如何处理备份的详细信息、请参见_backing up databases_。
+
+有关`BRBACKUP`和`BRARCHIVE`命令的具体说明和语法、请参见SAP文档。在对存储系统使用BRBACKUP和BRARCHIVE命令之前、请确保满足以下条件：
+
+* 如果SnapManager 配置文件名称与SAP数据库系统标识符不同、请指定包含SnapManager 配置文件名称的参数文件的名称。
++
+您可以通过以下方式之一执行此操作：
+
++
+** 使用-r选项和`BRBACKUP`命令指定备份实用程序参数文件(`initsid.utl`)。
+** 指定初始化文件中的参数文件(`initsid.sap`)。有关详细信息、请参见_Specifying the profile for Br* Tools backup_。
+
+
+* 如果适合您的环境、请使用其他介质(如磁带)为SAP数据创建额外的备份。Snapshot副本用于快速备份和还原。它们与要备份的数据存储在同一物理介质上、除非复制到其他存储设备、否则不适用于灾难恢复。
+

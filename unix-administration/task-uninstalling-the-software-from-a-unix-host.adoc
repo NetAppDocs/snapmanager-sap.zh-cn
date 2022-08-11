@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/task-uninstall-the-software-from-a-unix-host.html 
+sidebar: sidebar 
+keywords: snapmanager, software, uninstall, host, server, unix 
+summary: 如果您不再需要 SnapManager 软件，则可以从主机服务器中将其卸载。 
+---
+= 从UNIX主机卸载软件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+如果您不再需要 SnapManager 软件，则可以从主机服务器中将其卸载。
+
+.步骤
+. 以 root 用户身份登录。
+. 要停止服务器、请输入以下命令：
++
+`* smsap_server stop*`
+
+. 要删除SnapManager 软件、请输入以下命令：
++
+`*卸载Smsap*`
+
+. 出现简介文本后，按 * Enter * 继续。
++
+卸载完成。
+
+

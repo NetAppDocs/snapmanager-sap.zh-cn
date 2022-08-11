@@ -1,0 +1,253 @@
+---
+permalink: windows/concept-variables-available-in-the-task-scripts-for-backup-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, context, information, environment, variable, relate, backup, operation, perform, example, original, host, retention, policy, label, script 
+summary: SnapManager 以与正在执行的备份操作相关的环境变量的形式提供上下文信息。例如，您的脚本可以检索原始主机的名称，保留策略的名称以及备份的标签。 
+---
+= 备份操作的任务脚本中可用的变量
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 以与正在执行的备份操作相关的环境变量的形式提供上下文信息。例如，您的脚本可以检索原始主机的名称，保留策略的名称以及备份的标签。
+
+下表列出了可在脚本中使用的环境变量：
+
+|===
+| 变量 | Description | 格式。 
+
+
+ a| 
+` sm_operation_ID_`
+ a| 
+指定当前操作的 ID
+ a| 
+string
+
+
+
+ a| 
+` sm_profile_name_`
+ a| 
+指定所用配置文件的名称
+ a| 
+string
+
+
+
+ a| 
+` sm_sid_`
+ a| 
+指定数据库的系统标识符
+ a| 
+string
+
+
+
+ a| 
+` sm_host_`
+ a| 
+指定数据库的主机名
+ a| 
+string
+
+
+
+ a| 
+` sm_os_user__`
+ a| 
+指定数据库的操作系统（ OS ）所有者
+ a| 
+string
+
+
+
+ a| 
+` sm_os_Group_`
+ a| 
+指定数据库的操作系统组
+ a| 
+string
+
+
+
+ a| 
+` sm_backup_type_`
+ a| 
+指定备份的类型（联机，脱机或自动）
+ a| 
+string
+
+
+
+ a| 
+` sm_backup_label`
+ a| 
+指定备份的标签
+ a| 
+string
+
+
+
+ a| 
+` sm_backup_ID_`
+ a| 
+指定备份的 ID
+ a| 
+string
+
+
+
+ a| 
+` sm_backup_retention_`
+ a| 
+指定保留期限
+ a| 
+string
+
+
+
+ a| 
+` sm_backup_profile_s`
+ a| 
+指定用于此备份的配置文件
+ a| 
+string
+
+
+
+ a| 
+` sm_allow_database_shutdown_`
+ a| 
+指定是要启动还是关闭数据库如果需要，可以从命令行界面使用 -force 选项。
+ a| 
+boolean
+
+
+
+ a| 
+` sm_backup_scope_`
+ a| 
+指定备份范围（完整或部分）
+ a| 
+string
+
+
+
+ a| 
+` sm_target_filer_name_`
+ a| 
+指定目标存储系统名称
+
+[NOTE]
+====
+如果使用多个存储系统、则存储系统名称必须用逗号分隔。
+
+==== a| 
+string
+
+
+
+ a| 
+` sm_target_volume_name_`
+ a| 
+指定目标卷名称
+
+[NOTE]
+====
+目标卷名称必须以存储设备名称作为前缀、例如sm_target_filer_name/sm_target_volume_name。
+
+==== a| 
+string
+
+
+
+ a| 
+` sm_host_file_system_`
+ a| 
+指定主机文件系统
+ a| 
+string
+
+
+
+ a| 
+` sm_snapshot_names_`
+ a| 
+指定Snapshot列表
+
+[NOTE]
+====
+Snapshot副本的名称必须以存储系统名称和卷名称作为前缀。Snapshot 副本的名称以逗号分隔。
+
+==== a| 
+string array
+
+
+
+ a| 
+` sm_archive_logs_directory_`
+ a| 
+指定归档日志目录
+
+[NOTE]
+====
+如果归档日志位于多个目录中、则这些目录的名称将以逗号分隔。
+
+==== a| 
+string array
+
+
+
+ a| 
+` sm_redo _logs_directory_`
+ a| 
+指定重做日志目录
+
+[NOTE]
+====
+如果重做日志位于多个目录中、则这些目录的名称将以逗号分隔。
+
+==== a| 
+string array
+
+
+
+ a| 
+` sm_control_files_directory_`
+ a| 
+指定控制文件目录
+
+[NOTE]
+====
+如果控制文件位于多个目录中、则这些目录的名称将以逗号分隔。
+
+==== a| 
+string array
+
+
+
+ a| 
+` sm_data_files_directory_`
+ a| 
+指定数据文件目录
+
+[NOTE]
+====
+如果数据文件位于多个目录中、则这些目录的名称将以逗号分隔。
+
+==== a| 
+string array
+
+
+
+ a| 
+`用户定义_`
+ a| 
+指定用户定义的其他参数。用户定义的参数不可用于用作策略的插件。
+ a| 
+用户定义的
+
+|===

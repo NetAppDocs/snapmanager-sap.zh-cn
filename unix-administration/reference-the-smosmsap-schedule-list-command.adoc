@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/reference-the-smosmsap-schedule-list-command.html 
+sidebar: sidebar 
+keywords: command, list, schedule, operation, associate, profile, smsap 
+summary: 此命令可列出与配置文件关联的计划操作。 
+---
+= smsap schedule list命令
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+此命令可列出与配置文件关联的计划操作。
+
+
+
+== 语法
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap schedule list -profile _profile_name_
+[-quiet | -verbose\]]
+----
+
+
+== Parameters
+
+* `*—profile _profile_name_*`
++
+指定与数据库相关的配置文件的名称，您可以使用此名称查看计划的操作列表。配置文件包含数据库的标识符和其他数据库信息。
+
+

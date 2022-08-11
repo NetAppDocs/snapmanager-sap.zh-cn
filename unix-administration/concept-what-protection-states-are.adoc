@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/concept-what-protection-states-are.html 
+sidebar: sidebar 
+keywords: snapmanager, state, backup, administrator, monitor, protection 
+summary: SnapManager 将显示每个备份的状态。管理员必须了解不同的状态并监控其备份的状态。 
+---
+= 什么是保护状态
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager 将显示每个备份的状态。管理员必须了解不同的状态并监控其备份的状态。
+
+数据库备份可以具有以下保护状态：
+
+[cols="1a,2a,3a"]
+|===
+| Status | 定义 | 说明 
+
+
+ a| 
+受保护
+ a| 
+已请求保护并已启用。
+ a| 
+在 SnapManager 中为备份启用了保护，并且 Protection Manager 已成功将备份复制到另一组物理磁盘（也称为二级存储）。如果 Protection Manager 因保留策略而从二级存储中删除备份，则备份可能会返回到 " 不受保护 " 状态。
+
+
+
+ a| 
+不受保护
+ a| 
+已请求保护，但未完成保护。
+ a| 
+已为备份启用保护，但备份不会复制到另一组物理磁盘。备份尚未受到保护，保护失败，或者先前受到保护，但不再受保护。创建备份时，备份的初始保护状态为未请求或未受保护。如果备份不受保护，则在传输到二级存储时，备份将受到保护。
+
+
+
+ a| 
+未请求
+ a| 
+未请求保护。
+ a| 
+未为备份启用保护。数据的逻辑副本位于同一物理磁盘上（也称为本地备份）。如果创建备份时未请求保护，则备份上的保护始终显示为未请求。
+
+|===

@@ -1,0 +1,18 @@
+---
+permalink: unix-administration/concept-what-resource-pools-are.html 
+sidebar: sidebar 
+keywords: resource, pool, collection, physical, storage, system, volume, lun, provision, assign, aggregate 
+summary: 资源池是指一组未使用的物理存储（例如存储系统或聚合），可从中配置新卷或 LUN 以包含数据。如果将存储系统分配给资源池，则该存储系统上的所有聚合都可供配置。 
+---
+= 什么是资源池
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+资源池是指一组未使用的物理存储（例如存储系统或聚合），可从中配置新卷或 LUN 以包含数据。如果将存储系统分配给资源池，则该存储系统上的所有聚合都可供配置。
+
+存储管理员可以使用 Protection Manager 的控制台为备份和镜像副本分配资源池。然后，配置应用程序可以从资源池中的物理资源自动配置卷，以包含备份和镜像副本。
+
+对于受保护的配置文件， SnapManager 将显示有关配置文件的信息，并指示是否已为该配置文件分配存储资源池。否则，该配置文件将被视为 " 不合规 " 。 将存储资源池分配给相应配置文件的数据集后，该配置文件将被视为 " 符合 " 。

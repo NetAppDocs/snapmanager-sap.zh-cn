@@ -1,0 +1,21 @@
+---
+permalink: windows/task-verify-profiles.html 
+sidebar: sidebar 
+keywords: verify, exist, profile, set, up, correct, snapmanager, environment, verifies, database, accessible 
+summary: 您可以验证是否已正确设置现有配置文件。验证配置文件时， SnapManager 会检查环境中是否存在您指定的配置文件，并验证是否已设置此配置文件以及此配置文件中的数据库是否可访问。 
+---
+= 验证配置文件
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以验证是否已正确设置现有配置文件。验证配置文件时， SnapManager 会检查环境中是否存在您指定的配置文件，并验证是否已设置此配置文件以及此配置文件中的数据库是否可访问。
+
+.步骤
+. 要验证配置文件是否设置正确、请输入以下命令：
++
+`* smsap profile verify -profile _profile_name_*`
+
+

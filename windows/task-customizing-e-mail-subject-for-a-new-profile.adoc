@@ -1,0 +1,90 @@
+---
+permalink: windows/task-customizing-e-mail-subject-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: customize, email, subject, profile, create, cusomtizing 
+summary: 您可以在创建新配置文件时为其自定义电子邮件主题。 
+---
+= 自定义新配置文件的电子邮件主题
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+您可以在创建新配置文件时为其自定义电子邮件主题。
+
+您可以使用 ｛ profile ｝ _ ｛ operation-name ｝ _ ｛ db-SID ｝ _ ｛ db-host ｝ _ ｛ start-date ｝ _ ｛ end-date ｝ _ ｛ status ｝ 模式自定义电子邮件主题，也可以输入您自己的文本。
+
+|===
+| 变量名称 | Description | 示例值 
+
+
+ a| 
+配置文件
+ a| 
+用于数据库操作的配置文件名称
+ a| 
+程序 1
+
+
+
+ a| 
+操作名称
+ a| 
+数据库操作名称
+ a| 
+备份，数据备份，数据和归档日志备份
+
+
+
+ a| 
+DB-SID
+ a| 
+数据库的 SID
+ a| 
+数据库 1
+
+
+
+ a| 
+数据库主机
+ a| 
+主机服务器的名称
+ a| 
+主机 A
+
+
+
+ a| 
+开始日期
+ a| 
+数据库操作的开始时间，格式为 mmdd ： hh ： ss yyyy
+ a| 
+2012 年 4 月 27 日 21 ： 00 ： 45 PST
+
+
+
+ a| 
+结束日期
+ a| 
+数据库操作的结束时间，格式为 mmdd ： hh ： ss yyyy
+ a| 
+2012 年 4 月 27 日 21 ： 10 ： 45 PST
+
+
+
+ a| 
+status
+ a| 
+数据库操作状态
+ a| 
+success
+
+|===
+如果未为变量提供任何值，则 SnapManager 将显示以下错误消息： missing value （ s ） -Subject 。
+
+. 输入以下命令：
++
+`smsap profile create -profileprofile "-profile-passwordprofile_password]-repositor-dbnamerepo_service_name-host-host-portrepo_port-login-usernamerepo_username-database-addressdbb_controlname-hostdb_host "-siddb_sidb_sided][-login-userdestinations1-try_trusername-zhun-zh.[-mail-mail-try_trusername-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zhun.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.-zh.un.`
+
+
