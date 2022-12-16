@@ -15,7 +15,7 @@ summary: 如果主机上安装了 SnapManager ，请从程序列表中选择程�
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 * 确保已启动 SnapManager 服务器。
 

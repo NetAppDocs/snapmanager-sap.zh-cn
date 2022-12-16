@@ -15,7 +15,7 @@ summary: 在使用SnapManager 镜像Snapshot副本之前、您需要在源卷和
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 * 您必须是集群管理员。
 * 要在目标卷上验证 Snapshot 副本，源和目标 Storage Virtual Machine （ SVM ）必须具有管理 LIF 以及数据 LIF 。

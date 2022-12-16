@@ -15,7 +15,7 @@ SnapManager (3.2或更高版本) for SAP可以更新SnapManager 配置文件中�
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 * 本地用户的主目录必须了解配置文件到存储库的映射。
 * 必须关闭 SnapManager 图形用户界面（ GUI ）会话。

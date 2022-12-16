@@ -15,7 +15,7 @@ summary: 如果主机上未安装 SnapManager ，则可以使用 Java Web Start 
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 您必须确保满足以下条件：
 

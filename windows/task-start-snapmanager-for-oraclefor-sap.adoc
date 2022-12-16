@@ -15,7 +15,7 @@ SnapManager 启动部分列出了启动 SnapManager 时执行的任务。如果�
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 在使用 SnapManager 之前，您应已执行以下操作：
 

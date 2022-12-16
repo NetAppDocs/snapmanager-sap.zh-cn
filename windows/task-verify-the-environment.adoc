@@ -15,7 +15,7 @@ summary: 您可以验证环境以确保 SnapDrive 和 SnapManager 设置正确�
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 下载，安装和设置所需的前提条件。确保已安装 SnapManager 且主机服务器正在运行。
 

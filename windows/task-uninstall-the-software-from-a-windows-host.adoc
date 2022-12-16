@@ -15,7 +15,7 @@ summary: 您可以从主机服务器卸载 SnapManager 。
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 * 卸载 SnapManager 之前，请停止主机服务器。
 

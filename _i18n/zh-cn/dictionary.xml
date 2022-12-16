@@ -239,7 +239,6 @@
   <block id="d5bc6247e1a3201223733b61419e92b5" category="summary">包含用于Oracle数据库管理的SAP工具的SAP BR*工具、例如BRARCHIVE、BRBACKUP、BRCONNECT、 BRRECOVER、BRRESTORE、BRSPACE和BRTOOLS使用SnapManager for SAP提供的BACKINT接口。要集成SAP BR*工具、您必须创建一个链接、从BR*工具目录指向安装了SnapManager for SAP安装目录&gt;\NetApp\SnapManager for SAP\bin的&lt;ACKINT文件。</block>
   <block id="eb59420435d341b187711dd23d6f754a" category="doc">与SAP BR*工具集成</block>
   <block id="06af7cf94460a597328a23c17a6cb1f2" category="paragraph">包含用于Oracle数据库管理的SAP工具的SAP BR*工具、例如BRARCHIVE、BRBACKUP、BRCONNECT、 BRRECOVER、BRRESTORE、BRSPACE和BRTOOLS使用SnapManager for SAP提供的BACKINT接口。要集成SAP Br*工具、您必须创建一个链接、从Br*工具目录链接到安装了SnapManager for SAP安装目录&gt;\NetApp\SnapManager for SAP\bin ``。</block>
-  <block id="eed5ddc8f738970611f01ee16f2a17e5" category="section-title">您将需要什么</block>
   <block id="60cf915a4e1190072abaa04bb9ff9b09" category="list-text">您必须确保已安装SAP Br*工具。</block>
   <block id="f3a29486bed19a90f2da6d007818b427" category="list-title">步骤</block>
   <block id="b15a5e4bea8ef7f2d4d7a8823146271e" category="list-text">为每个SAP实例创建一个从Br*工具目录到`C：\Program Files\NetApp\SnapManager for SAP\bin\backint`文件的链接。</block>
@@ -8253,4 +8252,5 @@
   <block id="d23d52eb082db2b040f7a1483c79d790" category="sidebar">UNIX 管理</block>
   <block id="7e5a244ed934853124d9aebb1b86928e" category="sidebar">适用于集群模式 Data ONTAP 的 UNIX 安装和设置</block>
   <block id="c03b7f290aff6f050d870f85741bbec1" category="sidebar">适用于7-模式UNIX的安装和设置</block>
+  <block id="d59db7846bd10b6d60d21543df9faa9e" category="section-title">您需要的内容</block>
 </blocks>

@@ -15,7 +15,7 @@ summary: 您可以使用 lsnrctl status 命令验证 Oracle 侦听器状态。
 
 
 
-== 您将需要什么
+== 您需要的内容
 
 * 您必须连接到数据库。
 
