@@ -148,7 +148,3 @@ NOTE: 要长期保留备份副本，应使用 SnapVault 。
 == 是否要使用源卷或目标卷验证备份副本？
 
 如果使用 SnapMirror 或 SnapVault ，则可以使用 SnapMirror 或 SnapVault 目标卷上的 Snapshot 副本而不是主存储系统上的 Snapshot 副本来验证备份副本。使用目标卷进行验证可减少主存储系统上的负载。
-
-* 相关信息 *
-
-http://www.netapp.com/us/media/tr-3761.pdf["NetApp 技术报告 3761 ：《 SnapManager for Oracle ：最佳实践》"^]

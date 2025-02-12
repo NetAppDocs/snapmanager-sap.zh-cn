@@ -25,7 +25,3 @@ tableespace_name 是表空间的名称。
 SnapManager 要求表空间的块大小至少为 4-K 。
 
 
-
-* 相关信息 *
-
-http://www.netapp.com/us/media/tr-3761.pdf["NetApp 技术报告 3761 ：《 SnapManager for Oracle ：最佳实践》"]

@@ -31,17 +31,9 @@ summary: 安装 SnapManager 并成功创建备份后，您可以使用 SnapManag
 
 NOTE: 联机帮助 _ 与 SnapManager UI 集成在一起，不在支持站点上提供。
 
-* http://www.netapp.com/us/media/tr-3761.pdf["NetApp 技术报告 3761 ：《 SnapManager for Oracle ：最佳实践》"^]
-+
-介绍适用于 Oracle 的 SnapManager 最佳实践。
-
 * http://www.netapp.com/us/media/tr-3633.pdf["NetApp 技术报告 3633 ：《基于 NetApp 存储的 Oracle 数据库最佳实践》"^]
 +
 介绍在 NetApp 存储系统上配置 Oracle 数据库的最佳实践。
-
-* http://www.netapp.com/us/media/tr-3442.pdf["NetApp技术报告3442：《SAP与基于UNIX和NFS的Oracle以及NetApp存储》"^]
-+
-介绍部署NetApp存储以支持SAP解决方案的最佳实践。
 
 
 
