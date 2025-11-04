@@ -2712,7 +2712,6 @@
   <block id="5198a162a9f20c7e26b22c0f40a31c2f" category="paragraph">以下是后续 _ 活动脚本的示例输出。</block>
   <block id="37c665995902de5c539fcef9b49eb542" category="paragraph">SnapManager 服务器会运行`plugin.sh -execute`命令启动脚本以执行此脚本。</block>
   <block id="abf5633c4666f2c2f9ee92883952b686" category="summary">Trademark information</block>
-  <block id="198992ef3de669e930dd0768205775e1" category="paragraph">Active IQ ， AltaVault ，架构设计， ASUP ， AutoSupport ， Campaign Express ，集群模式 Data ONTAP ，客户健康， Data ONTAP ， DataMotion ， Element ， Fitness ， Flash Accel ， Flash Cache ， Flash Pool ， FlexArray ， FlexCache ， FlexClone ， FlexPod ， FlexScale ， FlexShare ， FlexVol ， FPolicy ， FFueled by SolidFire ， GetSuccessful ， Helix 设计， LockVault ，管理 ONTAP ， MetroCluster ， MultiStore ， NetApp ， NetApp Insight ， OnCommand ， ONTAP ， ONTAPI ， RAID DP ， RAID-TEC ， SANscreen ， SANshare ， SANtricity ， SecureShare ，精简性，模拟 ONTAP ， Snap Creator ， SnapCenter ， SnapCopy ， SnapDrive ， SnapIntegrator ， SnapLock ， SnapManager ， SnapMirror ， SnapMover ， SnapProtect ， SnapRestore ， Snapshot ， SnapValidator ， SnapVault ， SolidFire ， SolidFire Helix ， StorageGRID ， SyncMirror ， Tech OnTap ， Unbound Cloud 和 WAFL 以及其他名称是 NetApp ， Inc. 在美国和 / 或其他国家或地区的商标或注册商标。所有其他品牌或产品均为其各自所有者的商标或注册商标，应予同样对待。有关最新的 NetApp 商标列表，请参见网站。</block>
   <block id="a93bc0a57623c2facaa010825c808507" category="paragraph"><block ref="a93bc0a57623c2facaa010825c808507" category="inline-link-rx"></block></block>
   <block id="fb5880f60bdaa20b3798e262f7c2ecbc" category="summary">启动 SnapManager 主机服务器后，您可以通过在主机上的提示符处输入命令来使用 SnapManager 。</block>
   <block id="c64a4ae6db0bc52aba717303b2ad4664" category="doc">使用SnapManager 命令</block>
@@ -7852,8 +7851,6 @@
   <block id="7bf76f2f5323539bb040c22896c077ed" category="admonition">要长期保留备份副本，应使用 SnapVault 。</block>
   <block id="5e262529a74ad26cffcbd60b150ffbe2" category="section-title">是否要使用源卷或目标卷验证备份副本？</block>
   <block id="fb8bf3c7648d57ee553092d9a5f98d4c" category="paragraph">如果使用 SnapMirror 或 SnapVault ，则可以使用 SnapMirror 或 SnapVault 目标卷上的 Snapshot 副本而不是主存储系统上的 Snapshot 副本来验证备份副本。使用目标卷进行验证可减少主存储系统上的负载。</block>
-  <block id="398c8640bf452f7d193443309bf5a484" category="inline-link">NetApp 技术报告 3761 ：《 SnapManager for Oracle ：最佳实践》</block>
-  <block id="c2012197c0953fa613cee042d458b19f" category="paragraph"><block ref="c2012197c0953fa613cee042d458b19f" category="inline-link-rx"></block></block>
   <block id="bbc4660f1ca92a8d2e74ce2bf21298b3" category="doc">计划重复备份</block>
   <block id="02886a54b5fd5c3c724361f9f96bfb15" category="paragraph">您可以计划备份操作，以便定期自动启动备份。使用 SnapManager ，您可以按每小时，每天，每周，每月或一次性计划备份。</block>
   <block id="c314705aac3fe02eb6524abe3158db5c" category="paragraph">您可以为一个数据库分配多个备份计划。但是，在为同一数据库计划多个备份时，必须确保不会同时计划备份。</block>
@@ -7949,13 +7946,9 @@
   <block id="0af1c6064b6ec7da21ad1e665b75c5d7" category="list-text">_SAP SnapManager 联机帮助_</block>
   <block id="28e66bf3a3e8f716b3367146a9d4afdf" category="paragraph">介绍使用 SnapManager UI 执行不同 SnapManager 操作的分步过程。</block>
   <block id="45ecb89aaa8b3ff78571faf1241ee6be" category="admonition">联机帮助 _ 与 SnapManager UI 集成在一起，不在支持站点上提供。</block>
-  <block id="0b428aea23822d76f547c303852866a4" category="paragraph">介绍适用于 Oracle 的 SnapManager 最佳实践。</block>
   <block id="842ec5bcd4534e9d7d2dbab855809cbd" category="inline-link">NetApp 技术报告 3633 ：《基于 NetApp 存储的 Oracle 数据库最佳实践》</block>
   <block id="7f5cb0a9835ca35a5a6cbb9e9fc44492" category="list-text"><block ref="7f5cb0a9835ca35a5a6cbb9e9fc44492" category="inline-link-rx"></block></block>
   <block id="085c3fa3b22a95ef0325c5fd33ab0a2d" category="paragraph">介绍在 NetApp 存储系统上配置 Oracle 数据库的最佳实践。</block>
-  <block id="a685bb32aef14becafe412d110c197c5" category="inline-link">NetApp技术报告3442：《SAP与基于UNIX和NFS的Oracle以及NetApp存储》</block>
-  <block id="e77c53f612fcb1124f50cec3cb9230d1" category="list-text"><block ref="e77c53f612fcb1124f50cec3cb9230d1" category="inline-link-rx"></block></block>
-  <block id="ec31690fa63dadbfc2884c4704f7dd6f" category="paragraph">介绍部署NetApp存储以支持SAP解决方案的最佳实践。</block>
   <block id="4a198139e77b470fa38fcfd3c12da032" category="paragraph"><block ref="4a198139e77b470fa38fcfd3c12da032" category="inline-link-rx"></block></block>
   <block id="0affad787d4ba4f0a18ffd0e143886e5" category="inline-link">NetApp 文档：产品库 A-Z</block>
   <block id="ffc42acf6877fbbd919c48e68f356cd6" category="paragraph"><block ref="ffc42acf6877fbbd919c48e68f356cd6" category="inline-link-rx"></block></block>
@@ -8179,7 +8172,6 @@
   <block id="d5086ee972be54434c94f427a4d939fa" category="list-text">为SnapManager 存储库创建新的表空间：`create tablespacetablespace_name datafile′/u01/app/oracle/oradata/datafile/tablespace_name.dbf′size 100m autodelete on；`</block>
   <block id="a306ae82fdd16138666217e0a5ab0676" category="paragraph">tableespace_name 是表空间的名称。</block>
   <block id="f7f3df8f0d68f25bb651e56c79f1edfe" category="list-text">验证表空间的块大小：`select tablespace_name、block_size from dba_tablespaces；`</block>
-  <block id="6b4df046ad572ab972f5ec1bbf6d4a42" category="paragraph"><block ref="6b4df046ad572ab972f5ec1bbf6d4a42" category="inline-link-rx"></block></block>
   <block id="0fc1e2ab190d1bad56e7e0e38949ab9a" category="list-text">使安装包可执行：</block>
   <block id="296cdc3d24067cf4d8b1775c90da0dd0" category="paragraph">`* chmod 755 _install_package.bin_*`</block>
   <block id="b620fc009fdd672972b001f985c72cc1" category="list-text">安装SnapManager ：</block>
@@ -8253,4 +8245,5 @@
   <block id="7e5a244ed934853124d9aebb1b86928e" category="sidebar">适用于集群模式 Data ONTAP 的 UNIX 安装和设置</block>
   <block id="c03b7f290aff6f050d870f85741bbec1" category="sidebar">适用于7-模式UNIX的安装和设置</block>
   <block id="d59db7846bd10b6d60d21543df9faa9e" category="section-title">您需要的内容</block>
+  <block id="0123455a2453a974a1f5e951c89a1656" category="paragraph">Active IQ、 AltaVault、Arch Design、ASUP、 AutoSupport、Campaign Express、Clustered Data ONTAP、Customer Fitness、 Data ONTAP、DataMotion、Element、Fitness、 Flash Accel、Flash Cache、Flash Pool、 FlexCache、 FlexClone、 FlexPod、FlexScale、FlexShare、 FlexVol、FPolicy、Fueled by SolidFire、GetSuccessful、Helix Design、LockVault、Manage ONTAP、 MetroCluster、 MultiStore、 NetApp、 NetApp Insight、 OnCommand、 ONTAP、ONTAPI、 RAID DP、 RAID-TEC、 SANscreen、 SANshare、 SANtricity、 SecureShare、Simplicity、Simulate ONTAP、Snap Creator、 SnapCenter、 SnapCopy、 SnapDrive、 SnapIntegrator、 SnapLock、 SnapManager、 SnapMirror SnapMover、 SnapProtect、 SnapRestore、Snapshot、 SnapValidator、 SnapVault、 SolidFire、 SolidFire Helix、 StorageGRID、 SyncMirror、 Tech OnTap、Unbound Cloud、 WAFL和其他名称是NetApp, Inc. 在美国和/或其他国家/地区的商标或注册商标。所有其他品牌或产品均为其各自所有者的商标或注册商标，应予同样对待。NetApp商标的最新列表可在网上查阅。</block>
 </blocks>
